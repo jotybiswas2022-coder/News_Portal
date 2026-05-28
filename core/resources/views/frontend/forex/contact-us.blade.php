@@ -21,14 +21,14 @@
 
 <!-- ==================== CONTACT ==================== -->
 <section style="padding-top:2rem;padding-bottom:6rem;position:relative;overflow:hidden">
-    <div class="orb orb-brand" style="position:absolute;top:50%;right:0;transform:translate(50%,-50%);opacity:0.04;width:500px;height:500px;border-radius:50%;background:rgba(0,174,239,0.15);filter:blur(100px);pointer-events:none"></div>
+    <div class="orb orb-brand" style="position:absolute;top:50%;right:0;transform:translate(50%,-50%);opacity:0.04;width:500px;height:500px;border-radius:50%;background:rgba(0,200,255,0.15);filter:blur(100px);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem">
         <style>
             @media (min-width:1024px){.cont-grid{grid-template-columns:2fr 3fr}}
-            .contact-icon-box{width:2.75rem;height:2.75rem;border-radius:0.75rem;background:rgba(0,174,239,0.1);color:#00AEEF;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s}
+            .contact-icon-box{width:2.75rem;height:2.75rem;border-radius:0.75rem;background:rgba(0,200,255,0.1);color:#00c8ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s}
             .glass-card:hover .contact-icon-box{transform:scale(1.1)}
-            .contact-input{width:100%;background:rgba(10,10,10,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:0.875rem 1rem;font-size:0.875rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box}
-            .contact-input:focus{border-color:#00AEEF;box-shadow:0 0 0 3px rgba(0,174,239,0.15);outline:none}
+            .contact-input{width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:0.875rem 1rem;font-size:0.875rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box}
+            .contact-input:focus{border-color:#00c8ff;box-shadow:0 0 0 3px rgba(0,200,255,0.15);outline:none}
             .contact-label{display:block;color:rgba(234,234,234,0.6);font-size:0.75rem;font-weight:500;margin-bottom:0.375rem;text-transform:uppercase;letter-spacing:0.05em}
         </style>
         <div style="display:grid;grid-template-columns:1fr;gap:2rem" class="cont-grid">
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="glass-card tilt-card group reveal stagger-1" style="padding:1rem 1.5rem;cursor:default;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                     onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.12)'"
+                     onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.12)'"
                      onmouseout="this.style.boxShadow='none'">
                     <div class="tilt-card-inner">
                         <div style="display:flex;align-items:center;gap:1rem">
@@ -50,7 +50,7 @@
                             </div>
                             <div>
                                 <p style="color:#EAEAEA;font-weight:500">Telegram Support Channel</p>
-                                <a href="https://t.me/SmartBinarySupport" style="color:rgba(234,234,234,0.5);font-size:0.875rem;text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='#00AEEF'" onmouseout="this.style.color='rgba(234,234,234,0.5)'">@darktradingchannel</a>
+                                <a href="https://t.me/SmartBinarySupport" style="color:rgba(234,234,234,0.5);font-size:0.875rem;text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='rgba(234,234,234,0.5)'">@darktradingchannel</a>
                             </div>
                         </div>
                     </div>
@@ -59,15 +59,15 @@
 
                 <!-- Response time badge -->
                 <div class="glass-card reveal stagger-4" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                     onmouseover="this.style.boxShadow='0 0 0 1px rgba(0,255,159,0.15)'"
+                     onmouseover="this.style.boxShadow='0 0 0 1px rgba(0,200,255,0.15)'"
                      onmouseout="this.style.boxShadow='none'">
                     <div style="display:flex;align-items:center;gap:0.75rem">
-                        <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:rgba(0,255,159,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                            <svg style="width:1.25rem;height:1.25rem;color:#00FF9F" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:rgba(0,200,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                            <svg style="width:1.25rem;height:1.25rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                         <div>
                             <p style="color:#EAEAEA;font-size:0.875rem;font-weight:500">Typical Response Time</p>
-                            <p style="color:#00FF9F;font-size:0.75rem">&lt; 2 hours during business hours</p>
+                            <p style="color:#00c8ff;font-size:0.75rem">&lt; 2 hours during business hours</p>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <!-- Right - Contact Form -->
             <div>
                 <div class="glass-card reveal stagger-2" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                     onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,174,239,0.12)'"
+                     onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,200,255,0.12)'"
                      onmouseout="this.style.boxShadow='none'">
                     <style>@media (min-width:640px){.cont-form-p{padding:2rem}}</style>
                     <h2 style="font-size:1.5rem;font-family:'Bebas Neue','Oswald',sans-serif;font-weight:700;color:#EAEAEA;margin-bottom:0.25rem">Send a Message</h2>
@@ -86,14 +86,14 @@
                         @csrf
                         <div style="display:grid;grid-template-columns:1fr;gap:1.25rem" class="cont-form-grid">
                             <div class="cont-input-group">
-                                <label class="contact-label">Full Name <span style="color:#00AEEF">*</span></label>
+                                <label class="contact-label">Full Name <span style="color:#00c8ff">*</span></label>
                                 <div class="cont-input-wrap">
                                     <svg class="cont-input-icon" style="left:0.875rem" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                     <input type="text" id="contactName" required class="contact-input has-icon" placeholder="Your name" autocomplete="name">
                                 </div>
                             </div>
                             <div class="cont-input-group">
-                                <label class="contact-label">Email Address <span style="color:#00AEEF">*</span></label>
+                                <label class="contact-label">Email Address <span style="color:#00c8ff">*</span></label>
                                 <div class="cont-input-wrap">
                                     <svg class="cont-input-icon" style="left:0.875rem" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                                     <input type="email" id="contactEmail" required class="contact-input has-icon" placeholder="your@email.com" autocomplete="email">
@@ -101,14 +101,14 @@
                             </div>
                         </div>
                         <div class="cont-input-group">
-                            <label class="contact-label">Message <span style="color:#00AEEF">*</span></label>
+                            <label class="contact-label">Message <span style="color:#00c8ff">*</span></label>
                             <div class="cont-input-wrap">
                                 <svg class="cont-input-icon" style="left:0.875rem;top:0.875rem" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                                 <textarea id="contactMessage" required rows="5" class="contact-input has-icon" style="resize:none;padding-left:2.5rem" placeholder="Tell us how we can help..."></textarea>
                             </div>
                             <div id="charCount" style="text-align:right;font-size:0.7rem;color:rgba(234,234,234,0.25);margin-top:0.375rem;padding-right:0.25rem">0 / 5000</div>
                         </div>
-                        <button type="submit" id="contactSubmit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00AEEF,#0095CC);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,174,239,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                        <button type="submit" id="contactSubmit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00c8ff,#2255ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,200,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
                             <span style="position:relative;z-index:1;display:flex;align-items:center;gap:0.5rem">
                                 <svg style="width:1rem;height:1rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                                 Send Message
@@ -130,41 +130,41 @@
         </div>
         <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-width:48rem;margin:0 auto" class="cont-hours">
             <div class="glass-card tilt-card group reveal stagger-1" style="padding:1.5rem;text-align:center;cursor:default;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.12)'"
+                 onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.12)'"
                  onmouseout="this.style.boxShadow='none'">
                 <div class="tilt-card-inner">
-                    <div style="width:3rem;height:3rem;margin:0 auto 0.75rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));border:1px solid rgba(0,174,239,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.25),rgba(0,255,159,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05))'">
-                        <svg style="width:1.5rem;height:1.5rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                    <div style="width:3rem;height:3rem;margin:0 auto 0.75rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));border:1px solid rgba(0,200,255,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.25),rgba(0,200,255,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05))'">
+                        <svg style="width:1.5rem;height:1.5rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;margin-bottom:0.25rem;transition:color 0.3s" onmouseover="this.style.color='#00AEEF'" onmouseout="this.style.color='#EAEAEA'">Weekdays</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;margin-bottom:0.25rem;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='#EAEAEA'">Weekdays</h3>
                     <p style="color:rgba(234,234,234,0.4);font-size:0.75rem;margin-bottom:0.25rem">Mon - Fri</p>
-                    <p style="color:#00AEEF;font-size:0.875rem;font-weight:500">9:00 AM - 6:00 PM</p>
+                    <p style="color:#00c8ff;font-size:0.875rem;font-weight:500">9:00 AM - 6:00 PM</p>
                 </div>
                 <div class="tilt-card-glow"></div>
             </div>
             <div class="glass-card tilt-card group reveal stagger-2" style="padding:1.5rem;text-align:center;cursor:default;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.12)'"
+                 onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(34,85,255,0.12)'"
                  onmouseout="this.style.boxShadow='none'">
                 <div class="tilt-card-inner">
-                    <div style="width:3rem;height:3rem;margin:0 auto 0.75rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));border:1px solid rgba(0,174,239,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.25),rgba(0,255,159,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05))'">
-                        <svg style="width:1.5rem;height:1.5rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <div style="width:3rem;height:3rem;margin:0 auto 0.75rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(34,85,255,0.15),rgba(34,85,255,0.05));border:1px solid rgba(34,85,255,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(34,85,255,0.25),rgba(34,85,255,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(34,85,255,0.15),rgba(34,85,255,0.05))'">
+                        <svg style="width:1.5rem;height:1.5rem;color:#2255ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;margin-bottom:0.25rem;transition:color 0.3s" onmouseover="this.style.color='#00FF9F'" onmouseout="this.style.color='#EAEAEA'">Weekends</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;margin-bottom:0.25rem;transition:color 0.3s" onmouseover="this.style.color='#2255ff'" onmouseout="this.style.color='#EAEAEA'">Weekends</h3>
                     <p style="color:rgba(234,234,234,0.4);font-size:0.75rem;margin-bottom:0.25rem">Sat - Sun</p>
-                    <p style="color:#00FF9F;font-size:0.875rem;font-weight:500">10:00 AM - 4:00 PM</p>
+                    <p style="color:#2255ff;font-size:0.875rem;font-weight:500">10:00 AM - 4:00 PM</p>
                 </div>
                 <div class="tilt-card-glow"></div>
             </div>
             <div class="glass-card tilt-card group reveal stagger-3" style="padding:1.5rem;text-align:center;cursor:default;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.12)'"
+                 onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,45,120,0.12)'"
                  onmouseout="this.style.boxShadow='none'">
                 <div class="tilt-card-inner">
-                    <div style="width:3rem;height:3rem;margin:0 auto 0.75rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));border:1px solid rgba(0,174,239,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.25),rgba(0,255,159,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05))'">
-                        <svg style="width:1.5rem;height:1.5rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <div style="width:3rem;height:3rem;margin:0 auto 0.75rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(255,45,120,0.15),rgba(255,45,120,0.05));border:1px solid rgba(255,45,120,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(255,45,120,0.25),rgba(255,45,120,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(255,45,120,0.15),rgba(255,45,120,0.05))'">
+                        <svg style="width:1.5rem;height:1.5rem;color:#ff2d78" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;margin-bottom:0.25rem;transition:color 0.3s" onmouseover="this.style.color='#00AEEF'" onmouseout="this.style.color='#EAEAEA'">Emergency</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;margin-bottom:0.25rem;transition:color 0.3s" onmouseover="this.style.color='#ff2d78'" onmouseout="this.style.color='#EAEAEA'">Emergency</h3>
                     <p style="color:rgba(234,234,234,0.4);font-size:0.75rem;margin-bottom:0.25rem">24/7 Support</p>
-                    <p style="color:#00AEEF;font-size:0.875rem;font-weight:500">Priority Channel</p>
+                    <p style="color:#ff2d78;font-size:0.875rem;font-weight:500">Priority Channel</p>
                 </div>
                 <div class="tilt-card-glow"></div>
             </div>
@@ -182,7 +182,7 @@
     transition:color 0.3s ease;
 }
 .cont-input-wrap:focus-within .cont-input-icon {
-    color:#00AEEF;
+    color:#00c8ff;
 }
 .contact-input.has-icon {
     padding-left:2.5rem;
@@ -205,8 +205,8 @@
 
 /* ── Focus glow ring ── */
 .cont-input-wrap:focus-within .contact-input {
-    border-color:#00AEEF;
-    box-shadow:0 0 0 3px rgba(0,174,239,0.15), 0 0 20px rgba(0,174,239,0.05);
+    border-color:#00c8ff;
+    box-shadow:0 0 0 3px rgba(0,200,255,0.15), 0 0 20px rgba(0,200,255,0.05);
 }
 
 /* ── Responsive Grid ── */

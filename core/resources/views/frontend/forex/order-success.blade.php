@@ -12,23 +12,23 @@
 
 /* Back Link */
 .order-back{display:inline-flex;align-items:center;gap:0.5rem;color:rgba(234,234,234,0.4);text-decoration:none;font-size:0.875rem;margin-bottom:1.5rem;transition:all 0.2s;padding:0.5rem 0.875rem;border-radius:0.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)}
-.order-back:hover{color:#00AEEF;background:rgba(0,174,239,0.06);border-color:rgba(0,174,239,0.15);gap:0.625rem}
+.order-back:hover{color:#00c8ff;background:rgba(0,200,255,0.06);border-color:rgba(0,200,255,0.15);gap:0.625rem}
 
 /* Success Banner */
-.order-success-banner{position:relative;overflow:hidden;padding:2rem;margin-bottom:2rem;text-align:center;border:1px solid rgba(0,255,159,0.12);background:linear-gradient(135deg,rgba(0,255,159,0.04),rgba(0,174,239,0.02))}
-.order-success-glow{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,255,159,0.04) 0%,transparent 60%);pointer-events:none;animation:orderPulse 4s ease-in-out infinite}
+.order-success-banner{position:relative;overflow:hidden;padding:2rem;margin-bottom:2rem;text-align:center;border:1px solid rgba(0,200,255,0.12);background:linear-gradient(135deg,rgba(0,200,255,0.04),rgba(0,200,255,0.02))}
+.order-success-glow{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,200,255,0.04) 0%,transparent 60%);pointer-events:none;animation:orderPulse 4s ease-in-out infinite}
 @keyframes orderPulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
-.order-success-icon{width:3.5rem;height:3.5rem;margin:0 auto 1rem;border-radius:50%;background:linear-gradient(135deg,rgba(0,255,159,0.2),rgba(0,255,159,0.05));display:flex;align-items:center;justify-content:center;position:relative}
-.order-success-icon-inner{position:absolute;inset:0;border-radius:50%;background:rgba(0,255,159,0.05);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite}
-.order-success-icon svg{width:1.5rem;height:1.5rem;color:#00FF9F;position:relative;z-index:1}
+.order-success-icon{width:3.5rem;height:3.5rem;margin:0 auto 1rem;border-radius:50%;background:linear-gradient(135deg,rgba(0,200,255,0.2),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center;position:relative}
+.order-success-icon-inner{position:absolute;inset:0;border-radius:50%;background:rgba(0,200,255,0.05);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite}
+.order-success-icon svg{width:1.5rem;height:1.5rem;color:#00c8ff;position:relative;z-index:1}
 
 /* ===== HERO HEADER ===== */
-.order-hero{position:relative;padding:2rem 1.75rem;margin-bottom:1.5rem;overflow:hidden;background:linear-gradient(135deg,rgba(17,17,17,0.5),rgba(17,17,17,0.3));border:1px solid rgba(255,255,255,0.06);border-radius:1.25rem}
+.order-hero{position:relative;padding:2rem 1.75rem;margin-bottom:1.5rem;overflow:hidden;background:linear-gradient(135deg,rgba(5,5,15,0.5),rgba(5,5,15,0.3));border:1px solid rgba(255,255,255,0.06);border-radius:1.25rem}
 @media (min-width:640px){.order-hero{padding:2.5rem 2.25rem}}
-.order-hero-glow{position:absolute;top:-30%;right:-20%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,174,239,0.06),transparent 70%);pointer-events:none}
+.order-hero-glow{position:absolute;top:-30%;right:-20%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,0.06),transparent 70%);pointer-events:none}
 .order-hero-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 .order-hero-number{display:flex;flex-direction:column;gap:0.125rem}
-.order-hero-number span:first-child{color:#00AEEF;font-family:monospace;font-size:1.25rem;font-weight:700;letter-spacing:-0.02em}
+.order-hero-number span:first-child{color:#00c8ff;font-family:monospace;font-size:1.25rem;font-weight:700;letter-spacing:-0.02em}
 .order-hero-number span:last-child{color:rgba(234,234,234,0.3);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase}
 .order-hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:32rem}
 @media (max-width:480px){.order-hero-meta{grid-template-columns:1fr}}
@@ -48,9 +48,9 @@
 @media (min-width:768px){.order-right{position:sticky;top:6rem}}
 
 /* ===== SECTION CARD ===== */
-.order-card{position:relative;background:rgba(17,17,17,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.06);border-radius:1.25rem;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.order-card{position:relative;background:rgba(5,5,15,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.06);border-radius:1.25rem;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
 .order-card::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent 50%,rgba(255,255,255,0.02));pointer-events:none;z-index:-1}
-.order-card-header{display:flex;align-items:center;gap:0.625rem;padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(0,174,239,0.04),transparent);border-bottom:1px solid rgba(255,255,255,0.06);color:#00AEEF;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
+.order-card-header{display:flex;align-items:center;gap:0.625rem;padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(0,200,255,0.04),transparent);border-bottom:1px solid rgba(255,255,255,0.06);color:#00c8ff;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
 .order-card-header svg{width:1rem;height:1rem;color:currentColor;flex-shrink:0}
 .order-card-body{padding:1.25rem}
 
@@ -58,9 +58,9 @@
 .order-item{display:flex;align-items:center;gap:0.875rem;padding:0.875rem 0;transition:all 0.3s}
 .order-item+.order-item{border-top:1px solid rgba(255,255,255,0.04)}
 .order-item:last-child{padding-bottom:0}
-.order-item-icon{width:2.25rem;height:2.25rem;border-radius:0.625rem;background:linear-gradient(135deg,rgba(0,174,239,0.08),rgba(0,255,159,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s ease}
+.order-item-icon{width:2.25rem;height:2.25rem;border-radius:0.625rem;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(0,200,255,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s ease}
 .order-item:hover .order-item-icon{transform:scale(1.05)}
-.order-item-icon svg{width:1.125rem;height:1.125rem;color:#00AEEF}
+.order-item-icon svg{width:1.125rem;height:1.125rem;color:#00c8ff}
 .order-item-info{flex:1;min-width:0}
 .order-item-name{color:#EAEAEA;font-weight:500;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .order-item-qty{color:rgba(234,234,234,0.3);font-size:0.75rem;margin-top:0.125rem}
@@ -73,23 +73,23 @@
 .order-pricing-value{color:rgba(234,234,234,0.7);font-family:monospace;font-size:0.875rem}
 .order-pricing-total{padding-top:0.75rem!important;margin-top:0.25rem;border-top:1px solid rgba(255,255,255,0.1)!important}
 .order-pricing-total .order-pricing-label{color:#EAEAEA;font-weight:600;font-size:1rem}
-.order-pricing-total .order-pricing-value{color:#00FF9F;font-weight:700;font-size:1.25rem}
+.order-pricing-total .order-pricing-value{color:#00c8ff;font-weight:700;font-size:1.25rem}
 
 /* ===== CUSTOMER / PAYMENT META CARDS ===== */
 .order-meta-grid{display:grid;grid-template-columns:1fr;gap:0.75rem}
 .order-meta-block{display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:0.75rem;transition:all 0.3s}
-.order-meta-block:hover{border-color:rgba(0,174,239,0.1);background:rgba(0,174,239,0.03)}
-.order-meta-block-icon{width:2rem;height:2rem;border-radius:0.5rem;background:linear-gradient(135deg,rgba(0,174,239,0.08),rgba(0,255,159,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.order-meta-block-icon svg{width:1rem;height:1rem;color:#00AEEF}
+.order-meta-block:hover{border-color:rgba(0,200,255,0.1);background:rgba(0,200,255,0.03)}
+.order-meta-block-icon{width:2rem;height:2rem;border-radius:0.5rem;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(0,200,255,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.order-meta-block-icon svg{width:1rem;height:1rem;color:#00c8ff}
 .order-meta-block-content{flex:1;min-width:0}
 .order-meta-block-label{color:rgba(234,234,234,0.3);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:500}
 .order-meta-block-value{color:#EAEAEA;font-size:0.8125rem;font-weight:500;word-break:break-all;margin-top:0.0625rem}
-.order-meta-block .initials{width:1.5rem;height:1.5rem;border-radius:50%;background:linear-gradient(135deg,#00AEEF,#00FF9F);display:flex;align-items:center;justify-content:center;font-size:0.6875rem;font-weight:700;color:#0D0D0D;flex-shrink:0}
+.order-meta-block .initials{width:1.5rem;height:1.5rem;border-radius:50%;background:linear-gradient(135deg,#00c8ff,#00c8ff);display:flex;align-items:center;justify-content:center;font-size:0.6875rem;font-weight:700;color:#05050f;flex-shrink:0}
 
 /* ===== SCREENSHOT ===== */
 .order-screenshot{margin-top:0.25rem}
 .order-screenshot img{width:100%;max-height:280px;object-fit:contain;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.06);cursor:zoom-in;transition:all 0.3s}
-.order-screenshot img:hover{opacity:0.85;border-color:rgba(0,174,239,0.2);box-shadow:0 4px 24px rgba(0,174,239,0.08)}
+.order-screenshot img:hover{opacity:0.85;border-color:rgba(0,200,255,0.2);box-shadow:0 4px 24px rgba(0,200,255,0.08)}
 .order-screenshot-label{color:rgba(234,234,234,0.2);font-size:0.6875rem;text-align:center;margin-top:0.5rem}
 
 /* ===== TIMELINE ===== */
@@ -97,14 +97,14 @@
 .order-timeline-steps{display:flex;align-items:flex-start;gap:0;position:relative;padding:0.5rem 0}
 .order-timeline-step{flex:1;text-align:center;position:relative}
 .order-timeline-dot{width:0.875rem;height:0.875rem;border-radius:50%;margin:0 auto 0.375rem;position:relative;z-index:1;transition:all 0.3s}
-.order-timeline-dot.active{background:#00FF9F;box-shadow:0 0 10px rgba(0,255,159,0.25)}
-.order-timeline-dot.current{background:#00AEEF;box-shadow:0 0 10px rgba(0,174,239,0.25)}
+.order-timeline-dot.active{background:#00c8ff;box-shadow:0 0 10px rgba(0,200,255,0.25)}
+.order-timeline-dot.current{background:#00c8ff;box-shadow:0 0 10px rgba(0,200,255,0.25)}
 .order-timeline-dot.pending{background:#2a2a2a;border:2px solid rgba(255,255,255,0.06)}
 .order-timeline-line{position:absolute;top:0.4375rem;left:calc(50% + 0.5rem);right:calc(-50% + 0.5rem);height:2px;background:#2a2a2a;z-index:0}
-.order-timeline-line.active{background:linear-gradient(90deg,#00FF9F,#00AEEF)}
+.order-timeline-line.active{background:linear-gradient(90deg,#00c8ff,#00c8ff)}
 .order-timeline-label{color:rgba(234,234,234,0.3);font-size:0.65rem;font-weight:500;white-space:nowrap;letter-spacing:0.02em}
-.order-timeline-label.active{color:#00FF9F}
-.order-timeline-label.current{color:#00AEEF}
+.order-timeline-label.active{color:#00c8ff}
+.order-timeline-label.current{color:#00c8ff}
 @media (max-width:480px){.order-timeline-label{font-size:0.6rem}}
 
 /* ===== CANCELLED BANNER ===== */
@@ -115,7 +115,7 @@
 /* ===== NAVIGATION ===== */
 .order-nav{display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-top:1.5rem}
 .order-nav-link{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.25rem;border-radius:0.75rem;font-size:0.875rem;font-weight:500;color:rgba(234,234,234,0.5);text-decoration:none;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);flex:1;max-width:16rem}
-.order-nav-link:hover{color:#EAEAEA;background:rgba(0,174,239,0.06);border-color:rgba(0,174,239,0.15)}
+.order-nav-link:hover{color:#EAEAEA;background:rgba(0,200,255,0.06);border-color:rgba(0,200,255,0.15)}
 .order-nav-link.disabled{opacity:0.2;pointer-events:none;cursor:default}
 .order-nav-link svg{width:1rem;height:1rem;flex-shrink:0;transition:transform 0.3s ease}
 .order-nav-link:hover svg:first-child{transform:translateX(-2px)}
@@ -125,7 +125,7 @@
 .order-nav-mid{display:flex;align-items:center;gap:0.5rem}
 .order-nav-dots{display:flex;gap:0.375rem}
 .order-nav-dot{width:0.375rem;height:0.375rem;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s}
-.order-nav-dot.active{background:#00AEEF;box-shadow:0 0 6px rgba(0,174,239,0.3)}
+.order-nav-dot.active{background:#00c8ff;box-shadow:0 0 6px rgba(0,200,255,0.3)}
 
 /* ===== NO ORDER ===== */
 .order-empty{text-align:center;padding:4rem 1rem}
@@ -151,8 +151,8 @@
             @php
                 $statusColors = [
                     'pending' => ['bg' => 'rgba(245,158,11,0.04)', 'border' => 'rgba(245,158,11,0.2)', 'dot' => '#f59e0b', 'text' => '#f59e0b'],
-                    'processing' => ['bg' => 'rgba(0,174,239,0.04)', 'border' => 'rgba(0,174,239,0.2)', 'dot' => '#00AEEF', 'text' => '#00AEEF'],
-                    'completed' => ['bg' => 'rgba(0,255,159,0.04)', 'border' => 'rgba(0,255,159,0.15)', 'dot' => '#00FF9F', 'text' => '#00FF9F'],
+                    'processing' => ['bg' => 'rgba(0,200,255,0.04)', 'border' => 'rgba(0,200,255,0.2)', 'dot' => '#00c8ff', 'text' => '#00c8ff'],
+                    'completed' => ['bg' => 'rgba(0,200,255,0.04)', 'border' => 'rgba(0,200,255,0.15)', 'dot' => '#00c8ff', 'text' => '#00c8ff'],
                     'cancelled' => ['bg' => 'rgba(239,68,68,0.04)', 'border' => 'rgba(239,68,68,0.2)', 'dot' => '#ef4444', 'text' => '#ef4444'],
                 ];
                 $sc = $statusColors[$order->status] ?? $statusColors['pending'];
@@ -201,7 +201,7 @@
                     </div>
                     <div class="order-hero-meta-item">
                         <span class="order-hero-meta-label">Payment Status</span>
-                        <span class="order-hero-meta-value" style="color:#00FF9F;display:flex;align-items:center;gap:0.375rem">
+                        <span class="order-hero-meta-value" style="color:#00c8ff;display:flex;align-items:center;gap:0.375rem">
                             <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             @if($order->status === 'pending') Awaiting Confirmation
                             @elseif($order->status === 'cancelled') Cancelled
@@ -255,10 +255,10 @@
                                 </div>
                                 <div class="order-pricing-row">
                                     <span class="order-pricing-label" style="display:flex;align-items:center;gap:0.375rem">
-                                        <svg style="width:0.875rem;height:0.875rem;color:#00FF9F" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        <svg style="width:0.875rem;height:0.875rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                         One-Time Payment
                                     </span>
-                                    <span class="order-pricing-value" style="color:#00FF9F">Lifetime Access</span>
+                                    <span class="order-pricing-value" style="color:#00c8ff">Lifetime Access</span>
                                 </div>
                                 <div class="order-pricing-row order-pricing-total">
                                     <span class="order-pricing-label">Total Paid</span>

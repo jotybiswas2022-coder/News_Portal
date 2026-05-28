@@ -14,11 +14,11 @@
             @media (min-width:1024px){.cart-px{padding-left:2rem;padding-right:2rem}}
             @media (min-width:640px){.cart-flex{flex-direction:row}}
             .btn-icon{width:2.25rem;height:2.25rem;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:1.125rem;font-weight:500;transition:all 0.2s;cursor:pointer;background:transparent;border:none;border-radius:0.375rem}
-            .btn-icon:hover{color:#EAEAEA;background:rgba(0,174,239,0.1)}
+            .btn-icon:hover{color:#EAEAEA;background:rgba(0,200,255,0.1)}
         </style>
         <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;animation:fadeInUp 0.6s ease">
-            <div style="width:2.5rem;height:2.5rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));display:flex;align-items:center;justify-content:center">
-                <svg style="width:1.25rem;height:1.25rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            <div style="width:2.5rem;height:2.5rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center">
+                <svg style="width:1.25rem;height:1.25rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
             </div>
             <div>
                 <h1 style="font-size:1.875rem;font-weight:700;color:#EAEAEA;font-family:'Bebas Neue','Oswald',sans-serif">Shopping Cart</h1>
@@ -28,7 +28,7 @@
 
         <!-- Empty State -->
         <div id="cartEmpty" style="text-align:center;padding-top:5rem;padding-bottom:5rem;animation:scaleIn 0.4s ease">
-            <div class="glass-card" style="width:6rem;height:6rem;margin:0 auto 1.5rem;border-radius:1rem;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.3s" onmouseover="this.style.boxShadow='0 0 0 1px rgba(0,174,239,0.15)'" onmouseout="this.style.boxShadow='none'">
+            <div class="glass-card" style="width:6rem;height:6rem;margin:0 auto 1.5rem;border-radius:1rem;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.3s" onmouseover="this.style.boxShadow='0 0 0 1px rgba(0,200,255,0.15)'" onmouseout="this.style.boxShadow='none'">
                 <svg style="width:3rem;height:3rem;color:rgba(234,234,234,0.12);transition:color 0.3s" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
             </div>
             <p style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem">Your cart is empty</p>
@@ -44,7 +44,7 @@
             <div id="cartItems" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem"></div>
 
             <!-- Cart Summary -->
-            <div class="glass-card" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,174,239,0.12)'" onmouseout="this.style.boxShadow='none'">
+            <div class="glass-card" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,200,255,0.12)'" onmouseout="this.style.boxShadow='none'">
                 <style>@media (min-width:640px){.cart-summary-p{padding:2rem}}</style>
                 <h3 style="color:#EAEAEA;font-weight:600;margin-bottom:1rem;font-size:1.125rem">Order Summary</h3>
 
@@ -54,19 +54,19 @@
                     <div style="display:grid;gap:0.75rem" class="checkout-contact-grid">
                         <style>@media (min-width:640px){.checkout-contact-grid{grid-template-columns:1fr 1fr}}</style>
                         <div>
-                            <label for="checkoutName" style="display:block;color:rgba(234,234,234,0.35);font-size:0.7rem;font-weight:500;margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.05em">Full Name <span style="color:#00AEEF">*</span></label>
+                            <label for="checkoutName" style="display:block;color:rgba(234,234,234,0.35);font-size:0.7rem;font-weight:500;margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.05em">Full Name <span style="color:#00c8ff">*</span></label>
                             <input type="text" id="checkoutName" value="{{ Auth::check() ? e(Auth::user()->name) : '' }}" placeholder="Your name" autocomplete="name"
                                 {{ Auth::check() ? 'readonly' : '' }}
-                                style="width:100%;background:rgba(10,10,10,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.625rem 0.75rem;font-size:0.8125rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box;{{ Auth::check() ? 'opacity:0.6;cursor:not-allowed' : '' }}"
-                                onfocus="this.style.borderColor='#00AEEF';this.style.boxShadow='0 0 0 3px rgba(0,174,239,0.15)'"
+                                style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.625rem 0.75rem;font-size:0.8125rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box;{{ Auth::check() ? 'opacity:0.6;cursor:not-allowed' : '' }}"
+                                onfocus="this.style.borderColor='#00c8ff';this.style.boxShadow='0 0 0 3px rgba(0,200,255,0.15)'"
                                 onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.boxShadow='none'">
                         </div>
                         <div>
-                            <label for="checkoutEmail" style="display:block;color:rgba(234,234,234,0.35);font-size:0.7rem;font-weight:500;margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.05em">Email Address <span style="color:#00AEEF">*</span></label>
+                            <label for="checkoutEmail" style="display:block;color:rgba(234,234,234,0.35);font-size:0.7rem;font-weight:500;margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.05em">Email Address <span style="color:#00c8ff">*</span></label>
                             <input type="email" id="checkoutEmail" value="{{ Auth::check() ? e(Auth::user()->email) : '' }}" placeholder="your@email.com" autocomplete="email"
                                 {{ Auth::check() ? 'readonly' : '' }}
-                                style="width:100%;background:rgba(10,10,10,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.625rem 0.75rem;font-size:0.8125rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box;{{ Auth::check() ? 'opacity:0.6;cursor:not-allowed' : '' }}"
-                                onfocus="this.style.borderColor='#00AEEF';this.style.boxShadow='0 0 0 3px rgba(0,174,239,0.15)'"
+                                style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.625rem 0.75rem;font-size:0.8125rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box;{{ Auth::check() ? 'opacity:0.6;cursor:not-allowed' : '' }}"
+                                onfocus="this.style.borderColor='#00c8ff';this.style.boxShadow='0 0 0 3px rgba(0,200,255,0.15)'"
                                 onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.boxShadow='none'">
                         </div>
                     </div>
@@ -77,9 +77,9 @@
                     </p>
                     @endguest
                     @auth
-                    <p style="color:rgba(0,255,159,0.4);font-size:0.7rem;margin-top:0.5rem;display:flex;align-items:center;gap:0.375rem">
+                    <p style="color:rgba(0,200,255,0.4);font-size:0.7rem;margin-top:0.5rem;display:flex;align-items:center;gap:0.375rem">
                         <svg style="width:0.75rem;height:0.75rem;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        Signed in as <strong style="color:rgba(0,255,159,0.6)">{{ Auth::user()->email }}</strong>
+                        Signed in as <strong style="color:rgba(0,200,255,0.6)">{{ Auth::user()->email }}</strong>
                     </p>
                     @endauth
                 </div>
@@ -99,7 +99,7 @@
                         <span id="cartTotal" style="color:#EAEAEA;font-weight:700;font-size:1.25rem">$0.00</span>
                     </div>
                 </div>
-                <button onclick="proceedToPayment(event)" id="checkoutBtn" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00AEEF,#0095CC);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,174,239,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                <button onclick="proceedToPayment(event)" id="checkoutBtn" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00c8ff,#0099ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,200,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
                     <svg style="width:1rem;height:1rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Proceed to Payment Details
                 </button>
@@ -134,14 +134,14 @@ function renderCart() {
     cart.forEach((item, index) => {
         sum += item.price * item.qty;
         html += `
-        <div class="glass-card" style="padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.boxShadow='0 8px 24px -4px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,174,239,0.1)'" onmouseout="this.style.boxShadow='none'">
+        <div class="glass-card" style="padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.boxShadow='0 8px 24px -4px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,200,255,0.1)'" onmouseout="this.style.boxShadow='none'">
             <style>@media (min-width:640px){.cart-item-p{padding:1.25rem}}</style>
             <div style="flex:1;min-width:0">
                 <h3 style="color:#EAEAEA;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.name}</h3>
-                <p style="color:#00AEEF;font-size:0.875rem;font-weight:600">$${item.price.toFixed(2)}</p>
+                <p style="color:#00c8ff;font-size:0.875rem;font-weight:600">$${item.price.toFixed(2)}</p>
             </div>
             <div style="display:flex;align-items:center;gap:0.75rem">
-                <div style="display:flex;align-items:center;background:#0D0D0D;border:1px solid #2a2a2a;border-radius:0.5rem;overflow:hidden">
+                <div style="display:flex;align-items:center;background:#05050f;border:1px solid #2a2a2a;border-radius:0.5rem;overflow:hidden">
                     <button onclick="updateQty(${index}, -1)" class="btn-icon">−</button>
                     <span style="color:#EAEAEA;font-family:'JetBrains Mono',monospace;width:2rem;text-align:center;font-size:0.875rem">${item.qty}</span>
                     <button onclick="updateQty(${index}, 1)" class="btn-icon">+</button>

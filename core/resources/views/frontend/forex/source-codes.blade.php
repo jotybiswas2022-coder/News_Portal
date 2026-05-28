@@ -49,7 +49,7 @@
             .src-pagination nav {display:flex;justify-content:center}
             .src-pagination .pagination {display:flex;gap:0.375rem;list-style:none;padding:0;margin:0;flex-wrap:wrap;justify-content:center}
             .src-pagination .page-item {margin:0}
-            .src-pagination .page-link {display:flex;align-items:center;justify-content:center;min-width:2.25rem;height:2.25rem;padding:0 0.625rem;border-radius:0.625rem;background:rgba(17,17,17,0.6);border:1px solid rgba(255,255,255,0.06);color:rgba(234,234,234,0.5);font-size:0.8125rem;font-weight:500;transition:all 0.3s;text-decoration:none}
+            .src-pagination .page-link {display:flex;align-items:center;justify-content:center;min-width:2.25rem;height:2.25rem;padding:0 0.625rem;border-radius:0.625rem;background:rgba(5,5,15,0.6);border:1px solid rgba(255,255,255,0.06);color:rgba(234,234,234,0.5);font-size:0.8125rem;font-weight:500;transition:all 0.3s;text-decoration:none}
             .src-pagination .page-link:hover {border-color:rgba(168,85,247,0.2);color:#EAEAEA;background:rgba(168,85,247,0.06)}
             .src-pagination .page-item.active .page-link {background:linear-gradient(135deg,#A855F7,#7C3AED);border-color:#A855F7;color:white;box-shadow:0 4px 15px rgba(168,85,247,0.2)}
             .src-pagination .page-item.disabled .page-link {opacity:0.3;cursor:default;pointer-events:none}
@@ -57,7 +57,7 @@
 
         @if($sourceCodes->count() > 0)
         <!-- Results count bar -->
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;padding:0.75rem 1rem;background:rgba(17,17,17,0.2);border:1px solid rgba(255,255,255,0.04);border-radius:0.75rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;padding:0.75rem 1rem;background:rgba(5,5,15,0.2);border:1px solid rgba(255,255,255,0.04);border-radius:0.75rem">
             <span style="color:rgba(234,234,234,0.4);font-size:0.8125rem">
                 Showing <strong style="color:rgba(234,234,234,0.6);font-weight:600">{{ $sourceCodes->firstItem() }}-{{ $sourceCodes->lastItem() }}</strong> of <strong style="color:rgba(234,234,234,0.6);font-weight:600">{{ $sourceCodes->total() }}</strong> Source Codes
             </span>
@@ -110,19 +110,19 @@
                         <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.25rem">
                             @if($sc->platform)
                             <div class="src-meta-item" style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:rgba(234,234,234,0.45);padding:4px 10px;">
-                                <svg style="width:0.75rem;height:0.75rem;color:#00FF9F;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg style="width:0.75rem;height:0.75rem;color:#00c8ff;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 Platform: {{ $sc->platform }}
                             </div>
                             @endif
                             @if($sc->version)
                             <div class="src-meta-item" style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:rgba(234,234,234,0.45);padding:4px 10px;">
-                                <svg style="width:0.75rem;height:0.75rem;color:#00FF9F;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg style="width:0.75rem;height:0.75rem;color:#00c8ff;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 Version: {{ $sc->version }}
                             </div>
                             @endif
                             @if($sc->features && count($sc->features) > 0)
                             <div class="src-meta-item" style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:rgba(234,234,234,0.45);padding:4px 10px;">
-                                <svg style="width:0.75rem;height:0.75rem;color:#00FF9F;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg style="width:0.75rem;height:0.75rem;color:#00c8ff;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 {{ count($sc->features) }} Key Features
                             </div>
                             @endif
@@ -130,7 +130,7 @@
 
                         <div style="display:flex;align-items:center;justify-content:space-between;padding-top:1rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.06)">
                             <div style="display:flex;align-items:center;gap:8px">
-                                <span style="background:linear-gradient(135deg,#A855F7,#00FF9F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;font-size:1.25rem">${{ number_format($sc->price, 0) }}</span>
+                                <span style="background:linear-gradient(135deg,#A855F7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;font-size:1.25rem">${{ number_format($sc->price, 0) }}</span>
                                 @if($sc->old_price)
                                 <span style="color:rgba(234,234,234,0.25);font-size:0.8125rem;text-decoration:line-through">${{ number_format($sc->old_price, 0) }}</span>
                                 @endif
@@ -191,7 +191,7 @@
 </section>
 
 <!-- ==================== WHY BUY ==================== -->
-<section style="padding-top:6rem;padding-bottom:6rem;background:#0A0A0A;position:relative;overflow:hidden">
+<section style="padding-top:6rem;padding-bottom:6rem;background:#05050f;position:relative;overflow:hidden">
     <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);background-size:24px 24px;opacity:0.03;pointer-events:none"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(168,85,247,0.015) 50%,transparent);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem">
@@ -204,47 +204,47 @@
         <div style="display:grid;grid-template-columns:1fr;gap:1.5rem" class="src-why-grid">
             <style>@media (min-width:768px){.src-why-grid{grid-template-columns:repeat(3,1fr)}}</style>
             <div class="glass-card reveal" style="padding:2rem 1.5rem;text-align:center;cursor:default;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.15)'"
+                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.15)'"
                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
                     {{-- Top accent line --}}
-                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00AEEF,rgba(0,174,239,0.2),transparent);border-radius:0 0 2px 2px;opacity:0.5"></div>
+                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00c8ff,rgba(0,200,255,0.2),transparent);border-radius:0 0 2px 2px;opacity:0.5"></div>
                     {{-- Glow orb --}}
-                    <div style="position:absolute;top:-3rem;right:-3rem;width:10rem;height:10rem;background:radial-gradient(circle,rgba(0,174,239,0.06),transparent 70%);pointer-events:none;border-radius:50%;transition:opacity 0.5s;opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
+                    <div style="position:absolute;top:-3rem;right:-3rem;width:10rem;height:10rem;background:radial-gradient(circle,rgba(0,200,255,0.06),transparent 70%);pointer-events:none;border-radius:50%;transition:opacity 0.5s;opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
                     <div style="position:relative;z-index:2">
-                    <div style="width:4rem;height:4rem;margin:0 auto 1.25rem;border-radius:1rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));display:flex;align-items:center;justify-content:center;transition:transform 0.3s;border:1px solid rgba(0,174,239,0.1)" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.25),rgba(0,255,159,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05))'">
-                        <svg style="width:2rem;height:2rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253\"/></svg>
+                    <div style="width:4rem;height:4rem;margin:0 auto 1.25rem;border-radius:1rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center;transition:transform 0.3s;border:1px solid rgba(0,200,255,0.1)" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.25),rgba(0,200,255,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05))'">
+                        <svg style="width:2rem;height:2rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253\"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00AEEF'" onmouseout="this.style.color='#EAEAEA'">Learn</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='#EAEAEA'">Learn</h3>
                     <p style="color:rgba(234,234,234,0.5);font-size:0.875rem;line-height:1.625">Study the code to understand advanced MQL4/MQL5 programming techniques used by professional developers.</p>
                 </div>
             </div>
             <div class="glass-card reveal" style="padding:2rem 1.5rem;text-align:center;cursor:default;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.15)'"
+                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.15)'"
                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
                     {{-- Top accent line --}}
-                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00AEEF,rgba(0,174,239,0.2),transparent);border-radius:0 0 2px 2px;opacity:0.5"></div>
+                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00c8ff,rgba(0,200,255,0.2),transparent);border-radius:0 0 2px 2px;opacity:0.5"></div>
                     {{-- Glow orb --}}
-                    <div style="position:absolute;top:-3rem;right:-3rem;width:10rem;height:10rem;background:radial-gradient(circle,rgba(0,174,239,0.06),transparent 70%);pointer-events:none;border-radius:50%;transition:opacity 0.5s;opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
+                    <div style="position:absolute;top:-3rem;right:-3rem;width:10rem;height:10rem;background:radial-gradient(circle,rgba(0,200,255,0.06),transparent 70%);pointer-events:none;border-radius:50%;transition:opacity 0.5s;opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
                     <div style="position:relative;z-index:2">
-                    <div style="width:4rem;height:4rem;margin:0 auto 1.25rem;border-radius:1rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));display:flex;align-items:center;justify-content:center;transition:transform 0.3s;border:1px solid rgba(0,174,239,0.1)" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.25),rgba(0,255,159,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05))'">
-                        <svg style="width:2rem;height:2rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <div style="width:4rem;height:4rem;margin:0 auto 1.25rem;border-radius:1rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center;transition:transform 0.3s;border:1px solid rgba(0,200,255,0.1)" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.25),rgba(0,200,255,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05))'">
+                        <svg style="width:2rem;height:2rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00AEEF'" onmouseout="this.style.color='#EAEAEA'">Customize</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='#EAEAEA'">Customize</h3>
                     <p style="color:rgba(234,234,234,0.5);font-size:0.875rem;line-height:1.625">Modify and adapt the code to fit your specific trading strategies and requirements.</p>
                 </div>
             </div>
             <div class="glass-card reveal" style="padding:2rem 1.5rem;text-align:center;cursor:default;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,174,239,0.15)'"
+                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.15)'"
                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
                     {{-- Top accent line --}}
-                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00AEEF,rgba(0,174,239,0.2),transparent);border-radius:0 0 2px 2px;opacity:0.5"></div>
+                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00c8ff,rgba(0,200,255,0.2),transparent);border-radius:0 0 2px 2px;opacity:0.5"></div>
                     {{-- Glow orb --}}
-                    <div style="position:absolute;top:-3rem;right:-3rem;width:10rem;height:10rem;background:radial-gradient(circle,rgba(0,174,239,0.06),transparent 70%);pointer-events:none;border-radius:50%;transition:opacity 0.5s;opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
+                    <div style="position:absolute;top:-3rem;right:-3rem;width:10rem;height:10rem;background:radial-gradient(circle,rgba(0,200,255,0.06),transparent 70%);pointer-events:none;border-radius:50%;transition:opacity 0.5s;opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></div>
                     <div style="position:relative;z-index:2">
-                    <div style="width:4rem;height:4rem;margin:0 auto 1.25rem;border-radius:1rem;background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05));display:flex;align-items:center;justify-content:center;transition:transform 0.3s;border:1px solid rgba(0,174,239,0.1)" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.25),rgba(0,255,159,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,255,159,0.05))'">
-                        <svg style="width:2rem;height:2rem;color:#00AEEF" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z\"/></svg>
+                    <div style="width:4rem;height:4rem;margin:0 auto 1.25rem;border-radius:1rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center;transition:transform 0.3s;border:1px solid rgba(0,200,255,0.1)" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.25),rgba(0,200,255,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05))'">
+                        <svg style="width:2rem;height:2rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z\"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00AEEF'" onmouseout="this.style.color='#EAEAEA'">Resell</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='#EAEAEA'">Resell</h3>
                     <p style="color:rgba(234,234,234,0.5);font-size:0.875rem;line-height:1.625">Purchase a reseller license and sell modified versions under your own brand.</p>
                 </div>
             </div>

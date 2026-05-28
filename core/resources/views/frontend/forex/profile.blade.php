@@ -9,27 +9,27 @@
 @media (min-width:640px){.profile-inner{padding:0 1.5rem}}
 @media (min-width:1024px){.profile-inner{padding:0 2rem}}
 .profile-header{margin-bottom:2.5rem;text-align:center}
-.profile-avatar-wrap{width:5rem;height:5rem;border-radius:1rem;background:linear-gradient(135deg,#00AEEF,#00FF9F);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 32px rgba(0,174,239,0.2);position:relative}
-.profile-avatar-text{color:#0D0D0D;font-size:2rem;font-weight:800;font-family:'DM Sans',sans-serif}
+.profile-avatar-wrap{width:5rem;height:5rem;border-radius:1rem;background:linear-gradient(135deg,#00c8ff,#00c8ff);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 32px rgba(0,200,255,0.2);position:relative}
+.profile-avatar-text{color:#05050f;font-size:2rem;font-weight:800;font-family:'DM Sans',sans-serif}
 .profile-form-group{margin-bottom:1.5rem}
 .profile-form-label{display:block;color:rgba(234,234,234,0.6);font-size:0.8125rem;font-weight:600;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.5px}
-.profile-input{width:100%;padding:0.875rem 1rem;background:rgba(17,17,17,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;color:#EAEAEA;font-size:0.9375rem;font-family:'DM Sans',sans-serif;transition:all 0.3s ease;outline:none;box-sizing:border-box}
-.profile-input:focus{border-color:#00AEEF;box-shadow:0 0 0 3px rgba(0,174,239,0.12)}
+.profile-input{width:100%;padding:0.875rem 1rem;background:rgba(5,5,15,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;color:#EAEAEA;font-size:0.9375rem;font-family:'DM Sans',sans-serif;transition:all 0.3s ease;outline:none;box-sizing:border-box}
+.profile-input:focus{border-color:#00c8ff;box-shadow:0 0 0 3px rgba(0,200,255,0.12)}
 .profile-input::placeholder{color:rgba(234,234,234,0.2)}
 .profile-input.error{border-color:rgba(239,68,68,0.4);box-shadow:0 0 0 3px rgba(239,68,68,0.08)}
 .profile-error-text{color:#ef4444;font-size:0.75rem;margin-top:0.375rem;display:none}
 .profile-divider{height:1px;background:rgba(255,255,255,0.06);margin:2rem 0}
 .profile-section-title{color:#EAEAEA;font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem}
 .profile-section-desc{color:rgba(234,234,234,0.35);font-size:0.8125rem;margin-bottom:1.5rem}
-.profile-submit-btn{width:100%;padding:0.875rem 1.5rem;background:linear-gradient(135deg,#00AEEF,#0095CC);color:#fff;font-weight:600;font-size:0.9375rem;border:none;border-radius:0.75rem;cursor:pointer;transition:all 0.3s ease;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:0.5rem;box-sizing:border-box}
-.profile-submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,174,239,0.25)}
+.profile-submit-btn{width:100%;padding:0.875rem 1.5rem;background:linear-gradient(135deg,#00c8ff,#0099ff);color:#fff;font-weight:600;font-size:0.9375rem;border:none;border-radius:0.75rem;cursor:pointer;transition:all 0.3s ease;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:0.5rem;box-sizing:border-box}
+.profile-submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,200,255,0.25)}
 .profile-submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
 .profile-submit-btn .spinner{display:none;width:1rem;height:1rem;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .profile-submit-btn.loading .spinner{display:inline-block}
 .profile-submit-btn.loading .btn-text{display:none}
-.profile-info-card{display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1rem;background:rgba(0,174,239,0.06);border:1px solid rgba(0,174,239,0.12);border-radius:0.75rem;margin-bottom:2rem}
-.profile-info-icon{width:1.25rem;height:1.25rem;color:#00AEEF;flex-shrink:0}
+.profile-info-card{display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1rem;background:rgba(0,200,255,0.06);border:1px solid rgba(0,200,255,0.12);border-radius:0.75rem;margin-bottom:2rem}
+.profile-info-icon{width:1.25rem;height:1.25rem;color:#00c8ff;flex-shrink:0}
 .profile-info-text{color:rgba(234,234,234,0.5);font-size:0.8125rem;line-height:1.5}
 .profile-password-hint{color:rgba(234,234,234,0.25);font-size:0.75rem;margin-top:0.375rem}
 </style>

@@ -11,7 +11,11 @@
             <!-- Brand -->
             <div class="footer-brand-col">
                 <a href="{{ route('forex.home') }}" style="font-size: 24px; font-weight: 800; letter-spacing: 1px; text-decoration: none; display: inline-block; margin-bottom: 16px;">
-                    <span style="color: #fff; transition: color 0.3s ease;">SMART BINARY ZONE</span>
+                    <span>
+                        <span style="color: #ffffff; transition: color 0.3s ease;">SMART</span>
+                        <span style="color: #00c8ff; transition: color 0.3s ease;"> BINARY</span>
+                        <span style="color: #ff2d78; transition: color 0.3s ease;"> ZONE</span>
+                    </span>
                 </a>
                 <p style="color: rgba(234,234,234,0.4); font-size: 14px; line-height: 1.7; margin: 0 0 24px 0; max-width: 320px;">Premium Expert Advisors trusted by over 1 million traders worldwide. Institutional-grade trading solutions for every style from SMART BINARY ZONE.</p>
                 <div style="display: flex; gap: 12px;">
