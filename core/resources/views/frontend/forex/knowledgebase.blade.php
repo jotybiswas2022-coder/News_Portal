@@ -12,11 +12,11 @@
 /* Category Buttons */
 .cat-btn{width:100%;text-align:left;padding:0.5rem 0.75rem;border-radius:0.5rem;font-size:0.875rem;transition:all 0.2s;cursor:pointer;display:flex;align-items:center;gap:0.5rem;background:transparent;border:none;color:rgba(234,234,234,0.6)}
 .cat-btn:hover{color:#EAEAEA;background:rgba(255,255,255,0.04)}
-.cat-btn.active{color:#00c8ff;background:rgba(0,200,255,0.05)}
+.cat-btn.active{color:#005fe7;background:rgba(0,95,231,0.05)}
 
 /* Search Input */
 .kb-search-input{width:100%;background:rgba(5,5,15,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:0.875rem 1rem 0.875rem 2.75rem;font-size:0.9375rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box}
-.kb-search-input:focus{border-color:#00c8ff;box-shadow:0 0 0 3px rgba(0,200,255,0.15);outline:none}
+.kb-search-input:focus{border-color:#005fe7;box-shadow:0 0 0 3px rgba(34,85,255,0.15);outline:none}
 .kb-search-input::placeholder{color:rgba(234,234,234,0.3)}
 
 /* Article Cards */
@@ -45,7 +45,7 @@
         <!-- Search Bar -->
         <div style="max-width:36rem;margin:0 auto;animation:fadeInUp 0.6s ease 0.3s both" class="reveal">
             <div class="glass-card" style="padding:0.5rem;display:flex;align-items:center;gap:0.5rem;border-radius:0.875rem;transition:all 0.3s"
-                 onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,200,255,0.1)'"
+                 onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(34,85,255,0.1)'"
                  onmouseout="this.style.boxShadow='none'">
                 <div style="flex:1;position:relative">
                     <svg style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);width:1rem;height:1rem;color:rgba(234,234,234,0.3);pointer-events:none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,8 +53,8 @@
                     </svg>
                     <input type="text" id="kbSearch" class="kb-search-input" placeholder="Search articles, topics, keywords..." oninput="filterArticles()" style="padding-left:2.75rem">
                 </div>
-                <button onclick="document.getElementById('kbSearch').focus()" style="display:flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:linear-gradient(135deg,#00c8ff,#0099ff);color:white;font-weight:600;font-size:0.8125rem;border-radius:0.625rem;border:none;cursor:pointer;transition:all 0.3s;white-space:nowrap"
-                        onmouseover="this.style.boxShadow='0 4px 16px rgba(0,200,255,0.3)';this.style.transform='translateY(-1px)'"
+                <button onclick="document.getElementById('kbSearch').focus()" style="display:flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:linear-gradient(135deg,#005fe7,#2255ff);color:white;font-weight:600;font-size:0.8125rem;border-radius:0.625rem;border:none;cursor:pointer;transition:all 0.3s;white-space:nowrap"
+                        onmouseover="this.style.boxShadow='0 4px 16px rgba(34,85,255,0.3)';this.style.transform='translateY(-1px)'"
                         onmouseout="this.style.boxShadow='none';this.style.transform=''">
                     <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     Search
@@ -66,7 +66,7 @@
 
 <!-- ==================== CONTENT ==================== -->
 <section style="padding-top:2rem;padding-bottom:6rem;position:relative;overflow:hidden">
-    <div class="orb orb-brand" style="position:absolute;top:50%;right:0;transform:translate(50%,-50%);opacity:0.03;width:500px;height:500px;border-radius:50%;background:rgba(0,200,255,0.15);filter:blur(100px);pointer-events:none"></div>
+    <div class="orb orb-brand" style="position:absolute;top:50%;right:0;transform:translate(50%,-50%);opacity:0.03;width:500px;height:500px;border-radius:50%;background:rgba(34,85,255,0.15);filter:blur(100px);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:80rem;margin:0 auto" class="kb-px">
         <div style="display:grid;grid-template-columns:1fr;gap:2rem">
             <style>
@@ -79,17 +79,17 @@
             <div>
                 <div class="glass-card reveal" style="padding:1.25rem;position:sticky;top:7rem;transition:all 0.3s">
                     <h3 style="color:#EAEAEA;font-weight:600;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">
-                        <svg style="width:1rem;height:1rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                        <svg style="width:1rem;height:1rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                         Categories
                     </h3>
                     <div style="display:flex;flex-direction:column;gap:0.25rem" id="categoryList">
-                        <button onclick="filterByCategory('all')" class="cat-btn active" data-cat="all" style="color:#00c8ff;background:rgba(0,200,255,0.05)">
+                        <button onclick="filterByCategory('all')" class="cat-btn active" data-cat="all" style="color:#005fe7;background:rgba(0,95,231,0.05)">
                             <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0l-4-4m4 4l-4 4"/></svg>
                             All Categories
                         </button>
                         @foreach($categories as $cat)
                         <button onclick="filterByCategory('{{ $cat }}')" class="cat-btn" data-cat="{{ $cat }}">
-                            <span style="width:0.375rem;height:0.375rem;border-radius:50%;background:rgba(0,200,255,0.5);display:inline-block"></span>
+                            <span style="width:0.375rem;height:0.375rem;border-radius:50%;background:rgba(0,95,231,0.5);display:inline-block"></span>
                             {{ $cat }}
                         </button>
                         @endforeach
@@ -111,7 +111,7 @@
                     @php
                         $icons = ['book-open','shield-check','download','help-circle','sliders','globe','server','key','trending-up','settings','layout','layers'];
                         $icon = $icons[$i % count($icons)];
-                        $colors = ['#00c8ff','#ff2d78','#2255ff','#ff1177','#00c8ff','#ff2d78','#2255ff','#ff1177','#00c8ff','#ff2d78','#2255ff','#ff1177'];
+                        $colors = ['#005fe7','#ff2d78','#2255ff','#ff1177','#005fe7','#ff2d78','#2255ff','#ff1177','#005fe7','#ff2d78','#2255ff','#ff1177'];
                         $accent = $colors[$i % count($colors)];
                         $contentPreview = Str::limit($article['content'], 120);
                     @endphp
@@ -192,7 +192,7 @@
                     <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem;margin-bottom:0.5rem">No Articles Found</h3>
                     <p style="color:rgba(234,234,234,0.4);font-size:0.875rem;margin-bottom:1.5rem;max-width:24rem;margin-left:auto;margin-right:auto;line-height:1.6">We couldn't find any articles matching your search. Try a different keyword or browse all categories.</p>
                     <button onclick="resetFilters()" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.625rem 1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(234,234,234,0.7);font-weight:500;font-size:0.8125rem;border-radius:0.625rem;cursor:pointer;transition:all 0.3s"
-                            onmouseover="this.style.borderColor='rgba(0,200,255,0.2)';this.style.background='rgba(0,200,255,0.04)'"
+                            onmouseover="this.style.borderColor='rgba(34,85,255,0.2)';this.style.background='rgba(34,85,255,0.04)'"
                             onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.04)'">
                         <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                         Reset Filters
@@ -234,8 +234,8 @@ function filterByCategory(cat) {
     activeCategory = cat;
     document.querySelectorAll('.cat-btn').forEach(b => {
         const isActive = b.dataset.cat === cat;
-        b.style.color = isActive ? '#00c8ff' : 'rgba(234,234,234,0.6)';
-        b.style.background = isActive ? 'rgba(0,200,255,0.05)' : 'transparent';
+        b.style.color = isActive ? '#005fe7' : 'rgba(234,234,234,0.6)';
+        b.style.background = isActive ? 'rgba(0,95,231,0.05)' : 'transparent';
     });
     filterArticles();
 }

@@ -71,12 +71,12 @@
     padding-top: 5rem;
 }
 
-/* ── GLOW ORBS (EXACT REPLICATION) ── */
+/* ── GLOW ORBS ── */
 .sbz-orb-left {
     position: absolute;
     width: 600px; height: 600px;
     top: -100px; left: -200px;
-    background: radial-gradient(circle, #2255ff 0%, #00c8ff 40%, transparent 70%);
+    background: radial-gradient(circle, #2255ff 0%, #005fe7 40%, transparent 70%);
     filter: blur(140px);
     opacity: 0.35;
     border-radius: 50%;
@@ -88,7 +88,7 @@
     position: absolute;
     width: 600px; height: 600px;
     top: -100px; right: -200px;
-    background: radial-gradient(circle, #ff2d78 0%, #ff00aa 50%, transparent 70%);
+    background: radial-gradient(circle, #ff2d78 0%, #ff1177 50%, transparent 70%);
     filter: blur(140px);
     opacity: 0.35;
     border-radius: 50%;
@@ -101,7 +101,7 @@
     width: 500px; height: 500px;
     bottom: -150px; left: 50%;
     transform: translateX(-50%);
-    background: radial-gradient(circle, #00c8ff 0%, #2255ff 40%, transparent 70%);
+    background: radial-gradient(circle, #005fe7 0%, #2255ff 40%, transparent 70%);
     filter: blur(120px);
     opacity: 0.2;
     border-radius: 50%;
@@ -115,8 +115,8 @@
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,95,231,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,95,231,0.03) 1px, transparent 1px);
     background-size: 64px 64px;
     pointer-events: none;
     z-index: 1;
@@ -133,33 +133,31 @@
     text-align: center;
 }
 
-/* ── NEON TEXT (EXACT REPLICATION) ── */
+/* ── NEON TEXT ── */
+/* ── HERO WORD STYLES (no glow) ── */
 .text-hero-white {
     color: #ffffff;
-    text-shadow: 0 0 20px rgba(255,255,255,0.4);
     font-weight: 900;
     text-transform: uppercase;
 }
-.text-hero-cyan {
-    color: #00c8ff;
-    text-shadow:
-        0 0 10px #00c8ff,
-        0 0 30px #00c8ff,
-        0 0 60px rgba(0, 200, 255, 0.5);
+.text-hero-blue-gradient {
+    background: linear-gradient(180deg, #6b9fff 0%, #005fe7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-weight: 900;
     text-transform: uppercase;
 }
-.text-hero-pink {
-    color: #ff2d78;
-    text-shadow:
-        0 0 10px #ff2d78,
-        0 0 30px #ff2d78,
-        0 0 60px rgba(255, 45, 120, 0.5);
+.text-hero-pink-gradient {
+    background: linear-gradient(180deg, #ff7aad 0%, #ff2d78 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-weight: 900;
     text-transform: uppercase;
 }
 .text-hero-gradient {
-    background: linear-gradient(90deg, #00c8ff, #ff2d78);
+    background: linear-gradient(90deg, #005fe7, #ff2d78);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -168,12 +166,12 @@
     text-transform: uppercase;
 }
 
-/* ── GLASS CARD (EXACT REPLICATION) ── */
+/* ── GLASS CARD ── */
 .sbz-glass {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 200, 255, 0.15);
+    border: 1px solid rgba(7, 66, 184, 0.15);
     border-radius: 16px;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.6),
@@ -181,7 +179,7 @@
     transition: all 0.3s ease;
 }
 .sbz-glass:hover {
-    border-color: rgba(0, 200, 255, 0.4);
+    border-color: rgba(7, 66, 184, 0.4);
     box-shadow:
         0 0 25px rgba(34, 85, 255, 0.15),
         0 0 50px rgba(255, 17, 119, 0.1);
@@ -194,14 +192,14 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1.25rem;
-    background: rgba(0, 200, 255, 0.06);
-    border: 1px solid rgba(0, 200, 255, 0.2);
+    background: rgba(7, 66, 184, 0.06);
+    border: 1px solid rgba(7, 66, 184, 0.2);
     border-radius: 9999px;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--cyan-bright);
+    color: #005fe7;
     margin-bottom: 1.5rem;
     backdrop-filter: blur(12px);
 }
@@ -209,7 +207,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--cyan-bright);
+    background: #005fe7;
     animation: pulseDot 2s ease-in-out infinite;
 }
 
@@ -217,7 +215,7 @@
 .sbz-stat-divider {
     width: 1px;
     height: 3rem;
-    background: linear-gradient(180deg, rgba(0,200,255,0.3), transparent);
+    background: linear-gradient(180deg, rgba(0,95,231,0.3), transparent);
 }
 
 /* ── REVEAL ── */
@@ -284,11 +282,67 @@
 /* ── SECTION HEIGHTS ── */
 .sbz-section { padding-top: 6rem; padding-bottom: 6rem; }
 @media (min-width: 768px) { .sbz-section { padding-top: 8rem; padding-bottom: 8rem; } }
+
+/* ── OVERRIDE GLOBAL LAYOUT CLASSES WITH HOME COLORS ── */
+/* Buttons — blue (#005fe7) → pink (#ff2d78) gradient instead of cyan */
+.sbz-hero .btn-primary,
+.sbz-section .btn-primary,
+.sbz-glass .btn-primary {
+    background: linear-gradient(90deg, #005fe7, #ff2d78) !important;
+    box-shadow: 0 0 20px rgba(0,95,231,0.4), 0 0 40px rgba(255,45,120,0.3) !important;
+}
+.sbz-hero .btn-primary:hover,
+.sbz-section .btn-primary:hover,
+.sbz-glass .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(0,95,231,0.7), 0 0 60px rgba(255,45,120,0.5) !important;
+}
+.sbz-hero .btn-outline,
+.sbz-section .btn-outline,
+.sbz-glass .btn-outline {
+    border-color: #005fe7 !important;
+    color: #005fe7 !important;
+    box-shadow: 0 0 12px rgba(0,95,231,0.25) !important;
+}
+.sbz-hero .btn-outline:hover,
+.sbz-section .btn-outline:hover,
+.sbz-glass .btn-outline:hover {
+    background: rgba(0,95,231,0.1) !important;
+    box-shadow: 0 0 25px rgba(0,95,231,0.5) !important;
+}
+
+/* Gradient text on section titles — blue → pink */
+.sbz-section .gradient-text {
+    background: linear-gradient(90deg, #005fe7, #ff2d78) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Badges */
+.sbz-badge {
+    color: #005fe7 !important;
+    border-color: rgba(0,95,231,0.2) !important;
+    background: rgba(0,95,231,0.06) !important;
+}
+.sbz-badge-dot {
+    background: #005fe7 !important;
+}
+
+/* Glass cards on home page */
+.sbz-hero .card,
+.sbz-section .card {
+    border-color: rgba(0,95,231,0.15) !important;
+}
+.sbz-hero .card:hover,
+.sbz-section .card:hover {
+    border-color: rgba(0,95,231,0.4) !important;
+    box-shadow: 0 0 25px rgba(34,85,255,0.15), 0 0 50px rgba(255,17,119,0.1) !important;
+}
 </style>
 
 <!-- ==================== HERO ==================== -->
 <div class="sbz-hero">
-    <!-- Glow Orbs (EXACT REPLICATION) -->
+    <!-- Glow Orbs -->
     <div class="sbz-orb-left"></div>
     <div class="sbz-orb-right"></div>
     <div class="sbz-orb-bottom"></div>
@@ -309,7 +363,7 @@
             Trusted by 1M+ Traders Worldwide
         </div>
 
-        <!-- Hero Heading — NEON TEXT EXACT REPLICATION -->
+        <!-- Hero Heading — NEON TEXT -->
         <h1 style="
             font-size: clamp(3rem, 7vw, 6rem);
             font-weight: 900;
@@ -319,12 +373,12 @@
             text-transform: uppercase;
             animation: fadeUp 0.7s ease 0.1s both;
         ">
-            <span class="text-hero-white">Smart</span><br>
-            <span class="text-hero-cyan">Binary</span><br>
-            <span class="text-hero-pink">Zone</span>
+            <span class="text-hero-white">SMART</span><br>
+            <span class="text-hero-blue-gradient">BINARY</span><br>
+            <span class="text-hero-pink-gradient">ZONE</span>
         </h1>
 
-        <!-- Gradient Subheading (EXACT REPLICATION) -->
+        <!-- Gradient Subheading -->
         <p class="text-hero-gradient" style="
             font-size: clamp(0.875rem, 1.5vw, 1.125rem);
             margin: 0.5rem 0 1.5rem 0;
@@ -343,10 +397,10 @@
             animation: fadeUp 0.7s ease 0.3s both;
         ">
             Institutional-grade Expert Advisors powered by AI-driven algorithms —
-            delivering consistent returns with <span style="color:var(--cyan-bright);font-weight:600">99.9% backtest precision</span>.
+            delivering consistent returns with <span style="color:#005fe7;font-weight:600">99.9% backtest precision</span>.
         </p>
 
-        <!-- CTA Buttons (EXACT REPLICATION) -->
+        <!-- CTA Buttons -->
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;animation:fadeUp 0.7s ease 0.5s both">
             <a href="/products" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none">
                 <span style="position:relative;z-index:10">Explore EAs</span>
@@ -389,7 +443,7 @@
 </div>
 
 <!-- ==================== TRUSTED BY ==================== -->
-<section style="padding:2.5rem 0;border-top:1px solid rgba(0,200,255,0.08);border-bottom:1px solid rgba(0,200,255,0.08);position:relative;overflow:hidden">
+<section style="padding:2.5rem 0;border-top:1px solid rgba(0,95,231,0.08);border-bottom:1px solid rgba(0,95,231,0.08);position:relative;overflow:hidden">
     <div style="max-width:80rem;margin:0 auto;padding:0 1rem;position:relative;z-index:10">
         <p style="text-align:center;color:var(--text-dim);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;font-family:'Rajdhani',sans-serif">Trusted by Traders Worldwide</p>
         <div style="position:relative;overflow:hidden">
@@ -404,7 +458,7 @@
 
 <!-- ==================== TRUST METRICS ==================== -->
 @php
-    $tmColors = ['#00c8ff', '#ff2d78', '#2255ff'];
+    $tmColors = ['#005fe7', '#ff2d78', '#2255ff'];
     $tmIcons = [
         '<svg style="width:1.5rem;height:1.5rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>',
         '<svg style="width:1.5rem;height:1.5rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
@@ -427,7 +481,7 @@
             @php $color = $tmColors[$i % count($tmColors)]; @endphp
             <div class="reveal" style="transition-delay:{{ $i * 0.1 }}s">
                 <div class="sbz-glass" style="padding:1.75rem 1.5rem;position:relative;overflow:hidden;cursor:default;height:100%;display:flex;flex-direction:column">
-                    <!-- Cyan top accent -->
+                    <!-- Blue top accent -->
                     <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,{{ $color }},transparent);border-radius:0 0 2px 2px;opacity:0.8"></div>
 
                     <!-- Icon row -->
@@ -442,11 +496,11 @@
                     <p style="color:{{ $color }};font-weight:500;font-size:0.85rem;margin:0 0 0.5rem 0;line-height:1.5">{{ $tm['text'] }}</p>
                     <p style="color:var(--text-dim);font-size:0.75rem;margin:0;line-height:1.5;flex:1">{{ $tm['sub'] }}</p>
 
-                    <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(0,200,255,0.08);display:flex;align-items:center;justify-content:space-between">
+                    <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(0,95,231,0.08);display:flex;align-items:center;justify-content:space-between">
                         <span style="color:var(--text-dim);font-size:0.65rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase">Trust Metric</span>
                         <span style="display:flex;gap:0.25rem">
                             @for($d = 0; $d < 3; $d++)
-                            <span style="width:0.375rem;height:0.375rem;border-radius:50%;background:{{ $d <= $i ? $color : 'rgba(0,200,255,0.08)' }};transition:background 0.3s"></span>
+                            <span style="width:0.375rem;height:0.375rem;border-radius:50%;background:{{ $d <= $i ? $color : 'rgba(0,95,231,0.08)' }};transition:background 0.3s"></span>
                             @endfor
                         </span>
                     </div>
@@ -460,7 +514,7 @@
 
 <!-- ==================== FEATURES ==================== -->
 <section id="features" class="sbz-section" style="position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,200,255,0.03) 1px,transparent 1px);background-size:24px 24px;opacity:0.04;pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,95,231,0.03) 1px,transparent 1px);background-size:24px 24px;opacity:0.04;pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:80rem;margin:0 auto;padding:0 1rem">
         <div style="text-align:center;margin-bottom:3.5rem">
             <div class="sbz-badge">Features</div>
@@ -473,12 +527,12 @@
                 @media (min-width:1024px){.feat-grid-sbz{grid-template-columns:repeat(3,1fr)!important}}
             </style>
             <div class="feat-grid-sbz" style="display:grid;gap:1rem;grid-template-columns:1fr">
-            @php $gradColors = ['#00c8ff','#ff2d78','#2255ff','#00c8ff','#ff2d78','#2255ff']; @endphp
+            @php $gradColors = ['#005fe7','#ff2d78','#2255ff','#005fe7','#ff2d78','#2255ff']; @endphp
             @foreach($features as $i => $feat)
             @php $accent = $gradColors[$i % count($gradColors)]; @endphp
             <div class="reveal" style="transition-delay:{{ $i * 0.06 }}s">
                 <div class="sbz-glass" style="padding:1.75rem;position:relative;overflow:hidden;height:100%;display:flex;flex-direction:column">
-                    <!-- Cyan top accent -->
+                    <!-- Blue top accent -->
                     <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,{{ $accent }},transparent);border-radius:0 0 2px 2px;opacity:0.8"></div>
 
                     <!-- Icon -->
@@ -510,7 +564,7 @@
 
 <!-- ==================== PERFORMANCE ==================== -->
 <section class="sbz-section" style="position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,200,255,0.02),transparent);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,95,231,0.02),transparent);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:64rem;margin:0 auto;padding:0 1rem;text-align:center">
         <div class="sbz-badge">Live Performance</div>
         <h2 class="section-title" style="font-family:'Rajdhani',sans-serif">Verified <span class="gradient-text">Track Records</span></h2>
@@ -523,14 +577,14 @@
             <div class="perf-grid-sbz" style="display:grid;gap:1rem;grid-template-columns:1fr">
             <div class="reveal">
                 <div class="sbz-glass" style="padding:1.5rem;position:relative;overflow:hidden;height:100%">
-                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#00c8ff,transparent);border-radius:0 0 2px 2px;opacity:0.8"></div>
+                    <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#005fe7,transparent);border-radius:0 0 2px 2px;opacity:0.8"></div>
                     <div style="position:relative;z-index:2">
-                        <div style="font-size:1.5rem;font-weight:700;color:var(--cyan-bright);margin-bottom:0.25rem;font-family:'JetBrains Mono',monospace">
+                        <div style="font-size:1.5rem;font-weight:700;color:#005fe7;margin-bottom:0.25rem;font-family:'JetBrains Mono',monospace">
                             <span class="counter-number" data-target="284" data-prefix="+" data-suffix="%">0</span>
                         </div>
                         <p style="color:var(--text-gray);font-size:0.875rem">Avg. Annual Return</p>
-                        <div style="margin-top:0.75rem;height:0.375rem;background:rgba(0,200,255,0.06);border-radius:9999px;overflow:hidden">
-                            <div class="sbz-perf-bar" style="height:0%;background:linear-gradient(90deg,#00c8ff,#ff2d78);border-radius:9999px;--target-height:85%"></div>
+                        <div style="margin-top:0.75rem;height:0.375rem;background:rgba(0,95,231,0.06);border-radius:9999px;overflow:hidden">
+                            <div class="sbz-perf-bar" style="height:0%;background:linear-gradient(90deg,#005fe7,#ff2d78);border-radius:9999px;--target-height:85%"></div>
                         </div>
                     </div>
                 </div>
@@ -558,7 +612,7 @@
                         </div>
                         <p style="color:var(--text-gray);font-size:0.875rem">Profit Factor</p>
                         <div style="margin-top:0.75rem;height:0.375rem;background:rgba(34,85,255,0.06);border-radius:9999px;overflow:hidden">
-                            <div class="sbz-perf-bar" style="height:0%;background:linear-gradient(90deg,#2255ff,#00c8ff);border-radius:9999px;--target-height:65%"></div>
+                            <div class="sbz-perf-bar" style="height:0%;background:linear-gradient(90deg,#2255ff,#005fe7);border-radius:9999px;--target-height:65%"></div>
                         </div>
                     </div>
                 </div>
@@ -569,11 +623,11 @@
         <!-- Chart -->
         <div class="reveal">
             <div class="sbz-glass" style="padding:1.5rem;position:relative;overflow:hidden">
-                <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:var(--gradient-main);border-radius:0 0 2px 2px;opacity:0.8"></div>
+                <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#005fe7,#ff2d78);border-radius:0 0 2px 2px;opacity:0.8"></div>
                 <div style="position:relative;z-index:2">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
                         <span style="color:var(--text-gray);font-size:0.875rem;font-weight:500">Account Growth (Last 12 Months)</span>
-                        <span style="color:var(--cyan-bright);font-size:0.875rem;font-weight:600;display:flex;align-items:center;gap:0.25rem">
+                        <span style="color:#005fe7;font-size:0.875rem;font-weight:600;display:flex;align-items:center;gap:0.25rem">
                             <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                             +184.2%
                         </span>
@@ -583,8 +637,8 @@
                         @php $heights = [20, 35, 28, 45, 38, 55, 48, 62, 58, 72, 68, 85]; @endphp
                         @foreach($heights as $h => $height)
                         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0.25rem">
-                            <div style="width:100%;background:rgba(0,200,255,0.04);border-radius:0.125rem;overflow:hidden;height:100%">
-                                <div class="sbz-perf-bar" style="width:100%;background:{{ $h % 2 == 0 ? '#00c8ff' : '#ff2d78' }};border-radius:0.125rem;--target-height:{{ $height }}%;height:0%;animation-delay:{{ 0.08 * $h }}s"></div>
+                            <div style="width:100%;background:rgba(0,95,231,0.04);border-radius:0.125rem;overflow:hidden;height:100%">
+                                <div class="sbz-perf-bar" style="width:100%;background:{{ $h % 2 == 0 ? '#005fe7' : '#ff2d78' }};border-radius:0.125rem;--target-height:{{ $height }}%;height:0%;animation-delay:{{ 0.08 * $h }}s"></div>
                             </div>
                             <span style="font-size:0.625rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace">M{{ $h + 1 }}</span>
                         </div>
@@ -610,10 +664,10 @@
                 @foreach($reviews as $review)
                 <div class="review-card">
                     <div class="sbz-glass" style="padding:1.5rem;position:relative;overflow:hidden;height:100%">
-                        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:var(--gradient-main);border-radius:0 0 2px 2px;opacity:0.6"></div>
+                        <div style="position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;background:linear-gradient(90deg,#005fe7,#ff2d78);border-radius:0 0 2px 2px;opacity:0.6"></div>
                         <div style="position:relative;z-index:2">
                             <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem">
-                                <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:var(--gradient-main);display:flex;align-items:center;justify-content:center;color:#05050f;font-weight:700;font-size:0.875rem;flex-shrink:0">{{ substr($review['reviewer'], 0, 1) }}</div>
+                                <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:linear-gradient(90deg,#005fe7,#ff2d78);display:flex;align-items:center;justify-content:center;color:#05050f;font-weight:700;font-size:0.875rem;flex-shrink:0">{{ substr($review['reviewer'], 0, 1) }}</div>
                                 <div style="flex:1;min-width:0">
                                     <div style="color:var(--text-white);font-weight:500;font-size:0.875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ $review['reviewer'] }}</div>
                                     <div style="display:flex;align-items:center;gap:0.375rem">
@@ -623,7 +677,7 @@
                                             @endfor
                                         </div>
                                         @if($review['verified'])
-                                        <svg style="width:0.75rem;height:0.75rem;color:var(--cyan-bright)" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        <svg style="width:0.75rem;height:0.75rem;color:#005fe7" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                         @endif
                                     </div>
                                 </div>
@@ -642,7 +696,7 @@
                 </button>
                 <div id="reviewDots" style="display:flex;gap:0.5rem">
                     @foreach($reviews as $i => $review)
-                    <button type="button" style="width:0.5rem;height:0.5rem;border-radius:50%;transition:all 0.3s;cursor:pointer;border:none;background:{{ $i === 0 ? '#00c8ff' : 'rgba(0,200,255,0.2)' }};width:{{ $i === 0 ? '1.25rem' : '0.5rem' }}" data-index="{{ $i }}" aria-label="Go to review {{ $i + 1 }}" onmouseover="this.style.background='{{ $i === 0 ? '#00c8ff' : 'rgba(0,200,255,0.4)' }}'" onmouseout="this.style.background='{{ $i === 0 ? '#00c8ff' : 'rgba(0,200,255,0.2)' }}'"></button>
+                    <button type="button" style="width:0.5rem;height:0.5rem;border-radius:50%;transition:all 0.3s;cursor:pointer;border:none;background:{{ $i === 0 ? '#005fe7' : 'rgba(0,95,231,0.2)' }};width:{{ $i === 0 ? '1.25rem' : '0.5rem' }}" data-index="{{ $i }}" aria-label="Go to review {{ $i + 1 }}" onmouseover="this.style.background='{{ $i === 0 ? '#005fe7' : 'rgba(0,95,231,0.4)' }}'" onmouseout="this.style.background='{{ $i === 0 ? '#005fe7' : 'rgba(0,95,231,0.2)' }}'"></button>
                     @endforeach
                 </div>
                 <button type="button" id="reviewNext" class="carousel-btn" aria-label="Next review">
@@ -667,7 +721,7 @@
                 @media (min-width:1024px){.faq-card-grid-sbz{grid-template-columns:repeat(3,1fr)!important}}
             </style>
             @php
-            $faqColors = ['#00c8ff','#ff2d78','#2255ff','#00c8ff','#ff2d78','#2255ff','#00c8ff','#ff2d78','#2255ff','#00c8ff','#ff2d78','#2255ff'];
+            $faqColors = ['#005fe7','#ff2d78','#2255ff','#005fe7','#ff2d78','#2255ff','#005fe7','#ff2d78','#2255ff','#005fe7','#ff2d78','#2255ff'];
             $faqIcons = [
                 '<svg style="width:1.125rem;height:1.125rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
                 '<svg style="width:1.125rem;height:1.125rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>',
@@ -690,13 +744,13 @@
                 </div>
                 <h3 style="color:var(--text-white);font-weight:600;font-size:0.95rem;margin-bottom:0.625rem;line-height:1.4">{{ $item['q'] }}</h3>
                 <p style="color:var(--text-gray);font-size:0.825rem;line-height:1.6;margin-bottom:0">{{ $answerPreview }}</p>
-                <div style="margin-top:0.875rem;padding-top:0.75rem;border-top:1px solid rgba(0,200,255,0.08)">
+                <div style="margin-top:0.875rem;padding-top:0.75rem;border-top:1px solid rgba(0,95,231,0.08)">
                     <button onclick="toggleFaqAnswer(this)" style="color:{{ $accent }};font-size:0.8rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.375rem;background:none;border:none;padding:0;font-weight:500;transition:all 0.3s;font-family:'Inter',sans-serif" onmouseover="this.style.gap='0.625rem'" onmouseout="this.style.gap='0.375rem'">
                         <span>Read Answer</span>
                         <svg style="width:0.75rem;height:0.75rem;transition:transform 0.3s" class="faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </button>
                 </div>
-                <div class="faq-answer-full" style="display:none;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,200,255,0.08);color:var(--text-gray);font-size:0.85rem;line-height:1.7">
+                <div class="faq-answer-full" style="display:none;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,95,231,0.08);color:var(--text-gray);font-size:0.85rem;line-height:1.7">
                     {{ $item['a'] }}
                 </div>
             </div>
@@ -709,11 +763,11 @@
 <section class="sbz-section" style="padding-top:0">
     <div style="max-width:56rem;margin:0 auto;padding:0 1rem;text-align:center">
         <div class="sbz-glass" style="padding:3.5rem 2rem;position:relative;overflow:hidden">
-            <div style="position:absolute;inset:-8rem;background:radial-gradient(circle at center,rgba(0,200,255,0.06),rgba(255,45,120,0.03),transparent 70%);filter:blur(100px);pointer-events:none"></div>
+            <div style="position:absolute;inset:-8rem;background:radial-gradient(circle at center,rgba(0,95,231,0.06),rgba(255,45,120,0.03),transparent 70%);filter:blur(100px);pointer-events:none"></div>
             <div style="position:relative;z-index:10">
                 <h2 style="font-size:clamp(2rem,4vw,2.5rem);font-weight:800;color:var(--text-white);letter-spacing:-0.02em;margin-bottom:1rem;font-family:'Rajdhani',sans-serif">Ready to Dominate the Markets?</h2>
                 <p style="color:var(--text-gray);font-size:1.125rem;margin-bottom:2rem;max-width:36rem;margin-left:auto;margin-right:auto">
-                    Join over <span style="color:var(--cyan-bright);font-weight:600">1 million</span> traders who've elevated their trading with SMART BINARY ZONE. Start your journey today.
+                    Join over <span style="color:#005fe7;font-weight:600">1 million</span> traders who've elevated their trading with SMART BINARY ZONE. Start your journey today.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem">
                     <a href="/products" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none">
@@ -729,51 +783,51 @@
 
 <!-- ==================== QUICK CHECKOUT MODAL ==================== -->
 <div id="quickCheckoutOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,5,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);align-items:center;justify-content:center;padding:1rem;overflow-y:auto" onclick="if(event.target===this)closeQuickCheckout()">
-    <div style="width:100%;max-width:28rem;background:rgba(5,5,15,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(0,200,255,0.15);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6);animation:scaleIn 0.25s ease" onclick="event.stopPropagation()">
+    <div style="width:100%;max-width:28rem;background:rgba(5,5,15,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(0,95,231,0.15);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6);animation:scaleIn 0.25s ease" onclick="event.stopPropagation()">
         <!-- Header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid rgba(0,200,255,0.08)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid rgba(0,95,231,0.08)">
             <div style="display:flex;align-items:center;gap:0.625rem">
-                <svg style="width:1.25rem;height:1.25rem;color:var(--cyan-bright)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <svg style="width:1.25rem;height:1.25rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 <h3 style="color:var(--text-white);font-weight:600;font-size:1.125rem;margin:0;font-family:'Inter',sans-serif">Quick Checkout</h3>
             </div>
-            <button onclick="closeQuickCheckout()" style="width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid rgba(0,200,255,0.15);border-radius:0.5rem;color:var(--text-dim);cursor:pointer;transition:all 0.2s;font-size:1rem" onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='var(--text-white)'" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='var(--text-dim)'">&times;</button>
+            <button onclick="closeQuickCheckout()" style="width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid rgba(0,95,231,0.15);border-radius:0.5rem;color:var(--text-dim);cursor:pointer;transition:all 0.2s;font-size:1rem" onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='var(--text-white)'" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='var(--text-dim)'">&times;</button>
         </div>
 
         <!-- Body -->
         <div style="padding:1.5rem">
-            <div id="quickBundleInfo" style="margin-bottom:1.25rem;padding:1rem;background:rgba(0,200,255,0.04);border:1px solid rgba(0,200,255,0.1);border-radius:12px">
+            <div id="quickBundleInfo" style="margin-bottom:1.25rem;padding:1rem;background:rgba(0,95,231,0.04);border:1px solid rgba(0,95,231,0.1);border-radius:12px">
                 <p id="quickBundleName" style="color:var(--text-white);font-weight:600;font-size:1rem;margin:0 0 0.25rem 0"></p>
                 <p id="quickBundleDesc" style="color:var(--text-gray);font-size:0.8125rem;margin:0 0 0.5rem 0"></p>
                 <div style="display:flex;align-items:center;gap:0.5rem">
-                    <span style="color:var(--cyan-bright);font-weight:700;font-size:1.25rem;font-family:'JetBrains Mono',monospace" id="quickBundlePrice"></span>
+                    <span style="color:#005fe7;font-weight:700;font-size:1.25rem;font-family:'JetBrains Mono',monospace" id="quickBundlePrice"></span>
                     <span style="color:var(--text-dim);font-size:0.75rem">One-Time Payment</span>
                 </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:0.75rem">
                 <div>
-                    <label for="quickName" style="display:block;color:var(--text-dim);font-size:0.75rem;font-weight:500;margin-bottom:0.375rem">Full Name <span style="color:var(--cyan-bright)">*</span></label>
+                    <label for="quickName" style="display:block;color:var(--text-dim);font-size:0.75rem;font-weight:500;margin-bottom:0.375rem">Full Name <span style="color:#005fe7">*</span></label>
                     <input type="text" id="quickName" placeholder="Your full name" autocomplete="name"
-                        style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(0,200,255,0.15);border-radius:10px;padding:0.75rem 0.875rem;font-size:0.875rem;color:var(--text-white);transition:all 0.3s;box-sizing:border-box;outline:none;font-family:'Inter',sans-serif"
-                        onfocus="this.style.borderColor='rgba(0,200,255,0.5)';this.style.boxShadow='0 0 0 3px rgba(0,200,255,0.12)'"
-                        onblur="this.style.borderColor='rgba(0,200,255,0.15)';this.style.boxShadow='none'">
+                        style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(0,95,231,0.15);border-radius:10px;padding:0.75rem 0.875rem;font-size:0.875rem;color:var(--text-white);transition:all 0.3s;box-sizing:border-box;outline:none;font-family:'Inter',sans-serif"
+                        onfocus="this.style.borderColor='rgba(0,95,231,0.5)';this.style.boxShadow='0 0 0 3px rgba(0,95,231,0.12)'"
+                        onblur="this.style.borderColor='rgba(0,95,231,0.15)';this.style.boxShadow='none'">
                 </div>
                 <div>
-                    <label for="quickEmail" style="display:block;color:var(--text-dim);font-size:0.75rem;font-weight:500;margin-bottom:0.375rem">Email Address <span style="color:var(--cyan-bright)">*</span></label>
+                    <label for="quickEmail" style="display:block;color:var(--text-dim);font-size:0.75rem;font-weight:500;margin-bottom:0.375rem">Email Address <span style="color:#005fe7">*</span></label>
                     <input type="email" id="quickEmail" placeholder="your@email.com" autocomplete="email"
-                        style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(0,200,255,0.15);border-radius:10px;padding:0.75rem 0.875rem;font-size:0.875rem;color:var(--text-white);transition:all 0.3s;box-sizing:border-box;outline:none;font-family:'Inter',sans-serif"
-                        onfocus="this.style.borderColor='rgba(0,200,255,0.5)';this.style.boxShadow='0 0 0 3px rgba(0,200,255,0.12)'"
-                        onblur="this.style.borderColor='rgba(0,200,255,0.15)';this.style.boxShadow='none'">
+                        style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(0,95,231,0.15);border-radius:10px;padding:0.75rem 0.875rem;font-size:0.875rem;color:var(--text-white);transition:all 0.3s;box-sizing:border-box;outline:none;font-family:'Inter',sans-serif"
+                        onfocus="this.style.borderColor='rgba(0,95,231,0.5)';this.style.boxShadow='0 0 0 3px rgba(0,95,231,0.12)'"
+                        onblur="this.style.borderColor='rgba(0,95,231,0.15)';this.style.boxShadow='none'">
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <div style="padding:1rem 1.5rem;border-top:1px solid rgba(0,200,255,0.08);display:flex;justify-content:flex-end;gap:0.75rem">
-            <button onclick="closeQuickCheckout()" style="padding:0.75rem 1.5rem;font-size:0.875rem;font-weight:500;background:rgba(255,255,255,0.04);border:1px solid rgba(0,200,255,0.15);border-radius:10px;color:var(--text-gray);cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif"
+        <div style="padding:1rem 1.5rem;border-top:1px solid rgba(0,95,231,0.08);display:flex;justify-content:flex-end;gap:0.75rem">
+            <button onclick="closeQuickCheckout()" style="padding:0.75rem 1.5rem;font-size:0.875rem;font-weight:500;background:rgba(255,255,255,0.04);border:1px solid rgba(0,95,231,0.15);border-radius:10px;color:var(--text-gray);cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif"
                 onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='var(--text-white)'"
                 onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='var(--text-gray)'">Cancel</button>
-            <button onclick="submitQuickOrder()" id="quickOrderBtn" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.75rem;font-size:0.875rem;font-weight:600;background:var(--gradient-main);border:none;border-radius:9999px;color:#fff;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif"
-                onmouseover="this.style.boxShadow='0 8px 25px rgba(0,200,255,0.3)';this.style.transform='translateY(-1px)'"
+            <button onclick="submitQuickOrder()" id="quickOrderBtn" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.75rem;font-size:0.875rem;font-weight:600;background:linear-gradient(90deg,#005fe7,#ff2d78);border:none;border-radius:9999px;color:#fff;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif"
+                onmouseover="this.style.boxShadow='0 8px 25px rgba(0,95,231,0.3)';this.style.transform='translateY(-1px)'"
                 onmouseout="this.style.boxShadow='none';this.style.transform=''">
                 <svg style="width:1rem;height:1rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 Place Order
@@ -807,7 +861,7 @@
     }
 
     function createParticle() {
-        var colors = ['rgba(0,200,255,', 'rgba(255,45,120,', 'rgba(34,85,255,', 'rgba(0,200,255,', 'rgba(255,45,120,', 'rgba(0,200,255,'];
+        var colors = ['rgba(0,95,231,', 'rgba(255,45,120,', 'rgba(34,85,255,', 'rgba(0,95,231,', 'rgba(255,45,120,', 'rgba(0,95,231,'];
         return {
             x: Math.random() * (w || 1000),
             y: Math.random() * (h || 1000),
@@ -834,7 +888,7 @@
                 if (dist < 14400) {
                     var alpha = (1 - Math.sqrt(dist) / 120) * 0.08;
                     ctx.beginPath();
-                    ctx.strokeStyle = 'rgba(0,200,255,' + alpha + ')';
+                    ctx.strokeStyle = 'rgba(0,95,231,' + alpha + ')';
                     ctx.lineWidth = 0.5;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -1085,7 +1139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         current = Math.max(0, Math.min(index, total - 1));
         if (track) track.style.transform = 'translateX(-' + (current * 100) + '%)';
         dots.forEach(function(d, i) {
-            d.style.background = i === current ? '#00c8ff' : 'rgba(0,200,255,0.2)';
+            d.style.background = i === current ? '#005fe7' : 'rgba(0,95,231,0.2)';
             d.style.width = i === current ? '1.25rem' : '0.5rem';
         });
     }

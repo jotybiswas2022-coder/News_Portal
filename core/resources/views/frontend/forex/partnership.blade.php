@@ -20,17 +20,17 @@
                     Join our partnership program and earn commissions by referring traders to our Expert Advisors. We offer competitive rates and full support.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;animation:fadeInUp 0.6s ease 0.3s both">
-                    <a href="#apply" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00c8ff,#2255ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,200,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                    <a href="#apply" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#005fe7,#2255ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(34,85,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
                         Apply Now
                         <svg style="width:1rem;height:1rem;transition:transform 0.3s" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
-                    <a href="#benefits" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2rem;border:1px solid rgba(0,200,255,0.25);background:rgba(0,200,255,0.04);color:#EAEAEA;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s" onmouseover="this.style.borderColor='#00c8ff';this.style.background='rgba(0,200,255,0.08)';this.style.boxShadow='0 0 20px rgba(0,200,255,0.12)'" onmouseout="this.style.borderColor='rgba(0,200,255,0.25)';this.style.background='rgba(0,200,255,0.04)';this.style.boxShadow='none'">See Benefits</a>
+                    <a href="#benefits" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2rem;border:1px solid rgba(34,85,255,0.25);background:rgba(0,95,231,0.04);color:#EAEAEA;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s" onmouseover="this.style.borderColor='#005fe7';this.style.background='rgba(0,95,231,0.08)';this.style.boxShadow='0 0 20px rgba(34,85,255,0.12)'" onmouseout="this.style.borderColor='rgba(34,85,255,0.25)';this.style.background='rgba(0,95,231,0.04)';this.style.boxShadow='none'">See Benefits</a>
                 </div>
             </div>
             <div style="display:none;animation:fadeInUp 0.6s ease 0.3s both">
                 <style>@media (min-width:1024px){.part-hero-visual{display:flex}}</style>
-                <div class="glass-card" style="padding:3rem;aspect-ratio:1;display:flex;align-items:center;justify-content:center;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);cursor:default" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 0 0 1px rgba(0,200,255,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
-                    <svg style="width:7rem;height:7rem;color:rgba(234,234,234,0.1);transition:all 0.5s" fill="none" stroke="currentColor" viewBox="0 0 24 24" onmouseover="this.style.color='rgba(0,200,255,0.2)'" onmouseout="this.style.color='rgba(234,234,234,0.1)'"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <div class="glass-card" style="padding:3rem;aspect-ratio:1;display:flex;align-items:center;justify-content:center;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);cursor:default" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 0 0 1px rgba(34,85,255,0.15)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+                    <svg style="width:7rem;height:7rem;color:rgba(234,234,234,0.1);transition:all 0.5s" fill="none" stroke="currentColor" viewBox="0 0 24 24" onmouseover="this.style.color='rgba(34,85,255,0.2)'" onmouseout="this.style.color='rgba(234,234,234,0.1)'"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
 
 <!-- ==================== BENEFITS ==================== -->
 <section id="benefits" style="padding-top:6rem;padding-bottom:6rem;position:relative;overflow:hidden">
-    <div class="orb orb-brand" style="position:absolute;top:0;right:0;transform:translate(33%,-33%);opacity:0.04;width:500px;height:500px;border-radius:50%;background:rgba(0,200,255,0.15);filter:blur(100px);pointer-events:none"></div>
+    <div class="orb orb-brand" style="position:absolute;top:0;right:0;transform:translate(33%,-33%);opacity:0.04;width:500px;height:500px;border-radius:50%;background:rgba(34,85,255,0.15);filter:blur(100px);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem">
         <style>
             @media (min-width:640px){.part-px{padding-left:1.5rem;padding-right:1.5rem}}
@@ -56,13 +56,13 @@
 
         <div style="display:grid;gap:1.25rem" class="part-bene-grid">
             <div class="glass-card tilt-card group reveal text-center" style="padding:2rem 1.5rem;cursor:default;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.15)'"
+                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(34,85,255,0.15)'"
                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
                 <div class="tilt-card-inner">
-                    <div style="width:3.5rem;height:3.5rem;margin:0 auto 1rem;border-radius:0.875rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));border:1px solid rgba(0,200,255,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.25),rgba(0,200,255,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05))'">
-                        <svg style="width:1.75rem;height:1.75rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <div style="width:3.5rem;height:3.5rem;margin:0 auto 1rem;border-radius:0.875rem;background:linear-gradient(135deg,rgba(34,85,255,0.15),rgba(0,95,231,0.05));border:1px solid rgba(0,95,231,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.background='linear-gradient(135deg,rgba(34,85,255,0.25),rgba(0,95,231,0.1))'" onmouseout="this.style.transform='scale(1)';this.style.background='linear-gradient(135deg,rgba(34,85,255,0.15),rgba(0,95,231,0.05))'">
+                        <svg style="width:1.75rem;height:1.75rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='#EAEAEA'">High Commission</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#005fe7'" onmouseout="this.style.color='#EAEAEA'">High Commission</h3>
                     <p style="color:rgba(234,234,234,0.5);font-size:0.875rem;line-height:1.625">Earn up to 30% commission on every sale you refer. No caps, no limits.</p>
                 </div>
                 <div class="tilt-card-glow"></div>
@@ -119,13 +119,13 @@
         <div style="display:grid;grid-template-columns:1fr;gap:2rem;margin-bottom:3.5rem">
             <style>@media (min-width:768px){.part-steps{grid-template-columns:repeat(3,1fr)}}</style>
             <div class="glass-card tilt-card group reveal stagger-1" style="text-align:center;padding:2rem 1.5rem;cursor:default;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.15)'"
+                 onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 48px -8px rgba(0,0,0,0.4), 0 0 0 1px rgba(34,85,255,0.15)'"
                  onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
                 <div class="tilt-card-inner">
-                    <div style="width:4rem;height:4rem;margin:0 auto 1rem;border-radius:50%;background:linear-gradient(135deg,#00c8ff,#2255ff);display:flex;align-items:center;justify-content:center;color:white;font-family:'Bebas Neue','Oswald',sans-serif;font-weight:700;font-size:1.5rem;box-shadow:0 0 20px rgba(0,200,255,0.3);position:relative;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 30px rgba(0,200,255,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 20px rgba(0,200,255,0.3)'">
+                    <div style="width:4rem;height:4rem;margin:0 auto 1rem;border-radius:50%;background:linear-gradient(135deg,#005fe7,#2255ff);display:flex;align-items:center;justify-content:center;color:white;font-family:'Bebas Neue','Oswald',sans-serif;font-weight:700;font-size:1.5rem;box-shadow:0 0 20px rgba(34,85,255,0.3);position:relative;transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 30px rgba(34,85,255,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 20px rgba(34,85,255,0.3)'">
                         1
                     </div>
-                    <h3 style="color:#EAEAEA;font-weight:600;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#00c8ff'" onmouseout="this.style.color='#EAEAEA'">Apply</h3>
+                    <h3 style="color:#EAEAEA;font-weight:600;margin-bottom:0.5rem;transition:color 0.3s" onmouseover="this.style.color='#005fe7'" onmouseout="this.style.color='#EAEAEA'">Apply</h3>
                     <p style="color:rgba(234,234,234,0.5);font-size:0.875rem;line-height:1.625">Submit your application with your details and we'll review it promptly.</p>
                 </div>
                 <div class="tilt-card-glow"></div>
@@ -163,7 +163,7 @@
                 <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
                     <table style="width:100%;border-collapse:collapse">
                         <thead>
-                            <tr style="border-bottom:1px solid rgba(0,200,255,0.08);background:#05050f">
+                            <tr style="border-bottom:1px solid rgba(0,95,231,0.08);background:#05050f">
                                 <th style="text-align:left;color:rgba(234,234,234,0.4);font-weight:500;padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em">Tier</th>
                                 <th style="text-align:left;color:rgba(234,234,234,0.4);font-weight:500;padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em">Sales Volume</th>
                                 <th style="text-align:left;color:rgba(234,234,234,0.4);font-weight:500;padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em">Commission</th>
@@ -171,16 +171,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="border-bottom:1px solid rgba(0,200,255,0.08);transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                            <tr style="border-bottom:1px solid rgba(0,95,231,0.08);transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
                                 <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem"><span style="color:#EAEAEA;font-weight:600;display:flex;align-items:center;gap:0.5rem"><span style="width:0.625rem;height:0.625rem;border-radius:50%;background:#f59e0b;display:inline-block"></span>Bronze</span></td>
                                 <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:rgba(234,234,234,0.7)">0-10 sales</td>
-                                <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:#00c8ff;font-weight:600;font-size:1.125rem">20%</td>
+                                <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:#005fe7;font-weight:600;font-size:1.125rem">20%</td>
                                 <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:rgba(234,234,234,0.4);font-size:0.875rem">—</td>
                             </tr>
-                            <tr style="border-bottom:1px solid rgba(0,200,255,0.08);transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                            <tr style="border-bottom:1px solid rgba(0,95,231,0.08);transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
                                 <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem"><span style="color:#EAEAEA;font-weight:600;display:flex;align-items:center;gap:0.5rem"><span style="width:0.625rem;height:0.625rem;border-radius:50%;background:#d1d5db;display:inline-block"></span>Silver</span></td>
                                 <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:rgba(234,234,234,0.7)">11-50 sales</td>
-                                <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:#00c8ff;font-weight:600;font-size:1.125rem">25%</td>
+                                <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:#005fe7;font-weight:600;font-size:1.125rem">25%</td>
                                 <td style="padding-top:1rem;padding-bottom:1rem;padding-left:1.25rem;padding-right:1.25rem;color:#2255ff;font-size:0.875rem;font-weight:500">$100 Welcome</td>
                             </tr>
                             <tr style="transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
@@ -199,7 +199,7 @@
 
 <!-- ==================== APPLY FORM ==================== -->
 <section id="apply" style="padding-top:6rem;padding-bottom:6rem;position:relative;overflow:hidden">
-    <div class="orb orb-profit" style="position:absolute;bottom:0;left:0;transform:translate(33%,33%);opacity:0.03;width:500px;height:500px;border-radius:50%;background:rgba(0,200,255,0.15);filter:blur(100px);pointer-events:none"></div>
+    <div class="orb orb-profit" style="position:absolute;bottom:0;left:0;transform:translate(33%,33%);opacity:0.03;width:500px;height:500px;border-radius:50%;background:rgba(34,85,255,0.15);filter:blur(100px);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:48rem;margin:0 auto;padding-left:1rem;padding-right:1rem">
         <div style="text-align:center;margin-bottom:2.5rem" class="reveal">
             <div class="badge"><span class="badge-dot"></span> Get Started</div>
@@ -208,22 +208,22 @@
         </div>
 
         <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)"
-             onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,200,255,0.12)'"
+             onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,85,255,0.12)'"
              onmouseout="this.style.boxShadow='none'">
             <style>@media (min-width:640px){.part-form-p{padding:2rem}}
             .part-input{width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:0.875rem 1rem;font-size:0.875rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box}
-            .part-input:focus{border-color:#00c8ff;box-shadow:0 0 0 3px rgba(0,200,255,0.15);outline:none}
+            .part-input:focus{border-color:#005fe7;box-shadow:0 0 0 3px rgba(34,85,255,0.15);outline:none}
             .part-label{display:block;color:rgba(234,234,234,0.6);font-size:0.75rem;font-weight:500;margin-bottom:0.375rem;text-transform:uppercase;letter-spacing:0.05em}
             </style>
             <form id="partnerForm" style="display:flex;flex-direction:column;gap:1.25rem" onsubmit="return handlePartnerSubmit(event)">
                 <div style="display:grid;grid-template-columns:1fr;gap:1.25rem">
                     <style>@media (min-width:640px){.part-form-grid{grid-template-columns:repeat(2,1fr)}}</style>
                     <div>
-                        <label class="part-label">Full Name <span style="color:#00c8ff">*</span></label>
+                        <label class="part-label">Full Name <span style="color:#005fe7">*</span></label>
                         <input type="text" name="name" required class="part-input" placeholder="Your full name">
                     </div>
                     <div>
-                        <label class="part-label">Email Address <span style="color:#00c8ff">*</span></label>
+                        <label class="part-label">Email Address <span style="color:#005fe7">*</span></label>
                         <input type="email" name="email" required class="part-input" placeholder="your@email.com">
                     </div>
                 </div>
@@ -235,7 +235,7 @@
                     <label class="part-label">Message</label>
                     <textarea name="message" rows="4" class="part-input" style="resize:none" placeholder="Tell us about yourself and your audience..."></textarea>
                 </div>
-                <button type="submit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00c8ff,#2255ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,200,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                <button type="submit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#005fe7,#2255ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(34,85,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
                     <svg style="width:1rem;height:1rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Submit Application
                 </button>

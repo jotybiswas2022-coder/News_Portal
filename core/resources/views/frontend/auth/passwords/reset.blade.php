@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#0D0D0D">
+    <meta name="theme-color" content="#05050f">
     <meta name="color-scheme" content="dark">
     <title>Set New Password — SMART BINARY ZONE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,9 +32,9 @@
     {{-- Decorative Bubbles --}}
     <div class="de-bubble de-bubble-1">
         <div class="de-bubble-inner">
-            <span class="de-bubble-dot" style="--clr:#00AEEF;"></span>
-            <span class="de-bubble-dot" style="--clr:#00FF9F;"></span>
-            <span class="de-bubble-dot" style="--clr:#0095CC;"></span>
+            <span class="de-bubble-dot" style="--clr:#005fe7;"></span>
+            <span class="de-bubble-dot" style="--clr:#ff2d78;"></span>
+            <span class="de-bubble-dot" style="--clr:#2255ff;"></span>
         </div>
     </div>
     <div class="de-bubble de-bubble-2">
@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="de-bubble de-bubble-3">
-        <i class="bi bi-shield-check" style="color:#00AEEF;font-size:16px;"></i>
+        <i class="bi bi-shield-check" style="color:#005fe7;font-size:16px;"></i>
         <span>256-bit encrypted</span>
     </div>
 
@@ -63,7 +63,11 @@
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                         </svg>
                     </div>
-                    <span class="de-logo-text">SMART BINARY ZONE</span>
+                    <span class="de-logo-text">
+                        <span style="color:#ffffff">SMART</span>
+                        <span style="background:linear-gradient(180deg,#6b9fff,#005fe7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"> BINARY</span>
+                        <span style="background:linear-gradient(180deg,#ff7aad,#ff2d78);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"> ZONE</span>
+                    </span>
                 </a>
 
                 <p class="de-tagline">Almost there! Choose a strong new password to continue trading.</p>
@@ -210,6 +214,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+// ===================== SWEETALERT2 DEFAULTS (Dark auth teal theme) =====================
+Swal.setDefaults({
+    background: '#05050f',
+    color: '#EAEAEA',
+    confirmButtonColor: '#005fe7',
+    cancelButtonColor: '#64748b',
+    iconColor: '#005fe7',
+    buttonsStyling: true,
+    reverseButtons: true,
+    customClass: {
+        popup: 'swal-auth-popup',
+        confirmButton: 'swal-auth-confirm',
+        cancelButton: 'swal-auth-cancel'
+    }
+});
+</script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
@@ -322,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (inp && ico) {
             inp.addEventListener('focus', function() {
                 w.classList.add('de-iw-focus');
-                ico.style.color = '#00AEEF';
+                ico.style.color = '#005fe7';
                 ico.style.transform = 'translateY(-50%) scale(1.15)';
             });
             inp.addEventListener('blur', function() {
@@ -348,9 +369,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     icon: 'error',
                     title: 'Passwords Don\'t Match',
                     text: 'Please make sure your passwords match before submitting.',
-                    background: '#181818',
+                    background: '#05050f',
                     color: '#EAEAEA',
-                    confirmButtonColor: '#00AEEF',
+                    confirmButtonColor: '#005fe7',
                     confirmButtonText: 'Fix it',
                     iconColor: '#ef4444',
                 });
@@ -400,18 +421,18 @@ document.addEventListener('DOMContentLoaded', function() {
 * { margin:0; padding:0; box-sizing:border-box; }
 
 .de-page {
-    --brand: #00AEEF;
-    --brand-light: #33C4F5;
-    --brand-dark: #0095CC;
-    --accent: #00FF9F;
-    --bg: #0D0D0D;
-    --card-bg: rgba(17,17,17,0.6);
+    --brand: #005fe7;
+    --brand-light: #2255ff;
+    --brand-dark: #005fe7;
+    --accent: #ff2d78;
+    --bg: #05050f;
+    --card-bg: rgba(5,5,15,0.6);
     --card-border: rgba(255,255,255,0.06);
     --text: #EAEAEA;
     --text-muted: rgba(234,234,234,0.5);
-    --input-bg: rgba(10,10,10,0.8);
+    --input-bg: rgba(5,5,15,0.8);
     --input-border: rgba(255,255,255,0.08);
-    --input-focus: rgba(0,174,239,0.15);
+    --input-focus: rgba(0,95,231,0.15);
     --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading: 'Bebas Neue', 'Oswald', sans-serif;
 
@@ -433,25 +454,25 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 .de-orb-1 {
     width: 550px; height: 550px;
-    background: radial-gradient(circle, rgba(0,174,239,0.1), transparent 70%);
+    background: radial-gradient(circle, rgba(34,85,255,0.1), transparent 70%);
     top: -180px; left: -120px;
     animation: de-o1 14s ease-in-out infinite;
 }
 .de-orb-2 {
     width: 450px; height: 450px;
-    background: radial-gradient(circle, rgba(0,255,159,0.06), transparent 70%);
+    background: radial-gradient(circle, rgba(255,45,120,0.06), transparent 70%);
     bottom: -120px; right: -80px;
     animation: de-o2 16s ease-in-out infinite;
 }
 .de-orb-3 {
     width: 350px; height: 350px;
-    background: radial-gradient(circle, rgba(0,174,239,0.07), transparent 70%);
+    background: radial-gradient(circle, rgba(34,85,255,0.07), transparent 70%);
     top: 40%; left: 50%;
     animation: de-o3 18s ease-in-out infinite;
 }
 .de-orb-4 {
     width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(0,174,239,0.04), transparent 70%);
+    background: radial-gradient(circle, rgba(34,85,255,0.04), transparent 70%);
     bottom: 15%; left: 20%;
     animation: de-o1 22s ease-in-out infinite reverse;
 }
@@ -527,8 +548,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .de-badge {
     display:inline-flex; align-items:center; gap:6px;
-    padding:5px 12px; background:rgba(0,174,239,0.1);
-    border:1px solid rgba(0,174,239,0.15); border-radius:999px;
+    padding:5px 12px; background:rgba(34,85,255,0.1);
+    border:1px solid rgba(34,85,255,0.15); border-radius:999px;
     font-size:0.78rem; font-weight:600; color:var(--brand-light);
     margin-bottom:20px; letter-spacing:0.3px;
 }
@@ -537,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
     background:var(--accent);
     animation:de-pulse 2s ease-in-out infinite;
 }
-@keyframes de-pulse { 0%,100% { box-shadow:0 0 0 0 rgba(0,255,159,0.6); } 50% { box-shadow:0 0 0 5px rgba(0,255,159,0); } }
+@keyframes de-pulse { 0%,100% { box-shadow:0 0 0 0 rgba(255,45,120,0.6); } 50% { box-shadow:0 0 0 5px rgba(255,45,120,0); } }
 
 .de-logo {
     display:flex; align-items:center; gap:10px;
@@ -547,15 +568,13 @@ document.addEventListener('DOMContentLoaded', function() {
     width:44px; height:44px; display:flex; align-items:center; justify-content:center;
     background:linear-gradient(135deg,var(--brand),var(--brand-dark));
     border-radius:12px; color:#fff;
-    box-shadow:0 6px 20px rgba(0,174,239,0.3);
+    box-shadow:0 6px 20px rgba(34,85,255,0.3);
 }
 .de-logo-icon svg { width:22px; height:22px; }
 .de-logo-text {
     font-family:var(--font-heading);
     font-size:2rem; font-weight:700;
-    background:linear-gradient(135deg,var(--brand-light),var(--brand));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-    background-clip:text; letter-spacing:-0.5px;
+    letter-spacing:-0.5px;
 }
 .de-tagline {
     font-size:1.05rem; color:var(--text-muted); margin-bottom:28px; line-height:1.6;
@@ -590,12 +609,12 @@ document.addEventListener('DOMContentLoaded', function() {
     top:var(--my); left:var(--mx);
     transform:translate(-50%,-50%);
     width:350px; height:350px;
-    background:radial-gradient(circle,rgba(0,174,239,0.06),transparent 70%);
+    background:radial-gradient(circle,rgba(34,85,255,0.06),transparent 70%);
     border-radius:50%; pointer-events:none; z-index:0;
     transition:all 0.3s ease;
 }
 .de-card:hover {
-    border-color:rgba(0,174,239,0.12);
+    border-color:rgba(34,85,255,0.12);
     box-shadow:0 20px 60px rgba(0,0,0,0.4);
     transform:translateY(-2px);
 }
@@ -603,8 +622,8 @@ document.addEventListener('DOMContentLoaded', function() {
 .de-card-hd { text-align:center; margin-bottom:28px; position:relative; z-index:1; }
 .de-card-ico {
     width:52px; height:52px; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg,rgba(0,174,239,0.15),rgba(0,174,239,0.05));
-    border:1px solid rgba(0,174,239,0.15); border-radius:14px;
+    background:linear-gradient(135deg,rgba(34,85,255,0.15),rgba(34,85,255,0.05));
+    border:1px solid rgba(34,85,255,0.15); border-radius:14px;
     margin:0 auto 14px; font-size:1.4rem; color:var(--brand-light);
     animation:de-ico-pulse 3s ease-in-out infinite;
 }
@@ -644,7 +663,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .de-err { border-color:#ef4444 !important; }
 .de-glow {
     position:absolute; inset:0; border-radius:12px;
-    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,174,239,0.08),transparent 60%);
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(34,85,255,0.08),transparent 60%);
     pointer-events:none; opacity:0; transition:opacity 0.3s ease; z-index:0;
 }
 .de-iw-focus .de-glow { opacity:1; }
@@ -701,9 +720,9 @@ document.addEventListener('DOMContentLoaded', function() {
     display:flex; align-items:center; justify-content:center; gap:8px;
     position:relative; overflow:hidden;
     transition:all 0.4s cubic-bezier(.16,1,.3,1);
-    box-shadow:0 4px 16px rgba(0,174,239,0.3);
+    box-shadow:0 4px 16px rgba(34,85,255,0.3);
 }
-.de-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,174,239,0.4); }
+.de-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(34,85,255,0.4); }
 .de-btn:active { transform:translateY(0); }
 .de-btn:disabled { opacity:0.7; cursor:not-allowed; transform:none; }
 .de-btn-shine {
@@ -772,6 +791,53 @@ document.addEventListener('DOMContentLoaded', function() {
 ::-webkit-scrollbar-track { background:var(--bg); }
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08); border-radius:3px; }
 ::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,0.12); }
+
+/* ===== SWEETALERT2 OVERRIDES (Dark auth teal) ===== */
+.swal-auth2-popup {
+    background: #0D0D0D !important;
+    border: 1px solid rgba(34,85,255,0.15) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important;
+    font-family: var(--font) !important;
+}
+.swal-auth2-popup .swal2-title { color: #EAEAEA !important; font-weight: 700 !important; }
+.swal-auth2-popup .swal2-html-container { color: rgba(234,234,234,0.5) !important; }
+.swal-auth2-confirm {
+    background: linear-gradient(135deg, #005fe7, #2255ff) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 15px rgba(34,85,255,0.3) !important;
+    transition: all 0.3s ease !important;
+}
+.swal-auth2-confirm:hover {
+    box-shadow: 0 6px 25px rgba(34,85,255,0.5) !important;
+    transform: translateY(-1px) !important;
+}
+.swal-auth2-cancel {
+    background: rgba(255,255,255,0.04) !important;
+    color: rgba(234,234,234,0.5) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    padding: 10px 24px !important;
+    transition: all 0.3s ease !important;
+}
+.swal-auth2-cancel:hover {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+}
+.swal2-toast.swal-auth2-popup {
+    background: #0D0D0D !important;
+    border: 1px solid rgba(34,85,255,0.2) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+}
+.swal2-toast .swal2-timer-progress-bar {
+    background: linear-gradient(90deg, #005fe7, #2255ff) !important;
+    height: 3px !important;
+}
+.swal2-icon { border-color: rgba(34,85,255,0.2) !important; }
 </style>
 </body>
 </html>

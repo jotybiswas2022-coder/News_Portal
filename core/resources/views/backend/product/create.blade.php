@@ -81,6 +81,14 @@
                         </div>
 
                         <div class="prod-fg">
+                            <label class="prod-label">Download Link</label>
+                            <input type="url" name="download_link" class="prod-input" value="{{ old('download_link', $product->download_link ?? '') }}"
+                                placeholder="e.g. https://example.com/download/product.zip">
+                            <span class="prod-hint">Direct URL for users to download the product after purchase</span>
+                            @error('download_link') <span class="prod-err">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="prod-fg">
                             <label class="prod-label">Product Image</label>
                             <div class="prod-img-upload" id="imgUploadArea">
                                 <input type="file" name="image" id="prodImage" accept="image/jpeg,image/png,image/webp" style="display:none">

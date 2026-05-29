@@ -37,6 +37,10 @@ Route::get('/order/success/{order?}', [OrderController::class, 'success'])->name
 Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('forex.my-orders')->middleware('auth');
 Route::get('/my-partnership', [ForexController::class, 'myPartnership'])->name('forex.my-partnership')->middleware('auth');
 
+// Notification routes
+Route::get('/notification/{id}/read', [OrderController::class, 'markNotificationRead'])->name('notification.read')->middleware('auth');
+Route::post('/notifications/read-all', [OrderController::class, 'markAllNotificationsRead'])->name('notification.read-all')->middleware('auth');
+
 // Profile routes
 use App\Http\Controllers\ProfileController;
 Route::get('/profile', [ProfileController::class, 'show'])->name('forex.profile')->middleware('auth');

@@ -11,7 +11,7 @@
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>
     <div class="scd-bg-grid" style="position:absolute;inset:0;opacity:0.03;pointer-events:none"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,200,255,0.02) 100%);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,95,231,0.02) 100%);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem;text-align:center;width:100%">
         <div class="badge animate-fade-in-up" style="margin-bottom:1.5rem"><span class="badge-dot"></span> Premium Trading Tools</div>
         <h1 style="font-family:'Bebas Neue','Oswald',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:700;color:#EAEAEA;margin-bottom:1rem;animation:fadeInUp 0.6s ease 0.1s both;line-height:1.1">
@@ -21,12 +21,12 @@
             Discover our collection of professional-grade Expert Advisors — built for performance, backed by data.
         </p>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;animation:fadeInUp 0.6s ease 0.3s both">
-            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1.25rem;background:rgba(0,200,255,0.04);border:1px solid rgba(0,200,255,0.1);border-radius:9999px;font-size:0.8125rem;color:rgba(234,234,234,0.5);transition:all 0.3s">
-                <svg style="width:1rem;height:1rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1.25rem;background:rgba(0,95,231,0.04);border:1px solid rgba(0,95,231,0.1);border-radius:9999px;font-size:0.8125rem;color:rgba(234,234,234,0.5);transition:all 0.3s">
+                <svg style="width:1rem;height:1rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span><strong style="color:#EAEAEA;font-weight:600">{{ $products->total() }}</strong> Products Available</span>
             </div>
             <a href="#products-grid" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.5rem 1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:9999px;font-size:0.8125rem;color:rgba(234,234,234,0.5);transition:all 0.3s" 
-               onmouseover="this.style.borderColor='rgba(0,200,255,0.2)';this.style.color='#EAEAEA'" 
+               onmouseover="this.style.borderColor='rgba(34,85,255,0.2)';this.style.color='#EAEAEA'" 
                onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.color='rgba(234,234,234,0.5)'">
                 Browse All
                 <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
@@ -37,24 +37,24 @@
 
 <!-- ==================== PRODUCTS GRID ==================== -->
 <section id="products-grid" style="padding-top:1rem;padding-bottom:6rem;position:relative;overflow:hidden">
-    <div class="orb orb-brand" style="position:absolute;top:0;left:0;transform:translate(-50%,-50%);opacity:0.04;width:500px;height:500px;border-radius:50%;background:rgba(0,200,255,0.15);filter:blur(100px);pointer-events:none"></div>
+    <div class="orb orb-brand" style="position:absolute;top:0;left:0;transform:translate(-50%,-50%);opacity:0.04;width:500px;height:500px;border-radius:50%;background:rgba(34,85,255,0.15);filter:blur(100px);pointer-events:none"></div>
     <div style="position:relative;z-index:10;max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem">
         <style>
             .prod-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
             @media (min-width:640px){.prod-grid{grid-template-columns:repeat(2,1fr)}}
             @media (min-width:1024px){.prod-grid{grid-template-columns:repeat(3,1fr)}}
             .prod-card-img{width:100%;height:220px;object-fit:cover;background:#1a1a1a;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-            .prod-card-price{font-size:1.375rem;font-weight:700;background:linear-gradient(135deg,#00c8ff,#ff2d78);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+            .prod-card-price{font-size:1.375rem;font-weight:700;background:linear-gradient(135deg,#005fe7,#ff2d78);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
             .prod-card-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
             .prod-meta-item{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:rgba(234,234,234,0.4);padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);transition:all 0.3s}
-            .prod-meta-item:hover{background:rgba(0,200,255,0.04);border-color:rgba(0,200,255,0.1);color:rgba(234,234,234,0.6)}
+            .prod-meta-item:hover{background:rgba(0,95,231,0.04);border-color:rgba(0,95,231,0.1);color:rgba(234,234,234,0.6)}
             /* Pagination styling */
             .prod-pagination nav {display:flex;justify-content:center}
             .prod-pagination .pagination {display:flex;gap:0.375rem;list-style:none;padding:0;margin:0;flex-wrap:wrap;justify-content:center}
             .prod-pagination .page-item {margin:0}
             .prod-pagination .page-link {display:flex;align-items:center;justify-content:center;min-width:2.25rem;height:2.25rem;padding:0 0.625rem;border-radius:0.625rem;background:rgba(5,5,15,0.6);border:1px solid rgba(255,255,255,0.06);color:rgba(234,234,234,0.5);font-size:0.8125rem;font-weight:500;transition:all 0.3s;text-decoration:none}
-            .prod-pagination .page-link:hover {border-color:rgba(0,200,255,0.2);color:#EAEAEA;background:rgba(0,200,255,0.06)}
-            .prod-pagination .page-item.active .page-link {background:linear-gradient(135deg,#00c8ff,#0099ff);border-color:#00c8ff;color:white;box-shadow:0 4px 15px rgba(0,200,255,0.2)}
+            .prod-pagination .page-link:hover {border-color:rgba(34,85,255,0.2);color:#EAEAEA;background:rgba(0,95,231,0.06)}
+            .prod-pagination .page-item.active .page-link {background:linear-gradient(135deg,#005fe7,#2255ff);border-color:#005fe7;color:white;box-shadow:0 4px 15px rgba(34,85,255,0.2)}
             .prod-pagination .page-item.disabled .page-link {opacity:0.3;cursor:default;pointer-events:none}
         </style>
 
@@ -67,7 +67,7 @@
             <div style="display:flex;align-items:center;gap:0.5rem">
                 <span style="color:rgba(234,234,234,0.3);font-size:0.75rem">Sort by:</span>
                 <span style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.375rem 0.75rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:0.5rem;font-size:0.75rem;color:rgba(234,234,234,0.5);cursor:pointer;transition:all 0.3s"
-                      onmouseover="this.style.borderColor='rgba(0,200,255,0.2)';this.style.color='#EAEAEA'"
+                      onmouseover="this.style.borderColor='rgba(34,85,255,0.2)';this.style.color='#EAEAEA'"
                       onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.color='rgba(234,234,234,0.5)'">
                     Latest
                     <svg style="width:0.75rem;height:0.75rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -80,7 +80,7 @@
             @php
                 $plans = $product->plans ?? [];
                 $minPrice = collect($plans)->min('price');
-                $colors = [['from'=>'#00c8ff','to'=>'#0099ff'],['from'=>'#ff2d78','to'=>'#ff00aa'],['from'=>'#A855F7','to'=>'#7C3AED'],['from'=>'#F59E0B','to'=>'#D97706'],['from'=>'#EF4444','to'=>'#DC2626']];
+                $colors = [['from'=>'#005fe7','to'=>'#2255ff'],['from'=>'#ff2d78','to'=>'#ff00aa'],['from'=>'#A855F7','to'=>'#7C3AED'],['from'=>'#F59E0B','to'=>'#D97706'],['from'=>'#EF4444','to'=>'#DC2626']];
                 $c = $colors[$loop->index % count($colors)];
             @endphp
             <div style="text-decoration:none;color:inherit;display:block;transition-delay:{{ $loop->index * 0.06 }}s" class="reveal prod-card-link" onclick="var t=event.target; while(t){if(t.classList&&t.classList.contains('prod-atc-btn'))return; t=t.parentNode} window.location.href='{{ route('forex.product-detail', $product->slug) }}'">
@@ -159,20 +159,20 @@
         @else
         <!-- Empty State -->
         <div style="text-align:center;padding:5rem 0;max-width:32rem;margin:0 auto">
-            <div style="width:5.5rem;height:5.5rem;margin:0 auto 1.5rem;border-radius:1rem;background:rgba(0,200,255,0.04);border:1px solid rgba(0,200,255,0.08);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)">
-                <svg style="width:2.5rem;height:2.5rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <div style="width:5.5rem;height:5.5rem;margin:0 auto 1.5rem;border-radius:1rem;background:rgba(0,95,231,0.04);border:1px solid rgba(0,95,231,0.08);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)">
+                <svg style="width:2.5rem;height:2.5rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </div>
             <h3 style="color:#EAEAEA;font-size:1.375rem;font-weight:600;margin:0 0 0.5rem 0;font-family:'Bebas Neue','Oswald',sans-serif">Coming Soon</h3>
             <p style="color:rgba(234,234,234,0.4);font-size:0.875rem;line-height:1.6;margin:0 0 1.5rem 0">Our Expert Advisors are being carefully prepared. Check back soon for premium trading solutions that deliver real results.</p>
             <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem">
-                <a href="{{ route('forex.free-eas') }}" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:linear-gradient(135deg,#00c8ff,#0099ff);color:white;font-weight:600;font-size:0.8125rem;border-radius:0.625rem;transition:all 0.3s;text-decoration:none"
-                   onmouseover="this.style.boxShadow='0 8px 25px rgba(0,200,255,0.2)';this.style.transform='translateY(-2px)'"
+                <a href="{{ route('forex.free-eas') }}" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:linear-gradient(135deg,#005fe7,#2255ff);color:white;font-weight:600;font-size:0.8125rem;border-radius:0.625rem;transition:all 0.3s;text-decoration:none"
+                   onmouseover="this.style.boxShadow='0 8px 25px rgba(34,85,255,0.2)';this.style.transform='translateY(-2px)'"
                    onmouseout="this.style.boxShadow='none';this.style.transform='none'">
                     Try Free EAs
                     <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
                 <a href="{{ route('forex.contact-us') }}" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:rgba(234,234,234,0.6);font-weight:500;font-size:0.8125rem;border-radius:0.625rem;transition:all 0.3s;text-decoration:none"
-                   onmouseover="this.style.borderColor='rgba(0,200,255,0.2)';this.style.color='#EAEAEA'"
+                   onmouseover="this.style.borderColor='rgba(34,85,255,0.2)';this.style.color='#EAEAEA'"
                    onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.color='rgba(234,234,234,0.6)'">
                     Contact Us
                 </a>

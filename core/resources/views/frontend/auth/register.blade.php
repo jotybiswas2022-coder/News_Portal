@@ -32,9 +32,9 @@
     {{-- Decorative Bubbles --}}
     <div class="de-bubble de-bubble-1">
         <div class="de-bubble-inner">
-            <span class="de-bubble-dot" style="--clr:#00c8ff;"></span>
+            <span class="de-bubble-dot" style="--clr:#005fe7;"></span>
             <span class="de-bubble-dot" style="--clr:#ff2d78;"></span>
-            <span class="de-bubble-dot" style="--clr:#0099ff;"></span>
+            <span class="de-bubble-dot" style="--clr:#2255ff;"></span>
         </div>
     </div>
     <div class="de-bubble de-bubble-2">
@@ -63,7 +63,11 @@
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                         </svg>
                     </div>
-                    <span class="de-logo-text"><span style="color:#ffffff">SMART</span> <span style="color:#00c8ff">BINARY</span> <span style="color:#ff2d78">ZONE</span></span>
+                    <span class="de-logo-text">
+                        <span style="color:#ffffff">SMART</span>
+                        <span style="background:linear-gradient(180deg,#6b9fff,#005fe7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"> BINARY</span>
+                        <span style="background:linear-gradient(180deg,#ff7aad,#ff2d78);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"> ZONE</span>
+                    </span>
                 </a>
 
                 <p class="de-tagline">Start trading smarter.</p>
@@ -96,9 +100,9 @@
                 {{-- Social Proof --}}
                 <div class="de-social-proof">
                     <div class="de-sp-avatars">
-                        <div class="de-sp-av" style="background:#00c8ff;">M</div>
+                        <div class="de-sp-av" style="background:#005fe7;">M</div>
                         <div class="de-sp-av" style="background:#ff2d78;margin-left:-12px;">K</div>
-                        <div class="de-sp-av" style="background:#0099ff;margin-left:-12px;">J</div>
+                        <div class="de-sp-av" style="background:#2255ff;margin-left:-12px;">J</div>
                     </div>
                     <div class="de-sp-text">
                         <span>Join <strong>1M+</strong> traders already earning with SMART BINARY ZONE!</span>
@@ -243,7 +247,7 @@
 
                     {{-- Social --}}
                     <div class="de-social">
-                        <button type="button" class="de-soc de-soc-g" onclick="Swal.fire({icon:'info',title:'Coming Soon',text:'Google signup coming soon!',background:'#05050f',color:'#EAEAEA',confirmButtonColor:'#00c8ff'})">
+                        <button type="button" class="de-soc de-soc-g" onclick="Swal.fire({icon:'info',title:'Coming Soon',text:'Google signup coming soon!',background:'#05050f',color:'#EAEAEA',confirmButtonColor:'#005fe7'})">
                             <svg viewBox="0 0 24 24" width="18" height="18">
                                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
                                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -252,7 +256,7 @@
                             </svg>
                             Google
                         </button>
-                        <button type="button" class="de-soc de-soc-gh" onclick="Swal.fire({icon:'info',title:'Coming Soon',text:'GitHub signup coming soon!',background:'#05050f',color:'#EAEAEA',confirmButtonColor:'#00c8ff'})">
+                        <button type="button" class="de-soc de-soc-gh" onclick="Swal.fire({icon:'info',title:'Coming Soon',text:'GitHub signup coming soon!',background:'#05050f',color:'#EAEAEA',confirmButtonColor:'#005fe7'})">
                             <i class="bi bi-github"></i>
                             GitHub
                         </button>
@@ -279,6 +283,23 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// ===================== SWEETALERT2 DEFAULTS (Dark auth blue theme) =====================
+Swal.setDefaults({
+    background: '#05050f',
+    color: '#EAEAEA',
+    confirmButtonColor: '#005fe7',
+    cancelButtonColor: '#4a5568',
+    iconColor: '#005fe7',
+    buttonsStyling: true,
+    reverseButtons: true,
+    customClass: {
+        popup: 'swal-auth-popup',
+        confirmButton: 'swal-auth-confirm',
+        cancelButton: 'swal-auth-cancel'
+    }
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
@@ -397,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (inp && ico) {
             inp.addEventListener('focus', function() {
                 w.classList.add('de-iw-focus');
-                ico.style.color = '#00c8ff';
+                ico.style.color = '#005fe7';
                 ico.style.transform = 'translateY(-50%) scale(1.15)';
             });
             inp.addEventListener('blur', function() {
@@ -423,10 +444,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     icon: 'error',
                     title: 'Passwords Don\'t Match',
                     text: 'Please make sure your passwords match before submitting.',
-                background: '#05050f',
-                color: '#EAEAEA',
-                confirmButtonColor: '#00c8ff',
-                confirmButtonText: 'Fix it',
+                    background: '#05050f',
+                    color: '#EAEAEA',
+                    confirmButtonColor: '#005fe7',
+                    confirmButtonText: 'Fix it',
                     iconColor: '#ef4444',
                 });
                 return;
@@ -439,10 +460,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     icon: 'warning',
                     title: 'Weak Password',
                     text: 'Please use at least 8 characters for a stronger password.',
-                background: '#05050f',
-                color: '#EAEAEA',
-                confirmButtonColor: '#00c8ff',
-                confirmButtonText: 'OK',
+                    background: '#05050f',
+                    color: '#EAEAEA',
+                    confirmButtonColor: '#005fe7',
+                    confirmButtonText: 'OK',
                     iconColor: '#f59e0b',
                 });
                 return;
@@ -455,9 +476,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Terms & Conditions',
-                    text: 'Please agree to the Terms of Service and Privacy Policy to continue.',                    background: '#05050f',
-                color: '#EAEAEA',
-                confirmButtonColor: '#00c8ff',
+                    text: 'Please agree to the Terms of Service and Privacy Policy to continue.',
+                    background: '#05050f',
+                    color: '#EAEAEA',
+                    confirmButtonColor: '#005fe7',
                     confirmButtonText: 'I agree',
                     iconColor: '#f59e0b',
                 });
@@ -492,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: Array.isArray(errs) ? errs.join('\n') : errInput.value,
                 background: '#05050f',
                 color: '#EAEAEA',
-                confirmButtonColor: '#00c8ff',
+                confirmButtonColor: '#005fe7',
                 confirmButtonText: 'Try Again',
                 iconColor: '#ef4444',
             });
@@ -505,9 +527,9 @@ document.addEventListener('DOMContentLoaded', function() {
             icon: 'success',
             title: 'Success',
             text: sucInput.value,
-            background: '#181818',
+            background: '#05050f',
             color: '#EAEAEA',
-            confirmButtonColor: '#00c8ff',
+            confirmButtonColor: '#005fe7',
             timer: 3000,
             timerProgressBar: true,
             iconColor: '#22c55e',
@@ -542,11 +564,11 @@ document.addEventListener('DOMContentLoaded', function() {
 * { margin:0; padding:0; box-sizing:border-box; }
 
 .de-page {
-    --brand: #00c8ff;
-    --brand-light: #0099ff;
-    --brand-dark: #00c8ff;
+    --brand: #005fe7;
+    --brand-light: #2255ff;
+    --brand-dark: #005fe7;
     --accent: #ff2d78;
-    --accent-glow: #ff00aa;
+    --accent-glow: #ff1177;
     --blue-edge: #2255ff;
     --pink-edge: #ff1177;
     --bg: #05050f;
@@ -556,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
     --text-muted: rgba(234,234,234,0.5);
     --input-bg: rgba(5,5,15,0.8);
     --input-border: rgba(255,255,255,0.08);
-    --input-focus: rgba(0,200,255,0.15);
+    --input-focus: rgba(0,95,231,0.15);
     --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading: 'Bebas Neue', 'Oswald', sans-serif;
 
@@ -578,7 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 .de-orb-1 {
     width: 550px; height: 550px;
-    background: radial-gradient(circle, rgba(0,200,255,0.15), transparent 70%);
+    background: radial-gradient(circle, rgba(34,85,255,0.15), transparent 70%);
     top: -180px; left: -120px;
     animation: de-o1 14s ease-in-out infinite;
 }
@@ -672,8 +694,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .de-badge {
     display:inline-flex; align-items:center; gap:6px;
-    padding:5px 12px; background:rgba(0,200,255,0.1);
-    border:1px solid rgba(0,200,255,0.15); border-radius:999px;
+    padding:5px 12px; background:rgba(0,95,231,0.1);
+    border:1px solid rgba(0,95,231,0.15); border-radius:999px;
     font-size:0.78rem; font-weight:600; color:var(--brand-light);
     margin-bottom:20px; letter-spacing:0.3px;
 }
@@ -692,7 +714,7 @@ document.addEventListener('DOMContentLoaded', function() {
     width:44px; height:44px; display:flex; align-items:center; justify-content:center;
     background:linear-gradient(135deg,var(--brand),var(--brand-dark));
     border-radius:12px; color:#fff;
-    box-shadow:0 6px 20px rgba(0,200,255,0.3);
+    box-shadow:0 6px 20px rgba(34,85,255,0.3);
 }
 .de-logo-icon svg { width:22px; height:22px; }
 .de-logo-text {
@@ -719,7 +741,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 .de-benefit-icon {
     width:38px; height:38px; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));
+    background:linear-gradient(135deg,rgba(0,95,231,0.15),rgba(0,95,231,0.05));
     border-radius:10px; font-size:1.15rem; color:var(--brand-light); flex-shrink:0;
 }
 .de-benefit-info { display:flex; flex-direction:column; gap:2px; }
@@ -761,13 +783,13 @@ document.addEventListener('DOMContentLoaded', function() {
     top:var(--my); left:var(--mx);
     transform:translate(-50%,-50%);
     width:350px; height:350px;
-    background:radial-gradient(circle,rgba(0,200,255,0.06),transparent 70%);
+    background:radial-gradient(circle,rgba(34,85,255,0.06),transparent 70%);
     border-radius:50%; pointer-events:none; z-index:0;
     transition:all 0.3s ease;
 }
 .de-card:hover {
-    border-color:rgba(0,200,255,0.12);
-    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    border-color:rgba(34,85,255,0.12);
+    box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(34,85,255,0.06), 0 0 60px rgba(255,17,119,0.03);
     transform:translateY(-2px);
 }
 
@@ -775,8 +797,8 @@ document.addEventListener('DOMContentLoaded', function() {
 .de-card-hd { text-align:center; margin-bottom:28px; position:relative; z-index:1; }
 .de-card-ico {
     width:52px; height:52px; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));
-    border:1px solid rgba(0,200,255,0.15); border-radius:14px;
+    background:linear-gradient(135deg,rgba(0,95,231,0.15),rgba(0,95,231,0.05));
+    border:1px solid rgba(0,95,231,0.15); border-radius:14px;
     margin:0 auto 14px; font-size:1.4rem; color:var(--brand-light);
     animation:de-ico-pulse 3s ease-in-out infinite;
 }
@@ -817,7 +839,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .de-err { border-color:#ef4444 !important; }
 .de-glow {
     position:absolute; inset:0; border-radius:12px;
-    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,200,255,0.08),transparent 60%);
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(34,85,255,0.08),transparent 60%);
     pointer-events:none; opacity:0; transition:opacity 0.3s ease; z-index:0;
 }
 .de-iw-focus .de-glow { opacity:1; }
@@ -892,9 +914,9 @@ document.addEventListener('DOMContentLoaded', function() {
     display:flex; align-items:center; justify-content:center; gap:8px;
     position:relative; overflow:hidden;
     transition:all 0.4s cubic-bezier(.16,1,.3,1);
-    box-shadow:0 4px 16px rgba(0,200,255,0.3);
+    box-shadow:0 4px 16px rgba(34,85,255,0.3);
 }
-.de-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,200,255,0.4); }
+.de-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(34,85,255,0.4); }
 .de-btn:active { transform:translateY(0); }
 .de-btn:disabled { opacity:0.7; cursor:not-allowed; transform:none; }
 .de-btn-shine {
@@ -983,6 +1005,53 @@ document.addEventListener('DOMContentLoaded', function() {
 ::-webkit-scrollbar-track { background:var(--bg); }
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08); border-radius:3px; }
 ::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,0.12); }
+
+/* ===== SWEETALERT2 OVERRIDES (Dark auth blue) ===== */
+.swal-auth-popup {
+    background: #05050f !important;
+    border: 1px solid rgba(0,95,231,0.15) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important;
+    font-family: var(--font) !important;
+}
+.swal-auth-popup .swal2-title { color: #EAEAEA !important; font-weight: 700 !important; }
+.swal-auth-popup .swal2-html-container { color: rgba(234,234,234,0.5) !important; }
+.swal-auth-confirm {
+    background: linear-gradient(135deg, #005fe7, #2255ff) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 15px rgba(34,85,255,0.3) !important;
+    transition: all 0.3s ease !important;
+}
+.swal-auth-confirm:hover {
+    box-shadow: 0 6px 25px rgba(34,85,255,0.5) !important;
+    transform: translateY(-1px) !important;
+}
+.swal-auth-cancel {
+    background: rgba(255,255,255,0.04) !important;
+    color: rgba(234,234,234,0.5) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    padding: 10px 24px !important;
+    transition: all 0.3s ease !important;
+}
+.swal-auth-cancel:hover {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+}
+.swal2-toast.swal-auth-popup {
+    background: #05050f !important;
+    border: 1px solid rgba(0,95,231,0.2) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+}
+.swal2-toast .swal2-timer-progress-bar {
+    background: linear-gradient(90deg, #005fe7, #ff2d78) !important;
+    height: 3px !important;
+}
+.swal2-icon { border-color: rgba(0,95,231,0.2) !important; }
 </style>
 </body>
 </html>

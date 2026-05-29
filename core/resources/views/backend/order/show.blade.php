@@ -3,6 +3,11 @@
 @section('title', 'Order #' . $order->order_number . ' — Admin')
 
 @section('content')
+
+@if (session('success'))
+    <input type="hidden" id="sessionSuccess" value="{{ session('success') }}">
+@endif
+
 <div class="order-show">
 
     {{-- ─── Back Link ─── --}}
@@ -32,11 +37,11 @@
             </div>
             <div class="os-header-right">
                 {{-- Status Update Form --}}
-                <form method="POST" action="{{ route('admin.orders.status', $order->id) }}" class="os-status-form">
+                <form method="POST" action="{{ route('admin.orders.status', $order->id) }}" class="os-status-form" id="orderStatusForm">
                     @csrf
                     <div class="os-status-select-wrap">
                         <i class="bi bi-pencil-square os-status-icon"></i>
-                        <select name="status" class="os-status-select" onchange="this.form.submit()">
+                        <select name="status" class="os-status-select" id="orderStatusSelect">
                             @foreach($statuses as $s)
                                 <option value="{{ $s }}" {{ $order->status === $s ? 'selected' : '' }}>{{ ucfirst($s) }}</option>
                             @endforeach
@@ -794,4 +799,69 @@
     .os-field-value { max-width: 60%; font-size: 13px; }
 }
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Show success toast
+    var sessionSuccess = document.getElementById('sessionSuccess');
+    if (sessionSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: sessionSuccess.value,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            background: '#1e293b',
+            color: '#f1f5f9',
+            iconColor: '#60A5FA',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+    }
+
+    // Confirm status change with SweetAlert
+    var statusSelect = document.getElementById('orderStatusSelect');
+    var statusForm = document.getElementById('orderStatusForm');
+    if (statusSelect && statusForm) {
+        statusSelect.addEventListener('change', function() {
+            var newStatus = this.options[this.selectedIndex].text;
+
+            Swal.fire({
+                title: 'Change status?',
+                html: `Update order to <strong>${newStatus}</strong>?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true,
+                focusCancel: true,
+                background: '#1e293b',
+                color: '#f1f5f9',
+                iconColor: '#60A5FA',
+                confirmButtonColor: '#2563EB',
+                cancelButtonColor: '#64748b',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    statusForm.submit();
+                } else {
+                    // Reset select to previous value
+                    var prevValue = this.getAttribute('data-prev') || this.querySelector('option[selected]')?.value || '';
+                    this.value = prevValue;
+                }
+            });
+
+            // Store current value before change for rollback
+            this.setAttribute('data-prev', this.getAttribute('data-current-val') || this.value);
+        });
+
+        // Store initial value
+        statusSelect.setAttribute('data-current-val', statusSelect.value);
+    }
+});
+</script>
+
 @endsection

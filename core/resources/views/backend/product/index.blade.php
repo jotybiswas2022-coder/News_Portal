@@ -97,12 +97,13 @@
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <form method="POST" action="{{ route('admin.products.destroy', $product->id) }}"
-                                            onsubmit="return confirm('Delete product &quot;{{ $product->name }}&quot;? This cannot be undone.')">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="prod-delete-btn" title="Delete">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
+                                          class="delete-product-form"
+                                          data-name="{{ $product->name }}">
+                                        @csrf @method('DELETE')
+                                        <button type="button" class="prod-delete-btn delete-btn-trigger" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
                                     </div>
                                 </td>
                             </tr>
@@ -315,6 +316,38 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // SweetAlert delete confirmation
+    document.querySelectorAll('.delete-btn-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            var form = this.closest('form');
+            var name = form.getAttribute('data-name') || 'this item';
+
+            Swal.fire({
+                title: 'Delete "' + name + '"?',
+                text: 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                background: '#1e293b',
+                color: '#f1f5f9',
+                iconColor: '#ef4444',
+                reverseButtons: true,
+                focusCancel: true,
+                customClass: {
+                    popup: 'swal-back-popup',
+                    cancelButton: 'swal-back-cancel'
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 });
 </script>
 

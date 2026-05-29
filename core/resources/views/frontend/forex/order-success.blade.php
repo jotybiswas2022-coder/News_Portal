@@ -12,23 +12,23 @@
 
 /* Back Link */
 .order-back{display:inline-flex;align-items:center;gap:0.5rem;color:rgba(234,234,234,0.4);text-decoration:none;font-size:0.875rem;margin-bottom:1.5rem;transition:all 0.2s;padding:0.5rem 0.875rem;border-radius:0.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)}
-.order-back:hover{color:#00c8ff;background:rgba(0,200,255,0.06);border-color:rgba(0,200,255,0.15);gap:0.625rem}
+.order-back:hover{color:#005fe7;background:rgba(0,95,231,0.06);border-color:rgba(0,95,231,0.15);gap:0.625rem}
 
 /* Success Banner */
-.order-success-banner{position:relative;overflow:hidden;padding:2rem;margin-bottom:2rem;text-align:center;border:1px solid rgba(0,200,255,0.12);background:linear-gradient(135deg,rgba(0,200,255,0.04),rgba(0,200,255,0.02))}
-.order-success-glow{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(0,200,255,0.04) 0%,transparent 60%);pointer-events:none;animation:orderPulse 4s ease-in-out infinite}
+.order-success-banner{position:relative;overflow:hidden;padding:2rem;margin-bottom:2rem;text-align:center;border:1px solid rgba(0,95,231,0.12);background:linear-gradient(135deg,rgba(0,95,231,0.04),rgba(0,95,231,0.02))}
+.order-success-glow{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(34,85,255,0.04) 0%,transparent 60%);pointer-events:none;animation:orderPulse 4s ease-in-out infinite}
 @keyframes orderPulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
-.order-success-icon{width:3.5rem;height:3.5rem;margin:0 auto 1rem;border-radius:50%;background:linear-gradient(135deg,rgba(0,200,255,0.2),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center;position:relative}
-.order-success-icon-inner{position:absolute;inset:0;border-radius:50%;background:rgba(0,200,255,0.05);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite}
-.order-success-icon svg{width:1.5rem;height:1.5rem;color:#00c8ff;position:relative;z-index:1}
+.order-success-icon{width:3.5rem;height:3.5rem;margin:0 auto 1rem;border-radius:50%;background:linear-gradient(135deg,rgba(0,95,231,0.2),rgba(0,95,231,0.05));display:flex;align-items:center;justify-content:center;position:relative}
+.order-success-icon-inner{position:absolute;inset:0;border-radius:50%;background:rgba(0,95,231,0.05);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite}
+.order-success-icon svg{width:1.5rem;height:1.5rem;color:#005fe7;position:relative;z-index:1}
 
 /* ===== HERO HEADER ===== */
 .order-hero{position:relative;padding:2rem 1.75rem;margin-bottom:1.5rem;overflow:hidden;background:linear-gradient(135deg,rgba(5,5,15,0.5),rgba(5,5,15,0.3));border:1px solid rgba(255,255,255,0.06);border-radius:1.25rem}
 @media (min-width:640px){.order-hero{padding:2.5rem 2.25rem}}
-.order-hero-glow{position:absolute;top:-30%;right:-20%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,0.06),transparent 70%);pointer-events:none}
+.order-hero-glow{position:absolute;top:-30%;right:-20%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(34,85,255,0.06),transparent 70%);pointer-events:none}
 .order-hero-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 .order-hero-number{display:flex;flex-direction:column;gap:0.125rem}
-.order-hero-number span:first-child{color:#00c8ff;font-family:monospace;font-size:1.25rem;font-weight:700;letter-spacing:-0.02em}
+.order-hero-number span:first-child{color:#005fe7;font-family:monospace;font-size:1.25rem;font-weight:700;letter-spacing:-0.02em}
 .order-hero-number span:last-child{color:rgba(234,234,234,0.3);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase}
 .order-hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:32rem}
 @media (max-width:480px){.order-hero-meta{grid-template-columns:1fr}}
@@ -50,7 +50,7 @@
 /* ===== SECTION CARD ===== */
 .order-card{position:relative;background:rgba(5,5,15,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.06);border-radius:1.25rem;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
 .order-card::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent 50%,rgba(255,255,255,0.02));pointer-events:none;z-index:-1}
-.order-card-header{display:flex;align-items:center;gap:0.625rem;padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(0,200,255,0.04),transparent);border-bottom:1px solid rgba(255,255,255,0.06);color:#00c8ff;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
+.order-card-header{display:flex;align-items:center;gap:0.625rem;padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(0,95,231,0.04),transparent);border-bottom:1px solid rgba(255,255,255,0.06);color:#005fe7;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
 .order-card-header svg{width:1rem;height:1rem;color:currentColor;flex-shrink:0}
 .order-card-body{padding:1.25rem}
 
@@ -58,9 +58,9 @@
 .order-item{display:flex;align-items:center;gap:0.875rem;padding:0.875rem 0;transition:all 0.3s}
 .order-item+.order-item{border-top:1px solid rgba(255,255,255,0.04)}
 .order-item:last-child{padding-bottom:0}
-.order-item-icon{width:2.25rem;height:2.25rem;border-radius:0.625rem;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(0,200,255,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s ease}
+.order-item-icon{width:2.25rem;height:2.25rem;border-radius:0.625rem;background:linear-gradient(135deg,rgba(0,95,231,0.08),rgba(0,95,231,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s ease}
 .order-item:hover .order-item-icon{transform:scale(1.05)}
-.order-item-icon svg{width:1.125rem;height:1.125rem;color:#00c8ff}
+.order-item-icon svg{width:1.125rem;height:1.125rem;color:#005fe7}
 .order-item-info{flex:1;min-width:0}
 .order-item-name{color:#EAEAEA;font-weight:500;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .order-item-qty{color:rgba(234,234,234,0.3);font-size:0.75rem;margin-top:0.125rem}
@@ -73,23 +73,47 @@
 .order-pricing-value{color:rgba(234,234,234,0.7);font-family:monospace;font-size:0.875rem}
 .order-pricing-total{padding-top:0.75rem!important;margin-top:0.25rem;border-top:1px solid rgba(255,255,255,0.1)!important}
 .order-pricing-total .order-pricing-label{color:#EAEAEA;font-weight:600;font-size:1rem}
-.order-pricing-total .order-pricing-value{color:#00c8ff;font-weight:700;font-size:1.25rem}
+.order-pricing-total .order-pricing-value{color:#005fe7;font-weight:700;font-size:1.25rem}
 
 /* ===== CUSTOMER / PAYMENT META CARDS ===== */
 .order-meta-grid{display:grid;grid-template-columns:1fr;gap:0.75rem}
 .order-meta-block{display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:0.75rem;transition:all 0.3s}
-.order-meta-block:hover{border-color:rgba(0,200,255,0.1);background:rgba(0,200,255,0.03)}
-.order-meta-block-icon{width:2rem;height:2rem;border-radius:0.5rem;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(0,200,255,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.order-meta-block-icon svg{width:1rem;height:1rem;color:#00c8ff}
+.order-meta-block:hover{border-color:rgba(0,95,231,0.1);background:rgba(0,95,231,0.03)}
+.order-meta-block-icon{width:2rem;height:2rem;border-radius:0.5rem;background:linear-gradient(135deg,rgba(0,95,231,0.08),rgba(0,95,231,0.03));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.order-meta-block-icon svg{width:1rem;height:1rem;color:#005fe7}
 .order-meta-block-content{flex:1;min-width:0}
 .order-meta-block-label{color:rgba(234,234,234,0.3);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:500}
 .order-meta-block-value{color:#EAEAEA;font-size:0.8125rem;font-weight:500;word-break:break-all;margin-top:0.0625rem}
-.order-meta-block .initials{width:1.5rem;height:1.5rem;border-radius:50%;background:linear-gradient(135deg,#00c8ff,#00c8ff);display:flex;align-items:center;justify-content:center;font-size:0.6875rem;font-weight:700;color:#05050f;flex-shrink:0}
+.order-meta-block .initials{width:1.5rem;height:1.5rem;border-radius:50%;background:linear-gradient(135deg,#005fe7,#2255ff);display:flex;align-items:center;justify-content:center;font-size:0.6875rem;font-weight:700;color:#05050f;flex-shrink:0}
+
+/* ===== DOWNLOAD SECTION — HIGHLIGHTED ===== */
+.order-download-highlight{position:relative;overflow:visible!important;border:1px solid rgba(34,85,255,0.2)!important;background:linear-gradient(135deg,rgba(0,95,231,0.08),rgba(5,5,15,0.4))!important}
+.order-download-highlight::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,#005fe7,rgba(0,95,231,0.1),#005fe7);background-size:200% 200%;animation:downloadBorderGlow 3s ease-in-out infinite;z-index:-1;pointer-events:none}
+@keyframes downloadBorderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.order-download-pending-pulse{animation:downloadPulse 2s ease-in-out infinite}
+@keyframes downloadPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0.15)}50%{box-shadow:0 0 0 8px rgba(245,158,11,0.05)}}
+.order-download-btn{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(0,95,231,0.1),rgba(0,95,231,0.04));border:1px solid rgba(34,85,255,0.2);border-radius:0.875rem;text-decoration:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.order-download-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(34,85,255,0.05),transparent);transform:translateX(-100%);transition:transform 0.6s}
+.order-download-btn:hover::before{transform:translateX(100%)}
+.order-download-btn:hover{border-color:rgba(34,85,255,0.4);background:linear-gradient(135deg,rgba(0,95,231,0.15),rgba(0,95,231,0.07));transform:translateY(-1px);box-shadow:0 4px 20px rgba(34,85,255,0.1)}
+.order-download-btn-icon{width:2.5rem;height:2.5rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,95,231,0.15),rgba(0,95,231,0.05));display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s}
+.order-download-btn:hover .order-download-btn-icon{transform:scale(1.1) rotate(-5deg)}
+.order-download-btn-icon svg{width:1.25rem;height:1.25rem;color:#005fe7}
+.order-download-btn-info{flex:1;min-width:0}
+.order-download-btn-name{color:#EAEAEA;font-weight:600;font-size:0.9375rem}
+.order-download-btn-sub{color:rgba(234,234,234,0.35);font-size:0.7rem;margin-top:0.125rem}
+.order-download-btn-arrow{width:1.25rem;height:1.25rem;color:rgba(234,234,234,0.25);flex-shrink:0;transition:all 0.3s}
+.order-download-btn:hover .order-download-btn-arrow{color:#005fe7;transform:translateX(3px)}
+.order-download-header{display:flex;align-items:center;gap:0.75rem;padding:1.125rem 1.25rem;background:linear-gradient(135deg,rgba(0,95,231,0.08),transparent);border-bottom:1px solid rgba(0,95,231,0.1);color:#EAEAEA;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em}
+.order-download-header svg{width:1.125rem;height:1.125rem;color:#005fe7;flex-shrink:0}
+.order-download-header-badge{display:inline-flex;align-items:center;gap:0.25rem;margin-left:auto;padding:0.2rem 0.625rem;border-radius:9999px;font-size:0.6rem;font-weight:600;text-transform:none;letter-spacing:0}
+.order-download-header-badge.ready{background:rgba(0,95,231,0.15);color:#005fe7;border:1px solid rgba(0,95,231,0.2)}
+.order-download-header-badge.pending{background:rgba(245,158,11,0.12);color:#f59e0b;border:1px solid rgba(245,158,11,0.2)}
 
 /* ===== SCREENSHOT ===== */
 .order-screenshot{margin-top:0.25rem}
 .order-screenshot img{width:100%;max-height:280px;object-fit:contain;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.06);cursor:zoom-in;transition:all 0.3s}
-.order-screenshot img:hover{opacity:0.85;border-color:rgba(0,200,255,0.2);box-shadow:0 4px 24px rgba(0,200,255,0.08)}
+.order-screenshot img:hover{opacity:0.85;border-color:rgba(34,85,255,0.2);box-shadow:0 4px 24px rgba(34,85,255,0.08)}
 .order-screenshot-label{color:rgba(234,234,234,0.2);font-size:0.6875rem;text-align:center;margin-top:0.5rem}
 
 /* ===== TIMELINE ===== */
@@ -97,14 +121,14 @@
 .order-timeline-steps{display:flex;align-items:flex-start;gap:0;position:relative;padding:0.5rem 0}
 .order-timeline-step{flex:1;text-align:center;position:relative}
 .order-timeline-dot{width:0.875rem;height:0.875rem;border-radius:50%;margin:0 auto 0.375rem;position:relative;z-index:1;transition:all 0.3s}
-.order-timeline-dot.active{background:#00c8ff;box-shadow:0 0 10px rgba(0,200,255,0.25)}
-.order-timeline-dot.current{background:#00c8ff;box-shadow:0 0 10px rgba(0,200,255,0.25)}
+.order-timeline-dot.active{background:#005fe7;box-shadow:0 0 10px rgba(34,85,255,0.25)}
+.order-timeline-dot.current{background:#005fe7;box-shadow:0 0 10px rgba(34,85,255,0.25)}
 .order-timeline-dot.pending{background:#2a2a2a;border:2px solid rgba(255,255,255,0.06)}
 .order-timeline-line{position:absolute;top:0.4375rem;left:calc(50% + 0.5rem);right:calc(-50% + 0.5rem);height:2px;background:#2a2a2a;z-index:0}
-.order-timeline-line.active{background:linear-gradient(90deg,#00c8ff,#00c8ff)}
+.order-timeline-line.active{background:linear-gradient(90deg,#005fe7,#005fe7)}
 .order-timeline-label{color:rgba(234,234,234,0.3);font-size:0.65rem;font-weight:500;white-space:nowrap;letter-spacing:0.02em}
-.order-timeline-label.active{color:#00c8ff}
-.order-timeline-label.current{color:#00c8ff}
+.order-timeline-label.active{color:#005fe7}
+.order-timeline-label.current{color:#005fe7}
 @media (max-width:480px){.order-timeline-label{font-size:0.6rem}}
 
 /* ===== CANCELLED BANNER ===== */
@@ -115,7 +139,7 @@
 /* ===== NAVIGATION ===== */
 .order-nav{display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-top:1.5rem}
 .order-nav-link{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.25rem;border-radius:0.75rem;font-size:0.875rem;font-weight:500;color:rgba(234,234,234,0.5);text-decoration:none;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);flex:1;max-width:16rem}
-.order-nav-link:hover{color:#EAEAEA;background:rgba(0,200,255,0.06);border-color:rgba(0,200,255,0.15)}
+.order-nav-link:hover{color:#EAEAEA;background:rgba(0,95,231,0.06);border-color:rgba(0,95,231,0.15)}
 .order-nav-link.disabled{opacity:0.2;pointer-events:none;cursor:default}
 .order-nav-link svg{width:1rem;height:1rem;flex-shrink:0;transition:transform 0.3s ease}
 .order-nav-link:hover svg:first-child{transform:translateX(-2px)}
@@ -125,7 +149,7 @@
 .order-nav-mid{display:flex;align-items:center;gap:0.5rem}
 .order-nav-dots{display:flex;gap:0.375rem}
 .order-nav-dot{width:0.375rem;height:0.375rem;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s}
-.order-nav-dot.active{background:#00c8ff;box-shadow:0 0 6px rgba(0,200,255,0.3)}
+.order-nav-dot.active{background:#005fe7;box-shadow:0 0 6px rgba(34,85,255,0.3)}
 
 /* ===== NO ORDER ===== */
 .order-empty{text-align:center;padding:4rem 1rem}
@@ -151,8 +175,8 @@
             @php
                 $statusColors = [
                     'pending' => ['bg' => 'rgba(245,158,11,0.04)', 'border' => 'rgba(245,158,11,0.2)', 'dot' => '#f59e0b', 'text' => '#f59e0b'],
-                    'processing' => ['bg' => 'rgba(0,200,255,0.04)', 'border' => 'rgba(0,200,255,0.2)', 'dot' => '#00c8ff', 'text' => '#00c8ff'],
-                    'completed' => ['bg' => 'rgba(0,200,255,0.04)', 'border' => 'rgba(0,200,255,0.15)', 'dot' => '#00c8ff', 'text' => '#00c8ff'],
+                    'processing' => ['bg' => 'rgba(0,95,231,0.04)', 'border' => 'rgba(0,95,231,0.2)', 'dot' => '#005fe7', 'text' => '#005fe7'],
+                    'completed' => ['bg' => 'rgba(0,95,231,0.04)', 'border' => 'rgba(0,95,231,0.15)', 'dot' => '#005fe7', 'text' => '#005fe7'],
                     'cancelled' => ['bg' => 'rgba(239,68,68,0.04)', 'border' => 'rgba(239,68,68,0.2)', 'dot' => '#ef4444', 'text' => '#ef4444'],
                 ];
                 $sc = $statusColors[$order->status] ?? $statusColors['pending'];
@@ -201,7 +225,7 @@
                     </div>
                     <div class="order-hero-meta-item">
                         <span class="order-hero-meta-label">Payment Status</span>
-                        <span class="order-hero-meta-value" style="color:#00c8ff;display:flex;align-items:center;gap:0.375rem">
+                        <span class="order-hero-meta-value" style="color:#005fe7;display:flex;align-items:center;gap:0.375rem">
                             <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             @if($order->status === 'pending') Awaiting Confirmation
                             @elseif($order->status === 'cancelled') Cancelled
@@ -255,16 +279,89 @@
                                 </div>
                                 <div class="order-pricing-row">
                                     <span class="order-pricing-label" style="display:flex;align-items:center;gap:0.375rem">
-                                        <svg style="width:0.875rem;height:0.875rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        <svg style="width:0.875rem;height:0.875rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                         One-Time Payment
                                     </span>
-                                    <span class="order-pricing-value" style="color:#00c8ff">Lifetime Access</span>
+                                    <span class="order-pricing-value" style="color:#005fe7">Lifetime Access</span>
                                 </div>
                                 <div class="order-pricing-row order-pricing-total">
                                     <span class="order-pricing-label">Total Paid</span>
                                     <span class="order-pricing-value">${{ number_format($order->total, 2) }}</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Download Section — Highlighted -->
+                    <div class="order-card order-download-highlight reveal" style="transition-delay:0.13s">
+                        <div class="order-download-header">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            Download Your Files
+                            @if(in_array($order->status, ['completed', 'processing']) && count($downloadLinks) > 0)
+                                <span class="order-download-header-badge ready">
+                                    <svg style="width:0.625rem;height:0.625rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                    Ready
+                                </span>
+                            @elseif($order->status !== 'cancelled')
+                                <span class="order-download-header-badge pending">
+                                    <svg style="width:0.625rem;height:0.625rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    Pending
+                                </span>
+                            @endif
+                        </div>
+                        <div class="order-card-body">
+                            @if(in_array($order->status, ['completed', 'processing']) && count($downloadLinks) > 0)
+                                <div style="display:flex;flex-direction:column;gap:0.875rem">
+                                    @foreach($downloadLinks as $dl)
+                                    <a href="{{ $dl['link'] }}" target="_blank" rel="noopener" class="order-download-btn">
+                                        <div class="order-download-btn-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                        </div>
+                                        <div class="order-download-btn-info">
+                                            <div class="order-download-btn-name">{{ $dl['name'] }}</div>
+                                            <div class="order-download-btn-sub">Click to Download</div>
+                                        </div>
+                                        <svg class="order-download-btn-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                    </a>
+                                    @endforeach
+                                </div>
+                            @elseif($order->status === 'cancelled')
+                                <div style="text-align:center;padding:0.75rem 0;color:rgba(234,234,234,0.3);font-size:0.875rem">
+                                    <svg style="width:1.25rem;height:1.25rem;color:#ef4444;margin:0 auto 0.5rem;display:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+                                    Order was cancelled
+                                </div>
+                            @elseif(in_array($order->status, ['completed', 'processing']))
+                                <div style="text-align:center;padding:0.75rem 0">
+                                    <div style="width:2.75rem;height:2.75rem;border-radius:50%;background:rgba(0,95,231,0.06);border:1px solid rgba(0,95,231,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem">
+                                        <svg style="width:1.25rem;height:1.25rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                    <p style="color:rgba(234,234,234,0.5);font-size:0.875rem;margin:0;line-height:1.6">No download links available yet. Please contact support.</p>
+                                </div>
+                            @else
+                                <div style="text-align:center;padding:0.75rem 0" class="order-download-pending-pulse">
+                                    <div style="width:3rem;height:3rem;border-radius:50%;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem">
+                                        <svg style="width:1.375rem;height:1.375rem;color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                    <p style="color:#f59e0b;font-size:1rem;font-weight:600;margin:0 0 0.375rem;line-height:1.4">
+                                        You will get the download link here after the Approval
+                                    </p>
+                                    <p style="color:rgba(234,234,234,0.3);font-size:0.8rem;margin:0;line-height:1.5">
+                                        Your order is being processed. Once approved, your download links will appear here automatically.
+                                    </p>
+                                </div>
+                            @endif
+
+                            <!-- ===== TELEGRAM SUPPORT NOTICE ===== -->
+                            <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
+                                <p style="color:#EAEAEA;font-size:0.875rem;line-height:1.6;margin:0;font-weight:500">
+                                    Can't download? Send us a message on
+                                    <a href="https://t.me/SmartBinarySupport" target="_blank" rel="noopener" style="color:#005fe7;text-decoration:none;font-weight:600;transition:color 0.2s" onmouseover="this.style.color='#2255ff'" onmouseout="this.style.color='#005fe7'">
+                                        Telegram Support
+                                        <svg style="width:0.75rem;height:0.75rem;display:inline;vertical-align:middle;margin-left:0.125rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                    </a> for help
+                                </p>
+                            </div>
+
                         </div>
                     </div>
 

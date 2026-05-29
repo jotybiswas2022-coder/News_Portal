@@ -126,9 +126,11 @@
                                             </select>
                                         </form>
                                         {{-- Delete --}}
-                                        <form method="POST" action="{{ route('admin.partners.destroy', $partner->id) }}" onsubmit="return confirm('Delete this application?')">
+                                        <form method="POST" action="{{ route('admin.partners.destroy', $partner->id) }}"
+                                              class="delete-partner-form"
+                                              data-name="{{ $partner->name }} ({{ $partner->email }})">
                                             @csrf @method('DELETE')
-                                            <button type="submit" class="partner-delete-btn" title="Delete">
+                                            <button type="button" class="partner-delete-btn delete-btn-trigger" title="Delete">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
@@ -437,6 +439,38 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // SweetAlert delete confirmation
+    document.querySelectorAll('.delete-btn-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            var form = this.closest('form');
+            var name = form.getAttribute('data-name') || 'this application';
+
+            Swal.fire({
+                title: 'Delete Application?',
+                text: 'This will permanently remove the application from ' + name + '.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                background: '#1e293b',
+                color: '#f1f5f9',
+                iconColor: '#ef4444',
+                reverseButtons: true,
+                focusCancel: true,
+                customClass: {
+                    popup: 'swal-back-popup',
+                    cancelButton: 'swal-back-cancel'
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 });
 </script>
 

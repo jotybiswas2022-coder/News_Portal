@@ -12,6 +12,7 @@ class Product extends Model
         'tagline',
         'description',
         'image',
+        'download_link',
         'indicator',
         'pairs',
         'reviews',

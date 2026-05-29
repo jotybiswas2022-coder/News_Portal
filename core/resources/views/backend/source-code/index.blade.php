@@ -135,9 +135,10 @@
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <form method="POST" action="{{ route('admin.source-codes.destroy', $sc->id) }}"
-                                            onsubmit="return confirm('Delete source code &quot;{{ $sc->name }}&quot;? This cannot be undone.')">
+                                              class="delete-source-form"
+                                              data-name="{{ $sc->name }}">
                                             @csrf @method('DELETE')
-                                            <button type="submit" class="sc-action-btn sc-delete-btn" title="Delete">
+                                            <button type="button" class="sc-action-btn sc-delete-btn delete-btn-trigger" title="Delete">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
@@ -550,6 +551,38 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // SweetAlert delete confirmation
+    document.querySelectorAll('.delete-btn-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            var form = this.closest('form');
+            var name = form.getAttribute('data-name') || 'this item';
+
+            Swal.fire({
+                title: 'Delete "' + name + '"?',
+                text: 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                background: '#1e293b',
+                color: '#f1f5f9',
+                iconColor: '#ef4444',
+                reverseButtons: true,
+                focusCancel: true,
+                customClass: {
+                    popup: 'swal-back-popup',
+                    cancelButton: 'swal-back-cancel'
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 });
 </script>
 

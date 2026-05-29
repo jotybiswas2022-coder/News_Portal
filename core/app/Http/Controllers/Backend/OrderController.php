@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\UserNotification;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -46,6 +47,20 @@ class OrderController extends Controller
         $order->update([
             'status' => $validated['status'],
         ]);
+
+        // Create notification for the order owner when approved or cancelled
+        if (in_array($validated['status'], ['completed', 'cancelled']) && $order->user_id) {
+            $isApproved = $validated['status'] === 'completed';
+            UserNotification::create([
+                'user_id'      => $order->user_id,
+                'type'         => $isApproved ? 'order_approved' : 'order_cancelled',
+                'title'        => $isApproved ? 'Order Approved' : 'Order Cancelled',
+                'message'      => $isApproved
+                    ? 'Your order #' . $order->order_number . ' has been approved. You can now download your files.'
+                    : 'Your order #' . $order->order_number . ' has been cancelled.',
+                'order_number' => $order->order_number,
+            ]);
+        }
 
         return redirect()->route('admin.orders.show', $order->id)
             ->with('success', 'Order status updated to "' . ucfirst($validated['status']) . '".');

@@ -9,6 +9,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// ===================== GLOBAL SWEETALERT2 DEFAULTS (Backend blue theme) =====================
+Swal.setDefaults({
+    background: '#1e293b',
+    color: '#f1f5f9',
+    confirmButtonColor: '#2563EB',
+    cancelButtonColor: '#64748b',
+    iconColor: '#60A5FA',
+    buttonsStyling: true,
+    reverseButtons: true,
+    customClass: {
+        popup: 'swal-back-popup',
+        confirmButton: 'swal-back-confirm',
+        cancelButton: 'swal-back-cancel'
+    }
+});
+</script>
     <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://junait.com/tiny_pro.js"></script>
@@ -137,27 +154,50 @@ main.content-area {
 }
 
 /* ─── Swal2 Dark Override ─── */
-.swal2-popup {
+.swal-back-popup {
     background: #1e293b !important;
     color: #f1f5f9 !important;
     border: 1px solid rgba(255,255,255,0.06) !important;
     border-radius: 16px !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
-.swal2-title { color: #f1f5f9 !important; }
-.swal2-html-container { color: #94a3b8 !important; }
-.swal2-confirm.swal2-styled {
+.swal-back-popup .swal2-title { color: #f1f5f9 !important; }
+.swal-back-popup .swal2-html-container { color: #94a3b8 !important; }
+.swal-back-confirm {
     background: linear-gradient(135deg, #2563EB, #1E40AF) !important;
-    box-shadow: none !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3) !important;
+    transition: all 0.2s ease !important;
 }
-.swal2-cancel.swal2-styled {
+.swal-back-confirm:hover {
+    box-shadow: 0 6px 20px rgba(37,99,235,0.4) !important;
+    transform: translateY(-1px) !important;
+}
+.swal-back-cancel {
     background: rgba(255,255,255,0.06) !important;
     color: #94a3b8 !important;
     border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    padding: 10px 24px !important;
+    transition: all 0.2s ease !important;
 }
-.swal2-toast {
+.swal-back-cancel:hover {
+    background: rgba(255,255,255,0.1) !important;
+}
+.swal2-toast.swal-back-popup {
     background: #1e293b !important;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
     border: 1px solid rgba(255,255,255,0.06) !important;
+}
+.swal2-toast .swal2-timer-progress-bar {
+    background: linear-gradient(90deg, #2563EB, #60A5FA) !important;
+}
+.swal2-icon {
+    border-color: rgba(96,165,250,0.2) !important;
 }
 </style>
 

@@ -273,6 +273,23 @@
                     </div>
                     @endif
 
+                    {{-- Download link info --}}
+                    <div style="
+                        text-align:center;
+                        margin:0 0 1.25rem;
+                        padding:0.625rem 0.875rem;
+                        background:rgba(168,85,247,0.06);
+                        border:1px solid rgba(168,85,247,0.1);
+                        border-radius:0.625rem;
+                        font-size:0.8rem;
+                        color:rgba(234,234,234,0.55);
+                        line-height:1.5;
+                    ">
+                        <svg style="width:0.875rem;height:0.875rem;color:#A855F7;margin-right:6px;vertical-align:middle;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        You will get the Download link in the
+                        <a href="{{ route('forex.my-orders') }}" style="color:#A855F7;text-decoration:underline;font-weight:500">My-Order Page</a>
+                    </div>
+
                     {{-- Add to Cart button --}}
                     <button
                         onclick="addToCart({name:'{{ $sourceCode->name }} Source Code', price:{{ $sourceCode->price }}, id:'src-{{ $sourceCode->slug }}'})"

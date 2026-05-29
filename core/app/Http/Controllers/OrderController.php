@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\SourceCode;
+use App\Models\UserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -106,11 +109,48 @@ class OrderController extends Controller
         $order = null;
         $prevOrder = null;
         $nextOrder = null;
+        $downloadLinks = [];
 
         if ($orderNumber) {
             $order = Order::where('order_number', $orderNumber)->first();
 
             if ($order && Auth::check()) {
+                // Fetch download links for each item based on status
+                if (in_array($order->status, ['completed', 'processing'])) {
+                    foreach ($order->items ?? [] as $item) {
+                        $itemId = $item['id'] ?? '';
+                        $link = null;
+
+                        // Source code items: id format is "src-{slug}"
+                        if (str_starts_with($itemId, 'src-')) {
+                            $slug = substr($itemId, 4);
+                            $sourceCode = SourceCode::where('slug', $slug)->first();
+                            if ($sourceCode && $sourceCode->download_link) {
+                                $link = $sourceCode->download_link;
+                            }
+                        }
+                        // Product items: id format is "{slug}-{planIndex}"
+                        else {
+                            // Extract slug by removing the last -{number}
+                            $lastDash = strrpos($itemId, '-');
+                            if ($lastDash !== false) {
+                                $slug = substr($itemId, 0, $lastDash);
+                                $product = Product::where('slug', $slug)->first();
+                                if ($product && $product->download_link) {
+                                    $link = $product->download_link;
+                                }
+                            }
+                        }
+
+                        if ($link) {
+                            $downloadLinks[] = [
+                                'name' => $item['name'] ?? 'Item',
+                                'link' => $link,
+                            ];
+                        }
+                    }
+                }
+
                 // Get all user's ordered IDs for prev/next navigation
                 $userOrderIds = Order::where('user_id', Auth::id())
                     ->orderBy('created_at', 'desc')
@@ -129,6 +169,31 @@ class OrderController extends Controller
             }
         }
 
-        return view('frontend.forex.order-success', compact('order', 'prevOrder', 'nextOrder'));
+        return view('frontend.forex.order-success', compact('order', 'prevOrder', 'nextOrder', 'downloadLinks'));
+    }
+
+    /**
+     * Mark a notification as read and redirect to the target page.
+     */
+    public function markNotificationRead($id)
+    {
+        $notification = UserNotification::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        $notification->update(['is_read' => true]);
+
+        // Redirect to the order page
+        return redirect()->route('order.success', ['order' => $notification->order_number]);
+    }
+
+    /**
+     * Mark all unread notifications as read for the authenticated user.
+     */
+    public function markAllNotificationsRead()
+    {
+        UserNotification::forUser(Auth::id())->unread()->update(['is_read' => true]);
+
+        return redirect()->back()->with('success', 'All notifications marked as read.');
     }
 }

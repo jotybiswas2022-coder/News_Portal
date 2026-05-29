@@ -1,12 +1,12 @@
-<nav id="mainNavbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: all 0.5s ease; background: rgba(5,5,15,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,200,255,0.1);">
+<nav id="mainNavbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: all 0.5s ease; background: rgba(5,5,15,0.8); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border-bottom: 1px solid rgba(34,85,255,0.15); box-shadow: 0 0 15px rgba(34,85,255,0.08), 0 0 30px rgba(255,17,119,0.05), inset 0 1px 0 rgba(255,255,255,0.04);">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 16px;">
         <div style="display: flex; align-items: center; justify-content: space-between; height: 64px;">
             <!-- Logo -->                <a href="{{ route('forex.home') }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;" class="logo-group">
                 <div style="position: relative; display: flex; align-items: center;">
                     <span style="font-size: 24px; font-weight: 800; letter-spacing: 1px;">
                         <span style="color: #ffffff;">SMART</span>
-                        <span style="color: #00c8ff;"> BINARY</span>
-                        <span style="color: #ff2d78;"> ZONE</span>
+                        <span style="background: linear-gradient(180deg, #6b9fff, #005fe7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"> BINARY</span>
+                        <span style="background: linear-gradient(180deg, #ff7aad, #ff2d78); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"> ZONE</span>
                     </span>
                     <span style="font-size: 18px; margin-left: 2px; background: var(--brand-rainbow); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block;" class="logo-diamond">◈</span>
                 </div>
@@ -53,8 +53,62 @@
                 <a href="{{ route('forex.cart') }}" style="position: relative; color: #9ca3af; text-decoration: none; transition: all 0.3s ease; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"
                 onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'">
                     <svg style="width: 20px; height: 20px; transition: transform 0.3s ease;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
-                    <span id="cartBadge" style="position: absolute; top: -2px; right: -2px; background: linear-gradient(135deg, #00c8ff, #ff2d78); color: #fff; font-size: 10px; font-weight: 800; border-radius: 50%; min-width: 18px; height: 18px; display: none; align-items: center; justify-content: center; padding: 0 4px; box-shadow: 0 0 8px rgba(0,200,255,0.4);">0</span>
+                    <span id="cartBadge" style="position: absolute; top: -2px; right: -2px; background: linear-gradient(135deg, #005fe7, #ff2d78); color: #fff; font-size: 10px; font-weight: 800; border-radius: 50%; min-width: 18px; height: 18px; display: none; align-items: center; justify-content: center; padding: 0 4px; box-shadow: 0 0 8px rgba(34,85,255,0.4);">0</span>
                 </a>
+
+                <!-- Notifications -->
+                @auth
+                <div style="position: relative;" class="notif-desktop">
+                    <button id="notifBellBtn" style="position: relative; color: #9ca3af; background: transparent; border: none; cursor: pointer; transition: all 0.3s ease; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"
+                    onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'">
+                        <svg style="width: 20px; height: 20px; transition: transform 0.3s ease;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        @if($unreadNotificationCount > 0)
+                        <span id="notifBadge" style="position: absolute; top: -2px; right: -2px; background: #ef4444; color: #fff; font-size: 10px; font-weight: 800; border-radius: 50%; min-width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; padding: 0 4px; box-shadow: 0 0 8px rgba(239,68,68,0.5);">{{ $unreadNotificationCount > 99 ? '99+' : $unreadNotificationCount }}</span>
+                        @endif
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div id="notifDropdown" class="glass-card" style="position: absolute; top: 100%; right: 0; margin-top: 8px; width: 360px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: all 0.2s ease; overflow: hidden; z-index: 200;">
+                        <div style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between;">
+                            <h4 style="color: #fff; font-size: 14px; font-weight: 600; margin: 0;">Notifications</h4>
+                            @if($unreadNotificationCount > 0)
+                            <span style="color: rgba(234,234,234,0.4); font-size: 11px;">{{ $unreadNotificationCount }} new</span>
+                            @endif
+                        </div>
+                        <div style="max-height: 320px; overflow-y: auto;">
+                            @forelse($unreadNotifications as $notif)
+                            <a href="{{ route('notification.read', $notif->id) }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px 20px; text-decoration: none; transition: all 0.2s ease; border-bottom: 1px solid rgba(255,255,255,0.03);"
+                            onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='transparent'">
+                                <div style="width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; {{ $notif->type === 'order_approved' ? 'background: rgba(16,185,129,0.12); color: #10b981;' : 'background: rgba(239,68,68,0.12); color: #ef4444;' }}">
+                                    @if($notif->type === 'order_approved')
+                                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    @else
+                                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    @endif
+                                </div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <p style="color: #EAEAEA; font-size: 13px; font-weight: 500; margin: 0;">{{ $notif->title }}</p>
+                                    <p style="color: rgba(234,234,234,0.5); font-size: 12px; margin: 2px 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $notif->message }}</p>
+                                    <p style="color: rgba(234,234,234,0.25); font-size: 10px; margin: 4px 0 0 0;">{{ $notif->created_at->diffForHumans() }}</p>
+                                </div>
+                            </a>
+                            @empty
+                            <div style="padding: 32px 20px; text-align: center;">
+                                <svg style="width: 32px; height: 32px; color: rgba(234,234,234,0.15); margin: 0 auto 12px; display: block;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                                <p style="color: rgba(234,234,234,0.3); font-size: 13px; margin: 0;">No new notifications</p>
+                                <p style="color: rgba(234,234,234,0.2); font-size: 11px; margin: 4px 0 0 0;">You're all caught up!</p>
+                            </div>
+                            @endforelse
+                        </div>
+                        @if($unreadNotificationCount > 0)
+                        <a href="#" onclick="event.preventDefault();document.getElementById('markAllNotifReadForm').submit();" style="display: block; text-align: center; padding: 8px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); color: rgba(234,234,234,0.5); font-size: 11px; font-weight: 400; text-decoration: none; transition: all 0.2s ease;"
+                        onmouseover="this.style.color='#005fe7'" onmouseout="this.style.color='rgba(234,234,234,0.5)'">Mark all as read</a>
+                        <form id="markAllNotifReadForm" action="{{ route('notification.read-all') }}" method="POST" style="display:none;">@csrf</form>
+                        @endif
+                        <a href="{{ route('forex.my-orders') }}" style="display: block; text-align: center; padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.06); color: #005fe7; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s ease;"
+                        onmouseover="this.style.background='rgba(0,95,231,0.08)'" onmouseout="this.style.background='transparent'">View All Orders →</a>
+                    </div>
+                </div>
+                @endauth
 
                 <!-- Language -->
                 <div style="position: relative; display: none;" class="lang-desktop">
@@ -69,8 +123,8 @@
                 @guest
                 <a href="{{ route('login') }}" style="display: none; font-size: 14px; font-weight: 500; color: #9ca3af; text-decoration: none; padding: 8px 12px; border-radius: 8px; transition: all 0.3s ease;"
                 onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'" class="login-desktop">Login</a>
-                <a href="{{ route('register') }}" style="display: none; font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(90deg, #00c8ff, #ff2d78); text-decoration: none; padding: 8px 20px; border-radius: 9999px; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0,200,255,0.3), 0 0 30px rgba(255,45,120,0.2); position: relative; overflow: hidden;"
-                onmouseover="this.style.boxShadow='0 0 25px rgba(0,200,255,0.5), 0 0 50px rgba(255,45,120,0.4)';this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='0 0 15px rgba(0,200,255,0.3), 0 0 30px rgba(255,45,120,0.2)';this.style.transform=''" class="signup-desktop">
+                <a href="{{ route('register') }}" style="display: none; font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(90deg, #005fe7, #ff2d78); text-decoration: none; padding: 8px 20px; border-radius: 9999px; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(34,85,255,0.3), 0 0 30px rgba(255,45,120,0.2); position: relative; overflow: hidden;"
+                onmouseover="this.style.boxShadow='0 0 25px rgba(34,85,255,0.5), 0 0 50px rgba(255,45,120,0.4)';this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='0 0 15px rgba(34,85,255,0.3), 0 0 30px rgba(255,45,120,0.2)';this.style.transform=''" class="signup-desktop">
                     <span style="position: relative; z-index: 1;">Sign Up</span>
                 </a>
                 @else
@@ -78,7 +132,7 @@
                     <div style="position: relative;" class="profile-group">
                         <button style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #9ca3af; background: transparent; border: none; border-radius: 8px; cursor: pointer; padding: 8px 12px; transition: all 0.3s ease; font-family: inherit;"
                         onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'">
-                            <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #00c8ff, #ff2d78); display: flex; align-items: center; justify-content: center; color: #05050f; font-size: 12px; font-weight: 800;">{{ substr(Auth::user()->name, 0, 1) }}</div>
+                            <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #005fe7, #ff2d78); display: flex; align-items: center; justify-content: center; color: #05050f; font-size: 12px; font-weight: 800;">{{ substr(Auth::user()->name, 0, 1) }}</div>
                             <span>{{ Auth::user()->name }}</span>
                             <svg style="width: 12px; height: 12px; color: #6b7280; transition: transform 0.3s ease;" class="profile-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
@@ -86,13 +140,13 @@
                             @if(Auth::user()->is_admin)
                             <a href="/admin" style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; font-size: 14px; color: #d1d5db; text-decoration: none; transition: all 0.2s ease;"
                             onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
-                                <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 Dashboard
                             </a>
                             @endif
                             <a href="{{ route('forex.my-orders') }}" style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; font-size: 14px; color: #d1d5db; text-decoration: none; transition: all 0.2s ease;"
                             onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
-                                <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                                <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                                 My Orders
                             </a>
                             <a href="{{ route('forex.my-partnership') }}" style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; font-size: 14px; color: #d1d5db; text-decoration: none; transition: all 0.2s ease;"
@@ -102,7 +156,7 @@
                             </a>
                             <a href="{{ route('forex.profile') }}" style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; font-size: 14px; color: #d1d5db; text-decoration: none; transition: all 0.2s ease;"
                             onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
-                                <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                 Profile
                             </a>
                             <div style="border-top: 1px solid #2a2a2a; margin: 4px 16px;"></div>
@@ -140,10 +194,10 @@
             <a href="{{ route('forex.home') }}" style="font-size: 20px; font-weight: 800; letter-spacing: 1px; text-decoration: none;">
                 <span>
                     <span style="color: #ffffff;">SMART</span>
-                    <span style="color: #00c8ff;"> BINARY</span>
-                    <span style="color: #ff2d78;"> ZONE</span>
+                    <span style="background: linear-gradient(180deg, #6b9fff, #005fe7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"> BINARY</span>
+                    <span style="background: linear-gradient(180deg, #ff7aad, #ff2d78); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"> ZONE</span>
                 </span>
-                <span style="color: #00c8ff;">◈</span>
+                <span style="color: #005fe7;">◈</span>
             </a>
             <button id="drawerCloseBtn" style="width: 32px; height: 32px; border-radius: 8px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #9ca3af; transition: all 0.2s ease;"
             onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'">
@@ -190,32 +244,44 @@
             <a href="{{ route('forex.cart') }}" style="display: flex; align-items: center; justify-content: space-between; font-size: 16px; font-weight: 500; color: #fff; text-decoration: none; padding: 12px 16px; border-radius: 12px; transition: all 0.2s ease;"
             onmouseover="this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.background='transparent'">
                 <span>Cart</span>
-                <span id="mobileCartBadge" style="display: none; padding: 2px 8px; background: #00c8ff; color: #fff; font-size: 10px; font-weight: 800; border-radius: 50px;">0</span>
+                <span id="mobileCartBadge" style="display: none; padding: 2px 8px; background: #005fe7; color: #fff; font-size: 10px; font-weight: 800; border-radius: 50px;">0</span>
             </a>
 
             @guest
             <div style="margin-top: 16px; padding: 0 16px; display: flex; flex-direction: column; gap: 8px;">
                 <a href="{{ route('login') }}" style="display: block; width: 100%; text-align: center; font-size: 14px; font-weight: 500; color: #9ca3af; text-decoration: none; padding: 12px; border-radius: 12px; border: 1px solid #2a2a2a; transition: all 0.2s ease; box-sizing: border-box;"
-                onmouseover="this.style.color='#fff';this.style.borderColor='rgba(0,200,255,0.3)'" onmouseout="this.style.color='#9ca3af';this.style.borderColor='#2a2a2a'">Login</a>
-                <a href="{{ route('register') }}" style="display: block; width: 100%; text-align: center; font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(90deg, #00c8ff, #ff2d78); text-decoration: none; padding: 12px; border-radius: 9999px; box-shadow: 0 0 15px rgba(0,200,255,0.3), 0 0 30px rgba(255,45,120,0.2); transition: all 0.3s ease; box-sizing: border-box;"
-                onmouseover="this.style.boxShadow='0 0 25px rgba(0,200,255,0.5), 0 0 50px rgba(255,45,120,0.4)'" onmouseout="this.style.boxShadow='0 0 15px rgba(0,200,255,0.3), 0 0 30px rgba(255,45,120,0.2)'">Sign Up</a>
+                onmouseover="this.style.color='#fff';this.style.borderColor='rgba(34,85,255,0.3)'" onmouseout="this.style.color='#9ca3af';this.style.borderColor='#2a2a2a'">Login</a>
+                <a href="{{ route('register') }}" style="display: block; width: 100%; text-align: center; font-size: 14px; font-weight: 700; color: #fff; background: linear-gradient(90deg, #005fe7, #ff2d78); text-decoration: none; padding: 12px; border-radius: 9999px; box-shadow: 0 0 15px rgba(34,85,255,0.3), 0 0 30px rgba(255,45,120,0.2); transition: all 0.3s ease; box-sizing: border-box;"
+                onmouseover="this.style.boxShadow='0 0 25px rgba(34,85,255,0.5), 0 0 50px rgba(255,45,120,0.4)'" onmouseout="this.style.boxShadow='0 0 15px rgba(34,85,255,0.3), 0 0 30px rgba(255,45,120,0.2)'">Sign Up</a>
             </div>
             @else
             <div style="margin-top: 16px; padding: 0 16px; padding-top: 16px; border-top: 1px solid #2a2a2a; display: flex; flex-direction: column; gap: 8px;">
                 <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,0.03);">
-                    <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #00c8ff, #ff2d78); display: flex; align-items: center; justify-content: center; color: #05050f; font-size: 14px; font-weight: 800;">{{ substr(Auth::user()->name, 0, 1) }}</div>
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #005fe7, #ff2d78); display: flex; align-items: center; justify-content: center; color: #05050f; font-size: 14px; font-weight: 800;">{{ substr(Auth::user()->name, 0, 1) }}</div>
                     <span style="color: #fff; font-size: 14px; font-weight: 500;">{{ Auth::user()->name }}</span>
                 </div>
+                <!-- Notifications (mobile) -->
+                <a href="{{ route('forex.my-orders') }}" style="display: flex; align-items: center; gap: 12px; width: 100%; font-size: 14px; color: #d1d5db; text-decoration: none; padding: 12px 16px; border-radius: 12px; transition: all 0.2s ease; box-sizing: border-box;"
+                onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
+                    <div style="position: relative;">
+                        <svg style="width: 16px; height: 16px; color: #ef4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        @if($unreadNotificationCount > 0)
+                        <span style="position: absolute; top: -6px; right: -6px; width: 16px; height: 16px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 8px; font-weight: 800;">{{ $unreadNotificationCount > 9 ? '9+' : $unreadNotificationCount }}</span>
+                        @endif
+                    </div>
+                    Notifications
+                </a>
+
                 @if(Auth::user()->is_admin)
                 <a href="/admin" style="display: flex; align-items: center; gap: 12px; width: 100%; font-size: 14px; color: #d1d5db; text-decoration: none; padding: 12px 16px; border-radius: 12px; transition: all 0.2s ease; box-sizing: border-box;"
                 onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
-                    <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     Dashboard
                 </a>
                 @endif
                 <a href="{{ route('forex.my-orders') }}" style="display: flex; align-items: center; gap: 12px; width: 100%; font-size: 14px; color: #d1d5db; text-decoration: none; padding: 12px 16px; border-radius: 12px; transition: all 0.2s ease; box-sizing: border-box;"
                 onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
-                    <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                     My Orders
                 </a>
                 <a href="{{ route('forex.my-partnership') }}" style="display: flex; align-items: center; gap: 12px; width: 100%; font-size: 14px; color: #d1d5db; text-decoration: none; padding: 12px 16px; border-radius: 12px; transition: all 0.2s ease; box-sizing: border-box;"
@@ -225,7 +291,7 @@
                 </a>
                 <a href="{{ route('forex.profile') }}" style="display: flex; align-items: center; gap: 12px; width: 100%; font-size: 14px; color: #d1d5db; text-decoration: none; padding: 12px 16px; border-radius: 12px; transition: all 0.2s ease; box-sizing: border-box;"
                 onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#d1d5db';this.style.background='transparent'">
-                    <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     Profile
                 </a>
                 <form method="POST" action="{{ route('logout') }}" style="width: 100%;">
@@ -249,8 +315,8 @@
             <!-- Header -->
             <div style="padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
                 <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0,200,255,0.1); display: flex; align-items: center; justify-content: center;">
-                        <svg style="width: 18px; height: 18px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0,95,231,0.15); display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 18px; height: 18px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                     </div>
                     <div>
                         <h3 style="color: #fff; font-size: 16px; font-weight: 600; margin: 0; font-family: 'DM Sans', sans-serif;">Store</h3>
@@ -268,20 +334,20 @@
                 <div style="margin-bottom: 28px;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <svg style="width: 16px; height: 16px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <svg style="width: 16px; height: 16px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             <span style="color: #EAEAEA; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Expert Advisors</span>
                         </div>
-                        <a href="{{ route('forex.products') }}" style="color: #00c8ff; font-size: 12px; font-weight: 500; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">View All →</a>
+                        <a href="{{ route('forex.products') }}" style="color: #005fe7; font-size: 12px; font-weight: 500; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">View All →</a>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 6px;">
                         @forelse($storeProducts as $p)
                         <a href="{{ route('forex.product-detail', $p->slug) }}" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; text-decoration: none; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.04);"
-                        onmouseover="this.style.background='rgba(0,200,255,0.08)';this.style.borderColor='rgba(0,200,255,0.2)'" onmouseout="this.style.background='';this.style.borderColor='rgba(255,255,255,0.04)'">
-                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0,200,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        onmouseover="this.style.background='rgba(0,95,231,0.1)';this.style.borderColor='rgba(34,85,255,0.2)'" onmouseout="this.style.background='';this.style.borderColor='rgba(255,255,255,0.04)'">
+                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0,95,231,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                                 @if($p->image)
                                 <img src="{{ config('app.storage_url') }}{{ $p->image }}" alt="{{ $p->name }}" style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;">
                                 @else
-                                <svg style="width: 18px; height: 18px; color: #00c8ff;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <svg style="width: 18px; height: 18px; color: #005fe7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                 @endif
                             </div>
                             <div style="flex: 1; min-width: 0;">
@@ -290,7 +356,7 @@
                             </div>
                             @php $minPrice = collect($p->plans)->min('price'); @endphp
                             @if($minPrice)
-                            <span style="color: #00c8ff; font-size: 13px; font-weight: 700; white-space: nowrap;">${{ number_format($minPrice, 0) }}</span>
+                            <span style="color: #005fe7; font-size: 13px; font-weight: 700; white-space: nowrap;">${{ number_format($minPrice, 0) }}</span>
                             @endif
                         </a>
                         @empty
@@ -326,7 +392,7 @@
                                 <p style="color: rgba(234,234,234,0.4); font-size: 12px; margin: 1px 0 0 0;">{{ $sc->language ?? $sc->category ?? 'Source Code' }}</p>
                             </div>
                             @if($sc->price)
-                            <span style="color: #00c8ff; font-size: 13px; font-weight: 700; white-space: nowrap;">${{ number_format($sc->price, 0) }}</span>
+                            <span style="color: #005fe7; font-size: 13px; font-weight: 700; white-space: nowrap;">${{ number_format($sc->price, 0) }}</span>
                             @endif
                         </a>
                         @empty
@@ -338,7 +404,7 @@
 
             <!-- Footer CTA -->
             <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; display: flex; flex-direction: column; gap: 8px;">
-                <a href="{{ route('forex.products') }}" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; background: linear-gradient(135deg, #00c8ff, #0099ff); color: #fff; font-weight: 600; font-size: 14px; border-radius: 10px; text-decoration: none; transition: all 0.3s; box-sizing: border-box;" onmouseover="this.style.boxShadow='0 6px 25px rgba(0,200,255,0.25)';this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='none';this.style.transform=''">
+                <a href="{{ route('forex.products') }}" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; background: linear-gradient(135deg, #2255ff, #005fe7); color: #fff; font-weight: 600; font-size: 14px; border-radius: 10px; text-decoration: none; transition: all 0.3s; box-sizing: border-box;" onmouseover="this.style.boxShadow='0 6px 25px rgba(34,85,255,0.25)';this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='none';this.style.transform=''">
                     <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     Browse All Products
                 </a>
@@ -370,7 +436,7 @@
 }
 .ea-dropdown-group:hover .dropdown-chevron {
     transform: rotate(180deg) !important;
-    color: #00c8ff !important;
+    color: #005fe7 !important;
 }
 
 /* Profile dropdown hover */
@@ -389,7 +455,7 @@
     left: 16px;
     right: 16px;
     height: 2px;
-    background: #00c8ff;
+    background: #005fe7;
     transform: scaleX(0);
     transition: transform 0.3s ease;
     transform-origin: left;
@@ -399,6 +465,20 @@ a:hover > .nav-underline {
 }
 
 /* Logo hover */
+/* Notification bell responsive */
+@media (max-width: 639px) {
+    .notif-desktop { display: none !important; }
+}
+
+/* Notification badge pulse animation */
+@keyframes notifPulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(239,68,68,0.5); }
+    50% { box-shadow: 0 0 16px rgba(239,68,68,0.8), 0 0 24px rgba(239,68,68,0.3); }
+}
+#notifBadge {
+    animation: notifPulse 2s ease-in-out infinite;
+}
+
 .logo-group:hover .logo-diamond {
     animation: float 1.5s ease-in-out infinite !important;
     filter: brightness(1.3) !important;
@@ -491,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.style.backdropFilter = 'blur(20px) saturate(1.4)';
             } else {
                 navbar.style.boxShadow = 'none';
-                navbar.style.background = 'rgba(5,5,15,0.55)';
+                navbar.style.background = 'rgba(5,5,15,0.7)';
                 navbar.style.backdropFilter = 'blur(20px) saturate(1)';
             }
         });
@@ -508,6 +588,42 @@ document.addEventListener('DOMContentLoaded', function() {
             if (underline) underline.style.transform = 'scaleX(0)';
         });
     });
+
+    // ==================== NOTIFICATION BELL ====================
+    const notifBtn = document.getElementById('notifBellBtn');
+    const notifDropdown = document.getElementById('notifDropdown');
+
+    if (notifBtn && notifDropdown) {
+        function toggleNotif(e) {
+            e.stopPropagation();
+            const isOpen = notifDropdown.style.visibility === 'visible';
+            if (isOpen) {
+                notifDropdown.style.opacity = '0';
+                notifDropdown.style.visibility = 'hidden';
+            } else {
+                notifDropdown.style.opacity = '1';
+                notifDropdown.style.visibility = 'visible';
+            }
+        }
+        notifBtn.addEventListener('click', toggleNotif);
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && notifDropdown.style.visibility === 'visible') {
+                notifDropdown.style.opacity = '0';
+                notifDropdown.style.visibility = 'hidden';
+            }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            const notifGroup = notifBtn.closest('.notif-desktop');
+            if (notifGroup && !notifGroup.contains(e.target)) {
+                notifDropdown.style.opacity = '0';
+                notifDropdown.style.visibility = 'hidden';
+            }
+        });
+    }
 
     // Cart icon hover
     const cartLinks = document.querySelectorAll('a[href*="cart"]');

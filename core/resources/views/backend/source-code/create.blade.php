@@ -84,6 +84,14 @@
                         </div>
 
                         <div class="sc-fg">
+                            <label class="sc-label">Download Link</label>
+                            <input type="url" name="download_link" class="sc-input" value="{{ old('download_link', $sourceCode->download_link ?? '') }}"
+                                placeholder="e.g. https://example.com/download/source-code.zip">
+                            <span class="sc-hint">Direct URL for users to download the source code after purchase</span>
+                            @error('download_link') <span class="sc-err">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="sc-fg">
                             <label class="sc-label">Preview Image</label>
                             <div class="sc-img-upload" id="imgUploadArea">
                                 <input type="file" name="image" id="scImage" accept="image/jpeg,image/png,image/webp" style="display:none">

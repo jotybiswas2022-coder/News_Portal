@@ -9,31 +9,31 @@
 @media (min-width:640px){.payment-inner{padding:0 1.5rem}}
 @media (min-width:1024px){.payment-inner{padding:0 2rem}}
 .payment-back{display:inline-flex;align-items:center;gap:0.5rem;color:rgba(234,234,234,0.4);text-decoration:none;font-size:0.875rem;margin-bottom:1.5rem;transition:all 0.2s}
-.payment-back:hover{color:#00c8ff}
+.payment-back:hover{color:#005fe7}
 .pay-option{display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1.125rem;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.06);background:rgba(5,5,15,0.35);cursor:pointer;transition:all 0.3s;position:relative}
-.pay-option:hover{border-color:rgba(0,200,255,0.2);background:rgba(0,200,255,0.04)}
-.pay-option.active{border-color:#00c8ff;background:rgba(0,200,255,0.06);box-shadow:0 0 0 1px rgba(0,200,255,0.2)}
+.pay-option:hover{border-color:rgba(34,85,255,0.2);background:rgba(0,95,231,0.04)}
+.pay-option.active{border-color:#005fe7;background:rgba(0,95,231,0.06);box-shadow:0 0 0 1px rgba(34,85,255,0.2)}
 .pay-option-radio{width:1.125rem;height:1.125rem;border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s}
-.pay-option.active .pay-option-radio{border-color:#00c8ff}
-.pay-option-radio-inner{width:0.625rem;height:0.625rem;border-radius:50%;background:#00c8ff;opacity:0;transform:scale(0);transition:all 0.3s}
+.pay-option.active .pay-option-radio{border-color:#005fe7}
+.pay-option-radio-inner{width:0.625rem;height:0.625rem;border-radius:50%;background:#005fe7;opacity:0;transform:scale(0);transition:all 0.3s}
 .pay-option.active .pay-option-radio-inner{opacity:1;transform:scale(1)}
 .pay-option-icon{width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.75rem;font-weight:700}
 .pay-option-left{flex:1;min-width:0}
 .pay-option-name{color:#EAEAEA;font-weight:500;font-size:0.9375rem}
 .pay-option-desc{color:rgba(234,234,234,0.4);font-size:0.75rem;margin-top:0.125rem}
-.pay-option-check{color:#00c8ff;flex-shrink:0;opacity:0;transition:all 0.3s}
+.pay-option-check{color:#005fe7;flex-shrink:0;opacity:0;transition:all 0.3s}
 .pay-option.active .pay-option-check{opacity:1}
-.pay-address-card{background:rgba(5,5,15,0.8);border:1px solid rgba(0,200,255,0.12);border-radius:0.75rem;padding:1rem;margin-top:1rem;display:none;animation:fadeInUp 0.3s ease}
+.pay-address-card{background:rgba(5,5,15,0.8);border:1px solid rgba(34,85,255,0.12);border-radius:0.75rem;padding:1rem;margin-top:1rem;display:none;animation:fadeInUp 0.3s ease}
 .pay-address-card.show{display:block}
 .pay-address-label{color:rgba(234,234,234,0.35);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.375rem}
-.pay-address-value{color:#00c8ff;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;word-break:break-all;line-height:1.5;background:rgba(0,200,255,0.03);padding:0.75rem;border-radius:0.5rem;border:1px solid rgba(0,200,255,0.06);margin-bottom:0.75rem}
-.pay-copy-btn{display:inline-flex;align-items:center;gap:0.375rem;padding:0.5rem 1rem;font-size:0.75rem;font-weight:600;border-radius:0.5rem;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);color:#00c8ff;cursor:pointer;transition:all 0.3s}
-.pay-copy-btn:hover{background:rgba(0,200,255,0.15);box-shadow:0 0 12px rgba(0,200,255,0.1)}
+.pay-address-value{color:#005fe7;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;word-break:break-all;line-height:1.5;background:rgba(0,95,231,0.03);padding:0.75rem;border-radius:0.5rem;border:1px solid rgba(0,95,231,0.06);margin-bottom:0.75rem}
+.pay-copy-btn{display:inline-flex;align-items:center;gap:0.375rem;padding:0.5rem 1rem;font-size:0.75rem;font-weight:600;border-radius:0.5rem;background:rgba(0,95,231,0.08);border:1px solid rgba(0,95,231,0.15);color:#005fe7;cursor:pointer;transition:all 0.3s}
+.pay-copy-btn:hover{background:rgba(0,95,231,0.15);box-shadow:0 0 12px rgba(34,85,255,0.1)}
 
 .pay-submit-area{border-top:1px solid rgba(255,255,255,0.06);padding-top:1.25rem;margin-top:0.5rem}
 .file-upload-zone{position:relative;border:2px dashed rgba(255,255,255,0.08);border-radius:0.75rem;padding:2rem;text-align:center;cursor:pointer;transition:all 0.3s;background:rgba(5,5,15,0.5)}
-.file-upload-zone:hover{border-color:rgba(0,200,255,0.25);background:rgba(0,200,255,0.03)}
-.file-upload-zone.has-file{border-color:rgba(0,200,255,0.2);background:rgba(0,200,255,0.03)}
+.file-upload-zone:hover{border-color:rgba(34,85,255,0.25);background:rgba(0,95,231,0.03)}
+.file-upload-zone.has-file{border-color:rgba(34,85,255,0.2);background:rgba(0,95,231,0.03)}
 .file-upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
 .file-upload-preview{display:none;margin-top:0.75rem}
 .file-upload-preview.show{display:block}
@@ -54,8 +54,8 @@
 
         <!-- Header -->
         <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;animation:fadeInUp 0.6s ease">
-            <div style="width:2.5rem;height:2.5rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,200,255,0.05));display:flex;align-items:center;justify-content:center">
-                <svg style="width:1.25rem;height:1.25rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            <div style="width:2.5rem;height:2.5rem;border-radius:0.75rem;background:linear-gradient(135deg,rgba(0,95,231,0.15),rgba(0,95,231,0.05));display:flex;align-items:center;justify-content:center">
+                <svg style="width:1.25rem;height:1.25rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
             </div>
             <div>
                 <h1 style="font-size:1.875rem;font-weight:700;color:#EAEAEA;font-family:'Bebas Neue','Oswald',sans-serif">Payment Details</h1>
@@ -73,9 +73,9 @@
                 <div style="display:flex;flex-direction:column;gap:1.5rem">
 
                     <!-- ===== STEP 1: Select Payment Method ===== -->
-                    <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,200,255,0.12)'" onmouseout="this.style.boxShadow='none'">
+                    <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,85,255,0.12)'" onmouseout="this.style.boxShadow='none'">
                         <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.25rem">
-                            <div style="width:1.75rem;height:1.75rem;border-radius:50%;background:linear-gradient(135deg,#00c8ff,#0099ff);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#05050f;flex-shrink:0">1</div>
+                            <div style="width:1.75rem;height:1.75rem;border-radius:50%;background:linear-gradient(135deg,#005fe7,#2255ff);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#05050f;flex-shrink:0">1</div>
                             <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem">Select Payment Method</h3>
                         </div>
 
@@ -126,9 +126,9 @@
                     </div>
 
                     <!-- ===== STEP 2: Submit Payment Details ===== -->
-                    <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);transition-delay:0.1s" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,200,255,0.12)'" onmouseout="this.style.boxShadow='none'">
+                    <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);transition-delay:0.1s" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,85,255,0.12)'" onmouseout="this.style.boxShadow='none'">
                         <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:1.25rem">
-                            <div style="width:1.75rem;height:1.75rem;border-radius:50%;background:linear-gradient(135deg,#00c8ff,#0099ff);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#05050f;flex-shrink:0">2</div>
+                            <div style="width:1.75rem;height:1.75rem;border-radius:50%;background:linear-gradient(135deg,#005fe7,#2255ff);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#05050f;flex-shrink:0">2</div>
                             <h3 style="color:#EAEAEA;font-weight:600;font-size:1.125rem">Submit Payment Details</h3>
                         </div>
 
@@ -136,11 +136,11 @@
                             <!-- Transaction ID -->
                             <div style="margin-bottom:1rem">
                                 <label for="transactionId" style="display:block;color:rgba(234,234,234,0.35);font-size:0.7rem;font-weight:500;margin-bottom:0.375rem;text-transform:uppercase;letter-spacing:0.05em">
-                                    Transaction ID / Hash <span style="color:#00c8ff">*</span>
+                                    Transaction ID / Hash <span style="color:#005fe7">*</span>
                                 </label>
                                 <input type="text" id="transactionId" required placeholder="Paste your transaction ID or hash here" autocomplete="off"
                                     style="width:100%;background:rgba(5,5,15,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.75rem;font-size:0.8125rem;color:#EAEAEA;transition:all 0.3s;box-sizing:border-box;font-family:'JetBrains Mono',monospace"
-                                    onfocus="this.style.borderColor='#00c8ff';this.style.boxShadow='0 0 0 3px rgba(0,200,255,0.15)'"
+                                    onfocus="this.style.borderColor='#005fe7';this.style.boxShadow='0 0 0 3px rgba(34,85,255,0.15)'"
                                     onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.boxShadow='none'">
                                 <p style="color:rgba(234,234,234,0.2);font-size:0.7rem;margin-top:0.375rem;display:flex;align-items:center;gap:0.375rem">
                                     <svg style="width:0.75rem;height:0.75rem;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -151,12 +151,12 @@
                             <!-- Payment Screenshot Upload -->
                             <div style="margin-bottom:1rem">
                                 <label style="display:block;color:rgba(234,234,234,0.35);font-size:0.7rem;font-weight:500;margin-bottom:0.375rem;text-transform:uppercase;letter-spacing:0.05em">
-                                    Payment Screenshot <span style="color:#00c8ff">*</span>
+                                    Payment Screenshot <span style="color:#005fe7">*</span>
                                 </label>
                                 <div id="uploadZone" class="file-upload-zone">
                                     <input type="file" id="screenshotInput" accept="image/jpeg,image/png,image/webp" onchange="handleFileSelect(event)" onclick="event.stopPropagation()" required>
                                     <div id="uploadPlaceholder">
-                                        <svg style="width:2rem;height:2rem;color:rgba(0,200,255,0.3);margin:0 auto 0.75rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        <svg style="width:2rem;height:2rem;color:rgba(34,85,255,0.3);margin:0 auto 0.75rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                         <p style="color:rgba(234,234,234,0.3);font-size:0.8125rem;margin:0">Click to upload payment screenshot</p>
                                         <p style="color:rgba(234,234,234,0.15);font-size:0.7rem;margin-top:0.375rem">JPEG, PNG or WebP — Max 5MB</p>
                                     </div>
@@ -176,7 +176,7 @@
                     <!-- Contact Info Summary -->
                     <div class="glass-card reveal" style="padding:1rem 1.25rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);transition-delay:0.15s;display:flex;gap:1rem;flex-wrap:wrap;align-items:center" onmouseover="this.style.boxShadow='0 12px 40px -8px rgba(0,0,0,0.3)'" onmouseout="this.style.boxShadow='none'">
                         <div style="display:flex;align-items:center;gap:0.625rem">
-                            <div style="width:1.75rem;height:1.75rem;border-radius:50%;background:linear-gradient(135deg,#00c8ff,#00c8ff);display:flex;align-items:center;justify-content:center;font-size:0.625rem;font-weight:700;color:#05050f;flex-shrink:0" id="contactInitial"></div>
+                            <div style="width:1.75rem;height:1.75rem;border-radius:50%;background:linear-gradient(135deg,#005fe7,#2255ff);display:flex;align-items:center;justify-content:center;font-size:0.625rem;font-weight:700;color:#05050f;flex-shrink:0" id="contactInitial"></div>
                             <div>
                                 <span style="color:rgba(234,234,234,0.3);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;display:block">Contact</span>
                                 <span id="contactDisplayName" style="color:#EAEAEA;font-size:0.8125rem;font-weight:500"></span>
@@ -190,9 +190,9 @@
                 </div>
 
                 <!-- RIGHT: Order Summary -->
-                <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);transition-delay:0.15s;position:sticky;top:6rem" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,200,255,0.12)'" onmouseout="this.style.boxShadow='none'">
+                <div class="glass-card reveal" style="padding:1.5rem;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);transition-delay:0.15s;position:sticky;top:6rem" onmouseover="this.style.boxShadow='0 20px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,85,255,0.12)'" onmouseout="this.style.boxShadow='none'">
                     <h3 style="color:#EAEAEA;font-weight:600;margin-bottom:1rem;font-size:1.125rem;display:flex;align-items:center;gap:0.5rem">
-                        <svg style="width:1.125rem;height:1.125rem;color:#00c8ff" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        <svg style="width:1.125rem;height:1.125rem;color:#005fe7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                         Order Summary
                     </h3>
 
@@ -204,11 +204,11 @@
                             <span id="paymentSubtotal" style="color:#EAEAEA;font-weight:600">$0.00</span>
                         </div>
                         <div style="display:flex;align-items:center;justify-content:space-between;font-size:0.75rem">
-                            <span style="color:rgba(0,200,255,0.5);display:flex;align-items:center;gap:0.375rem">
+                            <span style="color:rgba(0,95,231,0.5);display:flex;align-items:center;gap:0.375rem">
                                 <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 One-Time Payment
                             </span>
-                            <span style="color:#00c8ff;font-size:0.75rem">Lifetime Access</span>
+                            <span style="color:#005fe7;font-size:0.75rem">Lifetime Access</span>
                         </div>
                         <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
                         <div style="display:flex;align-items:center;justify-content:space-between">
@@ -217,7 +217,7 @@
                         </div>
                     </div>
 
-                    <button onclick="confirmOrder()" id="confirmOrderBtn" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#00c8ff,#0099ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,200,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                    <button onclick="confirmOrder()" id="confirmOrderBtn" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#005fe7,#2255ff);color:white;font-weight:600;font-size:1rem;border-radius:0.75rem;transition:all 0.3s;cursor:pointer;border:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(34,85,255,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
                         <svg style="width:1rem;height:1rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         Confirm Order
                     </button>
@@ -311,7 +311,7 @@ function fallbackCopy(text) {
 }
 
 function showCopySuccess() {
-    // Silently copy — no toast, no animation
+    showToast('Address copied to clipboard!', 'success');
 }
 
 // ===== FILE UPLOAD HANDLING =====

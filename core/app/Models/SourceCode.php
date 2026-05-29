@@ -14,6 +14,7 @@ class SourceCode extends Model
         'price',
         'old_price',
         'image',
+        'download_link',
         'language',
         'category',
         'platform',

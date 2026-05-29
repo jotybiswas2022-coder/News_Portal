@@ -3,6 +3,11 @@
 @section('title', 'Orders — Admin')
 
 @section('content')
+
+@if (session('success'))
+    <input type="hidden" id="sessionSuccess" value="{{ session('success') }}">
+@endif
+
 <div class="order-page">
 
     {{-- Header --}}
@@ -84,7 +89,7 @@
                 </table>
             </div>
             <div class="order-pagination-wrap">
-                {{ $orders->links() }}
+                {{ $orders->links('vendor.pagination.simple-buttons') }}
             </div>
             @else
             <div class="order-empty">
@@ -96,6 +101,33 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var sessionSuccess = document.getElementById('sessionSuccess');
+    if (sessionSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: sessionSuccess.value,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            background: '#1e293b',
+            color: '#f1f5f9',
+            iconColor: '#60A5FA',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+    }
+});
+</script>
+@endsection
 
 <style>
 :root {
@@ -208,6 +240,29 @@
     padding: 14px 16px; border-top: 1px solid var(--oborder);
     display: flex; justify-content: flex-end;
 }
+.simple-pagination {
+    display: flex; gap: 8px;
+}
+.simple-prev, .simple-next {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px;
+    background: rgba(96,165,250,0.08);
+    border: 1px solid rgba(96,165,250,0.15);
+    border-radius: 8px;
+    font-size: 13px; font-weight: 600; color: var(--oprimary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.simple-prev:hover, .simple-next:hover {
+    background: rgba(96,165,250,0.15);
+    border-color: rgba(96,165,250,0.3);
+    transform: translateY(-1px);
+}
+.simple-disabled {
+    opacity: 0.35; cursor: not-allowed; pointer-events: none;
+}
+.simple-prev i, .simple-next i { font-size: 11px; }
 .order-empty {
     text-align: center; padding: 60px 20px;
 }
