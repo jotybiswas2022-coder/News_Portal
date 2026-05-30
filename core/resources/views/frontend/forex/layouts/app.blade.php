@@ -183,6 +183,8 @@
     .perf-bar { animation:bar-grow 1.2s ease forwards; }
     .input-modern { background:rgba(5,5,15,0.8); border:1px solid rgba(34,85,255,0.15); transition:all 0.3s ease; color:var(--text-white); }
     .input-modern:focus { border-color:var(--cyan-bright); box-shadow:0 0 0 3px rgba(34,85,255,0.15); outline:none; }
+    /* ── GLOBAL: remove underlines from all links ── */
+    a { text-decoration: none !important; }
     .underline-animate { position:relative; text-decoration:none; }
     .underline-animate::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--cyan-bright); transition:width 0.3s ease; }
     .underline-animate:hover::after { width:100%; }

@@ -36,6 +36,9 @@ Swal.setDefaults({
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 <style>
+/* ── GLOBAL: remove underlines from all links ── */
+a { text-decoration: none !important; }
+
 /* ===== SWEETALERT2 THEME OVERRIDES (Dark with brand blue) ===== */
 .swal-front-popup {
     background: #05050f !important;

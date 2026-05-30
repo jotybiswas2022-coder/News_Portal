@@ -230,6 +230,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+a { text-decoration: none !important; }
+
 /* ===== DARKEAS AUTH STYLES ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
 
