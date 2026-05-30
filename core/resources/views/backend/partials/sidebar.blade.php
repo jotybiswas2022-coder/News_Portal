@@ -5,21 +5,25 @@ use Illuminate\Support\Str;
 <!-- Top Navbar -->
 <nav class="top-navbar">
     <div class="top-nav-inner">
-        <a class="top-nav-brand" href="/admin">
-            <i class="bi bi-speedometer2"></i>
-            <span>Admin Dashboard</span>
-        </a>
+        <div class="navbar-left-group">
+            <a class="top-nav-brand" href="/admin">
+                <i class="bi bi-speedometer2"></i>
+                <span class="brand-text">Admin <span class="brand-text-desktop">Dashboard</span></span>
+            </a>
 
-        <a class="nav-link-custom home-link-mobile" href="/" aria-label="Home">
-            <i class="bi bi-house-door"></i>
-        </a>
+            <a class="nav-link-custom home-link-mobile" href="/" aria-label="Home">
+                <i class="bi bi-house-door"></i>
+            </a>
+        </div>
 
-        <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <button class="sidebar-toggler" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar menu">
-            <i class="bi bi-list"></i>
-        </button>
+        <div class="navbar-right-group">
+            <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <button class="sidebar-toggler" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar menu">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
 
         <div class="top-nav-links" id="navbarTopNav">
             <a class="nav-link-custom {{ request()->is('/') ? 'active' : '' }}" href="/">
@@ -129,7 +133,10 @@ use Illuminate\Support\Str;
     font-size: 1.3rem;
     color: #60A5FA;
 }
+.navbar-left-group { display: flex; align-items: center; gap: 4px; }
+.navbar-right-group { display: flex; align-items: center; gap: 2px; }
 .home-link-mobile { display: none; }
+.brand-text-desktop { display: inline; }
 .nav-toggler, .sidebar-toggler {
     display: none;
     background: transparent;
@@ -317,7 +324,11 @@ use Illuminate\Support\Str;
     .sidebar-menu li { margin-bottom: 0; }
     .sidebar-menu a { font-size: 0.85rem; padding: 10px 14px; }
     .sidebar-footer { display: none; }
+    .brand-text-desktop { display: none; }
     .sidebar-toggler { display: flex; align-items: center; justify-content: center; }
-    .home-link-mobile { display: inline-flex; font-size: 1.15rem; padding: 7px 10px; }
+    .home-link-mobile { display: inline-flex; font-size: 1.1rem; padding: 6px 8px; }
+    .navbar-left-group { gap: 2px; }
+    .top-nav-brand { font-size: 0.9rem; }
+    .top-nav-brand i { font-size: 1.1rem; }
 }
 </style>
