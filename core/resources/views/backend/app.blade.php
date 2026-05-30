@@ -42,6 +42,36 @@ Swal.setDefaults({
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 @yield('scripts')
+
+{{-- Top scrollbar sync for all backend tables --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.table-scroll-wrap').forEach(function(wrapper) {
+        // Only add top scrollbar if the content overflows
+        if (wrapper.scrollWidth <= wrapper.clientWidth) return;
+
+        var topBar = document.createElement('div');
+        topBar.className = 'table-scrollbar-top';
+        topBar.style.cssText = 'overflow-x:auto;overflow-y:hidden;width:100%;height:10px;background:transparent;';
+
+        var spacer = document.createElement('div');
+        spacer.style.cssText = 'height:1px;width:' + wrapper.scrollWidth + 'px;';
+        topBar.appendChild(spacer);
+
+        wrapper.parentNode.insertBefore(topBar, wrapper);
+
+        // Sync top scroll → bottom scroll
+        topBar.addEventListener('scroll', function () {
+            wrapper.scrollLeft = this.scrollLeft;
+        });
+
+        // Sync bottom scroll → top scroll
+        wrapper.addEventListener('scroll', function () {
+            topBar.scrollLeft = this.scrollLeft;
+        });
+    });
+});
+</script>
 </body>
 
 <style>
