@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
             <span>Admin Dashboard</span>
         </a>
 
+        <a class="nav-link-custom home-link-mobile" href="/" aria-label="Home">
+            <i class="bi bi-house-door"></i>
+        </a>
+
         <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -125,6 +129,7 @@ use Illuminate\Support\Str;
     font-size: 1.3rem;
     color: #60A5FA;
 }
+.home-link-mobile { display: none; }
 .nav-toggler, .sidebar-toggler {
     display: none;
     background: transparent;
@@ -313,5 +318,6 @@ use Illuminate\Support\Str;
     .sidebar-menu a { font-size: 0.85rem; padding: 10px 14px; }
     .sidebar-footer { display: none; }
     .sidebar-toggler { display: flex; align-items: center; justify-content: center; }
+    .home-link-mobile { display: inline-flex; font-size: 1.15rem; padding: 7px 10px; }
 }
 </style>
