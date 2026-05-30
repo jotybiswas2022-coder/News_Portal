@@ -14,41 +14,48 @@
 
             <!-- Desktop Nav -->
             <div style="display: none; align-items: center; gap: 4px;" class="desktop-nav">
-                <a href="{{ route('forex.home') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;"
-                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='var(--text-secondary)';this.style.background='transparent'">
+                @php $currentRoute = request()->route()?->getName(); @endphp
+                <a href="{{ route('forex.home') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: {{ $currentRoute === 'forex.home' ? '#ffffff' : 'var(--text-secondary)' }}; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;{{ $currentRoute === 'forex.home' ? 'background: rgba(255,255,255,0.04);' : '' }}"
+                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='{{ $currentRoute === 'forex.home' ? '#ffffff' : 'var(--text-secondary)' }}';this.style.background='{{ $currentRoute === 'forex.home' ? 'rgba(255,255,255,0.04)' : 'transparent' }}'">
                     Home
-                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
+                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX({{ $currentRoute === 'forex.home' ? '1' : '0' }}); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
                 </a>
-                 <a href="{{ route('forex.products') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;"
-                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='var(--text-secondary)';this.style.background='transparent'">
+                 <a href="{{ route('forex.products') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: {{ $currentRoute === 'forex.products' ? '#ffffff' : 'var(--text-secondary)' }}; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;{{ $currentRoute === 'forex.products' ? 'background: rgba(255,255,255,0.04);' : '' }}"
+                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='{{ $currentRoute === 'forex.products' ? '#ffffff' : 'var(--text-secondary)' }}';this.style.background='{{ $currentRoute === 'forex.products' ? 'rgba(255,255,255,0.04)' : 'transparent' }}'">
                     Products
-                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
+                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX({{ $currentRoute === 'forex.products' ? '1' : '0' }}); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
                 </a>
-                 <a href="{{ route('forex.source-codes') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;"
-                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='var(--text-secondary)';this.style.background='transparent'">
+                 <a href="{{ route('forex.source-codes') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: {{ $currentRoute === 'forex.source-codes' ? '#ffffff' : 'var(--text-secondary)' }}; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;{{ $currentRoute === 'forex.source-codes' ? 'background: rgba(255,255,255,0.04);' : '' }}"
+                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='{{ $currentRoute === 'forex.source-codes' ? '#ffffff' : 'var(--text-secondary)' }}';this.style.background='{{ $currentRoute === 'forex.source-codes' ? 'rgba(255,255,255,0.04)' : 'transparent' }}'">
                     Source Codes
-                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
+                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX({{ $currentRoute === 'forex.source-codes' ? '1' : '0' }}); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
                 </a>
-                <a href="{{ route('forex.partnership') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;"
-                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='var(--text-secondary)';this.style.background='transparent'">
+                <a href="{{ route('forex.partnership') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: {{ $currentRoute === 'forex.partnership' ? '#ffffff' : 'var(--text-secondary)' }}; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;{{ $currentRoute === 'forex.partnership' ? 'background: rgba(255,255,255,0.04);' : '' }}"
+                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='{{ $currentRoute === 'forex.partnership' ? '#ffffff' : 'var(--text-secondary)' }}';this.style.background='{{ $currentRoute === 'forex.partnership' ? 'rgba(255,255,255,0.04)' : 'transparent' }}'">
                     Partnership
-                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
+                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX({{ $currentRoute === 'forex.partnership' ? '1' : '0' }}); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
                 </a>
-                <a href="{{ route('forex.knowledgebase') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;"
-                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='var(--text-secondary)';this.style.background='transparent'">
+                <a href="{{ route('forex.knowledgebase') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: {{ $currentRoute === 'forex.knowledgebase' ? '#ffffff' : 'var(--text-secondary)' }}; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;{{ $currentRoute === 'forex.knowledgebase' ? 'background: rgba(255,255,255,0.04);' : '' }}"
+                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='{{ $currentRoute === 'forex.knowledgebase' ? '#ffffff' : 'var(--text-secondary)' }}';this.style.background='{{ $currentRoute === 'forex.knowledgebase' ? 'rgba(255,255,255,0.04)' : 'transparent' }}'">
                     Knowledge Base
-                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
+                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX({{ $currentRoute === 'forex.knowledgebase' ? '1' : '0' }}); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
                 </a>
-                <a href="{{ route('forex.contact-us') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;"
-                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='var(--text-secondary)';this.style.background='transparent'">
+                <a href="{{ route('forex.contact-us') }}" style="padding: 8px 16px; font-size: 14px; font-weight: 500; color: {{ $currentRoute === 'forex.contact-us' ? '#ffffff' : 'var(--text-secondary)' }}; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; position: relative; display: inline-block;{{ $currentRoute === 'forex.contact-us' ? 'background: rgba(255,255,255,0.04);' : '' }}"
+                onmouseover="this.style.color='#ffffff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='{{ $currentRoute === 'forex.contact-us' ? '#ffffff' : 'var(--text-secondary)' }}';this.style.background='{{ $currentRoute === 'forex.contact-us' ? 'rgba(255,255,255,0.04)' : 'transparent' }}'">
                     Contact
-                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
+                    <span style="position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--brand-rainbow); transform: scaleX({{ $currentRoute === 'forex.contact-us' ? '1' : '0' }}); transition: transform 0.3s ease; transform-origin: left;" class="nav-underline"></span>
                 </a>
             </div>
 
             <!-- Right side -->
             <div style="display: flex; align-items: center; gap: 12px;">
                 
+                <!-- Store Drawer Trigger -->
+                <button id="storeDrawerBtn" style="display: none; color: #9ca3af; background: transparent; border: none; cursor: pointer; transition: all 0.3s ease; width: 40px; height: 40px; border-radius: 8px; align-items: center; justify-content: center;" class="store-desktop-btn"
+                onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'">
+                    <svg style="width: 20px; height: 20px; transition: transform 0.3s ease;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                </button>
+
                 <!-- Cart -->
                 <a href="{{ route('forex.cart') }}" style="position: relative; color: #9ca3af; text-decoration: none; transition: all 0.3s ease; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;"
                 onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.04)'" onmouseout="this.style.color='#9ca3af';this.style.background='transparent'">
@@ -421,6 +428,7 @@
     .desktop-nav { display: flex !important; }
     .mobile-menu-btn { display: none !important; }
     .lang-desktop { display: inline-block !important; }
+    .store-desktop-btn { display: inline-flex !important; }
 }
 @media (min-width: 640px) {
     .login-desktop { display: inline-flex !important; }
@@ -560,34 +568,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(cartBadge, { childList: true, characterData: true, subtree: true });
     }
     updateMobileBadge();
-
-    // Navbar scroll effect
-    const navbar = document.getElementById('mainNavbar');
-    if (navbar) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 1px 0 rgba(255,255,255,0.06)';
-                navbar.style.background = 'rgba(5,5,15,0.8)';
-                navbar.style.backdropFilter = 'blur(20px) saturate(1.4)';
-            } else {
-                navbar.style.boxShadow = 'none';
-                navbar.style.background = 'rgba(5,5,15,0.7)';
-                navbar.style.backdropFilter = 'blur(20px) saturate(1)';
-            }
-        });
-    }
-
-    // Desktop nav link underline animation
-    document.querySelectorAll('.desktop-nav > a, .desktop-nav > div a').forEach(function(link) {
-        link.addEventListener('mouseenter', function() {
-            const underline = this.querySelector('.nav-underline');
-            if (underline) underline.style.transform = 'scaleX(1)';
-        });
-        link.addEventListener('mouseleave', function() {
-            const underline = this.querySelector('.nav-underline');
-            if (underline) underline.style.transform = 'scaleX(0)';
-        });
-    });
 
     // ==================== NOTIFICATION BELL ====================
     const notifBtn = document.getElementById('notifBellBtn');

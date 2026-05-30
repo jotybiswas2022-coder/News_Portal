@@ -402,7 +402,7 @@
 
         <!-- CTA Buttons -->
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;animation:fadeUp 0.7s ease 0.5s both">
-            <a href="/products" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none">
+            <a href="{{ route('forex.products') }}" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none">
                 <span style="position:relative;z-index:10">Explore EAs</span>
                 <svg style="width:1.25rem;height:1.25rem;transition:transform 0.3s" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -770,7 +770,7 @@
                     Join over <span style="color:#005fe7;font-weight:600">1 million</span> traders who've elevated their trading with SMART BINARY ZONE. Start your journey today.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem">
-                    <a href="/products" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none">
+                    <a href="{{ route('forex.products') }}" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none">
                         <span style="position:relative;z-index:10">Get Started Now</span>
                         <svg style="width:1.25rem;height:1.25rem;transition:transform 0.3s" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>

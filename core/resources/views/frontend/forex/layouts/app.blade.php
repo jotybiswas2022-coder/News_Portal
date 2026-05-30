@@ -187,6 +187,7 @@
     .underline-animate::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--cyan-bright); transition:width 0.3s ease; }
     .underline-animate:hover::after { width:100%; }
     @media (max-width:640px) { .hero-title { font-size:clamp(2.2rem,10vw,3rem) !important; } }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @media (prefers-reduced-motion:reduce) { *,::before,::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; } }
     .scroll-progress { position:fixed;top:0;left:0;z-index:9999;height:2px;background:var(--gradient-main);transition:width 0.1s ease; }
     @media (min-width:768px) { .md\\:block { display:block !important; } }
@@ -493,56 +494,19 @@
         if (backToTop) {
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 400) {
-                    backToTop.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    backToTop.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    backToTop.style.opacity = '1';
+                    backToTop.style.transform = 'translateY(0)';
+                    backToTop.style.pointerEvents = 'auto';
                 } else {
-                    backToTop.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    backToTop.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    backToTop.style.opacity = '0';
+                    backToTop.style.transform = 'translateY(1rem)';
+                    backToTop.style.pointerEvents = 'none';
                 }
             }, { passive: true });
 
             backToTop.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-        }
-
-        // --- Navbar Scroll Effect ---
-        const navbar = document.getElementById('mainNavbar');
-        if (navbar) {
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.style.borderColor = 'rgba(34,85,255,0.1)';
-                    navbar.style.background = 'rgba(5,5,15,0.85)';
-                    navbar.style.boxShadow = '0 1px 20px rgba(0,0,0,0.3)';
-                } else {
-                    navbar.style.borderColor = 'rgba(34,85,255,0.05)';
-                    navbar.style.background = 'rgba(5,5,15,0.7)';
-                }
-            }, { passive: true });
-        }
-
-        // --- Mobile Drawer ---
-        const menuBtn = document.getElementById('mobileMenuBtn');
-        const drawer = document.getElementById('mobileDrawer');
-        const overlay = document.getElementById('drawerOverlay');
-        const hamburger = document.getElementById('hamburgerIcon');
-        const closeIcon = document.getElementById('closeIcon');
-        if (menuBtn && drawer) {
-            function openDrawer() {
-                drawer.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-                if (hamburger) hamburger.classList.add('hidden');
-                if (closeIcon) closeIcon.classList.remove('hidden');
-            }
-            function closeDrawer() {
-                drawer.classList.add('hidden');
-                document.body.style.overflow = '';
-                if (hamburger) hamburger.classList.remove('hidden');
-                if (closeIcon) closeIcon.classList.add('hidden');
-            }
-            menuBtn.addEventListener('click', openDrawer);
-            if (overlay) overlay.addEventListener('click', closeDrawer);
-            drawer.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeDrawer); });
         }
 
         // --- Cookie Banner ---
