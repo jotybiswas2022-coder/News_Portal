@@ -30,20 +30,42 @@ Swal.setDefaults({
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://junait.com/tiny_pro.js"></script>
 
-    <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
 </head>
 <body>
 
     @include('backend.partials.sidebar')
 
-    <main class="content-area">
+    {{-- Mobile overlay when sidebar is open --}}
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <main class="content-area" id="mainContent">
         @yield('content')
     </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('backend/js/custom.js') }}"></script>
 
 @yield('scripts')
+
+{{-- Global sidebar toggle script --}}
+<script>
+function toggleSidebar() {
+    document.body.classList.toggle('sidebar-open');
+}
+
+// Close sidebar on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.body.classList.contains('sidebar-open')) {
+        document.body.classList.remove('sidebar-open');
+    }
+});
+
+// Handle window resize — close sidebar when going from mobile to desktop
+window.addEventListener('resize', function() {
+    if (window.innerWidth >= 769) {
+        document.body.classList.remove('sidebar-open');
+    }
+});
+</script>
 </body>
 
 <style>
@@ -85,6 +107,9 @@ main.content-area {
 }
 
 /* ─── Responsive ─── */
+@media (max-width: 1200px) {
+    body { grid-template-columns: 220px 1fr; }
+}
 @media (max-width: 992px) {
     body {
         grid-template-columns: 200px 1fr;
@@ -104,6 +129,55 @@ main.content-area {
     main.content-area {
         max-height: none;
         overflow: visible;
+    }
+    /* Sidebar slide animation */
+    aside.sidebar {
+        position: fixed;
+        top: 57px;
+        left: -280px;
+        width: 260px !important;
+        min-width: 260px !important;
+        max-height: calc(100vh - 57px);
+        z-index: 200;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-right: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 4px 0 24px rgba(0,0,0,0.3);
+    }
+    body.sidebar-open aside.sidebar {
+        left: 0;
+    }
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 199;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+    body.sidebar-open .sidebar-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    /* Shift main content when sidebar is open */
+    main.content-area {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    body.sidebar-open main.content-area {
+        transform: translateX(260px);
+    }
+}
+@media (max-width: 480px) {
+    aside.sidebar {
+        width: 240px !important;
+        min-width: 240px !important;
+        left: -260px;
+    }
+    body.sidebar-open main.content-area {
+        transform: translateX(240px);
     }
 }
 

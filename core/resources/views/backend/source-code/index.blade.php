@@ -521,11 +521,32 @@
     .sc-tagline { display: none; }
 }
 @media (max-width: 480px) {
-    .sc-page { padding: 12px; }
-    .sc-table td, .sc-table th { padding: 8px 6px; font-size: 12px; }
+    .sc-page { padding: 10px; }
+    .sc-table td, .sc-table th { padding: 8px 5px; font-size: 11px; }
+    .sc-header { padding: 12px 14px; border-radius: 12px; }
     .sc-header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .sc-header-badge { font-size: 12px; padding: 6px 12px; }
+    .sc-header-title { font-size: 15px; }
+    .sc-header-sub { font-size: 12px; }
+    .sc-header-badge { font-size: 11px; padding: 5px 10px; }
+    .sc-btn-add { font-size: 12px; padding: 6px 14px; }
+    .sc-stats-bar { display: none; }
+    .sc-name { font-size: 12px; }
+    .sc-tagline { display: none; }
+    .sc-table th:nth-child(3), .sc-table td:nth-child(3) { display: none; }
     .sc-table th:nth-child(6), .sc-table td:nth-child(6) { display: none; }
+    .sc-slug-badge { font-size: 9px; padding: 2px 5px; }
+    .sc-price { font-size: 12px; }
+    .sc-old-price { font-size: 9px; }
+    .sc-lang-badge, .sc-cat-badge { font-size: 9px; padding: 2px 7px; }
+    .sc-action-btn { width: 28px; height: 28px; font-size: 11px; }
+    .sc-pagination-wrap { flex-direction: column; align-items: center; gap: 8px; padding: 10px 14px; }
+    .sc-pagination-info { font-size: 11px; }
+    .date-badge { font-size: 10px; padding: 3px 8px; }
+}
+@media (max-width: 380px) {
+    .sc-page { padding: 8px; }
+    .sc-table td, .sc-table th { padding: 6px 4px; }
+    .sc-table th:nth-child(8), .sc-table td:nth-child(8) { display: none; }
 }
 </style>
 

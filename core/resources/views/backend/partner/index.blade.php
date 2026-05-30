@@ -408,12 +408,27 @@
     .btn-view-msg { padding: 5px 10px; font-size: 12px; }
 }
 @media (max-width: 480px) {
-    .partner-page { padding: 12px; }
-    .partner-table td, .partner-table th { padding: 8px 8px; font-size: 12px; }
+    .partner-page { padding: 10px; }
+    .partner-table td, .partner-table th { padding: 8px 6px; font-size: 11px; }
+    .partner-header { padding: 12px 14px; border-radius: 12px; }
     .partner-header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .partner-header-badge { font-size: 12px; padding: 6px 12px; }
-    .partner-actions { flex-direction: column; gap: 4px; }
-    .partner-status-select { min-width: 80px; font-size: 11px; padding: 4px 22px 4px 8px; }
+    .partner-header-title { font-size: 15px; }
+    .partner-header-sub { font-size: 12px; }
+    .partner-header-badge { font-size: 11px; padding: 5px 10px; }
+    .partner-stats { display: none; }
+    .partner-actions { flex-direction: column; gap: 3px; }
+    .partner-status-select { min-width: 70px; font-size: 10px; padding: 4px 20px 4px 6px; }
+    .partner-delete-btn { width: 26px; height: 26px; font-size: 11px; }
+    .btn-view-msg { padding: 4px 8px; font-size: 11px; }
+    .partner-table th:nth-child(4), .partner-table td:nth-child(4) { display: none; }
+    .partner-table th:nth-child(7), .partner-table td:nth-child(7) { display: none; }
+    .partner-pagination-wrap { flex-direction: column; align-items: center; gap: 8px; padding: 10px 14px; }
+    .partner-pagination-info { font-size: 11px; }
+}
+@media (max-width: 380px) {
+    .partner-page { padding: 8px; }
+    .partner-table td, .partner-table th { padding: 6px 4px; font-size: 10px; }
+    .partner-table th:nth-child(5), .partner-table td:nth-child(5) { display: none; }
 }
 </style>
 

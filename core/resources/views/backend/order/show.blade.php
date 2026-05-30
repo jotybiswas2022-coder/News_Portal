@@ -772,31 +772,58 @@
     .os-header-title { font-size: 17px; }
 }
 @media (max-width: 500px) {
-    .order-show { padding: 12px; }
+    .order-show { padding: 10px; }
     .os-header { border-radius: 12px; }
-    .os-header-content { padding: 14px 16px; }
-    .os-header-left { gap: 12px; }
-    .os-header-icon { width: 40px; height: 40px; font-size: 18px; }
-    .os-header-title { font-size: 15px; }
-    .os-header-meta { font-size: 12px; flex-wrap: wrap; }
-    .os-card-head { padding: 12px 14px; font-size: 11px; }
-    .os-card-body { padding: 12px 14px; }
-    .os-status-select { min-width: 120px; font-size: 12px; padding: 6px 30px 6px 32px; }
+    .os-header-content { padding: 12px 14px; }
+    .os-header-left { gap: 10px; flex-wrap: wrap; }
+    .os-header-icon { width: 36px; height: 36px; font-size: 16px; border-radius: 12px; }
+    .os-header-title { font-size: 14px; }
+    .os-header-meta { font-size: 11px; flex-wrap: wrap; }
+    .os-header-right { gap: 8px; }
+    .os-card-head { padding: 10px 14px; font-size: 11px; }
+    .os-card-body { padding: 10px 14px; }
+    .os-status-select { min-width: 90px; font-size: 11px; padding: 5px 24px 5px 28px; }
+    .os-badge { padding: 5px 12px; font-size: 11px; gap: 5px; }
+    .os-badge-dot { width: 5px; height: 5px; }
+    .os-btn-icon { width: 32px; height: 32px; font-size: 14px; }
+    .os-back { font-size: 11px; padding: 6px 12px; margin-bottom: 14px; }
+    .os-progress { padding: 12px 14px; gap: 4px; flex-wrap: wrap; }
+    .os-progress-step { gap: 6px; }
+    .os-progress-icon { width: 28px; height: 28px; font-size: 12px; }
+    .os-progress-text { font-size: 11px; margin-right: 10px; }
     .os-items-header { display: none; }
     .os-item-row {
         grid-template-columns: 1fr 1fr;
         gap: 4px;
-        padding: 12px 14px;
+        padding: 10px 14px;
     }
     .os-item-info { grid-column: 1 / -1; }
+    .os-item-name { font-size: 13px; }
+    .os-item-desc { font-size: 11px; }
     .os-item-qty, .os-item-price, .os-item-total {
-        font-size: 12px;
+        font-size: 11px;
     }
     .os-item-price { text-align: left; }
     .os-item-total { text-align: right; }
     .os-summary-total-value { font-size: 16px; }
+    .os-items-footer { padding: 10px 14px; }
     .os-items-footer-value { font-size: 16px; }
-    .os-field-value { max-width: 60%; font-size: 13px; }
+    .os-field { padding: 5px 0; gap: 8px; }
+    .os-field-label { font-size: 12px; }
+    .os-field-value { max-width: 55%; font-size: 12px; }
+    .os-txid { font-size: 11px; max-width: 120px; }
+    .os-screenshot-wrap { padding: 12px; }
+    .os-screenshot-img { max-height: 250px; }
+}
+@media (max-width: 380px) {
+    .order-show { padding: 6px; }
+    .os-header-content { padding: 10px 12px; }
+    .os-header-right { flex-direction: column; align-items: flex-start; width: 100%; }
+    .os-header-right .os-badge { margin-left: 0; }
+    .os-grid { gap: 10px; }
+    .os-field { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .os-field-value { max-width: 100%; text-align: left; }
+    .os-item-row { padding: 8px 12px; }
 }
 </style>
 <script>

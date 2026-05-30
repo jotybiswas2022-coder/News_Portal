@@ -558,14 +558,39 @@
 @media (max-width: 768px) {
     .prod-form-page { padding: 16px; }
     .prod-form-header { padding: 14px 16px; flex-direction: column; align-items: flex-start; }
+    .prod-form-header-left { gap: 10px; }
     .prod-inline-group { flex-direction: column; gap: 0; }
     .prod-plans-grid { grid-template-columns: 1fr; }
+    .prod-form-card-hd { padding: 12px 16px; font-size: 12px; }
+    .prod-form-card-bd { padding: 16px; }
+    .prod-input { font-size: 13px; padding: 8px 12px; }
+    .prod-img-upload { padding: 16px; }
 }
 @media (max-width: 480px) {
-    .prod-form-page { padding: 12px; }
-    .prod-form-card-bd { padding: 14px; }
-    .prod-form-actions { flex-direction: column; }
-    .prod-btn-cancel, .prod-btn-submit { width: 100%; justify-content: center; }
+    .prod-form-page { padding: 10px; }
+    .prod-form-card { border-radius: 12px; margin-bottom: 14px; }
+    .prod-form-card-bd { padding: 12px; }
+    .prod-form-header { padding: 12px 14px; border-radius: 12px; }
+    .prod-form-header-icon { width: 36px; height: 36px; font-size: 16px; }
+    .prod-form-title { font-size: 15px; }
+    .prod-form-sub { font-size: 12px; }
+    .prod-fg { margin-bottom: 12px; }
+    .prod-label { font-size: 11px; }
+    .prod-input { font-size: 13px; padding: 8px 10px; border-radius: 6px; }
+    .prod-textarea { min-height: 60px; }
+    .prod-inline-group { gap: 0; }
+    .prod-form-actions { flex-direction: column; padding: 12px 0 24px; }
+    .prod-btn-cancel, .prod-btn-submit { width: 100%; justify-content: center; font-size: 13px; padding: 8px 20px; }
+    .prod-back-link { font-size: 12px; padding: 5px 12px; margin-bottom: 14px; }
+    .prod-sub-section { margin-bottom: 14px; }
+    .prod-sub-border { padding-bottom: 14px; }
+    .prod-sub-num { width: 20px; height: 20px; font-size: 10px; }
+    .prod-plan-card { padding: 14px; }
+    .prod-hint { font-size: 10px; }
+}
+@media (max-width: 380px) {
+    .prod-form-page { padding: 8px; }
+    .prod-form-card-bd { padding: 10px; }
 }
 </style>
 

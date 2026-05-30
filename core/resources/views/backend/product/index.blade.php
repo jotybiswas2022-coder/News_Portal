@@ -287,10 +287,29 @@
     .prod-tagline { display: none; }
 }
 @media (max-width: 480px) {
-    .prod-page { padding: 12px; }
-    .prod-table td, .prod-table th { padding: 8px 8px; font-size: 12px; }
+    .prod-page { padding: 10px; }
+    .prod-table td, .prod-table th { padding: 8px 6px; font-size: 11px; }
+    .prod-header { padding: 12px 14px; border-radius: 12px; }
     .prod-header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .prod-header-badge { font-size: 12px; padding: 6px 12px; }
+    .prod-header-title { font-size: 15px; }
+    .prod-header-sub { font-size: 12px; }
+    .prod-header-badge { font-size: 11px; padding: 5px 10px; }
+    .prod-btn-add { font-size: 12px; padding: 6px 14px; }
+    .prod-name { font-size: 12px; }
+    .prod-tagline { display: none; }
+    .prod-table th:nth-child(3), .prod-table td:nth-child(3) { display: none; }
+    .prod-table th:nth-child(4), .prod-table td:nth-child(4) { display: none; }
+    .prod-slug-badge { font-size: 10px; padding: 2px 6px; }
+    .prod-price { font-size: 11px; }
+    .prod-edit-btn, .prod-delete-btn { width: 28px; height: 28px; font-size: 12px; }
+    .prod-pagination-wrap { flex-direction: column; align-items: center; gap: 8px; padding: 10px 14px; }
+    .prod-pagination-info { font-size: 11px; }
+    .date-badge { font-size: 10px; padding: 3px 8px; }
+}
+@media (max-width: 380px) {
+    .prod-page { padding: 8px; }
+    .prod-table th:nth-child(7), .prod-table td:nth-child(7) { display: none; }
+    .prod-table td, .prod-table th { padding: 6px 4px; }
 }
 </style>
 

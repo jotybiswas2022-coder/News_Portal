@@ -211,10 +211,26 @@
     .btn-view-msg { padding: 5px 10px; font-size: 12px; }
 }
 @media (max-width: 480px) {
-    .contact-page { padding: 12px; }
-    .contact-table td, .contact-table th { padding: 8px 8px; font-size: 12px; }
+    .contact-page { padding: 10px; }
+    .contact-table td, .contact-table th { padding: 8px 6px; font-size: 11px; }
+    .contact-header { padding: 12px 14px; border-radius: 12px; }
     .contact-header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .contact-header-badge { font-size: 12px; padding: 6px 12px; }
+    .contact-header-title { font-size: 15px; }
+    .contact-header-sub { font-size: 12px; }
+    .contact-header-badge { font-size: 11px; padding: 5px 10px; }
+    .contact-table th:nth-child(5), .contact-table td:nth-child(5),
+    .contact-table th:nth-child(6), .contact-table td:nth-child(6) { display: none; }
+    .btn-view-msg { padding: 4px 8px; font-size: 11px; }
+    .contact-email { font-size: 11px; }
+    .idx { font-size: 11px; }
+    .contact-modal-body { padding: 16px; }
+    .contact-modal-body p { font-size: 14px; }
+    .contact-modal-header { padding: 14px 18px; }
+    .contact-modal-title { font-size: 15px; }
+}
+@media (max-width: 380px) {
+    .contact-page { padding: 8px; }
+    .contact-table td, .contact-table th { padding: 6px 4px; font-size: 10px; }
 }
 </style>
 

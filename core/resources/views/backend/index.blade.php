@@ -465,14 +465,48 @@
 @media (max-width: 640px) {
     .db-page { padding:16px 12px; }
     .db-header { padding:20px 18px; border-radius:16px; }
+    .db-admin-logo-img, .db-admin-logo-fallback { width:48px; height:48px; font-size:1.2rem; }
     .db-header-title { font-size:1.25rem; }
-    .db-header-right { gap:8px; }
-    .db-header-stat { padding:8px 12px; }
+    .db-header-left { gap:14px; }
+    .db-header-right { gap:8px; flex-wrap:wrap; }
+    .db-header-stat { padding:8px 12px; flex:1; min-width:60px; }
     .db-header-stat-num { font-size:1.1rem; }
     .db-stats { grid-template-columns:1fr; gap:12px; }
     .db-section-header { flex-direction:column; align-items:flex-start; }
+    .db-section-header-left { gap:10px; }
     .db-section { border-radius:14px; }
+    .db-section-header { padding:16px 18px; }
     .db-stat-card { padding:16px 18px; }
+    .db-stat-value { font-size:1.5rem; }
+    .db-actions { padding:16px 18px; }
+    .db-actions { grid-template-columns:1fr; }
+    .db-action-item { padding:14px 16px; }
+}
+@media (max-width: 480px) {
+    .db-page { padding:12px 10px; }
+    .db-header { padding:16px 14px; border-radius:14px; }
+    .db-header-content { gap:16px; }
+    .db-header-left { flex-direction:column; align-items:flex-start; gap:12px; }
+    .db-admin-logo-img, .db-admin-logo-fallback { width:44px; height:44px; font-size:1.1rem; }
+    .db-header-title { font-size:1.1rem; }
+    .db-header-sub { font-size:0.8rem; }
+    .db-header-right { width:100%; }
+    .db-greeting { font-size:0.72rem; }
+    .db-stat-card { padding:14px 16px; border-radius:14px; }
+    .db-stat-value { font-size:1.35rem; }
+    .db-stat-icon { width:38px; height:38px; font-size:1rem; }
+    .db-section { border-radius:12px; margin-bottom:14px; }
+    .db-section-header { padding:14px 16px; }
+    .db-section-title { font-size:0.95rem; }
+    .db-section-sub { font-size:0.72rem; }
+    .db-section-link { font-size:0.75rem; padding:5px 10px; }
+    .db-th { padding:10px 12px; font-size:0.7rem; }
+    .db-td { padding:10px 12px; font-size:0.8rem; }
+    .db-avatar { width:28px; height:28px; font-size:0.65rem; }
+    .db-action-item { padding:12px 14px; border-radius:10px; }
+    .db-action-icon { width:34px; height:34px; font-size:0.95rem; }
+    .db-action-title { font-size:0.82rem; }
+    .db-action-desc { font-size:0.7rem; }
 }
 </style>
 

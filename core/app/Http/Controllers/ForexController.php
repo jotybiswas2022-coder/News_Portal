@@ -198,7 +198,7 @@ class ForexController extends Controller
             ['q' => 'How many members use your EAs?', 'a' => 'We have over 1 million traders worldwide who trust our solutions. Our community continues to grow as more traders discover the power of our Expert Advisors.'],
             ['q' => 'Which broker do you recommend?', 'a' => 'We recommend ECN brokers with tight spreads and fast execution. Popular choices include IC Markets, Pepperstone, and FXTM. Check our broker settings guide for detailed recommendations.'],
             ['q' => 'Which VPS do you recommend?', 'a' => 'We recommend using a reliable VPS provider with low latency to your broker\'s servers. Our EAs come with free VPS options depending on your purchase plan.'],
-            ['q' => 'Is there a free trial available?', 'a' => 'Yes! We offer free Expert Advisors that you can download and test. Visit our Free EAs page to get started. You can also check our verified MyFxbook track records for live performance data.'],
+            ['q' => 'Is there a free trial available?', 'a' => 'Yes! We offer free Expert Advisors that you can download and test. Check our verified MyFxbook track records for live performance data.'],
             ['q' => 'Can the EA be used with FIFO brokers?', 'a' => 'Yes, our EAs are fully compatible with FIFO (First In, First Out) brokers. The algorithms are designed to comply with FIFO regulations.'],
             ['q' => 'There is no TP & SL on my trades, why?', 'a' => 'Some of our strategies use dynamic trailing stops and advanced exit algorithms instead of fixed TP/SL. This allows for maximum profit capture. Check your EA settings or contact support for details.'],
             ['q' => 'Should I trade during holidays?', 'a' => 'We recommend avoiding trading during major holidays when market liquidity is low. Our EAs have built-in holiday calendars to automatically reduce exposure during low-liquidity periods.'],
@@ -363,12 +363,6 @@ class ForexController extends Controller
             'success' => true,
             'message' => 'Application submitted successfully! We will contact you within 24 hours.',
         ]);
-    }
-
-    // Free EAs
-    public function freeEas()
-    {
-        return view('frontend.forex.free-eas');
     }
 
     // Contact us — show page

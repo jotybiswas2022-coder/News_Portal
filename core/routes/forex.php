@@ -14,7 +14,6 @@ Route::controller(ForexController::class)->group(function () {
     // Other routes
     Route::get('/partnership', 'partnership')->name('forex.partnership');
     Route::post('/partnership', 'partnerSubmit')->name('forex.partner-submit');
-    Route::get('/free-eas', 'freeEas')->name('forex.free-eas');
     Route::get('/contact-us', 'contactUs')->name('forex.contact-us');
     Route::post('/contact-us', 'contactSubmit')->name('forex.contact-submit');
     Route::get('/cart', 'cart')->name('forex.cart');

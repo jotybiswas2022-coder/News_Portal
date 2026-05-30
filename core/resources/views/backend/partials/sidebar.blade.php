@@ -10,8 +10,11 @@ use Illuminate\Support\Str;
             <span>Admin Dashboard</span>
         </a>
 
-        <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')">
+        <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
             <span class="navbar-toggler-icon"></span>
+        </button>
+        <button class="sidebar-toggler" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar menu">
+            <i class="bi bi-list"></i>
         </button>
 
         <div class="top-nav-links" id="navbarTopNav">
@@ -122,16 +125,22 @@ use Illuminate\Support\Str;
     font-size: 1.3rem;
     color: #60A5FA;
 }
-.nav-toggler {
+.nav-toggler, .sidebar-toggler {
     display: none;
     background: transparent;
     border: none;
     color: #94a3b8;
     font-size: 1.3rem;
-    padding: 4px;
+    padding: 6px;
     cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
-.nav-toggler:focus { outline: none; }
+.nav-toggler:hover, .sidebar-toggler:hover {
+    color: #60A5FA;
+    background: rgba(37,99,235,0.08);
+}
+.nav-toggler:focus, .sidebar-toggler:focus { outline: none; }
 
 .top-nav-links {
     display: flex;
@@ -286,11 +295,23 @@ use Illuminate\Support\Str;
     .top-nav-links.show {
         display: flex;
     }
-    .sidebar { width: 100%; min-width: 100%; max-height: none; flex-direction: row; flex-wrap: wrap; }
+    /* Sidebar transforms into sliding panel (handled by app.blade.php) */
+    .sidebar { 
+        width: 100%;
+        min-width: 100%;
+        max-height: none;
+        flex-direction: column;
+    }
     .sidebar-brand { display: none; }
-    .sidebar-menu { display: flex; flex-wrap: wrap; padding: 8px; gap: 4px; }
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        gap: 2px;
+    }
     .sidebar-menu li { margin-bottom: 0; }
-    .sidebar-menu a { font-size: 0.82rem; padding: 8px 12px; }
+    .sidebar-menu a { font-size: 0.85rem; padding: 10px 14px; }
     .sidebar-footer { display: none; }
+    .sidebar-toggler { display: flex; align-items: center; justify-content: center; }
 }
 </style>

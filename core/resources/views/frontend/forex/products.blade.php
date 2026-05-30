@@ -164,19 +164,11 @@
             </div>
             <h3 style="color:#EAEAEA;font-size:1.375rem;font-weight:600;margin:0 0 0.5rem 0;font-family:'Bebas Neue','Oswald',sans-serif">Coming Soon</h3>
             <p style="color:rgba(234,234,234,0.4);font-size:0.875rem;line-height:1.6;margin:0 0 1.5rem 0">Our Expert Advisors are being carefully prepared. Check back soon for premium trading solutions that deliver real results.</p>
-            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem">
-                <a href="{{ route('forex.free-eas') }}" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:linear-gradient(135deg,#005fe7,#2255ff);color:white;font-weight:600;font-size:0.8125rem;border-radius:0.625rem;transition:all 0.3s;text-decoration:none"
-                   onmouseover="this.style.boxShadow='0 8px 25px rgba(34,85,255,0.2)';this.style.transform='translateY(-2px)'"
-                   onmouseout="this.style.boxShadow='none';this.style.transform='none'">
-                    Try Free EAs
-                    <svg style="width:0.875rem;height:0.875rem" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </a>
-                <a href="{{ route('forex.contact-us') }}" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:rgba(234,234,234,0.6);font-weight:500;font-size:0.8125rem;border-radius:0.625rem;transition:all 0.3s;text-decoration:none"
+            <a href="{{ route('forex.contact-us') }}" style="display:inline-flex;align-items:center;gap:0.375rem;padding:0.625rem 1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:rgba(234,234,234,0.6);font-weight:500;font-size:0.8125rem;border-radius:0.625rem;transition:all 0.3s;text-decoration:none"
                    onmouseover="this.style.borderColor='rgba(34,85,255,0.2)';this.style.color='#EAEAEA'"
                    onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.color='rgba(234,234,234,0.6)'">
                     Contact Us
                 </a>
-            </div>
         </div>
         @endif
     </div>
