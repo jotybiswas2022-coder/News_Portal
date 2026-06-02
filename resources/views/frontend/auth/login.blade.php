@@ -20,6 +20,11 @@
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
+        <span class="cross-particle" style="left:8%;  animation-duration:14s; animation-delay:1s;   bottom:-20px;">+</span>
+        <span class="cross-particle" style="left:28%; animation-duration:11s; animation-delay:3s;   bottom:-20px;">✚</span>
+        <span class="cross-particle" style="left:55%; animation-duration:16s; animation-delay:.5s;  bottom:-20px;">+</span>
+        <span class="cross-particle" style="left:75%; animation-duration:10s; animation-delay:2s;   bottom:-20px;">✚</span>
+        <span class="cross-particle" style="left:92%; animation-duration:13s; animation-delay:4s;   bottom:-20px;">+</span>
     </div>
 
     <div class="container">
@@ -72,12 +77,18 @@
                             <!-- EMAIL -->
                             <div class="form-group-custom">
                                 <label for="email" class="login-label">ইমেইল ঠিকানা</label>
-                                <input id="email" type="email"
-                                       class="login-input @error('email') is-invalid @enderror"
-                                       name="email"
-                                       value="{{ old('email') }}"
-                                       placeholder="you@example.com"
-                                       required autocomplete="off" autofocus>
+                                <div class="input-wrap">
+                                    <svg class="field-icon" viewBox="0 0 24 24">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                    </svg>
+                                    <input id="email" type="email"
+                                           class="login-input @error('email') is-invalid @enderror"
+                                           name="email"
+                                           value="{{ old('email') }}"
+                                           placeholder="you@example.com"
+                                           required autocomplete="off" autofocus>
+                                </div>
                                 @error('email')
                                     <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
                                 @enderror
@@ -86,11 +97,17 @@
                             <!-- PASSWORD -->
                             <div class="form-group-custom">
                                 <label for="password" class="login-label">পাসওয়ার্ড</label>
-                                <input id="password" type="password"
-                                       class="login-input @error('password') is-invalid @enderror"
-                                       name="password"
-                                       placeholder="••••••••"
-                                       required autocomplete="new-password">
+                                <div class="input-wrap">
+                                    <svg class="field-icon" viewBox="0 0 24 24">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                    <input id="password" type="password"
+                                           class="login-input @error('password') is-invalid @enderror"
+                                           name="password"
+                                           placeholder="••••••••"
+                                           required autocomplete="new-password">
+                                </div>
                                 @error('password')
                                     <span class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
                                 @enderror
@@ -143,7 +160,7 @@
                     </div>
 
                     <!-- INFO STRIP -->
-                    <div class="info-strip text-center mt-3">
+                    <div class="info-strip text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -267,6 +284,24 @@
             100% { bottom: 110%;  opacity: 0;   transform: translateX(30px) scale(1);  }
         }
 
+        /* Cross / plus signs floating */
+        .cross-particle {
+            position: absolute;
+            color: rgba(255,120,120,.25);
+            font-size: 24px;
+            font-weight: 900;
+            animation: floatCross linear infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes floatCross {
+            0%   { transform: translateY(0)      rotate(0deg);   opacity: 0; }
+            15%  { opacity: .5; }
+            85%  { opacity: .2; }
+            100% { transform: translateY(-100vh) rotate(180deg); opacity: 0; }
+        }
+
         /* ── LAYOUT ── */
         .container {
             position: relative;
@@ -374,7 +409,6 @@
             border-radius: 50%;
             background: rgba(192,57,43,0.15);
             border: 1px solid var(--border-color);
-            margin-bottom: 8px;
         }
 
         .icon-lock svg {
@@ -411,9 +445,45 @@
             text-transform: uppercase;
         }
 
+        .login-label::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--blood-light);
+            border-radius: 50%;
+            margin-right: 7px;
+            vertical-align: middle;
+            margin-top: -2px;
+        }
+
+        /* Input wrappers for icons */
+        .input-wrap {
+            position: relative;
+        }
+
+        .field-icon {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            width: 18px;
+            height: 18px;
+            stroke: rgba(255,255,255,0.25);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: none;
+            transition: stroke 0.25s;
+        }
+
+        .form-group-custom:focus-within .field-icon {
+            stroke: var(--blood-light);
+        }
+
         .login-input {
             width: 100%;
-            padding: 13px 16px;
+            padding: 13px 16px 13px 44px;
             background: var(--input-bg);
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -568,10 +638,6 @@
         }
 
         /* Sign up row */
-        .signup-row {
-            text-align: center;
-        }
-
         .signup-text {
             font-size: 0.875rem;
             color: var(--text-muted);
@@ -603,6 +669,7 @@
             border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             font-size: 0.75rem;
             color: var(--text-muted);
@@ -654,7 +721,6 @@
             width: 20px;
             height: 20px;
             flex-shrink: 0;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
         .google-btn span {
@@ -669,16 +735,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-        }
-
-        /* ── FOOTER ── */
-        .page-footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 16px;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.15);
         }
 
         /* ── RESPONSIVE ── */
