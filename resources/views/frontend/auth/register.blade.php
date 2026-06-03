@@ -396,6 +396,89 @@ document.addEventListener('DOMContentLoaded', function() {
 * { box-sizing: border-box; }
 body { margin: 0; }
 
+/* ===== LIGHT MODE ===== */
+.light-mode div[style*="background:linear-gradient(135deg,#0f0f1a"] {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%) !important;
+}
+
+.light-mode div[style*="font-size:22px;font-weight:800;color:#fff"] {
+    color: #1f2937 !important;
+}
+
+.light-mode div[style*="color:rgba(255,255,255,0.12)"] {
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.light-mode div[style*="background:rgba(255,255,255,0.04);backdrop-filter:blur(24px)"] {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-mode div[style*="padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)"] {
+    border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.light-mode span[style*="font-size:17px;font-weight:700;color:#fff"] {
+    color: #1f2937 !important;
+}
+
+.light-mode p[style*="font-size:12.5px;color:rgba(255,255,255,0.35)"] {
+    color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.light-mode a[style*="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)"] {
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.light-mode span[style*="flex:1;height:1px;background:rgba(255,255,255,0.06)"] {
+    background: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-mode span[style*="font-size:11px;color:rgba(255,255,255,0.2)"] {
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.light-mode label[style*="color:rgba(255,255,255,0.5)"] {
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.light-mode input[style*="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08)"] {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: #1f2937 !important;
+}
+
+.light-mode i[style*="color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2"] {
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.light-mode span[style*="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);cursor:pointer;font-size:15px;z-index:2"] {
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.light-mode div[style*="padding:10px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04)"] {
+    background: rgba(220, 38, 38, 0.03) !important;
+    border-top-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.light-mode i[style*="font-size:11px;color:rgba(255,255,255,0.18)"] {
+    color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.light-mode span[style*="font-size:10.5px;color:rgba(255,255,255,0.18)"] {
+    color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.light-mode .float-drop {
+    opacity: 0.15 !important;
+}
+
+.light-mode .float-plus {
+    color: rgba(220, 38, 38, 0.12) !important;
+}
+
 @media (max-width: 480px) {
     div[style*="padding:28px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
     div[style*="padding:26px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }

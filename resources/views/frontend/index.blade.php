@@ -1302,6 +1302,179 @@
             .view-donors-btn { font-size: 10px; padding: 6px 10px; }
             .hero h1 { font-size: 20px; }
         }
+
+        /* ===== LIGHT MODE OVERRIDES ===== */
+        .light-mode body {
+            background: var(--theme-bg);
+        }
+
+        .light-mode .hero {
+            background: var(--theme-hero-bg);
+        }
+
+        .light-mode .hero::before,
+        .light-mode .hero::after {
+            opacity: 0.4;
+        }
+
+        .light-mode .hero h1 {
+            color: #1f2937;
+        }
+
+        .light-mode .hero h1 .highlight {
+            -webkit-text-fill-color: transparent;
+        }
+
+        .light-mode .hero p {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .hero-badge {
+            background: rgba(220, 38, 38, 0.08);
+            border-color: rgba(220, 38, 38, 0.2);
+            color: #dc2626;
+        }
+
+        .light-mode .hero-stats {
+            border-top-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .stat-label {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .btn-secondary-custom {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.15);
+            color: #374151;
+        }
+
+        .light-mode .btn-secondary-custom:hover {
+            background: rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .light-mode .section-header .section-subtitle {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .light-mode .section-title {
+            color: #1f2937;
+        }
+
+        .light-mode .section-desc {
+            color: #6b7280;
+        }
+
+        .light-mode .blood-groups {
+            background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%);
+        }
+
+        .light-mode .blood-card {
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .blood-card:hover {
+            box-shadow: 0 20px 50px rgba(220, 38, 38, 0.12);
+        }
+
+        .light-mode .blood-card h3 {
+            color: #dc2626;
+        }
+
+        .light-mode .blood-card .donor-count {
+            color: #6b7280;
+        }
+
+        .light-mode .features {
+            background: #ffffff;
+        }
+
+        .light-mode .feature-card {
+            background: linear-gradient(135deg, #fafafa, #ffffff);
+            border-color: #f3f4f6;
+        }
+
+        .light-mode .feature-card h4 {
+            color: #1f2937;
+        }
+
+        .light-mode .feature-card p {
+            color: #6b7280;
+        }
+
+        .light-mode .why-donate {
+            background: linear-gradient(135deg, #1f2937, #111827, #1a1a2e);
+        }
+
+        .light-mode .why-content h2 {
+            color: #fff;
+        }
+
+        .light-mode .why-content p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .light-mode .contact-section {
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .light-mode .contact-form-wrapper {
+            background: #ffffff;
+            border-color: #f3f4f6;
+        }
+
+        .light-mode .form-group label {
+            color: #374151;
+        }
+
+        .light-mode .form-group input,
+        .light-mode .form-group textarea {
+            background: #fafafa;
+            border-color: #e5e7eb;
+            color: #374151;
+        }
+
+        .light-mode .form-group input:focus,
+        .light-mode .form-group textarea:focus {
+            border-color: #dc2626;
+            background: #ffffff;
+        }
+
+        .light-mode .contact-info-card {
+            background: #ffffff;
+            border-color: #f3f4f6;
+        }
+
+        .light-mode .contact-info-card h5 {
+            color: #1f2937;
+        }
+
+        .light-mode .contact-info-card p {
+            color: #6b7280;
+        }
+
+        .light-mode .footer {
+            background: var(--theme-footer-bg);
+        }
+
+        .light-mode .footer h6 {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .light-mode .footer-links-col a {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .light-mode .footer-bottom p {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .light-mode .particle {
+            background: rgba(220, 38, 38, 0.3);
+        }
     </style>
 
 @endsection

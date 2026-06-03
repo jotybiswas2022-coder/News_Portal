@@ -1318,6 +1318,206 @@
             .edit-footer .footer-links { grid-template-columns: 1fr; gap: 16px; text-align: center; }
             .edit-footer .social-icons { justify-content: center; }
         }
+
+        /* ===== LIGHT MODE OVERRIDES ===== */
+        .light-mode body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%);
+        }
+
+        .light-mode .edit-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .edit-header {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(185, 28, 28, 0.03));
+            border-bottom-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .edit-header h2 {
+            color: #1f2937;
+        }
+
+        .light-mode .edit-header-sub {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .form-group label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .light-mode .input-group-custom input,
+        .light-mode .input-group-custom select {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #1f2937;
+        }
+
+        .light-mode .input-group-custom input::placeholder {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .input-group-custom input:focus,
+        .light-mode .input-group-custom select:focus {
+            border-color: #dc2626;
+            background: rgba(220, 38, 38, 0.03);
+        }
+
+        .light-mode .input-group-custom input:hover,
+        .light-mode .input-group-custom select:hover {
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .light-mode .input-group-custom select option {
+            background: #ffffff;
+            color: #1f2937;
+        }
+
+        .light-mode .input-icon-custom {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .blood-chip {
+            border-color: rgba(0, 0, 0, 0.12);
+            background: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .blood-chip:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.06);
+        }
+
+        .light-mode .divider-line {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .divider-text {
+            color: rgba(0, 0, 0, 0.35);
+        }
+
+        .light-mode .info-note {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: rgba(59, 130, 246, 0.15);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .btn-cancel {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .btn-cancel:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: #1f2937;
+        }
+
+        .light-mode .btn-reset {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .btn-reset:hover {
+            background: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .light-mode .reset-info-badge {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.35);
+        }
+
+        .light-mode .reset-info-badge i {
+            color: rgba(0, 0, 0, 0.25);
+        }
+
+        .light-mode .reset-info-badge strong {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .confirm-modal {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .confirm-title {
+            color: #1f2937;
+        }
+
+        .light-mode .confirm-desc {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .confirm-desc strong {
+            color: rgba(0, 0, 0, 0.65);
+        }
+
+        .light-mode .confirm-btn.cancel {
+            background: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .confirm-btn.cancel:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: #1f2937;
+        }
+
+        .light-mode .edit-footer {
+            background: linear-gradient(180deg, #f8f9fa, #e5e7eb);
+            border-top-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .edit-footer .brand-name {
+            color: #1f2937;
+        }
+
+        .light-mode .edit-footer .brand-tagline {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .edit-footer .footer-links-col h6,
+        .light-mode .edit-footer .footer-social h6 {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .edit-footer .footer-links-col a {
+            color: rgba(0, 0, 0, 0.55);
+        }
+
+        .light-mode .edit-footer .footer-links-col a:hover {
+            color: #dc2626;
+        }
+
+        .light-mode .edit-footer .social-icon {
+            background: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .edit-footer .footer-bottom p {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .edit-glow {
+            opacity: 0.4;
+        }
+
+        .light-mode .edit-particles .particle {
+            background: rgba(220, 38, 38, 0.25);
+        }
+
+        .light-mode .alert-custom {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        }
+
+        .light-mode .alert-close {
+            color: #15803d;
+        }
     </style>
 
 @endsection

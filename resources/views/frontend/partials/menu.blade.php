@@ -10,6 +10,11 @@
             <span class="brand-text">ব্লাড ব্যাংক</span>
         </a>
 
+        <!-- Theme Toggle -->
+        <button class="theme-toggle-btn" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle dark/light mode">
+            <i class="bi bi-sun-fill"></i>
+        </button>
+
         <!-- Animated Hamburger Toggler -->
         <button class="navbar-toggler border-0 custom-toggler" type="button"
                 data-bs-toggle="collapse"
@@ -27,6 +32,13 @@
 
         <!-- Top Nav Links -->
         <div class="collapse navbar-collapse" id="navbarTopNav">
+            <!-- Mobile-only theme toggle inside collapse -->
+            <div class="mobile-theme-toggle d-lg-none text-center mb-3">
+                <button class="theme-toggle-btn mobile" id="mobileThemeToggle" type="button" title="Toggle theme">
+                    <i class="bi bi-sun-fill"></i>
+                    <span class="ms-2">Theme</span>
+                </button>
+            </div>
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
                 <li class="nav-item nav-link-wrap">
@@ -224,13 +236,69 @@
     font-weight: 500;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-}
+}    .btn-logout:hover {
+        background: rgba(220, 38, 38, 0.15);
+        border-color: #dc2626;
+        color: #fff;
+    }
 
-.btn-logout:hover {
-    background: rgba(220, 38, 38, 0.15);
-    border-color: #dc2626;
-    color: #fff;
-}
+    /* ===== Theme Toggle Button ===== */
+    .theme-toggle-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-right: 6px;
+        flex-shrink: 0;
+    }
+
+    .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        transform: rotate(15deg);
+    }
+
+    .theme-toggle-btn.mobile {
+        width: auto;
+        height: 40px;
+        padding: 0 18px;
+        border-radius: 10px;
+        margin: 0 auto;
+        display: inline-flex;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .theme-toggle-btn.mobile:hover {
+        transform: none;
+    }
+
+    .light-mode .theme-toggle-btn {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: rgba(0, 0, 0, 0.04);
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .light-mode .theme-toggle-btn:hover {
+        background: rgba(0, 0, 0, 0.08);
+        border-color: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .light-mode .theme-toggle-btn.mobile {
+        border-color: rgba(220, 38, 38, 0.2);
+        background: rgba(220, 38, 38, 0.06);
+        color: var(--theme-primary);
+    }
 
 /* ===== Animated Hamburger ===== */
 .custom-toggler {
@@ -447,5 +515,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Sync mobile theme toggle with desktop
+    const desktopToggle = document.getElementById('themeToggle');
+    const mobileToggle = document.getElementById('mobileThemeToggle');
+    if (desktopToggle && mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            desktopToggle.click();
+        });
+
+        // Sync icon on load and on toggle
+        function syncMobileIcon() {
+            var isLight = document.documentElement.classList.contains('light-mode');
+            mobileToggle.innerHTML = isLight
+                ? '<i class="bi bi-moon-stars-fill"></i> <span class="ms-2">Dark</span>'
+                : '<i class="bi bi-sun-fill"></i> <span class="ms-2">Light</span>';
+        }
+
+        syncMobileIcon();
+
+        // Observe class changes on html element
+        var observer = new MutationObserver(function() {
+            syncMobileIcon();
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    }
 });
 </script>

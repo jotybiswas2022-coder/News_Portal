@@ -836,6 +836,125 @@
             .profile-footer .footer-links { grid-template-columns: 1fr; gap: 16px; text-align: center; }
             .profile-footer .social-icons { justify-content: center; }
         }
+
+        /* ===== LIGHT MODE OVERRIDES ===== */
+        .light-mode body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%);
+        }
+
+        .light-mode .profile-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .light-mode .profile-header {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(185, 28, 28, 0.03));
+            border-bottom-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .header-info h2 {
+            color: #1f2937;
+        }
+
+        .light-mode .blood-label {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: rgba(220, 38, 38, 0.25);
+            color: #dc2626;
+        }
+
+        .light-mode .section-label {
+            color: rgba(0, 0, 0, 0.35);
+        }
+
+        .light-mode .info-item {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .info-item:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(220, 38, 38, 0.15);
+        }
+
+        .light-mode .info-label {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .info-value {
+            color: #1f2937;
+        }
+
+        .light-mode .text-muted {
+            color: rgba(0, 0, 0, 0.35);
+        }
+
+        .light-mode .donation-status {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .status-bar {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .status-bar-label {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .btn-back {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .btn-back:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: #1f2937;
+        }
+
+        .light-mode .profile-footer {
+            background: linear-gradient(180deg, #f8f9fa, #e5e7eb);
+            border-top-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .light-mode .profile-footer .brand-name {
+            color: #1f2937;
+        }
+
+        .light-mode .profile-footer .brand-tagline {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .profile-footer .footer-links-col h6,
+        .light-mode .profile-footer .footer-social h6 {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .light-mode .profile-footer .footer-links-col a {
+            color: rgba(0, 0, 0, 0.55);
+        }
+
+        .light-mode .profile-footer .footer-links-col a:hover {
+            color: #dc2626;
+        }
+
+        .light-mode .profile-footer .social-icon {
+            background: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode .profile-footer .footer-bottom p {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .profile-glow {
+            opacity: 0.4;
+        }
+
+        .light-mode .profile-particles .particle {
+            background: rgba(220, 38, 38, 0.25);
+        }
     </style>
 
 @endsection
