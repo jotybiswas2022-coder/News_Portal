@@ -53,15 +53,21 @@
             <div class="emergency-card-main" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:24px;overflow:hidden;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:cardFadeIn 0.6s cubic-bezier(0.4,0,0.2,1);" data-aos="fade-up">
 
                 {{-- Header --}}
-                <div style="background:linear-gradient(135deg,rgba(220,38,38,0.2),rgba(185,28,28,0.1));padding:28px 32px;display:flex;align-items:center;gap:18px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06);">
+                <div style="background:linear-gradient(135deg,rgba(220,38,38,0.2),rgba(185,28,28,0.1));padding:28px 32px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06);">
                     <div style="position:absolute;top:-40%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(220,38,38,0.1),transparent 70%);border-radius:50%;pointer-events:none;"></div>
                     <div style="width:56px;height:56px;background:rgba(220,38,38,0.2);border:1.5px solid rgba(220,38,38,0.3);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;color:#ef4444;flex-shrink:0;position:relative;z-index:1;animation:emergency-icon-pulse 2s infinite;">
                         <i class="bi bi-exclamation-triangle-fill"></i>
                     </div>
-                    <div style="position:relative;z-index:1;">
+                    <div style="position:relative;z-index:1;flex:1;">
                         <h2 style="font-size:20px;font-weight:800;color:#fff;margin:0;line-height:1.2;">জরুরি রক্তের অনুরোধ</h2>
                         <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;">নিচের ফর্ম পূরণ করে দ্রুত ডোনার খুঁজুন</p>
                     </div>
+                    <a href="{{ url('/emergency-request/my-requests') }}" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);text-decoration:none;font-size:12px;font-weight:600;transition:all 0.25s;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;position:relative;z-index:1;white-space:nowrap;"
+                       onmouseover="this.style.background='rgba(255,255,255,0.2)';this.style.borderColor='rgba(255,255,255,0.3)'"
+                       onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.1)'">
+                        <i class="bi bi-clock-history" style="font-size:13px;"></i>
+                        <span>আমার অনুরোধ</span>
+                    </a>
                 </div>
 
                 {{-- Body --}}
