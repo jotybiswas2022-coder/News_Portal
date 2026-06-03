@@ -62,9 +62,7 @@ class DashboardController extends Controller
         $account = Account::first();
 
         return view('backend.index', compact(
-            'accountsCount',
             'contacts',
-            'contactsCount',
             'donors',
             'account',
             'donorsCount',
