@@ -45,25 +45,29 @@ $divBg = ['Dhaka'=>'#667eea','Chattogram'=>'#f093fb','Khulna'=>'#4facfe','Rajsha
         </div>
     </div>
 
-    {{-- Search --}}
+    {{-- Search with AJAX autocomplete --}}
     <div style="background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,0.06);margin-bottom:20px;border:1px solid rgba(0,0,0,0.04);padding:18px 22px;">
-        <form action="{{ url('admin/donor_list') }}" method="GET">
+        <form id="searchForm" action="{{ url('admin/donor_list') }}" method="GET">
             <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
-                <div style="flex:1 1 200px;min-width:150px;">
+                <div style="flex:1 1 200px;min-width:150px;position:relative;">
                     <label style="display:block;font-size:0.78rem;font-weight:600;color:#666;margin-bottom:4px;">
                         <i class="bi bi-search me-1" style="color:#667eea;"></i>Search by Name
                     </label>
-                    <input type="text" name="search_name" placeholder="Type a name..." value="{{ request('search_name') }}"
-                           style="width:100%;padding:9px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;transition:all 0.3s;background:#fafafe;"
+                    <input type="text" name="search_name" id="searchName" autocomplete="off"
+                           placeholder="Type to search live..." value="{{ request('search_name') }}"
+                           style="width:100%;padding:9px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;transition:all 0.3s;background:#fafafe;box-sizing:border-box;"
                            onfocus="this.style.borderColor='#667eea';this.style.boxShadow='0 0 0 3px rgba(102,126,234,0.1)'"
                            onblur="this.style.borderColor='#e8e8f0';this.style.boxShadow='none'">
+                    {{-- Autocomplete dropdown --}}
+                    <div id="autocompleteDropdown"
+                         style="display:none;position:absolute;top:100%;left:0;right:0;z-index:1000;background:#fff;border-radius:14px;border:1.5px solid #e8e8f0;box-shadow:0 12px 48px rgba(0,0,0,0.12);margin-top:4px;overflow:hidden;max-height:380px;overflow-y:auto;"></div>
                 </div>
                 <div style="flex:1 1 160px;min-width:140px;">
                     <label style="display:block;font-size:0.78rem;font-weight:600;color:#666;margin-bottom:4px;">
                         <i class="bi bi-geo-alt me-1" style="color:#f093fb;"></i>Division
                     </label>
-                    <select name="search_division"
-                            style="width:100%;padding:9px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;transition:all 0.3s;background:#fafafe;"
+                    <select name="search_division" id="searchDivision"
+                            style="width:100%;padding:9px 14px;border-radius:12px;border:1.5px solid #e8e8f0;font-size:0.85rem;outline:none;transition:all 0.3s;background:#fafafe;cursor:pointer;"
                             onfocus="this.style.borderColor='#f093fb';this.style.boxShadow='0 0 0 3px rgba(240,147,251,0.1)'"
                             onblur="this.style.borderColor='#e8e8f0';this.style.boxShadow='none'">
                         <option value="">All Divisions</option>
@@ -73,7 +77,7 @@ $divBg = ['Dhaka'=>'#667eea','Chattogram'=>'#f093fb','Khulna'=>'#4facfe','Rajsha
                     </select>
                 </div>
                 <div>
-                    <button type="submit"
+                    <button type="submit" id="searchSubmitBtn"
                             style="padding:9px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.85rem;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 12px rgba(102,126,234,0.25);"
                             onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 20px rgba(102,126,234,0.35)'"
                             onmouseout="this.style.transform='';this.style.boxShadow='0 4px 12px rgba(102,126,234,0.25)'">
@@ -87,6 +91,10 @@ $divBg = ['Dhaka'=>'#667eea','Chattogram'=>'#f093fb','Khulna'=>'#4facfe','Rajsha
                        onmouseout="this.style.borderColor='#e8e8f0';this.style.color='#888'">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
+                </div>
+                <div id="searchIndicator" style="display:none;align-items:center;gap:6px;padding:0 4px;">
+                    <span style="width:16px;height:16px;border:2px solid #667eea;border-top-color:transparent;border-radius:50%;animation:ajaxSpin 0.6s linear infinite;display:inline-block;"></span>
+                    <span style="font-size:0.78rem;color:#999;">Searching...</span>
                 </div>
             </div>
         </form>
@@ -328,12 +336,148 @@ document.addEventListener('DOMContentLoaded', function () {
         if (window.ResizeObserver) { new ResizeObserver(sw).observe(tw); }
     }
 
+    // ===== AJAX LIVE SEARCH WITH AUTOCOMPLETE =====
+    var searchInput = document.getElementById('searchName');
+    var searchDivision = document.getElementById('searchDivision');
+    var searchForm = document.getElementById('searchForm');
+    var dropdown = document.getElementById('autocompleteDropdown');
+    var indicator = document.getElementById('searchIndicator');
+    var submitBtn = document.getElementById('searchSubmitBtn');
+    var debounceTimer = null;
+    var searchUrl = '{{ url('admin/donor_list/search/ajax') }}';
+
+    function fetchSuggestions(query, division) {
+        if (query.length < 1 && !division) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        indicator.style.display = 'flex';
+
+        var params = new URLSearchParams();
+        if (query.length > 0) params.set('q', query);
+        if (division) params.set('division', division);
+
+        fetch(searchUrl + '?' + params.toString(), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            indicator.style.display = 'none';
+            renderDropdown(data.donors, query);
+        })
+        .catch(function () {
+            indicator.style.display = 'none';
+        });
+    }
+
+    function renderDropdown(donors, query) {
+        if (!donors || donors.length === 0) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        var html = '';
+        var bloodColors = {
+            'A+': '#dc3545', 'A-': '#e35e6f',
+            'B+': '#0d6efd', 'B-': '#5a9bf5',
+            'AB+': '#6f42c1', 'AB-': '#9b72cf',
+            'O+': '#198754', 'O-': '#4caf7d'
+        };
+        var divColors = {
+            'Dhaka':'#667eea','Chattogram':'#f093fb','Khulna':'#4facfe',
+            'Rajshahi':'#43e97b','Barishal':'#fa709a','Sylhet':'#a18cd1',
+            'Rangpur':'#f6d365','Mymensingh':'#f5b042'
+        };
+
+        donors.forEach(function (d, i) {
+            var bg = bloodColors[d.blood] || '#dc3545';
+            var dv = divColors[d.division] || '#667eea';
+            var statusHtml = d.eligible
+                ? '<span style="color:#16a34a;font-weight:600;font-size:0.72rem;">\u2713 Eligible</span>'
+                : '<span style="color:#dc2626;font-size:0.72rem;">\u2717 ' + d.status + '</span>';
+
+            // Highlight matching text
+            var nameHtml = d.name;
+            if (query && query.length > 0) {
+                var re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                nameHtml = d.name.replace(re, '<strong style="color:#667eea;">$1</strong>');
+            }
+
+            html += '<div class="ac-item" data-name="' + d.name.replace(/"/g, '&quot;') + '" style="display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;border-bottom:' + (i < donors.length - 1 ? '1px solid #f0f0f5' : 'none') + ';transition:background 0.15s;"'
+                + ' onmouseover="this.style.background=\'#f8f9ff\'" onmouseout="this.style.background=\'transparent\'">'
+                + '<div style="width:34px;height:34px;border-radius:10px;background:' + bg + ';color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;">' + d.avatar + '</div>'
+                + '<div style="flex:1;min-width:0;">'
+                + '<div style="font-weight:600;font-size:0.85rem;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + nameHtml + '</div>'
+                + '<div style="display:flex;align-items:center;gap:8px;margin-top:2px;">'
+                + '<span style="display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:50px;font-size:0.68rem;font-weight:700;color:#fff;background:' + bg + ';"><i class="bi bi-droplet" style="font-size:0.55rem;"></i>' + d.blood + '</span>'
+                + '<span style="font-size:0.72rem;color:#888;display:flex;align-items:center;gap:3px;"><span style="width:5px;height:5px;border-radius:2px;background:' + dv + ';display:inline-block;"></span>' + d.division + '</span>'
+                + '<span style="font-size:0.72rem;color:#999;">' + (d.last_donated || 'N/A') + '</span>'
+                + '</div></div>'
+                + '<div style="text-align:right;flex-shrink:0;">' + statusHtml + '</div>'
+                + '</div>';
+        });
+
+        dropdown.innerHTML = html;
+        dropdown.style.display = 'block';
+
+        // Click handler for autocomplete items
+        dropdown.querySelectorAll('.ac-item').forEach(function (item) {
+            item.addEventListener('click', function (e) {
+                var name = this.getAttribute('data-name');
+                searchInput.value = name;
+                dropdown.style.display = 'none';
+                // Submit the form
+                searchForm.submit();
+            });
+        });
+    }
+
+    // Debounced input handler
+    searchInput.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        var val = this.value.trim();
+        if (val.length === 0) {
+            dropdown.style.display = 'none';
+            return;
+        }
+        debounceTimer = setTimeout(function () {
+            fetchSuggestions(val, searchDivision.value);
+        }, 300);
+    });
+
+    // Division change also triggers autocomplete if there's a search term
+    searchDivision.addEventListener('change', function () {
+        var val = searchInput.value.trim();
+        if (val.length > 0) {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function () {
+                fetchSuggestions(val, searchDivision.value);
+            }, 200);
+        }
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#searchName') && !e.target.closest('#autocompleteDropdown')) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    // Close dropdown on Escape
+    searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    // ===== DELETE BUTTONS =====
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function () {
             const form = this.closest('.delete-form');
             Swal.fire({
                 title: 'Are you sure?',
-                text: "This donor will be deleted permanently!",
+                text: 'This donor will be deleted permanently!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
@@ -367,5 +511,13 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 575.98px) {
     #donorTableWrap + div { display: none; }
 }
+
+@keyframes ajaxSpin { to { transform: rotate(360deg); } }
+
+/* Autocomplete scrollbar */
+#autocompleteDropdown::-webkit-scrollbar { width: 6px; }
+#autocompleteDropdown::-webkit-scrollbar-track { background: transparent; }
+#autocompleteDropdown::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+#autocompleteDropdown::-webkit-scrollbar-thumb:hover { background: #bbb; }
 </style>
 @endsection

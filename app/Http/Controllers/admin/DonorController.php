@@ -123,6 +123,42 @@ class DonorController extends Controller
     }
 
     // ==============================
+    // AJAX Live Search with Autocomplete
+    // ==============================
+    public function ajaxSearch(Request $request)
+    {
+        $query = $request->get('q', '');
+        $division = $request->get('division', '');
+
+        $donors = Profile::query()
+            ->when($query, function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%');
+            })
+            ->when($division, function ($q) use ($division) {
+                $q->where('division', $division);
+            })
+            ->orderBy('id', 'desc')
+            ->limit(10)
+            ->get(['id', 'name', 'number', 'blood', 'division', 'last_donated']);
+
+        return response()->json([
+            'donors' => $donors->map(function ($d) {
+                return [
+                    'id'            => $d->id,
+                    'name'          => $d->name,
+                    'number'        => $d->number,
+                    'blood'         => $d->blood,
+                    'division'      => $d->division,
+                    'last_donated'  => $d->last_donated ? $d->last_donated->format('d M Y') : null,
+                    'status'        => $d->canDonateNow() ? 'Eligible' : ($d->daysUntilNextDonation() . ' days'),
+                    'eligible'      => $d->canDonateNow(),
+                    'avatar'        => strtoupper(substr($d->name ?? '?', 0, 1)),
+                ];
+            }),
+        ]);
+    }
+
+    // ==============================
     // Export All Donors as PDF
     // ==============================
     public function exportPDF()

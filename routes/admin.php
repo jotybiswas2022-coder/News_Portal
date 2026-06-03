@@ -46,6 +46,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     // ===============================
     Route::prefix('donor_list')->controller(DonorController::class)->group(function () {
         Route::get('/', 'index')->name('donor.index');
+        Route::get('/search/ajax', 'ajaxSearch')->name('donor.search.ajax');
         Route::get('/export/pdf', 'exportPDF')->name('donor.export.pdf');
         Route::get('/export/csv', 'exportCSV')->name('donor.export.csv');
         Route::get('/create', 'create')->name('donor.create');
