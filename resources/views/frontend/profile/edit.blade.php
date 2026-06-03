@@ -2,6 +2,23 @@
 
 @section('content')
 
+    <!-- ========== ANIMATED BACKGROUND PARTICLES ========== -->
+    <div class="edit-particles">
+        <div class="particle" style="--x: 5%; --y: 10%; --size: 5px; --delay: 0s;"></div>
+        <div class="particle" style="--x: 28%; --y: 50%; --size: 4px; --delay: 1.3s;"></div>
+        <div class="particle" style="--x: 48%; --y: 22%; --size: 6px; --delay: 0.6s;"></div>
+        <div class="particle" style="--x: 75%; --y: 60%; --size: 3px; --delay: 2s;"></div>
+        <div class="particle" style="--x: 90%; --y: 8%; --size: 5px; --delay: 0.4s;"></div>
+        <div class="particle" style="--x: 12%; --y: 78%; --size: 4px; --delay: 1.8s;"></div>
+        <div class="particle" style="--x: 45%; --y: 85%; --size: 5px; --delay: 0.8s;"></div>
+        <div class="particle" style="--x: 68%; --y: 38%; --size: 3px; --delay: 2.4s;"></div>
+        <div class="particle" style="--x: 88%; --y: 82%; --size: 4px; --delay: 1s;"></div>
+        <div class="particle" style="--x: 20%; --y: 42%; --size: 5px; --delay: 0.2s;"></div>
+    </div>
+
+    <!-- ========== DECORATIVE GLOW ========== -->
+    <div class="edit-glow"></div>
+
     <!-- ========== SUCCESS ALERT ========== -->
     @if (session('success'))
         <div class="alert-custom" id="successAlertSession">
@@ -159,6 +176,55 @@
             </div>
         </div>
     </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="edit-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-icon">
+                        <i class="bi bi-droplet-fill"></i>
+                    </div>
+                    <div>
+                        <span class="brand-name">ব্লাড ব্যাংক</span>
+                        <span class="brand-tagline">জীবন বাঁচানোর লক্ষ্যে</span>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-links-col">
+                        <h6>কুইক লিংক</h6>
+                        <a href="{{ url('/') }}">হোম</a>
+                        <a href="{{ url('/profile') }}">আমার প্রোফাইল</a>
+                        <a href="{{ url('/profile/edit') }}">প্রোফাইল এডিট</a>
+                        <a href="{{ url('/donor_list') }}">ডোনার তালিকা</a>
+                    </div>
+                    <div class="footer-links-col">
+                        <h6>সেবাসমূহ</h6>
+                        <a href="{{ url('/donor_list/A+') }}">A+ ডোনার</a>
+                        <a href="{{ url('/donor_list/B+') }}">B+ ডোনার</a>
+                        <a href="{{ url('/donor_list/O+') }}">O+ ডোনার</a>
+                        <a href="{{ url('/donor_list/AB+') }}">AB+ ডোনার</a>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <h6>ফলো করুন</h6>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon twitter" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon whatsapp" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                        <a href="#" class="social-icon youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; ২০২৫ ব্লাড ব্যাংক। সর্বস্বত্ব সংরক্ষিত।</p>
+                <p class="footer-made-with">Developed by <span class="dev-name">Joty Biswas</span></p>
+            </div>
+        </div>
+    </footer>
 
     <!-- ========== RESET CONFIRMATION MODAL ========== -->
     <div class="confirm-overlay" id="confirmOverlay" onclick="cancelReset()">
@@ -422,6 +488,54 @@
             padding-top: 72px;
         }
 
+        /* ===== ANIMATED BACKGROUND PARTICLES ===== */
+        .edit-particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .edit-particles .particle {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            left: var(--x);
+            top: var(--y);
+            background: rgba(239, 68, 68, 0.35);
+            border-radius: 50%;
+            animation: float-particle 7s ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+            25% { transform: translate(35px, -25px) scale(1.25); opacity: 0.7; }
+            50% { transform: translate(-25px, 35px) scale(0.75); opacity: 0.2; }
+            75% { transform: translate(25px, 25px) scale(1.15); opacity: 0.55; }
+        }
+
+        /* ===== DECORATIVE GLOW ===== */
+        .edit-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+
         .alert-custom {
             max-width: 640px;
             margin: 24px auto 0;
@@ -436,6 +550,8 @@
             align-items: center;
             gap: 10px;
             animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
         }
 
         .alert-custom i { font-size: 18px; flex-shrink: 0; }
@@ -460,11 +576,13 @@
         }
 
         .edit-section {
-            padding: 40px 0 60px;
-            min-height: calc(100vh - 72px);
+            padding: 40px 0 10px;
+            min-height: 60vh;
             display: flex;
             align-items: flex-start;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .edit-section .container {
@@ -979,19 +1097,135 @@
             .confirm-btn { font-size: 13px; padding: 10px 14px; }
         }
 
+        /* ===== FOOTER ===== */
+        .edit-footer {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.95), var(--dark-2));
+            color: white;
+            padding: 48px 0 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .edit-footer .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .edit-footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .edit-footer .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edit-footer .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
+        }
+
+        .edit-footer .brand-name {
+            display: block; font-size: 17px; font-weight: 800; margin-bottom: 1px;
+        }
+
+        .edit-footer .brand-tagline {
+            display: block; font-size: 12px; color: rgba(255,255,255,0.4);
+        }
+
+        .edit-footer .footer-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .edit-footer .footer-links-col h6,
+        .edit-footer .footer-social h6 {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.2px; color: rgba(255,255,255,0.3); margin-bottom: 12px;
+        }
+
+        .edit-footer .footer-links-col a {
+            display: block;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 3px 0;
+            transition: all 0.3s;
+        }
+
+        .edit-footer .footer-links-col a:hover { color: var(--primary-light); padding-left: 4px; }
+
+        .edit-footer .social-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-footer .social-icon {
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .edit-footer .social-icon:hover { transform: translateY(-3px); }
+        .edit-footer .social-icon.facebook:hover { background: #1877f2; }
+        .edit-footer .social-icon.twitter:hover { background: #1da1f2; }
+        .edit-footer .social-icon.whatsapp:hover { background: #25d366; }
+        .edit-footer .social-icon.youtube:hover { background: #ff0000; }
+
+        .edit-footer .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .edit-footer .footer-bottom p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .edit-footer .dev-name {
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         @media (max-width: 991.98px) {
             body { padding-top: 64px; }
-            .edit-section { padding: 28px 0 40px; }
+            .edit-section { padding: 28px 0 10px; min-height: 50vh; }
         }
 
         @media (max-width: 767.98px) {
             body { padding-top: 60px; }
-            .edit-section { padding: 20px 0 32px; }
+            .edit-section { padding: 20px 0 10px; min-height: 40vh; }
             .edit-header { padding: 22px 24px; }
             .edit-body { padding: 22px 24px; }
             .edit-header h2 { font-size: 17px; }
             .form-row { grid-template-columns: 1fr; gap: 0; }
             .btn-row { flex-direction: column; }
+            .edit-footer { padding: 36px 0 0; margin-top: 28px; }
+            .edit-footer .footer-links { gap: 16px; }
         }
 
         @media (max-width: 480px) {
@@ -1013,6 +1247,15 @@
             .info-note { font-size: 11px; padding: 10px 14px; }
             .btn-submit { padding: 12px 18px; font-size: 14px; }
             .btn-cancel, .btn-reset { padding: 10px 14px; font-size: 13px; }
+            .edit-footer { padding: 28px 0 0; margin-top: 20px; }
+            .edit-footer .footer-content { gap: 20px; padding-bottom: 24px; }
+            .edit-footer .footer-links { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .edit-footer .footer-links-col a { font-size: 12px; }
+            .edit-footer .brand-name { font-size: 15px; }
+            .edit-footer .logo-icon { width: 34px; height: 34px; font-size: 15px; }
+            .edit-footer .social-icon { width: 32px; height: 32px; font-size: 13px; }
+            .edit-footer .footer-bottom { flex-direction: column; text-align: center; gap: 4px; }
+            .edit-footer .footer-bottom p { font-size: 11px; }
         }
 
         @media (max-width: 360px) {
@@ -1021,6 +1264,8 @@
             .edit-header h2 { font-size: 13px; }
             .blood-chips { gap: 5px; }
             .blood-chip { padding: 4px 10px; font-size: 11px; }
+            .edit-footer .footer-links { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+            .edit-footer .social-icons { justify-content: center; }
         }
     </style>
 
