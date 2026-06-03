@@ -48,6 +48,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item nav-link-wrap">
+                    <a class="nav-link top-nav-link {{ request()->is('emergency-request*') ? 'active-link' : '' }}" href="{{ url('/emergency-request') }}">
+                        <i class="bi bi-exclamation-triangle-fill me-1" style="color:#ef4444;"></i> Emergency
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+
                 @auth
                     @if(auth()->user()->is_admin == 1)
                         <li class="nav-item nav-link-wrap">

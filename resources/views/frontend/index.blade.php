@@ -86,6 +86,9 @@
                     <a href="#blood-groups" class="btn-primary-custom">
                         <i class="bi bi-search"></i> ডোনার খুঁজুন
                     </a>
+                    <a href="{{ url('/emergency-request') }}" class="btn-emergency-pulse">
+                        <i class="bi bi-exclamation-triangle-fill"></i> জরুরি রক্তের অনুরোধ
+                    </a>
                     <a href="#contact" class="btn-secondary-custom">
                         <i class="bi bi-telephone-fill"></i> জরুরি যোগাযোগ
                     </a>
@@ -657,6 +660,45 @@
             background: rgba(255,255,255,0.15);
             border-color: rgba(255,255,255,0.45);
             transform: translateY(-3px);
+        }
+
+        .btn-emergency-pulse {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            border: none;
+            padding: 15px 34px;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.45);
+            position: relative;
+            overflow: hidden;
+            animation: emergency-pulse 2s infinite;
+        }
+
+        .btn-emergency-pulse::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes emergency-pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(220, 38, 38, 0.45); }
+            50% { box-shadow: 0 4px 40px rgba(220, 38, 38, 0.7), 0 0 60px rgba(220, 38, 38, 0.2); }
+        }
+
+        .btn-emergency-pulse:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(220, 38, 38, 0.55);
+            animation: none;
         }
 
         .hero-stats {

@@ -25,6 +25,16 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     });
 
     // ===============================
+    // Blood Requests
+    // ===============================
+    Route::prefix('blood-requests')->controller(\App\Http\Controllers\FrontendEmergencyRequestController::class)->group(function () {
+        Route::get('/', 'adminIndex')->name('admin.blood_requests.index');
+        Route::get('/{id}', 'adminShow')->name('admin.blood_requests.show');
+        Route::post('/fulfilled/{id}', 'markFulfilled')->name('admin.blood_requests.fulfilled');
+        Route::delete('/delete/{id}', 'adminDelete')->name('admin.blood_requests.delete');
+    });
+
+    // ===============================
     // Contact
     // ===============================
     Route::prefix('contact')->controller(ContactController::class)->group(function () {

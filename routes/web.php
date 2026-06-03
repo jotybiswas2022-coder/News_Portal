@@ -16,6 +16,14 @@ Route::post('/contactus', [UserController::class, 'contactus']);
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
 
+// Emergency Blood Request
+Route::prefix('/emergency-request')->controller(\App\Http\Controllers\FrontendEmergencyRequestController::class)->group(function () {
+    Route::get('/', 'showForm');
+    Route::post('/submit', 'submitRequest')->middleware('auth');
+    Route::get('/my-requests', 'myRequests')->middleware('auth');
+    Route::delete('/cancel/{id}', 'cancelRequest')->middleware('auth');
+});
+
 //Profile
 Route::middleware('auth')->prefix('/profile')->controller(ProfileController::class)->group(function () {
     Route::get('/', 'index');               

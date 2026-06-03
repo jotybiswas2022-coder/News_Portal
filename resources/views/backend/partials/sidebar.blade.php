@@ -4,6 +4,7 @@ use Illuminate\Support\Str;
 $menuItems = [
     ['url' => '/admin/account', 'icon' => 'person-circle', 'label' => 'Account', 'color' => '#667eea'],
     ['url' => '/admin/donor_list', 'icon' => 'people-fill', 'label' => 'Donor List', 'color' => '#e35e6f'],
+    ['url' => '/admin/blood-requests', 'icon' => 'exclamation-triangle-fill', 'label' => 'Blood Requests', 'color' => '#dc2626'],
     ['url' => '/admin/contact', 'icon' => 'envelope-fill', 'label' => 'Contact', 'color' => '#4facfe'],
 ];
 
