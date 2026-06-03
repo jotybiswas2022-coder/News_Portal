@@ -122,9 +122,9 @@
                             <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;">
                                 জরুরিতার মাত্রা <span style="color:#ef4444;">*</span>
                             </label>
-                            <div class="urgency-chips" style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <div class="urgency-chips" id="urgencyChips" style="display:flex;gap:10px;flex-wrap:wrap;">
                                 <button type="button" class="urgency-chip selected" data-value="critical" onclick="selectUrgency('critical', this)"
-                                        style="flex:1;padding:10px 14px;border-radius:12px;border:2px solid #dc2626;background:rgba(220,38,38,0.15);color:#fca5a5;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.22s ease;font-family:inherit;text-align:center;min-width:100px;">
+                                        style="flex:1;padding:10px 14px;border-radius:12px;border:2px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.22s ease;font-family:inherit;text-align:center;min-width:100px;">
                                     <i class="bi bi-exclamation-triangle-fill"></i><br>
                                     <span style="font-size:11px;">ক্রিটিক্যাল</span>
                                 </button>
