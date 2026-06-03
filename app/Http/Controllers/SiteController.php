@@ -11,7 +11,15 @@ class SiteController extends Controller
     public function index(){
         $account = Account::first(); 
         $donorsCount = Profile::count(); 
-        return view('frontend.index', compact('account', 'donorsCount'));
+
+        // Blood group wise donor counts
+        $bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+        $bloodGroupCounts = [];
+        foreach ($bloodGroups as $group) {
+            $bloodGroupCounts[$group] = Profile::where('blood', $group)->count();
+        }
+
+        return view('frontend.index', compact('account', 'donorsCount', 'bloodGroupCounts'));
     }
 
     public function donorList($bloodGroup = null){
