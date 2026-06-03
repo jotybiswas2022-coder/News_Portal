@@ -17,11 +17,11 @@ Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequest
     ->name('password.request');
 
 // Emergency Blood Request
-Route::prefix('/emergency-request')->controller(\App\Http\Controllers\FrontendEmergencyRequestController::class)->group(function () {
+Route::middleware('auth')->prefix('/emergency-request')->controller(\App\Http\Controllers\FrontendEmergencyRequestController::class)->group(function () {
     Route::get('/', 'showForm');
-    Route::post('/submit', 'submitRequest')->middleware('auth');
-    Route::get('/my-requests', 'myRequests')->middleware('auth');
-    Route::delete('/cancel/{id}', 'cancelRequest')->middleware('auth');
+    Route::post('/submit', 'submitRequest');
+    Route::get('/my-requests', 'myRequests');
+    Route::delete('/cancel/{id}', 'cancelRequest');
 });
 
 //Profile

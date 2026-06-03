@@ -49,11 +49,20 @@
                 </li>
 
                 <li class="nav-item nav-link-wrap">
-                    <a class="nav-link top-nav-link {{ request()->is('emergency-request*') ? 'active-link' : '' }}" href="{{ url('/emergency-request') }}">
+                    <a class="nav-link top-nav-link {{ request()->is('emergency-request') ? 'active-link' : '' }}" href="{{ url('/emergency-request') }}">
                         <i class="bi bi-exclamation-triangle-fill me-1" style="color:#ef4444;"></i> Emergency
                         <span class="link-underline"></span>
                     </a>
                 </li>
+
+                @auth
+                <li class="nav-item nav-link-wrap">
+                    <a class="nav-link top-nav-link {{ request()->is('emergency-request/my-requests') ? 'active-link' : '' }}" href="{{ url('/emergency-request/my-requests') }}">
+                        <i class="bi bi-clock-history me-1"></i> My Requests
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                @endauth
 
                 @auth
                     @if(auth()->user()->is_admin == 1)
