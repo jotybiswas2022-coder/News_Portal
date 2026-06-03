@@ -145,6 +145,7 @@ class DonorController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
 
+        ob_start();
         $handle = fopen('php://output', 'w');
         fwrite($handle, "\xEF\xBB\xBF"); // UTF-8 BOM for Bengali/Excel compatibility
 
@@ -165,7 +166,8 @@ class DonorController extends Controller
         }
 
         fclose($handle);
+        $content = ob_get_clean();
 
-        return response()->stream(function () {}, 200, $headers);
+        return response($content, 200, $headers);
     }
 }
