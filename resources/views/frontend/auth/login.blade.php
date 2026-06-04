@@ -1,444 +1,602 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<div class="login-container">
+
+    <!-- Background Grid -->
+    <div class="grid-bg"></div>
+
+    <!-- Glow Orb -->
+    <div class="glow-orb"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="row justify-content-center w-100 m-0">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 d-flex justify-content-center">
+                <div class="card login-card">
+
+                    <!-- HEADER -->
+                    <div class="card-header login-header text-center">
+                        <span class="icon-lock">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 stroke-width="2">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                            </svg>
+                        </span>
+                        {{ __('Login') }}
+                    </div>
+
+                    <div class="card-body login-body">
+
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+                            <!-- EMAIL -->
+                            <div class="form-group-custom">
+                                <label for="email" class="login-label pb-2">
+                                    {{ __('Email Address') }}
+                                </label>
+
+                                <input id="email" type="email"
+                                       class="form-control login-input @error('email') is-invalid @enderror"
+                                       name="email"
+                                       value="{{ old('email') }}"
+                                       placeholder="you@example.com"
+                                       required autocomplete="off" autofocus>
+
+                                @error('email')
+                                <span class="invalid-feedback d-block">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <!-- PASSWORD -->
+                            <div class="form-group-custom">
+                                <label for="password" class="login-label">
+                                    {{ __('Password') }}
+                                </label>
+
+                                <input id="password" type="password"
+                                       class="form-control login-input @error('password') is-invalid @enderror"
+                                       name="password"
+                                       placeholder="••••••••"
+                                       required autocomplete="new-password">
+
+                                @error('password')
+                                <span class="invalid-feedback d-block">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <!-- REMEMBER -->
+                            <div class="form-check custom-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="remember"
+                                       id="remember"
+                                       {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label login-remember" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
+                            </div>
+
+                            <!-- BUTTON -->
+                            <button type="submit" class="login-btn mt-3">
+                                Login
+                            </button>
+
+                            @if (Route::has('password.request'))
+                            <div class="text-end">
+                                <a class="login-link" href="{{ route('password.request') }}">
+                                    Forgot Password?
+                                </a>
+                            </div>
+                            @endif
+
+                        </form>
+
+                        <div class="divider">
+                            <span>OR</span>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="signup-text me-2">Don't have an account?</span>
+                            <a href="{{ route('register') }}" class="signup-btn">
+                                Sign Up
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <style>
-    /* ===== LOGIN SKELETON ===== */
-    #login-skeleton {
-        position: fixed; inset: 0; z-index: 99999;
-        background: linear-gradient(135deg,#0f0f1a,#1a0a0a,#0d0d1a);
-        display: flex; align-items: center; justify-content: center;
-        transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
-        font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+
+    /* ================= ROOT ================= */
+    :root {
+        --primary: #0f172a;
+        --card: #111c2e;
+        --accent: #3b82f6;
+        --accent-soft: rgba(59,130,246,.15);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
     }
-    #login-skeleton.sk-hidden { opacity: 0; pointer-events: none; }
-    @keyframes sk-login-shimmer {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
+
+    /* ================= RESET ================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        overflow-y: auto;
+        font-family: 'Inter', sans-serif;
+        background: var(--primary);
+        color: var(--text);
     }
-    .sk-l-block {
-        background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
-        background-size: 200% 100%;
-        animation: sk-login-shimmer 1.5s ease-in-out infinite;
-        border-radius: 6px;
+
+    /* ================= CONTAINER ================= */
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 40px 16px;
+        overflow: hidden;
     }
-    .sk-l-circle {
+
+    /* floating blobs */
+    .login-container::before,
+    .login-container::after {
+        content: '';
+        position: absolute;
         border-radius: 50%;
-        background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
-        background-size: 200% 100%;
-        animation: sk-login-shimmer 1.5s ease-in-out infinite;
+        pointer-events: none;
     }
-</style>
 
-{{-- ===== LOGIN SKELETON OVERLAY ===== --}}
-<div id="login-skeleton">
-    <div style="width:100%;max-width:430px;text-align:center;">
-        {{-- Brand --}}
-        <div style="margin-bottom:24px;">
-            <div class="sk-l-block" style="width:56px;height:56px;border-radius:16px;margin:0 auto 12px;"></div>
-            <div class="sk-l-block" style="width:140px;height:22px;margin:0 auto 8px;"></div>
-            <div class="sk-l-block" style="width:180px;height:12px;margin:0 auto;"></div>
-        </div>
-        {{-- Card --}}
-        <div style="background:rgba(255,255,255,0.02);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);">
-            <div style="padding:28px 32px 20px;border-bottom:1px solid rgba(255,255,255,0.04);">
-                <div class="sk-l-block" style="width:180px;height:20px;margin:0 auto;"></div>
-            </div>
-            <div style="padding:26px 32px;">
-                <div class="sk-l-block" style="width:100%;height:42px;border-radius:10px;margin-bottom:20px;"></div>
-                <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
-                    <div class="sk-l-block" style="flex:1;height:1px;"></div>
-                    <div class="sk-l-block" style="width:120px;height:12px;"></div>
-                    <div class="sk-l-block" style="flex:1;height:1px;"></div>
-                </div>
-                <div style="margin-bottom:18px;">
-                    <div class="sk-l-block" style="width:80px;height:12px;margin-bottom:10px;"></div>
-                    <div class="sk-l-block" style="width:100%;height:44px;border-radius:10px;"></div>
-                </div>
-                <div style="margin-bottom:12px;">
-                    <div class="sk-l-block" style="width:60px;height:12px;margin-bottom:10px;"></div>
-                    <div class="sk-l-block" style="width:100%;height:44px;border-radius:10px;"></div>
-                </div>
-                <div class="sk-l-block" style="width:100%;height:44px;border-radius:10px;"></div>
-            </div>
-        </div>
-    </div>
-</div>
+    .login-container::before {
+        top: -180px;
+        right: -180px;
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(59,130,246,.12), transparent 70%);
+        animation: blobFloat 12s ease-in-out infinite alternate;
+    }
 
-<script>
-(function(){
-    var sk = document.getElementById('login-skeleton');
-    function hide(){ if(sk){ sk.classList.add('sk-hidden'); setTimeout(function(){ sk.style.display='none'; },500); } }
-    if(document.readyState==='complete') hide(); else { window.addEventListener('load',hide); setTimeout(hide,2000); }
-})();
-</script>
+    .login-container::after {
+        bottom: -180px;
+        left: -180px;
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, rgba(59,130,246,.08), transparent 70%);
+        animation: blobFloat 10s ease-in-out infinite alternate-reverse;
+    }
 
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0f1a 0%,#1a0a0a 50%,#0d0d1a 100%);position:relative;overflow:hidden;padding:24px 16px;font-family:'Inter','Noto Sans Bengali',sans-serif;">
+    @keyframes blobFloat {
+        0%   { transform: translate(0, 0) scale(1); }
+        50%  { transform: translate(30px, -20px) scale(1.05); }
+        100% { transform: translate(-20px, 15px) scale(0.97); }
+    }
 
-    {{-- ====== ANIMATED BACKGROUND LAYER ====== --}}
-    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+    /* grid */
+    .grid-bg {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(59,130,246,.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59,130,246,.04) 1px, transparent 1px);
+        background-size: 50px 50px;
+        z-index: 0;
+        animation: gridShift 25s linear infinite;
+    }
 
-        {{-- Orbs --}}
-        <div style="position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,0.2) 0%,transparent 70%);animation:orbPulse 4s ease-in-out infinite;"></div>
-        <div style="position:absolute;bottom:-150px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(102,126,234,0.1) 0%,transparent 70%);animation:orbPulse2 6s ease-in-out infinite;"></div>
-        <div style="position:absolute;top:10%;left:5%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);animation:orbPulse3 8s ease-in-out infinite;"></div>
+    @keyframes gridShift {
+        0%   { background-position: 0 0; }
+        100% { background-position: 50px 50px; }
+    }
 
-        {{-- Grid --}}
-        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:48px 48px;"></div>
+    /* orb */
+    .glow-orb {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, rgba(59,130,246,.10), transparent 70%);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        filter: blur(12px);
+        animation: orbPulse 6s ease-in-out infinite;
+    }
 
-        {{-- Floating blood drops --}}
-        <div class="float-drop" style="left:5%;  animation-duration:9s;  animation-delay:0s;   bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:18%; animation-duration:12s; animation-delay:2s;  bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:35%; animation-duration:7.5s;animation-delay:4s;  bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:50%; animation-duration:11s; animation-delay:1s;  bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:68%; animation-duration:8.5s;animation-delay:3.5s;bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:82%; animation-duration:10.5s;animation-delay:5s; bottom:-30px;">🩸</div>
-        <div class="float-drop" style="left:93%; animation-duration:13s; animation-delay:2.5s;bottom:-30px;">🩸</div>
+    @keyframes orbPulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        50%      { transform: translate(-50%, -50%) scale(1.15); opacity: .7; }
+    }
 
-        {{-- Floating plus/cross signs --}}
-        <span class="float-plus" style="left:10%; animation-duration:14s; animation-delay:1s;  bottom:-20px;">+</span>
-        <span class="float-plus" style="left:25%; animation-duration:11s; animation-delay:3s;  bottom:-20px;">✚</span>
-        <span class="float-plus" style="left:42%; animation-duration:16s; animation-delay:.5s;  bottom:-20px;">+</span>
-        <span class="float-plus" style="left:60%; animation-duration:10s; animation-delay:2s;  bottom:-20px;">✚</span>
-        <span class="float-plus" style="left:75%; animation-duration:12.5s;animation-delay:4s; bottom:-20px;">+</span>
-        <span class="float-plus" style="left:88%; animation-duration:13s; animation-delay:1.5s;bottom:-20px;">✚</span>
-    </div>
+    /* ================= PARTICLES ================= */
+    .particles {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        overflow: hidden;
+    }
 
-    {{-- ====== MAIN CARD ====== --}}
-    <div style="width:100%;max-width:430px;position:relative;z-index:1;animation:cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;" data-aos="fade-up" data-aos-delay="100">
+    .particle {
+        position: absolute;
+        bottom: -10px;
+        background: var(--accent);
+        border-radius: 50%;
+        animation: particleRise linear infinite;
+        box-shadow: 0 0 6px rgba(59,130,246,.5);
+    }
 
-        {{-- Brand --}}
-        <div style="text-align:center;margin-bottom:24px;">
-            <div style="width:56px;height:56px;margin:0 auto 12px;background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(220,38,38,0.3);transition:transform 0.3s;"
-                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <i class="bi bi-droplet-fill" style="font-size:26px;color:#fff;"></i>
-            </div>
-            <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:0.3px;">ব্লাড ব্যাংক</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">রক্তদান · জীবন বাঁচান</div>
-        </div>
+    @keyframes particleRise {
+        0%   { transform: translateY(0) scale(1); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { transform: translateY(-110vh) scale(0.3); opacity: 0; }
+    }
 
-        {{-- Login Card --}}
-        <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);">
+    /* ============ CARD WIDTH UPDATE ============ */
+    .login-card {
+        max-width: 660px; /* widened card */
+        border-radius: 22px;
+        background: linear-gradient(145deg, #162338, #0f1b2d);
+        border: 1px solid rgba(59,130,246,.18);
+        box-shadow:
+            0 35px 80px rgba(0,0,0,.65),
+            0 0 60px rgba(59,130,246,.12);
+        position: relative;
+        z-index: 5;
+        overflow: hidden;
+        animation: fadeUp .6s ease;
+    }
 
-            {{-- Header --}}
-            <div style="padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">
-                <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:2px;">
-                    <span style="width:36px;height:36px;border-radius:10px;background:rgba(220,38,38,0.15);display:flex;align-items:center;justify-content:center;transition:transform 0.3s;"
-                          onmouseover="this.style.transform='rotate(10deg)'" onmouseout="this.style.transform='rotate(0)'">
-                        <i class="bi bi-lock-fill" style="font-size:14px;color:#ef4444;"></i>
-                    </span>
-                    <span style="font-size:17px;font-weight:700;color:#fff;">অ্যাকাউন্টে লগইন করুন</span>
-                </div>
-                <p style="font-size:12.5px;color:rgba(255,255,255,0.35);margin:6px 0 0;">আপনার তথ্য দিন এবং অ্যাকাউন্টে প্রবেশ করুন</p>
-            </div>
+    /* top accent line */
+    .login-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        animation: accentSweep 3s ease-in-out infinite;
+    }
 
-            {{-- Body --}}
-            <div style="padding:26px 32px 22px;">
+    @keyframes accentSweep {
+        0%   { opacity: .5; }
+        50%  { opacity: 1; }
+        100% { opacity: .5; }
+    }
 
-                {{-- ====== GOOGLE SIGN-IN ====== --}}
-                <a href="{{ route('auth.google') }}"
-                   style="width:100%;padding:11px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:10px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13.5px;font-weight:600;transition:all 0.25s;font-family:inherit;cursor:pointer;"
-                   onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.18)'"
-                   onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.1)'">
-                    <svg style="width:20px;height:20px;flex-shrink:0;" viewBox="0 0 48 48">
-                        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
-                        <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
-                        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
-                        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
-                    </svg>
-                    Google দিয়ে লগইন করুন
-                </a>
+    /* ================= HEADER ================= */
+    .login-header {
+        padding: 28px;
+        font-size: 26px;
+        font-weight: 700;
+        color: #f1f5f9;
+        border-bottom: 1px solid rgba(59,130,246,.12);
+        background: rgba(59,130,246,.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        letter-spacing: -0.3px;
+    }
 
-                {{-- Divider --}}
-                <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
-                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
-                    <span style="font-size:11px;color:rgba(255,255,255,0.2);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;">ইমেইল দিয়ে লগইন</span>
-                    <span style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></span>
-                </div>
+    .icon-lock {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--accent-soft);
+        border: 1px solid rgba(59,130,246,.25);
+        transition: .3s;
+    }
 
-                {{-- ====== LOGIN FORM ====== --}}
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+    .icon-lock:hover {
+        background: rgba(59,130,246,.25);
+        transform: rotate(-8deg) scale(1.08);
+    }
 
-                    {{-- Email --}}
-                    <div style="margin-bottom:18px;">
-                        <label for="email" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
-                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>ইমেইল ঠিকানা
-                        </label>
-                        <div style="position:relative;">
-                            <i class="bi bi-envelope-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
-                            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" required autocomplete="off" autofocus
-                                   style="width:100%;padding:12px 16px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
-                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
-                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
-                        </div>
-                        @error('email')
-                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
+    .icon-lock svg {
+        width: 20px;
+        color: var(--accent);
+    }
 
-                    {{-- Password --}}
-                    <div style="margin-bottom:12px;">
-                        <label for="password" style="display:block;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;">
-                            <span style="display:inline-block;width:5px;height:5px;background:#ef4444;border-radius:50%;margin-right:6px;vertical-align:middle;transition:all 0.3s;" class="label-dot"></span>পাসওয়ার্ড
-                        </label>
-                        <div style="position:relative;">
-                            <i class="bi bi-key-fill field-icon-custom" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2;"></i>
-                            <input id="password" type="password" name="password" placeholder="••••••••" required autocomplete="new-password"
-                                   style="width:100%;padding:12px 42px 12px 42px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:all 0.3s;box-sizing:border-box;"
-                                   onfocus="this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.06)';this.style.boxShadow='0 0 0 3px rgba(239,68,68,0.08)';this.previousElementSibling.style.color='#ef4444'"
-                                   onblur="this.style.borderColor='rgba(255,255,255,0.08)';this.style.background='rgba(255,255,255,0.05)';this.style.boxShadow='none';this.previousElementSibling.style.color='rgba(255,255,255,0.25)'">
-                            {{-- Password toggle --}}
-                            <span onclick="togglePassword()"
-                                  style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);cursor:pointer;font-size:15px;z-index:2;transition:color 0.25s;display:flex;align-items:center;"
-                                  onmouseover="this.style.color='rgba(255,255,255,0.6)'"
-                                  onmouseout="this.style.color='rgba(255,255,255,0.25)'">
-                                <i class="bi bi-eye-slash" id="toggleIcon"></i>
-                            </span>
-                        </div>
-                        @error('password')
-                            <span style="display:block;margin-top:5px;font-size:12px;color:#f87171;"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
+    /* ================= BODY ================= */
+    .login-body {
+        padding: 32px;
+    }
 
-                    {{-- Remember & Forgot --}}
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-                        <div style="display:flex;align-items:center;gap:8px;">
-                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}
-                                   style="width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(255,255,255,0.15);background:transparent;appearance:none;-webkit-appearance:none;cursor:pointer;position:relative;flex-shrink:0;transition:all 0.2s;"
-                                   onchange="if(this.checked){this.style.background='#dc2626';this.style.borderColor='#dc2626'}else{this.style.background='transparent';this.style.borderColor='rgba(255,255,255,0.15)'}">
-                            <label for="remember" style="font-size:13px;color:rgba(255,255,255,0.45);cursor:pointer;">আমাকে মনে রাখুন</label>
-                        </div>
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}"
-                               style="font-size:12px;color:rgba(239,68,68,0.65);text-decoration:none;transition:color 0.2s;"
-                               onmouseover="this.style.color='#ef4444'"
-                               onmouseout="this.style.color='rgba(239,68,68,0.65)'">
-                                পাসওয়ার্ড ভুলে গেছেন?
-                            </a>
-                        @endif
-                    </div>
+    .login-label {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+        padding-bottom: 6px;
+    }
 
-                    {{-- Submit --}}
-                    <button type="submit" id="loginBtn"
-                            style="width:100%;padding:13px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:15px;font-weight:700;font-family:inherit;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 4px 20px rgba(220,38,38,0.35);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;"
-                            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(220,38,38,0.5)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(220,38,38,0.35)'">
-                        <span class="btn-text"><i class="bi bi-box-arrow-in-right"></i> লগইন করুন</span>
-                        <span class="btn-loader" style="display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;"></span>
-                    </button>
-                </form>
+    /* input */
+    .login-input {
+        padding: 14px 16px;
+        background: #0b1220;
+        border: 1.5px solid rgba(59,130,246,.22);
+        border-radius: 12px;
+        color: var(--text);
+        width: 100%;
+        font-size: 15px;
+        transition: .25s;
+        font-family: 'Inter', sans-serif;
+    }
 
-                {{-- ====== SIGN UP ====== --}}
-                <div style="text-align:center;margin-top:18px;">
-                    <span style="font-size:13px;color:rgba(255,255,255,0.4);">অ্যাকাউন্ট নেই?</span>
-                    <a href="{{ route('register') }}"
-                       style="display:inline-block;margin-left:6px;padding:9px 22px;border:1.5px solid rgba(239,68,68,0.3);border-radius:8px;color:#ef4444;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.25s;"
-                       onmouseover="this.style.background='rgba(239,68,68,0.12)';this.style.borderColor='#ef4444'"
-                       onmouseout="this.style.background='transparent';this.style.borderColor='rgba(239,68,68,0.3)'">
-                        নিবন্ধন করুন <i class="bi bi-arrow-right" style="font-size:11px;"></i>
-                    </a>
-                </div>
+    .form-group-custom{
+        margin-bottom:20px;
+    }
 
-            </div>
+    .login-label{
+        display:block;
+        margin-bottom: 6px;
+    }
 
-            {{-- Bottom strip --}}
-            <div style="padding:10px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;gap:6px;">
-                <i class="bi bi-shield-check" style="font-size:11px;color:rgba(255,255,255,0.18);"></i>
-                <span style="font-size:10.5px;color:rgba(255,255,255,0.18);">আপনার তথ্য সম্পূর্ণ সুরক্ষিত</span>
-            </div>
+    .login-input::placeholder {
+        color: #475569;
+    }
 
-        </div>
+    .login-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+        background: #0a1324;
+    }
 
-        {{-- Page footer --}}
-        <div style="text-align:center;margin-top:22px;font-size:11.5px;color:rgba(255,255,255,0.12);">
-            Developed by <span style="font-weight:700;background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Joty Biswas</span> &copy; {{ date('Y') }}
-        </div>
+    /* checkbox */
+    .form-check-input {
+        background-color: #0b1220;
+        border: 1.5px solid rgba(59,130,246,.3);
+        border-radius: 4px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        transition: .2s;
+    }
 
-    </div>
+    .form-check-input:checked {
+        background-color: var(--accent);
+        border-color: var(--accent);
+    }
 
-</div>
+    .form-check-input:focus {
+        box-shadow: 0 0 0 3px rgba(59,130,246,.2);
+        border-color: var(--accent);
+    }
 
-<script>
-// ── Password Toggle ──
-function togglePassword() {
-    var pw = document.getElementById('password');
-    var icon = document.getElementById('toggleIcon');
-    if (pw.type === 'password') {
-        pw.type = 'text';
-        icon.className = 'bi bi-eye';
-    } else {
-        pw.type = 'password';
-        icon.className = 'bi bi-eye-slash';
+    /* button */
+    .login-btn {
+        padding: 14px;
+        font-weight: 600;
+        font-size: 16px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        width: 100%;
+        cursor: pointer;
+        transition: .25s;
+        font-family: 'Inter', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-btn::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, transparent, rgba(255,255,255,.12), transparent);
+        transform: translateX(-100%);
+        transition: .5s;
+    }
+
+    .login-btn:hover::after {
+        transform: translateX(100%);
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 40px rgba(59,130,246,.45);
+    }
+
+    .login-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 5px 15px rgba(59,130,246,.3);
+    }
+
+    /* links */
+    .login-link {
+        color: #60a5fa;
+        font-size: 14px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 12px;
+        transition: .2s;
+    }
+
+    .login-link:hover {
+        color: #93c5fd;
+        text-decoration: underline;
+    }
+
+    /* divider */
+    .divider {
+        display: flex;
+        align-items: center;
+        margin: 24px 0;
+        gap: 10px;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(59,130,246,.15);
+    }
+
+    .divider span {
+        color: #64748b;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    /* signup */
+    .signup-text {
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .signup-btn {
+        color: #60a5fa;
+        border: 1px solid rgba(59,130,246,.35);
+        border-radius: 10px;
+        padding: 9px 22px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .25s;
+        display: inline-block;
+    }
+
+    .signup-btn:hover {
+        background: rgba(59,130,246,.12);
+        border-color: var(--accent);
+        color: #93c5fd;
+        transform: translateY(-1px);
+    }
+
+    .login-remember {
+        color: var(--muted);
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    /* validation */
+    .invalid-feedback {
+        color: #f87171;
+        font-size: 13px;
+        margin-top: 6px;
+    }
+
+    /* animation */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(25px) scale(.96); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+        .login-header { font-size: 24px; padding: 22px; }
+        .login-body { padding: 24px; }
+    }
+
+    @media (max-width: 576px) {
+        .login-container { padding: 24px 10px; }
+        .login-card { border-radius: 18px; }
+        .login-header { font-size: 22px; padding: 18px; }
+        .login-body { padding: 20px; }
+        .glow-orb { width: 260px; height: 260px; }
+    }
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--primary); }
+    ::-webkit-scrollbar-thumb { background: rgba(59,130,246,.3); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,.5); }
+
+    /* ===== form spacing fix ===== */
+.form-group-custom{
+    margin-bottom:18px;
+}
+
+/* ===== checkbox spacing ===== */
+.custom-check{
+    margin-top:6px;
+    margin-bottom:6px;
+}
+
+/* ===== better mobile stacking ===== */
+@media (max-width: 576px){
+
+    .form-group-custom label{
+        display:block;
+        margin-bottom:6px;
+    }
+
+    .login-btn{
+        font-size:15px;
+        padding:13px;
+    }
+
+    .login-card{
+        max-width:100%;
+    }
+
+    .container{
+        padding-left:8px;
+        padding-right:8px;
     }
 }
 
-// ── Submit Loading State ──
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
-    var btn = document.getElementById('loginBtn');
-    if (form && btn) {
-        form.addEventListener('submit', function() {
-            btn.querySelector('.btn-text').style.display = 'none';
-            btn.querySelector('.btn-loader').style.display = 'inline-block';
-            btn.style.pointerEvents = 'none';
-            btn.style.opacity = '0.85';
-        });
+/* prevent horizontal scroll */
+html, body{
+    overflow-x:hidden;
+}
+
+    </style>
+
+<script>
+// Particle Generation
+const particlesContainer = document.getElementById('particles');
+if (particlesContainer) {
+    for (let i=0;i<30;i++){
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = Math.random()*100+'%';
+        particle.style.animationDuration = (Math.random()*8+6)+'s';
+        particle.style.animationDelay = (Math.random()*5)+'s';
+        particle.style.opacity = Math.random()*0.5+0.2;
+        const size = Math.random()*3+1;
+        particle.style.width = size+'px';
+        particle.style.height = size+'px';
+        particlesContainer.appendChild(particle);
     }
+}
+
+// Card subtle glow on mouse move
+const card = document.querySelector('.login-card');
+if(card){
+    card.addEventListener('mousemove', e=>{
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, rgba(59,130,246,0.06), transparent), linear-gradient(145deg, #1e293b, #162032)`;
+    });
+    card.addEventListener('mouseleave', ()=>{ card.style.background = 'linear-gradient(145deg, #1e293b, #162032)'; });
+}
+
+// Input focus effect
+document.querySelectorAll('.login-input').forEach(input=>{
+    input.addEventListener('focus', function(){ this.parentElement.style.transform='scale(1.01)'; this.parentElement.style.transition='transform 0.3s ease'; });
+    input.addEventListener('blur', function(){ this.parentElement.style.transform='scale(1)'; });
 });
 </script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap');
-
-@keyframes orbPulse {
-    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
-    50% { transform: translateX(-50%) scale(1.12); opacity: 1; }
-}
-@keyframes orbPulse2 {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-@keyframes orbPulse3 {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.25); opacity: 0.6; }
-}
-@keyframes cardIn {
-    from { opacity: 0; transform: translateY(30px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Floating blood drops */
-.float-drop {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0;
-    animation: floatDrop linear infinite;
-    pointer-events: none;
-    user-select: none;
-    filter: drop-shadow(0 0 6px rgba(220,38,38,0.3));
-}
-@keyframes floatDrop {
-    0%   { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
-    10%  { opacity: 0.35; transform: translateX(10px) rotate(15deg) scale(0.8); }
-    50%  { opacity: 0.2; transform: translateX(-15px) rotate(45deg) scale(1); }
-    90%  { opacity: 0.3; transform: translateX(8px) rotate(75deg) scale(0.7); }
-    100% { transform: translateY(-105vh) rotate(90deg) scale(0.4); opacity: 0; }
-}
-
-/* Floating plus signs */
-.float-plus {
-    position: absolute;
-    color: rgba(255,120,120,0.2);
-    font-size: 22px;
-    font-weight: 900;
-    animation: floatPlus linear infinite;
-    pointer-events: none;
-    user-select: none;
-}
-@keyframes floatPlus {
-    0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
-    15%  { opacity: 0.45; }
-    85%  { opacity: 0.15; }
-    100% { transform: translateY(-110vh) rotate(180deg); opacity: 0; }
-}
-
-* { box-sizing: border-box; }
-body { margin: 0; }
-
-/* ===== LIGHT MODE ===== */
-.light-mode div[style*="background:linear-gradient(135deg,#0f0f1a"] {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #fef2f2 100%) !important;
-}
-
-.light-mode div[style*="color:rgba(255,255,255,0.12)"] {
-    color: rgba(0, 0, 0, 0.3) !important;
-}
-
-.light-mode div[style*="font-size:22px;font-weight:800;color:#fff"] {
-    color: #1f2937 !important;
-}
-
-.light-mode div[style*="background:rgba(255,255,255,0.04);backdrop-filter:blur(24px)"] {
-    background: rgba(255, 255, 255, 0.85) !important;
-    border-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-.light-mode div[style*="padding:28px 32px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)"] {
-    border-bottom-color: rgba(0, 0, 0, 0.06) !important;
-}
-
-.light-mode span[style*="font-size:17px;font-weight:700;color:#fff"] {
-    color: #1f2937 !important;
-}
-
-.light-mode p[style*="font-size:12.5px;color:rgba(255,255,255,0.35)"] {
-    color: rgba(0, 0, 0, 0.4) !important;
-}
-
-.light-mode a[style*="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)"] {
-    background: rgba(0, 0, 0, 0.04) !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
-    color: rgba(0, 0, 0, 0.7) !important;
-}
-
-.light-mode span[style*="flex:1;height:1px;background:rgba(255,255,255,0.06)"] {
-    background: rgba(0, 0, 0, 0.08) !important;
-}
-
-.light-mode span[style*="font-size:11px;color:rgba(255,255,255,0.2)"] {
-    color: rgba(0, 0, 0, 0.3) !important;
-}
-
-.light-mode label[style*="color:rgba(255,255,255,0.5)"] {
-    color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.light-mode input[style*="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08)"] {
-    background: rgba(0, 0, 0, 0.03) !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
-    color: #1f2937 !important;
-}
-
-.light-mode i[style*="color:rgba(255,255,255,0.25);transition:color 0.3s;z-index:2"] {
-    color: rgba(0, 0, 0, 0.3) !important;
-}
-
-.light-mode label[for="remember"] {
-    color: rgba(0, 0, 0, 0.45) !important;
-}
-
-.light-mode div[style*="padding:10px 32px;background:rgba(220,38,38,0.04);border-top:1px solid rgba(255,255,255,0.04)"] {
-    background: rgba(220, 38, 38, 0.03) !important;
-    border-top-color: rgba(0, 0, 0, 0.04) !important;
-}
-
-.light-mode i[style*="font-size:11px;color:rgba(255,255,255,0.18)"] {
-    color: rgba(0, 0, 0, 0.2) !important;
-}
-
-.light-mode span[style*="font-size:10.5px;color:rgba(255,255,255,0.18)"] {
-    color: rgba(0, 0, 0, 0.2) !important;
-}
-
-.light-mode span[style*="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);cursor:pointer;font-size:15px;z-index:2"] {
-    color: rgba(0, 0, 0, 0.3) !important;
-}
-
-.light-mode .float-drop {
-    opacity: 0.15 !important;
-}
-
-.light-mode .float-plus {
-    color: rgba(220, 38, 38, 0.12) !important;
-}
-
-@media (max-width: 480px) {
-    div[style*="padding:28px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
-    div[style*="padding:26px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
-    div[style*="padding:28px 32px 20px"] { padding-left: 20px !important; padding-right: 20px !important; }
-    div[style*="padding:10px 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
-}
-</style>

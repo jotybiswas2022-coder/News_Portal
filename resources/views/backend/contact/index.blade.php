@@ -3,148 +3,203 @@
 @section('content')
 
 @if (session('success'))
-    <div style="padding:12px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(67,233,123,0.1),rgba(67,233,123,0.05));border:1px solid rgba(67,233,123,0.2);margin:10px 10px 0;display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#2d7d4a;">
-        <i class="bi bi-check-circle" style="color:#43e97b;"></i>
-        <span style="flex:1;">{{ session('success') }}</span>
-        <button onclick="this.parentElement.remove()" style="background:none;border:none;color:#999;cursor:pointer;font-size:1.1rem;">&times;</button>
+    <div class="alert alert-success alert-dismissible fade show mx-3 mt-3 shadow-sm" role="alert">
+        <i class="bi bi-check-circle me-1"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 @endif
 
-<div class="container-fluid py-3 py-md-4">
+<div class="container-fluid" style="height: calc(100vh - 80px); overflow-y: auto; padding: 20px 0;">
 
-    {{-- Header --}}
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;">
-        <div>
-            <h4 style="margin:0;font-weight:800;font-size:1.5rem;background:linear-gradient(135deg,#4facfe,#667eea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-                <i class="bi bi-chat-dots me-2" style="-webkit-text-fill-color:#4facfe;"></i>Contact Messages
-            </h4>
-            <div style="margin-top:6px;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(79,172,254,0.08),rgba(102,126,234,0.05));padding:6px 16px;border-radius:50px;border:1px solid rgba(79,172,254,0.12);">
-                <i class="bi bi-database" style="color:#4facfe;font-size:0.8rem;"></i>
-                <span style="color:#4facfe;font-weight:600;font-size:0.8rem;">{{ $contacts->count() }} Messages</span>
+    <!-- Header -->
+    <div class="contact-header mx-3 mt-3 mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <div>
+                <h4 class="fw-bold mb-1">Contact Messages</h4>
+                <p class="text-muted small mb-0">Manage customer inquiries from one place</p>
+            </div>
+
+            <div class="mt-2 mt-md-0">
+                <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2">
+                    <i class="bi bi-database me-1"></i>
+                    {{ $contacts->count() }} Messages
+                </span>
             </div>
         </div>
     </div>
 
-    {{-- Messages Table --}}
-    <div id="contactTableWrap" style="background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,0.06);overflow:auto;border:1px solid rgba(0,0,0,0.04);">
-        {{-- Header --}}
-        <div style="display:flex;align-items:center;padding:12px 22px;background:linear-gradient(135deg,#f8f9ff,#f0f1fe);border-bottom:1px solid #f0f0f5;gap:10px;min-width:650px;">
-            <div style="width:36px;flex-shrink:0;font-size:0.78rem;font-weight:600;color:#888;text-align:center;">#</div>
-            <div style="flex:1.5;font-size:0.78rem;font-weight:600;color:#888;">Name</div>
-            <div style="flex:2;font-size:0.78rem;font-weight:600;color:#888;">Email</div>
-            <div style="flex:1;font-size:0.78rem;font-weight:600;color:#888;text-align:center;">Message</div>
-            <div style="flex:1.2;font-size:0.78rem;font-weight:600;color:#888;">Date</div>
-            <div style="flex:0.9;font-size:0.78rem;font-weight:600;color:#888;">Time</div>
-        </div>
+    <div class="card mx-3 shadow-sm border-0 contact-card">
+        <div class="card-body p-0">
 
-        @forelse ($contacts as $contact)
-        <div style="display:flex;align-items:center;padding:10px 22px;border-bottom:1px solid #f0f0f5;gap:10px;min-width:650px;transition:background 0.15s;"
-             onmouseover="this.style.background='rgba(79,172,254,0.02)'"
-             onmouseout="this.style.background='transparent'">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 contact-table">
 
-            <div style="width:36px;flex-shrink:0;font-size:0.82rem;color:#bbb;font-weight:500;text-align:center;">{{ $loop->iteration }}</div>
+                    <thead>
+                        <tr>
+                            <th style="width:50px;">#</th>
+                            <th class="text-start">
+                                <i class="bi bi-person me-1 text-primary"></i> Name
+                            </th>
+                            <th>
+                                <i class="bi bi-envelope me-1 text-primary"></i> Email
+                            </th>
+                            <th class="text-start">
+                                <i class="bi bi-chat-dots me-1 text-primary"></i> Message
+                            </th>
+                            <th style="width:120px;">
+                                <i class="bi bi-calendar-event me-1 text-primary"></i> Date
+                            </th>
+                            <th style="width:100px;">
+                                <i class="bi bi-clock me-1 text-primary"></i> Time
+                            </th>
+                        </tr>
+                    </thead>
 
-            <div style="flex:1.5;overflow:hidden;">
-                <span style="font-weight:600;font-size:0.88rem;color:#222;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->name }}</span>
-            </div>
+                    <tbody>
+                        @forelse ($contacts as $contact)
+                            <tr>
+                                <td class="fw-semibold text-muted">{{ $loop->iteration }}</td>
 
-            <div style="flex:2;overflow:hidden;">
-                <span style="font-size:0.82rem;color:#888;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->email }}</span>
-            </div>
+                                <td class="text-start fw-semibold">{{ $contact->name }}</td>
 
-            <div style="flex:1;text-align:center;flex-shrink:0;">
-                <button data-bs-toggle="modal" data-bs-target="#msgModal{{ $contact->id }}"
-                        style="padding:5px 16px;border-radius:50px;border:none;background:linear-gradient(135deg,#4facfe,#667eea);color:#fff;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 3px 10px rgba(79,172,254,0.25);"
-                        onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px rgba(79,172,254,0.35)'"
-                        onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(79,172,254,0.25)'">
-                    <i class="bi bi-eye me-1" style="font-size:0.7rem;"></i>View
-                </button>
+                                <td>
+                                    <span class="text-muted small">{{ $contact->email }}</span>
+                                </td>
 
-                {{-- Modal --}}
-                <div class="modal fade" id="msgModal{{ $contact->id }}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content" style="background:#fff;border-radius:20px;border:none;box-shadow:0 24px 80px rgba(0,0,0,0.25);overflow:hidden;">
-                            <div style="background:linear-gradient(135deg,#4facfe,#667eea);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;">
-                                <h5 style="margin:0;color:#fff;font-weight:600;font-size:0.95rem;">
-                                    <i class="bi bi-chat-dots me-2"></i> Message from {{ $contact->name }}
-                                </h5>
-                                <button type="button" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;opacity:0.85;line-height:1;padding:0;display:flex;" data-bs-dismiss="modal" aria-label="Close">
-                                    <i class="bi bi-x-lg" style="font-size:0.9rem;"></i>
-                                </button>
-                            </div>
-                            <div style="padding:20px 22px;">
-                                <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-                                    <span style="font-size:0.78rem;padding:4px 14px;border-radius:50px;background:rgba(79,172,254,0.08);color:#4facfe;display:inline-flex;align-items:center;gap:5px;">
-                                        <i class="bi bi-person"></i>{{ $contact->name }}
+                                <td class="text-start">
+                                    <button class="btn btn-sm btn-outline-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#messageModal{{ $contact->id }}">
+                                        View Message
+                                    </button>
+
+                                    <!-- Message Modal -->
+                                    <div class="modal fade" id="messageModal{{ $contact->id }}" tabindex="-1" aria-labelledby="messageModalLabel{{ $contact->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content border-0 shadow-lg rounded-4">
+                                                <div class="modal-header bg-primary text-white rounded-top-4">
+                                                    <h5 class="modal-title fw-semibold" id="messageModalLabel{{ $contact->id }}">
+                                                        <i class="bi bi-chat-dots me-2"></i> Message from {{ $contact->name }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body px-4 py-3">
+                                                    <p>{{ $contact->message }}</p>
+                                                </div>
+                                                <div class="modal-footer border-0 px-4 pb-4">
+                                                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="badge date-badge">
+                                        {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}
                                     </span>
-                                    <span style="font-size:0.78rem;padding:4px 14px;border-radius:50px;background:rgba(102,126,234,0.08);color:#667eea;display:inline-flex;align-items:center;gap:5px;">
-                                        <i class="bi bi-envelope"></i>{{ $contact->email }}
-                                    </span>
-                                    <span style="font-size:0.78rem;padding:4px 14px;border-radius:50px;background:rgba(67,233,123,0.08);color:#2d7d4a;display:inline-flex;align-items:center;gap:5px;">
-                                        <i class="bi bi-calendar"></i>{{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}
-                                    </span>
-                                </div>
-                                <div style="background:#fafafe;border-radius:14px;padding:16px 18px;border:1px solid #f0f0f5;">
-                                    <p style="margin:0;font-size:0.9rem;color:#444;line-height:1.7;">{{ $contact->message }}</p>
-                                </div>
-                            </div>
-                            <div style="padding:0 22px 18px;display:flex;justify-content:flex-end;">
-                                <button type="button" style="padding:8px 24px;border-radius:50px;border:1.5px solid #e8e8f0;background:#fff;color:#888;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;" data-bs-dismiss="modal"
-                                        onmouseover="this.style.borderColor='#ccc';this.style.color='#555'"
-                                        onmouseout="this.style.borderColor='#e8e8f0';this.style.color='#888'">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                </td>
 
-            <div style="flex:1.2;overflow:hidden;">
-                <span style="font-size:0.82rem;color:#666;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}</span>
-            </div>
+                                <td>
+                                    <span class="badge time-badge">
+                                        {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <div class="empty-state">
+                                        <i class="bi bi-inbox fs-1 text-muted mb-2 d-block"></i>
+                                        <div class="fw-semibold">No Messages Found</div>
+                                        <small class="text-muted">
+                                            Customer messages will appear here once submitted.
+                                        </small>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
 
-            <div style="flex:0.9;overflow:hidden;">
-                <span style="font-size:0.82rem;color:#999;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}</span>
+                </table>
             </div>
         </div>
-        @empty
-        <div style="text-align:center;padding:60px 22px;">
-            <i class="bi bi-inbox" style="font-size:3rem;color:#ddd;display:block;margin-bottom:10px;"></i>
-            <span style="font-weight:600;font-size:1rem;color:#999;display:block;">No Messages Found</span>
-            <p style="margin:6px 0 0;font-size:0.85rem;color:#bbb;">Customer messages will appear here once submitted.</p>
-        </div>
-        @endforelse
     </div>
 
 </div>
 
-{{-- Top Scrollbar + Responsive --}}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var tw = document.getElementById('contactTableWrap');
-    if (tw) {
-        var ts = document.createElement('div');
-        ts.style.cssText = 'overflow-x:auto;overflow-y:hidden;height:10px;visibility:visible;margin-bottom:1px;';
-        ts.innerHTML = '<div style="height:1px"></div>';
-        tw.parentNode.insertBefore(ts, tw);
-        var ti = ts.firstChild;
-        function sw() { ti.style.width = tw.scrollWidth + 'px'; }
-        sw();
-        ts.addEventListener('scroll', function () { tw.scrollLeft = ts.scrollLeft; });
-        tw.addEventListener('scroll', function () { ts.scrollLeft = tw.scrollLeft; });
-        window.addEventListener('resize', sw);
-        if (window.ResizeObserver) { new ResizeObserver(sw).observe(tw); }
-    }
-});
-</script>
-
 <style>
-#contactTableWrap + div::-webkit-scrollbar { height: 10px; background: #f1f1f1; border-radius: 5px; }
-#contactTableWrap + div::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 5px; }
-#contactTableWrap + div::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
-#contactTableWrap + div { scrollbar-width: auto; scrollbar-color: #c1c1c1 #f1f1f1; }
-@media (max-width: 575.98px) {
-    #contactTableWrap + div { display: none; }
-    .container-fluid { padding-left: 10px !important; padding-right: 10px !important; }
+.contact-header{
+    background:#fff;
+    border-radius:14px;
+    padding:18px 20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+
+.contact-card{
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.contact-table thead{
+    background:#f8fafc;
+    position:sticky;
+    top:0;
+    z-index:5;
+}
+
+.table-hover tbody tr:hover{
+    background:rgba(13,110,253,.06);
+    transition:.18s ease;
+}
+
+.message-box{
+    max-width:420px;
+    font-size:14px;
+    color:#555;
+    line-height:1.5;
+    white-space:normal;
+    word-break:break-word;
+    max-height:120px;
+    overflow-y:auto;
+    padding-right:4px;
+}
+
+.date-badge, .time-badge{
+    background:#f1f5f9;
+    color:#334155;
+    border:1px solid #e2e8f0;
+    font-weight:500;
+}
+
+.empty-state{
+    opacity:.9;
+}
+
+.alert{
+    border-radius:12px;
+    font-size:14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .contact-table td {
+        font-size:13px;
+    }
+    .contact-table th {
+        font-size:13px;
+    }
+    .badge {
+        font-size:12px;
+        padding:3px 6px;
+    }
+    .modal-body p {
+        font-size:14px;
+    }
 }
 </style>
 

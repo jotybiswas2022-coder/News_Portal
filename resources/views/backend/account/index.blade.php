@@ -1,91 +1,142 @@
 @extends('backend.app')
 
 @section('content')
+<div class="container py-5">
+    <div class="account-card">
+        <div class="profile-section">
 
-<div class="container-fluid py-3 py-md-4">
-
-    {{-- Header --}}
-    <div style="margin-bottom:24px;">
-        <h4 style="margin:0;font-weight:800;font-size:1.5rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-            <i class="bi bi-person-circle me-2" style="-webkit-text-fill-color:#667eea;"></i>Account Profile
-        </h4>
-    </div>
-
-    {{-- Profile Card --}}
-    <div style="display:flex;justify-content:center;">
-        <div style="width:100%;max-width:720px;">
-            <div style="background:#fff;border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.07);border:1px solid rgba(0,0,0,0.04);overflow:hidden;">
-                <div style="height:4px;background:linear-gradient(90deg,#667eea,#764ba2,#f093fb,#667eea);"></div>
-                <div style="padding:32px 28px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
-
-                    {{-- Avatar --}}
-                    <div style="flex-shrink:0;">
-                        @if(isset($account) && $account->image)
-                            <img src="{{ config('app.storage_url') }}{{ $account->image }}"
-                                 alt="{{ $account->name ?? 'User' }}"
-                                 style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid #667eea;box-shadow:0 8px 24px rgba(102,126,234,0.2);display:block;">
-                        @else
-                            <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:2.5rem;border:3px solid rgba(255,255,255,0.3);box-shadow:0 8px 24px rgba(102,126,234,0.2);">
-                                {{ isset($account->name) ? strtoupper(substr($account->name, 0, 1)) : 'U' }}
-                            </div>
-                        @endif
+            <!-- Profile Image -->
+            <div class="profile-img">
+                @if(isset($account) && $account->image)
+                    <img src="{{ config('app.storage_url') }}{{ $account->image }}" 
+                         alt="{{ $account->name ?? 'User' }}">
+                @else
+                    <div class="profile-fallback">
+                        {{ isset($account->name) ? strtoupper(substr($account->name, 0, 1)) : 'U' }}
                     </div>
+                @endif
+            </div>
 
-                    {{-- Info --}}
-                    <div style="flex:1;min-width:200px;">
-                        <h4 style="margin:0 0 12px;font-weight:700;font-size:1.3rem;color:#222;">{{ $account->name ?? 'Not set' }}</h4>
+            <!-- Account Info -->
+            <div class="account-info">
+                <h3>Name: {{ $account->name ?? 'Not set' }}</h3>
+            </div>
 
-                        <div style="display:flex;flex-direction:column;gap:8px;">
-                            <div style="display:flex;align-items:center;gap:8px;font-size:0.88rem;">
-                                <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(102,126,234,0.1);color:#667eea;flex-shrink:0;">
-                                    <i class="bi bi-telephone" style="font-size:0.75rem;"></i>
-                                </span>
-                                <span style="font-weight:600;color:#888;margin-right:4px;">Phone:</span>
-                                <span style="color:#555;">{{ $account->phone ?? 'Not set' }}</span>
-                            </div>
-
-                            <div style="display:flex;align-items:center;gap:8px;font-size:0.88rem;">
-                                <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(240,147,251,0.1);color:#f093fb;flex-shrink:0;">
-                                    <i class="bi bi-envelope" style="font-size:0.75rem;"></i>
-                                </span>
-                                <span style="font-weight:600;color:#888;margin-right:4px;">Email:</span>
-                                <span style="color:#555;word-break:break-all;">{{ $account->email ?? 'Not set' }}</span>
-                            </div>
-
-                            <div style="display:flex;align-items:center;gap:8px;font-size:0.88rem;">
-                                <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(79,172,254,0.1);color:#4facfe;flex-shrink:0;">
-                                    <i class="bi bi-globe" style="font-size:0.75rem;"></i>
-                                </span>
-                                <span style="font-weight:600;color:#888;margin-right:4px;">Website:</span>
-                                @if(!empty($account->website))
-                                    <a href="{{ $account->website }}" target="_blank" style="color:#667eea;text-decoration:none;font-weight:500;word-break:break-all;">{{ $account->website }}</a>
-                                @else
-                                    <span style="color:#555;">Not set</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Edit Button --}}
-                    <div style="flex-shrink:0;width:100%;text-align:center;@media(min-width:768px){width:auto}">
-                        <a href="{{ url('/admin/account/edit') }}"
-                           style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:50px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;text-decoration:none;font-weight:600;font-size:0.9rem;box-shadow:0 6px 20px rgba(102,126,234,0.3);transition:all 0.3s;"
-                           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(102,126,234,0.4)'"
-                           onmouseout="this.style.transform='';this.style.boxShadow='0 6px 20px rgba(102,126,234,0.3)'">
-                            <i class="bi bi-pencil-square"></i> Edit Account
-                        </a>
-                    </div>
-
-                </div>
+            <!-- Edit Button -->
+            <div class="edit-btn">
+                <a href="{{ url('/admin/account/edit') }}">
+                    <i class="bi bi-pencil-square me-1"></i> Edit Account
+                </a>
             </div>
         </div>
     </div>
-
 </div>
 
+<!-- Custom CSS -->
 <style>
-@media (max-width: 768px) {
-    .container-fluid { padding-left: 10px !important; padding-right: 10px !important; }
+/* Card Styling */
+.account-card {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+.account-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Profile Image */
+.profile-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #0d6efd;
+}
+.profile-fallback {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #6c757d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    border: 3px solid #0d6efd;
+}
+
+/* Account Info */
+.account-info {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+.account-info h3 {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.account-info p {
+    margin: 0;
+}
+
+/* Edit Button */
+.edit-btn a {
+    display: inline-flex;
+    align-items: center;
+    background-color: #0d6efd;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+.edit-btn a i {
+    font-size: 1.1rem;
+}
+.edit-btn a:hover {
+    background-color: #0b5ed7;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .account-info {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+    .edit-btn {
+        margin-top: 15px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .account-card {
+        background-color: #1c1c1e;
+        box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+    }
+    .account-info h3, .account-info p {
+        color: #f1f1f1;
+    }
+    .profile-fallback {
+        background-color: #495057;
+        border-color: #0d6efd;
+    }
 }
 </style>
 @endsection
