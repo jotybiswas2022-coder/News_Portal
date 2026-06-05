@@ -38,6 +38,12 @@
     </style>
 </head>
 <body>
+    <script>
+        // Apply saved theme immediately on ALL pages
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-theme');
+        }
+    </script>
     @include('frontend.partials.menu')
     @yield('content')
 
