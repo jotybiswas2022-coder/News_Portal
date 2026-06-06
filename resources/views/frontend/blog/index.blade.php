@@ -110,15 +110,15 @@
         font-size: 4rem;
         opacity: 0.4;
     }
+    html.light-theme .blog-card-image::after {
+        background: linear-gradient(transparent, rgba(255, 255, 255, 0.95));
+    }
     .blog-card-image::after {
         content: '';
         position: absolute;
         bottom: 0; left: 0; right: 0;
         height: 60px;
-        background: linear-gradient(transparent, var(--bg-card-bg-fallback, #1e293b));
-    }
-    html.light-theme .blog-card-image::after {
-        background: linear-gradient(transparent, rgba(255, 255, 255, 0.95));
+        background: linear-gradient(transparent, rgba(17, 28, 46, 0.95));
     }
     .blog-card-body {
         padding: 1.5rem;

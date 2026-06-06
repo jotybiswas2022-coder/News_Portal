@@ -119,6 +119,7 @@ return [
     'related_subtitle'     => 'আপনি আরও পড়তে আগ্রহী হতে পারেন',
 
     // Misc
+    'loading'          => 'লোড হচ্ছে...',
     'current'          => 'বর্তমান',
     'chat_whatsapp'    => 'হোয়াটসঅ্যাপে কথা বলুন',
     'back_to_top'      => 'উপরে যান',

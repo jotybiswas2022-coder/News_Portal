@@ -630,16 +630,16 @@
         text-decoration: none;
     }
     .social-icon:hover {
-        background: rgba(59,130,246,0.15) !important;
-        border-color: rgba(59,130,246,0.4) !important;
-        color: #60a5fa !important;
+        background: rgba(59,130,246,0.15);
+        border-color: rgba(59,130,246,0.4);
+        color: #60a5fa;
         transform: translateY(-4px);
         box-shadow: 0 8px 25px rgba(59,130,246,0.2);
     }
     html.light-theme .social-icon:hover {
-        background: rgba(59,130,246,0.12) !important;
-        border-color: #3b82f6 !important;
-        color: #3b82f6 !important;
+        background: rgba(59,130,246,0.12);
+        border-color: #3b82f6;
+        color: #3b82f6;
     }
     .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
     .footer-links a { color: var(--text-muted); transition: var(--transition); font-size: 0.88rem; font-weight: 500; text-decoration: none; }

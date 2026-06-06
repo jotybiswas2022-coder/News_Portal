@@ -119,6 +119,7 @@ return [
     'related_subtitle'     => 'You might also enjoy reading',
 
     // Misc
+    'loading'          => 'Loading...',
     'current'          => 'Current',
     'chat_whatsapp'    => 'Chat on WhatsApp',
     'back_to_top'      => 'Back to top',
