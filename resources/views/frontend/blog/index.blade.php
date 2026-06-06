@@ -3,16 +3,32 @@
 @section('content')
 
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+        --blog-bg: transparent;
+        --blog-card-bg: var(--bg-card, rgba(17, 28, 46, 0.8));
+        --blog-text: var(--text-primary, #e2e8f0);
+        --blog-text-secondary: var(--text-secondary, #94a3b8);
+        --blog-text-muted: var(--text-muted, #64748b);
+        --blog-border: var(--border-color, rgba(59, 130, 246, 0.12));
+    }
+    html.light-theme {
+        --blog-bg: #f8fafc;
+        --blog-card-bg: rgba(255, 255, 255, 0.9);
+        --blog-text: #0f172a;
+        --blog-text-secondary: #475569;
+        --blog-text-muted: #94a3b8;
+        --blog-border: rgba(59, 130, 246, 0.15);
+    }
+
     body {
         font-family: 'Inter', sans-serif;
-        background: #0f172a;
-        color: #e2e8f0;
+        background: var(--bg-primary, #0f172a);
+        color: var(--text-primary, #e2e8f0);
         overflow-x: hidden;
     }
 
     .blog-page-header {
-        background: linear-gradient(180deg, #0c1322 0%, #0f172a 100%);
+        background: linear-gradient(180deg, var(--bg-secondary, #0c1322) 0%, var(--bg-primary, #0f172a) 100%);
         padding: 6rem 2rem 4rem;
         text-align: center;
         position: relative;
@@ -40,7 +56,7 @@
         background-clip: text;
     }
     .blog-page-header p {
-        color: #94a3b8;
+        color: var(--text-secondary, #94a3b8);
         font-size: 1.1rem;
         position: relative;
     }
@@ -60,15 +76,16 @@
     }
 
     .blog-card {
-        background: linear-gradient(145deg, #1e293b, #162032);
-        border: 1px solid rgba(59, 130, 246, 0.1);
+        background: var(--blog-card-bg);
+        border: 1px solid var(--blog-border);
         border-radius: 20px;
         overflow: hidden;
         transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
     }
     .blog-card:hover {
         transform: translateY(-8px);
-        border-color: rgba(59, 130, 246, 0.3);
+        border-color: var(--border-hover, rgba(59, 130, 246, 0.3));
         box-shadow: 0 20px 50px rgba(59, 130, 246, 0.12);
     }
     .blog-card-image {
@@ -78,6 +95,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background: linear-gradient(135deg, #1e3a5f, #1a1a3e);
     }
     .blog-card-image img {
         width: 100%;
@@ -97,7 +115,10 @@
         position: absolute;
         bottom: 0; left: 0; right: 0;
         height: 60px;
-        background: linear-gradient(transparent, #1e293b);
+        background: linear-gradient(transparent, var(--bg-card-bg-fallback, #1e293b));
+    }
+    html.light-theme .blog-card-image::after {
+        background: linear-gradient(transparent, rgba(255, 255, 255, 0.95));
     }
     .blog-card-body {
         padding: 1.5rem;
@@ -108,7 +129,7 @@
         align-items: center;
         margin-bottom: 0.8rem;
         font-size: 0.8rem;
-        color: #64748b;
+        color: var(--text-muted, #64748b);
     }
     .blog-card-meta .category {
         background: rgba(59, 130, 246, 0.1);
@@ -125,7 +146,7 @@
         line-height: 1.4;
     }
     .blog-card-body h3 a {
-        color: #e2e8f0;
+        color: var(--text-primary, #e2e8f0);
         text-decoration: none;
         transition: color 0.3s;
     }
@@ -133,7 +154,7 @@
         color: #3b82f6;
     }
     .blog-card-body .excerpt {
-        color: #94a3b8;
+        color: var(--text-secondary, #94a3b8);
         font-size: 0.9rem;
         line-height: 1.7;
         margin-bottom: 1rem;
@@ -147,7 +168,7 @@
         justify-content: space-between;
         align-items: center;
         padding-top: 1rem;
-        border-top: 1px solid rgba(59, 130, 246, 0.08);
+        border-top: 1px solid var(--blog-border);
         font-size: 0.8rem;
     }
     .blog-card-footer .read-more {
@@ -161,7 +182,7 @@
     }
     .blog-card-footer .read-more:hover { gap: 0.6rem; }
     .blog-card-footer .reading-time {
-        color: #64748b;
+        color: var(--text-muted, #64748b);
     }
 
     /* Pagination */
@@ -174,9 +195,9 @@
         gap: 0.5rem;
     }
     .pagination-wrap nav .page-link {
-        background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(59, 130, 246, 0.15);
-        color: #94a3b8;
+        background: var(--bg-card, rgba(30, 41, 59, 0.5));
+        border: 1px solid var(--blog-border);
+        color: var(--text-secondary, #94a3b8);
         border-radius: 10px !important;
         padding: 0.5rem 1rem;
         font-weight: 500;
@@ -212,9 +233,8 @@
     <!-- Search Bar -->
     <div class="blog-search-wrapper" style="max-width: 500px; margin: 2rem auto 0; position: relative; z-index: 1;">
         <form action="{{ route('blog.index') }}" method="GET" style="display: flex; gap: 0.5rem;">
-            <input type="text" name="q" value="{{ $query ?? '' }}" 
-                   placeholder="{{ __('messages.search_blog') }}"
-                   style="flex: 1; padding: 0.8rem 1.2rem; border-radius: 12px; border: 1px solid rgba(59,130,246,0.2); background: rgba(15,23,42,0.8); color: #e2e8f0; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: all 0.3s;">
+            <input type="text" name="q" value="{{ $query ?? '' }}"                   placeholder="{{ __('messages.search_blog') }}"
+                                   style="flex: 1; padding: 0.8rem 1.2rem; border-radius: 12px; border: 1px solid rgba(59,130,246,0.2); background: var(--bg-card, rgba(15,23,42,0.8)); color: var(--text-primary, #e2e8f0); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: all 0.3s;">
             <button type="submit" 
                     style="padding: 0.8rem 1.5rem; border-radius: 12px; border: none; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;">
                 <i class="bi bi-search"></i>
