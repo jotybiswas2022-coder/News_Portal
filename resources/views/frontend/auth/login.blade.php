@@ -504,16 +504,41 @@
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 768px) {
-        .login-header { font-size: 24px; padding: 22px; }
+        .login-header { font-size: 22px; padding: 20px; }
         .login-body { padding: 24px; }
+        .login-input { padding: 12px 14px; font-size: 14px; }
+        .login-btn { padding: 12px; font-size: 15px; }
+        .login-container::before { width: 360px; height: 360px; top: -120px; right: -120px; }
+        .login-container::after { width: 300px; height: 300px; bottom: -120px; left: -120px; }
     }
 
     @media (max-width: 576px) {
-        .login-container { padding: 24px 10px; }
-        .login-card { border-radius: 18px; }
-        .login-header { font-size: 22px; padding: 18px; }
-        .login-body { padding: 20px; }
-        .glow-orb { width: 260px; height: 260px; }
+        .login-container { padding: 16px 8px; }
+        .login-card { border-radius: 16px; max-width: 100%; }
+        .login-header { font-size: 20px; padding: 16px; gap: 8px; }
+        .login-body { padding: 16px; }
+        .glow-orb { width: 200px; height: 200px; }
+        .login-input { padding: 10px 12px; font-size: 13px; border-radius: 10px; }
+        .login-btn { padding: 11px; font-size: 14px; border-radius: 10px; }
+        .login-label { font-size: 13px; }
+        .login-link { font-size: 13px; }
+        .divider { margin: 18px 0; }
+        .divider span { font-size: 12px; }
+        .signup-text { font-size: 13px; }
+        .signup-btn { padding: 7px 16px; font-size: 13px; }
+        .icon-lock { width: 36px; height: 36px; border-radius: 10px; }
+        .icon-lock svg { width: 18px; }
+        .grid-bg { background-size: 30px 30px; }
+        .particle { display: none; }
+        .login-container::before { width: 260px; height: 260px; top: -80px; right: -80px; }
+        .login-container::after { width: 200px; height: 200px; bottom: -80px; left: -80px; }
+    }
+    
+    @media (max-width: 360px) {
+        .login-container { padding: 12px 4px; }
+        .login-header { font-size: 17px; padding: 12px; }
+        .login-body { padding: 12px; }
+        .login-input { padding: 8px 10px; font-size: 12px; }
     }
 
     /* ===== Scrollbar ===== */

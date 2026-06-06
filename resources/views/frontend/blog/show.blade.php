@@ -251,9 +251,36 @@
     }
 
     @media (max-width: 768px) {
-        .post-meta { gap: 1rem; }
+        .post-meta { gap: 0.8rem; flex-direction: column; align-items: center; font-size: 0.82rem; }
         .post-header { padding: 5rem 1.5rem 2rem; }
+        .post-header h1 { font-size: clamp(1.4rem, 4vw, 2rem); }
         .post-body { padding: 2rem 1.5rem 3rem; }
+        .post-content { font-size: 0.95rem; line-height: 1.8; }
+        .post-content h2 { font-size: 1.4rem; }
+        .post-content h3 { font-size: 1.15rem; }
+        .post-content pre { padding: 0.8rem; font-size: 0.82rem; }
+        .related-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .related-section { padding: 3rem 1.5rem; }
+        .related-section h2 { font-size: 1.5rem; }
+        .post-featured-image { padding: 0 1rem; }
+        .post-featured-image img { max-height: 300px; border-radius: 14px; }
+        .post-tags .tag { font-size: 0.73rem; padding: 0.2rem 0.7rem; }
+    }
+    @media (max-width: 480px) {
+        .post-header { padding: 4rem 1rem 1.5rem; }
+        .post-header h1 { font-size: 1.3rem; }
+        .post-header .back-link { font-size: 0.82rem; }
+        .post-body { padding: 1.5rem 1rem 2rem; }
+        .post-content { font-size: 0.88rem; }
+        .post-content h2 { font-size: 1.2rem; }
+        .post-content h3 { font-size: 1.05rem; }
+        .post-content pre { font-size: 0.78rem; }
+        .post-content blockquote { padding: 0.8rem 1rem; font-size: 0.85rem; }
+        .post-featured-image { margin: -1rem auto 0; }
+        .post-featured-image img { max-height: 220px; }
+        .related-section { padding: 2rem 1rem; }
+        .related-card { padding: 1rem; }
+        .related-card h4 { font-size: 0.9rem; }
     }
 </style>
 

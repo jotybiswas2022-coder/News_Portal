@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
         <!-- Brand -->
         <a class="navbar-brand d-flex align-items-center fw-bold fs-5" href="/admin" style="color: #1e293b;">
             <i class="bi bi-speedometer2 me-2 fs-3" style="color: #6366f1;"></i>
-            <span>{{ config('app.name', 'Admin') }} Dashboard</span>
+            <span class="d-none d-sm-inline">{{ config('app.name', 'Admin') }}</span>
+            <span class="d-sm-none">Admin</span>
         </a>
 
         <!-- Toggler -->
