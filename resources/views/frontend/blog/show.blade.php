@@ -246,7 +246,7 @@
 <!-- Back link -->
 <div class="post-header">
     <a href="{{ route('blog.index') }}" class="back-link">
-        <i class="bi bi-arrow-left"></i> Back to Blog
+        <i class="bi bi-arrow-left"></i> {{ __('messages.back_to_blog') }}
     </a>
 
     @if($post->category)
@@ -290,8 +290,8 @@
 <!-- Related Posts -->
 @if($relatedPosts->isNotEmpty())
     <div class="related-section">
-        <h2>Related <span style="color: #3b82f6;">Posts</span></h2>
-        <p class="subtitle">You might also enjoy reading</p>
+        <h2>{{ __('messages.related_posts') }}</h2>
+        <p class="subtitle">{{ __('messages.related_subtitle') }}</p>
         <div class="related-grid">
             @foreach($relatedPosts as $related)
                 <a href="{{ route('blog.show', $related->slug) }}" class="related-card">

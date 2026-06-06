@@ -11,5 +11,6 @@ class Account extends Model
         'image',
         'phone',
         'email',
+        'cv',
     ];
 }

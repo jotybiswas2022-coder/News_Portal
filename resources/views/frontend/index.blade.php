@@ -282,6 +282,72 @@
     .stat-item .number { font-size: 2rem; font-weight: 800; color: var(--accent); }
     .stat-item .label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem; }
 
+    /* Services */
+    .services-section { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+    }
+    .service-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--accent-gradient);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: var(--accent);
+        box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+    }
+    .service-card .service-icon {
+        width: 70px; height: 70px;
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 20px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 2rem; color: var(--accent);
+        margin: 0 auto 1.2rem;
+        transition: all 0.4s ease;
+    }
+    .service-card:hover .service-icon {
+        background: var(--accent-gradient);
+        color: #fff;
+        border-color: transparent;
+        transform: scale(1.1) rotate(-5deg);
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+    .service-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+    }
+    .service-card p {
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+    .light-theme .service-card {
+        background: rgba(255, 255, 255, 0.85);
+    }
+
     /* Timeline */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080d1a 100%); }
     .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 1rem 0; }
@@ -623,19 +689,19 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-content">
-            <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> Available for Freelance Work</div>
-            <h1>Hi, I'm <span class="gradient-text">{{ $account->name }}</span></h1>
+            <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> {{ __('messages.hero_badge') }}</div>
+            <h1>{{ __('messages.hero_greeting') }} <span class="gradient-text">{{ $account->name }}</span></h1>
             <div class="typing-wrapper">
                 <span id="typingText"></span>
                 <span class="typing-cursor"></span>
             </div>
-            <p>I build responsive and dynamic web applications using Laravel, PHP, JavaScript, and modern web technologies. Passionate about coding and designing user-friendly interfaces.</p>
+            <p>{{ __('messages.hero_tagline') }}</p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn-primary-custom magnetic">
-                    <i class="bi bi-rocket-fill"></i> See My Work
+                    <i class="bi bi-rocket-fill"></i> {{ __('messages.see_my_work') }}
                 </a>
                 <a href="#contact" class="btn-outline-custom magnetic">
-                    <i class="bi bi-chat-dots-fill"></i> Contact Me
+                    <i class="bi bi-chat-dots-fill"></i> {{ __('messages.contact_me') }}
                 </a>
             </div>
         </div>
@@ -651,8 +717,8 @@
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>About Me</h2>
-                <p>Get to know me better</p>
+                <h2>{{ __('messages.about_title') }}</h2>
+                <p>{{ __('messages.about_subtitle') }}</p>
             </div>
             <div class="about-grid">
                 <div class="about-image reveal reveal-delay-1">
@@ -662,25 +728,71 @@
                     </div>
                 </div>
                 <div class="about-text reveal reveal-delay-2">
-                    <h3>Full Stack Web Developer & Designer</h3>
-                    <p>Hi, I'm <strong style="color: var(--accent);">{{ $account->name }}</strong>. I specialize in building responsive and dynamic web applications using cutting-edge technologies. With a keen eye for design and a passion for clean code, I create digital experiences that users love.</p>
-                    <p>My toolkit includes Laravel, PHP, JavaScript, React, and modern CSS frameworks. I believe in writing maintainable code and creating intuitive user interfaces that drive results.</p>
+                    <h3>{{ __('messages.about_heading') }}</h3>
+                    <p>{{ __('messages.about_desc_1') }}</p>
+                    <p>{{ __('messages.about_desc_2') }}</p>
                     <div class="about-stats">
                         <div class="stat-item">
                             <div class="number" data-count="50">0</div>
-                            <div class="label">Projects</div>
+                            <div class="label">{{ __('messages.stat_projects') }}</div>
                         </div>
                         <div class="stat-item">
                             <div class="number" data-count="30">0</div>
-                            <div class="label">Clients</div>
+                            <div class="label">{{ __('messages.stat_clients') }}</div>
                         </div>
                         <div class="stat-item">
                             <div class="number" data-count="3">0</div>
-                            <div class="label">Years Exp</div>
+                            <div class="label">{{ __('messages.stat_years') }}</div>
                         </div>
                     </div>
+
+                    <!-- Download CV Button -->
+                    @if(isset($account) && $account->cv)
+                        <div class="mt-4">
+                            <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
+                               download
+                               class="btn-primary-custom magnetic"
+                               style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <i class="bi bi-file-earmark-pdf-fill"></i> {{ __('messages.download_cv') }}
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section section-padding" id="services">
+        <div class="container">
+            <div class="section-title reveal">
+                <div class="line"></div>
+                <h2>{{ __('messages.services_title') }}</h2>
+                <p>{{ __('messages.services_subtitle') }}</p>
+            </div>
+
+            @if($services->isNotEmpty())
+                <div class="services-grid">
+                    @foreach($services as $index => $service)
+                        @php $delay = ($index % 4) + 1; @endphp
+                        <div class="service-card reveal reveal-delay-{{ $delay }}">
+                            <div class="service-icon">
+                                <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
+                            </div>
+                            <h3>{{ $service->title }}</h3>
+                            @if($service->short_description)
+                                <p>{{ $service->short_description }}</p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state reveal">
+                    <i class="bi bi-gear"></i>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_services') }}</p>
+                    <p>{{ __('messages.no_services_desc') }}</p>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -689,8 +801,8 @@
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>Work Experience</h2>
-                <p>My professional journey</p>
+                <h2>{{ __('messages.experience_title') }}</h2>
+                <p>{{ __('messages.experience_subtitle') }}</p>
             </div>
 
             @if($experiences->isNotEmpty())
@@ -707,7 +819,7 @@
                                     <i class="bi bi-calendar3 me-1"></i>{{ $exp->duration }}
                                 </div>
                                 @if($exp->is_current)
-                                    <span class="current-badge">Current</span>
+                                    <span class="current-badge">{{ __('messages.current') }}</span>
                                 @endif
                                 <h3>{{ $exp->position }}</h3>
                                 <div class="timeline-company">
@@ -728,8 +840,8 @@
             @else
                 <div class="empty-state reveal">
                     <i class="bi bi-briefcase"></i>
-                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">No Experience Yet</p>
-                    <p>Experience details coming soon!</p>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_experience') }}</p>
+                    <p>{{ __('messages.no_experience_desc') }}</p>
                 </div>
             @endif
         </div>
@@ -740,8 +852,8 @@
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>My Skills</h2>
-                <p>Technologies I work with</p>
+                <h2>{{ __('messages.skills_title') }}</h2>
+                <p>{{ __('messages.skills_subtitle') }}</p>
             </div>
             <div class="skills-grid">
                 @forelse($skills as $index => $skill)
@@ -755,8 +867,8 @@
                 @empty
                     <div class="empty-state" style="grid-column: 1 / -1;">
                         <i class="bi bi-lightning-charge"></i>
-                        <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">No Skills Added Yet</p>
-                        <p>Skills data coming soon!</p>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_skills') }}</p>
+                    <p>{{ __('messages.no_skills_desc') }}</p>
                     </div>
                 @endforelse
             </div>
@@ -768,12 +880,12 @@
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>My Projects</h2>
-                <p>Some of my recent work</p>
+                <h2>{{ __('messages.projects_title') }}</h2>
+                <p>{{ __('messages.projects_subtitle') }}</p>
             </div>
             <!-- Filter Buttons -->
             <div class="filter-tabs reveal">
-                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn active" data-filter="all">{{ __('messages.all') }}</button>
                 @php
                     $allTechs = [];
                     foreach($projects as $p) {
@@ -834,12 +946,12 @@
                             <div class="project-links d-flex gap-3">
                                 @if($project->live_link)
                                     <a href="{{ $project->live_link }}" target="_blank" class="card-link">
-                                        <i class="bi bi-box-arrow-up-right"></i> Live Demo →
+                                        <i class="bi bi-box-arrow-up-right"></i> {{ __('messages.live_demo') }} →
                                     </a>
                                 @endif
                                 @if($project->github_link)
                                     <a href="{{ $project->github_link }}" target="_blank" class="card-link" style="color: #94a3b8;">
-                                        <i class="bi bi-github"></i> Source
+                                        <i class="bi bi-github"></i> {{ __('messages.source') }}
                                     </a>
                                 @endif
                             </div>
@@ -848,8 +960,8 @@
                 @empty
                     <div class="empty-state" style="grid-column: 1 / -1;">
                         <i class="bi bi-folder-plus"></i>
-                        <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">No Projects Yet</p>
-                        <p>No projects to display yet. Check back soon!</p>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_projects') }}</p>
+                    <p>{{ __('messages.no_projects_desc') }}</p>
                     </div>
                 @endforelse
             </div>
@@ -858,11 +970,10 @@
 
     <!-- Testimonials Section -->
     <section class="testimonials-section section-padding" id="testimonials">
-        <div class="container">
-            <div class="section-title reveal">
+        <div class="container">                            <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>What Clients Say</h2>
-                <p>Testimonials from people I've worked with</p>
+                <h2>{{ __('messages.testimonials_title') }}</h2>
+                <p>{{ __('messages.testimonials_subtitle') }}</p>
             </div>
 
             @if($testimonials->isNotEmpty())
@@ -910,8 +1021,8 @@
             @else
                 <div class="empty-state reveal">
                     <i class="bi bi-chat-quote"></i>
-                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">No Testimonials Yet</p>
-                    <p>Testimonials coming soon!</p>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_testimonials') }}</p>
+                    <p>{{ __('messages.no_testimonials_desc') }}</p>
                 </div>
             @endif
         </div>
@@ -922,18 +1033,18 @@
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
-                <h2>Contact Me</h2>
-                <p>Feel free to reach out for projects or collaborations</p>
+                <h2>{{ __('messages.contact_title') }}</h2>
+                <p>{{ __('messages.contact_subtitle') }}</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-info reveal reveal-delay-1">
-                    <h3>Let's work together!</h3>
-                    <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something amazing together.</p>
+                    <h3>{{ __('messages.contact_heading') }}</h3>
+                    <p>{{ __('messages.contact_desc') }}</p>
 
                     <div class="contact-item">
                         <div class="icon-box"><i class="bi bi-envelope-fill"></i></div>
                         <div class="text">
-                            <div class="label">Email</div>
+                            <div class="label">{{ __('messages.email_label') }}</div>
                             <div class="value">{{ $account->email ?? 'joty@example.com' }}</div>
                         </div>
                     </div>
@@ -941,7 +1052,7 @@
                     <div class="contact-item">
                         <div class="icon-box"><i class="bi bi-phone-fill"></i></div>
                         <div class="text">
-                            <div class="label">Phone</div>
+                            <div class="label">{{ __('messages.phone_label') }}</div>
                             <div class="value">{{ $account->phone ?? '+880 1XXX-XXXXXX' }}</div>
                         </div>
                     </div>
@@ -949,7 +1060,7 @@
                     <div class="contact-item">
                         <div class="icon-box"><i class="bi bi-geo-alt-fill"></i></div>
                         <div class="text">
-                            <div class="label">Location</div>
+                            <div class="label">{{ __('messages.location_label') }}</div>
                             <div class="value">Bangladesh</div>
                         </div>
                     </div>
@@ -959,19 +1070,19 @@
                     <form action="{{ url('/contactus') }}" method="POST" id="contactForm">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                            <label for="name">{{ __('messages.your_name') }}</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="{{ __('messages.name_placeholder') }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                            <label for="email">{{ __('messages.your_email') }}</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="{{ __('messages.email_placeholder') }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" class="form-control" placeholder="Write your message..." rows="4" required></textarea>
+                            <label for="message">{{ __('messages.your_message') }}</label>
+                            <textarea id="message" name="message" class="form-control" placeholder="{{ __('messages.message_placeholder') }}" rows="4" required></textarea>
                         </div>
                         <button type="submit" class="btn-submit magnetic">
-                            <i class="bi bi-rocket-fill"></i> Send Message
+                            <i class="bi bi-rocket-fill"></i> {{ __('messages.send_message') }}
                         </button>
                     </form>
                 </div>
@@ -992,6 +1103,64 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="faq-section section-padding" id="faq">
+        <div class="container">
+            <div class="section-title reveal">
+                <div class="line"></div>
+                <h2>{{ __('messages.faq_title') }}</h2>
+                <p>{{ __('messages.faq_subtitle') }}</p>
+            </div>
+
+            @if($faqs->isNotEmpty())
+                <div class="faq-list reveal" style="max-width: 800px; margin: 0 auto;">
+                    @foreach($faqs as $index => $faq)
+                        <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1rem; overflow: hidden; transition: var(--transition);">
+                            <button class="faq-question" 
+                                    onclick="toggleFaq(this)"
+                                    style="width: 100%; padding: 1.2rem 1.5rem; background: none; border: none; color: var(--text-primary); font-size: 0.98rem; font-weight: 600; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--font); transition: var(--transition);">
+                                <span>{{ $faq->question }}</span>
+                                <i class="bi bi-chevron-down" style="font-size: 0.8rem; color: var(--accent); transition: transform 0.3s ease; flex-shrink: 0;"></i>
+                            </button>
+                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease; padding: 0 1.5rem;">
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-bottom: 1.2rem; margin: 0;">{{ $faq->answer }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <script>
+                function toggleFaq(btn) {
+                    var item = btn.parentElement;
+                    var answer = item.querySelector('.faq-answer');
+                    var icon = btn.querySelector('i');
+                    var isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+                    
+                    // Close all
+                    document.querySelectorAll('.faq-item').forEach(function(el) {
+                        el.querySelector('.faq-answer').style.maxHeight = '0';
+                        el.querySelector('.faq-answer').style.padding = '0 1.5rem';
+                        el.querySelector('i').style.transform = 'rotate(0deg)';
+                        el.querySelector('.faq-question').style.color = 'var(--text-primary)';
+                    });
+                    
+                    if (!isOpen) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        answer.style.padding = '0 1.5rem 0';
+                        icon.style.transform = 'rotate(180deg)';
+                        btn.style.color = 'var(--accent)';
+                    }
+                }
+                </script>
+            @else
+                <div class="empty-state reveal">
+                    <i class="bi bi-question-circle"></i>
+                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_faqs') }}</p>
+                    <p>{{ __('messages.no_faqs_desc') }}</p>
+                </div>
+            @endif
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-links">
@@ -1000,9 +1169,9 @@
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </div>
-        <p>© {{ date('Y') }} {{ $account->name }}. Made with 
+        <p>© {{ date('Y') }} {{ $account->name }}. {{ __('messages.copyright') }} 
             <i class="bi bi-heart-fill" style="color: #ef4444;"></i> 
-            and lots of 
+            {{ __('messages.and_lots_of') }} 
             <i class="bi bi-cup-fill" style="color: #f59e0b;"></i>
         </p>
     </footer>
@@ -1010,13 +1179,13 @@
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $account->phone ?? '8801XXXXXXXXX') }}"
        target="_blank" rel="noopener noreferrer"
-       class="whatsapp-float" id="whatsappFloat" aria-label="Chat on WhatsApp">
+       class="whatsapp-float" id="whatsappFloat" aria-label="{{ __('messages.chat_whatsapp') }}">
         <i class="bi bi-whatsapp"></i>
-        <span class="whatsapp-tooltip">Chat on WhatsApp</span>
+        <span class="whatsapp-tooltip">{{ __('messages.chat_whatsapp') }}</span>
     </a>
 
     <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <button class="back-to-top" id="backToTop" aria-label="{{ __('messages.back_to_top') }}">
         <i class="bi bi-arrow-up"></i>
     </button>
 
@@ -1025,7 +1194,7 @@
 
     <!-- Toast -->
     <div class="toast" id="toast">
-        <i class="bi bi-check-circle-fill"></i> Message sent successfully!
+        <i class="bi bi-check-circle-fill"></i> {{ __('messages.msg_sent') }}
     </div>
 
 <script>

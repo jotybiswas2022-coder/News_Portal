@@ -101,6 +101,20 @@
         .nav-links a { font-size: 1.2rem; padding: 0.7rem 1.5rem; }
         .hamburger { display: flex; }
     }
+    /* Language Switcher */
+    .lang-switcher { margin-left: 0.5rem; }
+    .lang-btn {
+        color: #64748b; font-size: 0.78rem; font-weight: 600;
+        padding: 3px 6px; border-radius: 4px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none !important;
+        letter-spacing: 0.3px;
+    }
+    .lang-btn:hover { color: #60a5fa; }
+    .lang-btn.active {
+        color: #3b82f6;
+        background: rgba(59, 130, 246, 0.12);
+    }
     html { padding-top: 0 !important; }
     body { padding-top: 0 !important; }
 </style>
@@ -110,19 +124,21 @@
 
     <!-- Nav Links -->
     <ul class="nav-links" id="navLinks">
-        <li><a href="/" class="{{ request()->is('/') ? 'nav-active' : '' }}"><i class="bi bi-house-fill me-1"></i>Home</a></li>
-        <li><a href="/#about"><i class="bi bi-person-fill me-1"></i>About</a></li>
-        <li><a href="/#skills"><i class="bi bi-lightning-fill me-1"></i>Skills</a></li>
-        <li><a href="/#projects"><i class="bi bi-folder-fill me-1"></i>Projects</a></li>
-        <li><a href="/#contact"><i class="bi bi-envelope-fill me-1"></i>Contact</a></li>
-        <li><a href="{{ url('/blog') }}" class="{{ request()->is('blog') || request()->is('blog/*') ? 'nav-active' : '' }}"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
-        <li><button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"><i class="bi bi-sun-fill"></i></button></li>
+        <li><a href="/" class="{{ request()->is('/') ? 'nav-active' : '' }}"><i class="bi bi-house-fill me-1"></i>{{ __('messages.home') }}</a></li>
+        <li><a href="/#about"><i class="bi bi-person-fill me-1"></i>{{ __('messages.about') }}</a></li>
+        <li><a href="/#services"><i class="bi bi-gear me-1"></i>{{ __('messages.services') }}</a></li>
+        <li><a href="/#skills"><i class="bi bi-lightning-fill me-1"></i>{{ __('messages.skills') }}</a></li>
+        <li><a href="/#projects"><i class="bi bi-folder-fill me-1"></i>{{ __('messages.projects') }}</a></li>
+        <li><a href="/#contact"><i class="bi bi-envelope-fill me-1"></i>{{ __('messages.contact') }}</a></li>
+        <li><a href="/#faq"><i class="bi bi-question-circle me-1"></i>FAQ</a></li>
+        <li><a href="{{ url('/blog') }}" class="{{ request()->is('blog') || request()->is('blog/*') ? 'nav-active' : '' }}"><i class="bi bi-journal-text me-1"></i>{{ __('messages.blog') }}</a></li>
+        <li><button class="theme-toggle-btn" id="themeToggle" aria-label="{{ __('messages.toggle_theme') }}"><i class="bi bi-sun-fill"></i></button></li>
 
         @auth
             @if(auth()->user()->is_admin == 1)
                 <li>
                     <a href="/admin" class="nav-action nav-action-admin">
-                        <i class="bi bi-speedometer2 me-1"></i> Admin
+                        <i class="bi bi-speedometer2 me-1"></i> {{ __('messages.admin') }}
                     </a>
                 </li>
             @endif
@@ -130,26 +146,42 @@
                 <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
                     @csrf
                     <button type="submit" class="nav-action nav-action-logout" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:inherit; display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 1rem; border-radius:8px; font-weight:600; font-size:0.85rem;">
-                        <i class="bi bi-box-arrow-right me-1"></i> Logout
+                        <i class="bi bi-box-arrow-right me-1"></i> {{ __('messages.logout') }}
                     </button>
                 </form>
             </li>
         @else
             <li>
                 <a href="/login" class="nav-action nav-action-login">
-                    <i class="bi bi-person-circle me-1"></i> Login
+                    <i class="bi bi-person-circle me-1"></i> {{ __('messages.login') }}
                 </a>
             </li>
             <li>
                 <a href="/register" class="nav-action nav-action-signup">
-                    <i class="bi bi-person-plus me-1"></i> Signup
+                    <i class="bi bi-person-plus me-1"></i> {{ __('messages.signup') }}
                 </a>
             </li>
         @endauth
+        <!-- Language Switcher -->
+        <li class="nav-item" style="list-style: none;">
+            <div class="lang-switcher d-flex align-items-center" style="gap: 2px;">
+                <a href="{{ route('language.switch', 'en') }}" 
+                   class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+                   title="{{ __('messages.english') }}">
+                    EN
+                </a>
+                <span style="color: #475569; font-size: 0.75rem;">|</span>
+                <a href="{{ route('language.switch', 'bn') }}" 
+                   class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
+                   title="{{ __('messages.bengali') }}">
+                    বাংলা
+                </a>
+            </div>
+        </li>
     </ul>
 
     <!-- Hamburger -->
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <button class="hamburger" id="hamburger" aria-label="{{ __('messages.toggle_theme') }}">
         <span></span>
         <span></span>
         <span></span>

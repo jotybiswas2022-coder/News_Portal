@@ -11,16 +11,30 @@ class BlogController extends Controller
     /**
      * Display a listing of published blog posts.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::recent()->paginate(9);
+        $query = $request->get('q');
+
+        $posts = Post::recent();
+
+        if ($query) {
+            $posts = $posts->where(function ($q) use ($query) {
+                $q->where('title', 'like', "%{$query}%")
+                  ->orWhere('content', 'like', "%{$query}%")
+                  ->orWhere('category', 'like', "%{$query}%")
+                  ->orWhere('tags', 'like', "%{$query}%");
+            });
+        }
+
+        $posts = $posts->paginate(9)->withQueryString();
+
         $categories = Post::where('is_published', true)
             ->whereNotNull('category')
             ->select('category')
             ->distinct()
             ->pluck('category');
 
-        return view('frontend.blog.index', compact('posts', 'categories'));
+        return view('frontend.blog.index', compact('posts', 'categories', 'query'));
     }
 
     /**

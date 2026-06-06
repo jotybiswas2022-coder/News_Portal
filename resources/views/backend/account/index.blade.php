@@ -20,6 +20,14 @@
             <!-- Account Info -->
             <div class="account-info">
                 <h3>Name: {{ $account->name ?? 'Not set' }}</h3>
+                @if(isset($account) && $account->cv)
+                    <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
+                       target="_blank" class="btn btn-sm btn-outline-danger mt-2">
+                        <i class="bi bi-file-earmark-pdf-fill me-1"></i> View CV
+                    </a>
+                @else
+                    <p class="text-muted small mt-2"><i class="bi bi-file-earmark me-1"></i>No CV uploaded</p>
+                @endif
             </div>
 
             <!-- Edit Button -->

@@ -95,6 +95,37 @@
                             </div>
                         </div>
 
+                        <!-- CV Upload -->
+                        <div class="mb-4">
+                            <label for="cv" class="form-label fw-semibold">
+                                <i class="bi bi-file-pdf me-1 text-danger"></i> CV/Resume (PDF, DOC, DOCX)
+                            </label>
+                            <input 
+                                type="file" 
+                                accept=".pdf,.doc,.docx"
+                                id="cv" 
+                                name="cv"
+                                class="form-control shadow-sm"
+                            >
+                            <div class="form-text">Maximum file size: 5MB. Allowed formats: PDF, DOC, DOCX.</div>
+
+                            @if(isset($account) && $account->cv)
+                                <div class="mt-2 d-flex align-items-center gap-3">
+                                    <a href="{{ config('app.storage_url') }}{{ $account->cv }}" 
+                                       target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye me-1"></i> View Current CV
+                                    </a>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                               name="remove_cv" id="removeCv" value="1">
+                                        <label class="form-check-label text-danger" for="removeCv">
+                                            Remove CV
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
                         <!-- Submit -->
                         <div class="d-grid">
                             <button type="submit" class="btn btn-dark btn-lg rounded-3 shadow-sm">

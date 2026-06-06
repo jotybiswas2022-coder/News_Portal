@@ -8,6 +8,8 @@ use App\Models\Project;
 use App\Models\Testimonial;
 use App\Models\Experience;
 use App\Models\Skill;
+use App\Models\Service;
+use App\Models\Faq;
 
 class SiteController extends Controller
 {
@@ -17,6 +19,8 @@ class SiteController extends Controller
         $testimonials = Testimonial::active()->get();
         $experiences = Experience::active()->get();
         $skills = Skill::active()->get();
-        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills'));
+        $services = Service::active()->get();
+        $faqs = Faq::active()->get();
+        return view('frontend.index', compact('account', 'projects', 'testimonials', 'experiences', 'skills', 'services', 'faqs'));
     }
 }

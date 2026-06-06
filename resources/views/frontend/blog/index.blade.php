@@ -206,16 +206,29 @@
 
 <!-- Header -->
 <div class="blog-page-header">
-    <h1>My <span class="gradient-text">Blog</span></h1>
-    <p>Thoughts, tutorials, and insights about web development</p>
+    <h1>{{ __('messages.blog_title') }} <span class="gradient-text">{{ __('messages.blog') }}</span></h1>
+    <p>{{ __('messages.blog_subtitle') }}</p>
+
+    <!-- Search Bar -->
+    <div class="blog-search-wrapper" style="max-width: 500px; margin: 2rem auto 0; position: relative; z-index: 1;">
+        <form action="{{ route('blog.index') }}" method="GET" style="display: flex; gap: 0.5rem;">
+            <input type="text" name="q" value="{{ $query ?? '' }}" 
+                   placeholder="{{ __('messages.search_blog') }}"
+                   style="flex: 1; padding: 0.8rem 1.2rem; border-radius: 12px; border: 1px solid rgba(59,130,246,0.2); background: rgba(15,23,42,0.8); color: #e2e8f0; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: all 0.3s;">
+            <button type="submit" 
+                    style="padding: 0.8rem 1.5rem; border-radius: 12px; border: none; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+    </div>
 </div>
 
 <div class="blog-content">
     @if($posts->isEmpty())
         <div class="empty-state">
             <i class="bi bi-journal-text fs-1 text-muted mb-3 d-block"></i>
-            <div class="fw-semibold fs-5 mb-2">No Posts Yet</div>
-            <p class="text-muted">Blog posts will appear here. Check back soon!</p>
+            <div class="fw-semibold fs-5 mb-2">{{ __('messages.no_posts') }}</div>
+            <p class="text-muted">{{ __('messages.no_posts_desc') }}</p>
         </div>
     @else
         <div class="blog-grid">
@@ -241,7 +254,7 @@
                         <div class="excerpt">{{ $post->getExcerpt(200) }}</div>
                         <div class="blog-card-footer">
                             <a href="{{ route('blog.show', $post->slug) }}" class="read-more">
-                                Read More <i class="bi bi-arrow-right"></i>
+                                {{ __('messages.read_more') }} <i class="bi bi-arrow-right"></i>
                             </a>
                             <span class="reading-time"><i class="bi bi-clock me-1"></i>{{ $post->reading_time }}</span>
                         </div>
