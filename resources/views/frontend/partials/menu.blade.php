@@ -10,11 +10,19 @@
         border-bottom: 1px solid rgba(59, 130, 246, 0.12);
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    html.light-theme .navbar-main {
+        background: rgba(248, 250, 252, 0.92);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.12);
+    }
     .navbar-main.scrolled {
         padding: 0.6rem 2rem;
         background: rgba(10, 15, 30, 0.96);
         border-bottom: 1px solid rgba(59, 130, 246, 0.25);
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    html.light-theme .navbar-main.scrolled {
+        background: rgba(248, 250, 252, 0.96);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     }
     .nav-logo {
         font-size: 1.4rem; font-weight: 800;
@@ -45,18 +53,17 @@
         background: rgba(59, 130, 246, 0.18);
         transform: scale(1.1);
     }
-    .light-theme .theme-toggle-btn {
+    html.light-theme .theme-toggle-btn {
         color: #f59e0b;
         border-color: rgba(245, 158, 11, 0.3);
         background: rgba(245, 158, 11, 0.1);
     }
-    .light-theme .theme-toggle-btn:hover {
+    html.light-theme .theme-toggle-btn:hover {
         background: rgba(245, 158, 11, 0.2);
     }
 
-    .nav-links { display: flex; gap: 0.5rem; list-style: none; align-items: center; margin: 0; padding: 0; }
-    .nav-links a {
-        color: #94a3b8; font-weight: 500; font-size: 0.88rem;
+    .nav-links { display: flex; gap: 0.5rem; list-style: none; align-items: center; margin: 0; padding: 0; }    .nav-links a { color: #94a3b8; font-weight: 500; font-size: 0.88rem;
+    html.light-theme .nav-links a { color: #475569; }
         padding: 0.5rem 1rem; border-radius: 8px;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         position: relative;
@@ -87,6 +94,7 @@
         border-radius: 2px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         transform-origin: center;
     }
+    html.light-theme .hamburger span { background: #334155; }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
@@ -97,6 +105,7 @@
             flex-direction: column; align-items: center; justify-content: center;
             gap: 1.5rem; backdrop-filter: blur(20px);
         }
+        html.light-theme .nav-links { background: rgba(248, 250, 252, 0.98); }
         .nav-links.open { display: flex; }
         .nav-links a { font-size: 1.2rem; padding: 0.7rem 1.5rem; }
         .hamburger { display: flex; }

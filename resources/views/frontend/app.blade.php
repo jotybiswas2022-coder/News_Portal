@@ -18,7 +18,7 @@
     <!-- Global Theme Styles -->
     <style>
         /* Light Theme - works on ALL pages */
-        .light-theme {
+        html.light-theme {
             --bg-primary: #f8fafc;
             --bg-secondary: #f1f5f9;
             --bg-card: rgba(255, 255, 255, 0.9);
