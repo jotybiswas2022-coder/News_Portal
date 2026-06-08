@@ -152,7 +152,7 @@
 }
 </style>
 
-@push('scripts')
+@section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const deleteBtns = document.querySelectorAll('.delete-btn');
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const title = this.dataset.title;
             Swal.fire({
                 title: 'Delete Project?',
-                text: `Are you sure you want to delete "${title}"? This cannot be undone.`,
+                text: 'Are you sure you want to delete "' + title + '"? This cannot be undone.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
@@ -184,10 +184,10 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const href = this.getAttribute('href');
             const title = this.dataset.title;
-            const current = this.textContent.trim();
+            var current = this.textContent.trim();
             Swal.fire({
                 title: 'Toggle Status?',
-                text: `Change "${title}" from ${current} to ${current === 'Active' ? 'Inactive' : 'Active'}?`,
+                text: 'Change "' + title + '" from ' + current + ' to ' + (current === 'Active' ? 'Inactive' : 'Active') + '?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#6366f1',
@@ -204,6 +204,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-@endpush
+@endsection
 
 @endsection
