@@ -186,59 +186,7 @@ body {
     overflow-y: auto;
 }
 
-/* ===== TOP NAVBAR ===== */
-.navbar-top {
-    background: linear-gradient(180deg, #0f172a, #1e293b) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding: 0 1.5rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    height: var(--admin-topbar-height);
-    position: sticky;
-    top: 0;
-    z-index: 1050;
-}
-
-.navbar-top .nav-link {
-    color: rgba(255,255,255,0.65) !important;
-    font-weight: 500;
-    padding: 0.4rem 0.85rem !important;
-    border-radius: 8px;
-    transition: all 0.2s;
-}
-
-.navbar-top .nav-link:hover {
-    color: #fff !important;
-    background: rgba(255,255,255,0.08);
-}
-
-.navbar-top .nav-link.active-link {
-    color: #fff !important;
-    background: rgba(99,102,241,0.2);
-}
-
-.navbar-top .navbar-brand {
-    letter-spacing: -0.02em;
-    color: #fff !important;
-}
-
-.navbar-top .navbar-toggler:focus {
-    box-shadow: none;
-}
-
-.navbar-top .navbar-toggler-icon {
-    filter: brightness(0) invert(1);
-}
-
-.navbar-top .sidebar-toggle-btn {
-    color: rgba(255,255,255,0.65);
-    border: none;
-    background: transparent;
-    transition: color 0.2s;
-}
-
-.navbar-top .sidebar-toggle-btn:hover {
-    color: #fff;
-}
+/* ===== TOP NAVBAR (sticky + z-index only; rest via inline) ===== */
 
 /* ===== SIDEBAR OVERLAY (mobile) ===== */
 .sidebar-overlay {
