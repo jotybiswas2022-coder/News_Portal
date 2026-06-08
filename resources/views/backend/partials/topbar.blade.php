@@ -7,10 +7,10 @@ use Illuminate\Support\Str;
 .topbar-link.active-link { color:#fff !important; background:rgba(99,102,241,0.2) !important; }
 .sidebar-toggle-btn:hover { color:#fff !important; }
 </style>
-<nav class="navbar navbar-expand-lg py-0" style="height:auto; min-height:57px; background:linear-gradient(180deg,#0f172a,#1e293b); border-bottom:1px solid rgba(255,255,255,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.15); color:#fff;">
+<nav class="navbar navbar-expand-lg py-0" style="height:auto; min-height:57px; background:linear-gradient(180deg,#0f172a,#1e293b); border-bottom:1px solid rgba(255,255,255,0.06); box-shadow:0 2px 12px rgba(0,0,0,0.15); color:#fff; position:sticky; top:0; z-index:1050;">
     <div class="container-fluid px-3">
         {{-- Mobile Sidebar Toggle --}}
-        <button class="btn d-md-none p-1 me-2 sidebar-toggle-btn" type="button" aria-label="Toggle sidebar" style="color:rgba(255,255,255,0.7); border:none; background:transparent;">
+        <button class="btn d-md-none p-1 me-2 sidebar-toggle-btn" type="button" aria-label="Toggle sidebar" onclick="document.getElementById('sidebarCollapse').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('active');" style="color:rgba(255,255,255,0.7); border:none; background:transparent;">
             <i class="bi bi-list fs-4"></i>
         </button>
 

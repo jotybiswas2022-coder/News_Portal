@@ -22,7 +22,7 @@
     @include('backend.partials.topbar')
 
     {{-- Sidebar Overlay (mobile) --}}
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="document.getElementById('sidebarCollapse').classList.remove('open'); this.classList.remove('active');"></div>
 
     {{-- Admin Layout: Sidebar + Content --}}
     <div class="admin-layout" style="display:flex; min-height:calc(100vh - 57px);">

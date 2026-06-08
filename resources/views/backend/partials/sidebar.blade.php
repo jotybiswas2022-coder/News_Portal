@@ -2,7 +2,7 @@
 <aside class="sidebar" id="sidebarCollapse" style="width:260px; min-width:260px; background:linear-gradient(180deg,#0f172a,#1e293b); flex-shrink:0;">
     <!-- Close button for mobile -->
     <div class="sidebar-close d-md-none">
-        <button type="button" class="btn-close btn-close-white" aria-label="Close sidebar"></button>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close sidebar" onclick="document.getElementById('sidebarCollapse').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('active');"></button>
     </div>
 
     <div class="sidebar-header" style="padding:1.2rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:0.5rem; flex-shrink:0;">
