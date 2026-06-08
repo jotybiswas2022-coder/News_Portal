@@ -84,14 +84,4 @@
             </a>
         </li>
     </ul>
-
-    <!-- Mobile-only logout -->
-    <div class="sidebar-footer d-md-none">
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="sidebar-logout-btn">
-                <i class="bi bi-box-arrow-right me-2"></i> Logout
-            </button>
-        </form>
-    </div>
 </aside>
