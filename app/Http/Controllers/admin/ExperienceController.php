@@ -8,10 +8,29 @@ use App\Models\Experience;
 
 class ExperienceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $experiences = Experience::orderBy('sort_order')->get();
-        return view('backend.experience.index', compact('experiences'));
+        $query = $request->input('q');
+
+        $experiences = Experience::query()
+            ->when($query, function ($q) use ($query) {
+                $q->where('company', 'like', "%{$query}%")
+                  ->orWhere('position', 'like', "%{$query}%")
+                  ->orWhere('location', 'like', "%{$query}%");
+            })
+            ->orderBy('sort_order')
+            ->get();
+
+        if ($request->ajax()) {
+            $html = view('backend.experience._table_rows', compact('experiences'))->render();
+            return response()->json([
+                'html'  => $html,
+                'count' => $experiences->count(),
+                'query' => $query,
+            ]);
+        }
+
+        return view('backend.experience.index', compact('experiences', 'query'));
     }
 
     public function create()
