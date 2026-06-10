@@ -13,10 +13,20 @@ class ProjectController extends Controller
     /**
      * Display a listing of the projects.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::orderBy('sort_order')->get();
-        return view('backend.project.index', compact('projects'));
+        $query = $request->input('q');
+
+        $projects = Project::query()
+            ->when($query, function ($q) use ($query) {
+                $q->where('title', 'like', "%{$query}%")
+                  ->orWhere('category', 'like', "%{$query}%")
+                  ->orWhere('tech_stack', 'like', "%{$query}%");
+            })
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('backend.project.index', compact('projects', 'query'));
     }
 
     /**

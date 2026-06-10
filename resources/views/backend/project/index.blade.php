@@ -5,7 +5,7 @@
 <div class="container-fluid py-3">
 
     {{-- Header --}}
-    <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
         <div>
             <h4 class="fw-bold mb-1"><i class="bi bi-folder2-open me-2" style="color:#6366f1;"></i>Projects</h4>
             <p class="text-muted small mb-0">Manage your portfolio projects</p>
@@ -18,6 +18,29 @@
                 <i class="bi bi-plus-lg me-1"></i> Add Project
             </a>
         </div>
+    </div>
+
+    {{-- Search Bar --}}
+    <div class="mb-4">
+        <form action="{{ route('admin.projects.index') }}" method="GET" class="d-flex gap-2">
+            <div class="input-group" style="max-width:380px;">
+                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
+                    <i class="bi bi-search text-muted"></i>
+                </span>
+                <input type="text" name="q" value="{{ $query ?? '' }}" 
+                       class="form-control border-start-0 ps-0" 
+                       placeholder="Search by title, category or tech stack..."
+                       style="border-color:#e2e8f0; box-shadow:none;">
+                @if(request()->has('q') && request()->q != '')
+                    <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary rounded-end-3" style="border-color:#e2e8f0;">
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                @endif
+            </div>
+            <button type="submit" class="btn btn-primary rounded-3 px-3" style="background:#6366f1; border-color:#6366f1;">
+                <i class="bi bi-search me-1"></i> Search
+            </button>
+        </form>
     </div>
 
     {{-- Table Card --}}
