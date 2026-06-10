@@ -1152,7 +1152,7 @@
                 </div>
                 <div class="about-text reveal reveal-delay-2">
                     <h3>{{ __('messages.about_heading') }}</h3>
-                    <p>{{ __('messages.about_desc_1') }}</p>
+                    <p>Hi, I'm <span class="gradient-text">{{ $account->name }}</span>. {{ __('messages.about_desc_1') }}</p>
                     <p>{{ __('messages.about_desc_2') }}</p>
                     <div class="about-stats">
                         <div class="stat-item">
