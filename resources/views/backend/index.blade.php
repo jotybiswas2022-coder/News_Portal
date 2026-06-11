@@ -215,28 +215,37 @@
 }
 
 /* ─── Quick Actions ─── */
+.dsb-qa-wrap {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+}
+.dsb-qa-wrap::-webkit-scrollbar { height: 3px; }
+.dsb-qa-wrap::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 3px; }
 .dsb-qa {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1rem;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 8px;
     text-decoration: none;
-    color: #1e293b;
+    color: #475569;
     font-weight: 600;
-    font-size: 0.82rem;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 0.72rem;
+    transition: all 0.25s ease;
+    white-space: nowrap;
 }
 .dsb-qa:hover {
     background: #fff;
     border-color: #6366f1;
     color: #6366f1;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 8px 20px rgba(99,102,241,0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99,102,241,0.1);
 }
-.dsb-qa i { font-size: 1rem; }
+.dsb-qa i { font-size: 0.78rem; }
 
 /* ─── Animations ─── */
 @keyframes float {
@@ -547,16 +556,16 @@
                 <div class="dsb-card-hd">
                     <span><i class="bi bi-lightning-charge" style="color:#f59e0b;"></i> Quick Actions</span>
                 </div>
-                <div class="p-3">
-                    <div class="d-flex flex-wrap gap-2">
-                        <a href="{{ url('/admin/projects/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> New Project</a>
-                        <a href="{{ url('/admin/services/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#10b981;"></i> New Service</a>
-                        <a href="{{ url('/admin/experiences/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f59e0b;"></i> New Experience</a>
-                        <a href="{{ url('/admin/skills/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#8b5cf6;"></i> New Skill</a>
-                        <a href="{{ url('/admin/testimonials/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#ec4899;"></i> New Testimonial</a>
-                        <a href="{{ url('/admin/blog/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#3b82f6;"></i> New Blog Post</a>
-                        <a href="{{ url('/admin/faqs/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f97316;"></i> New FAQ</a>
-                        <a href="{{ url('/admin/account/edit') }}" class="dsb-qa"><i class="bi bi-pencil" style="color:#0ea5e9;"></i> Edit Account</a>
+                <div class="p-3 dsb-qa-wrap">
+                    <div class="d-flex flex-nowrap gap-2">
+                        <a href="{{ url('/admin/projects/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> Project</a>
+                        <a href="{{ url('/admin/services/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#10b981;"></i> Service</a>
+                        <a href="{{ url('/admin/experiences/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f59e0b;"></i> Experience</a>
+                        <a href="{{ url('/admin/skills/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#8b5cf6;"></i> Skill</a>
+                        <a href="{{ url('/admin/testimonials/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#ec4899;"></i> Testimonial</a>
+                        <a href="{{ url('/admin/blog/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#3b82f6;"></i> Blog Post</a>
+                        <a href="{{ url('/admin/faqs/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f97316;"></i> FAQ</a>
+                        <a href="{{ url('/admin/account/edit') }}" class="dsb-qa"><i class="bi bi-pencil" style="color:#0ea5e9;"></i> Account</a>
                     </div>
                 </div>
             </div>
