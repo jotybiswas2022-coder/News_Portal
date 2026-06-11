@@ -426,7 +426,7 @@
                 </div>
                 <div class="card-body">
                     @forelse($recentMessages as $m)
-                        <button type="button" class="recent-item" data-bs-toggle="modal" data-bs-target="#messageModal{{ $m->id }}" style="cursor:pointer; width:100%; border:none; background:transparent; text-align:left; font-family:inherit; display:flex; align-items:center; gap:0.75rem; padding:0.7rem 1.25rem; border-bottom:1px solid #f1f5f9; transition:background 0.2s; color:inherit; text-decoration:none;">
+                        <button type="button" class="recent-item" onclick="openMessageModal(this)" data-msg-name="{{ htmlspecialchars($m->name) }}" data-msg-email="{{ htmlspecialchars($m->email) }}" data-msg-content="{{ htmlspecialchars($m->message) }}" style="cursor:pointer; width:100%; border:none; background:transparent; text-align:left; font-family:inherit; display:flex; align-items:center; gap:0.75rem; padding:0.7rem 1.25rem; border-bottom:1px solid #f1f5f9; transition:background 0.2s; color:inherit; text-decoration:none;">
                             <span class="av" style="background:rgba(239,68,68,0.1); color:#ef4444;">
                                 {{ strtoupper(substr($m->name, 0, 1)) }}
                             </span>
@@ -441,38 +441,39 @@
                                 <i class="bi bi-eye"></i>
                             </span>
                         </button>
-
-                        <div class="modal fade" id="messageModal{{ $m->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                <div class="modal-content border-0 shadow">
-                                    <div class="modal-header" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border-radius: 12px 12px 0 0;">
-                                        <h5 class="modal-title fw-semibold">
-                                            <i class="bi bi-person-circle me-2"></i> {{ $m->name }}
-                                        </h5>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body px-4 py-4">
-                                        <div class="mb-3 pb-3 border-bottom">
-                                            <small class="text-muted d-block mb-1">Email</small>
-                                            <span class="fw-medium">{{ $m->email }}</span>
-                                        </div>
-                                        <div>
-                                            <small class="text-muted d-block mb-1">Message</small>
-                                            <p class="mb-0 lh-base">{{ $m->message }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer border-0 px-4 pb-4 pt-0">
-                                        <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @empty
                         <div class="text-center py-4 text-muted small">
                             <i class="bi bi-inbox fs-2 d-block mb-2"></i>
                             No messages yet
                         </div>
                     @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Single Message Modal --}}
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border-radius: 12px 12px 0 0;">
+                    <h5 class="modal-title fw-semibold" id="msgModalTitle">
+                        <i class="bi bi-person-circle me-2"></i> <span id="msgName"></span>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 py-4">
+                    <div class="mb-3 pb-3 border-bottom">
+                        <small class="text-muted d-block mb-1">Email</small>
+                        <span class="fw-medium" id="msgEmail"></span>
+                    </div>
+                    <div>
+                        <small class="text-muted d-block mb-1">Message</small>
+                        <p class="mb-0 lh-base" id="msgContent" style="white-space:pre-wrap"></p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -519,5 +520,20 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+function openMessageModal(btn) {
+    document.getElementById('msgName').textContent = btn.getAttribute('data-msg-name');
+    document.getElementById('msgEmail').textContent = btn.getAttribute('data-msg-email');
+    document.getElementById('msgContent').textContent = btn.getAttribute('data-msg-content');
+    var el = document.getElementById('messageModal');
+    if (el) {
+        var modal = bootstrap.Modal.getOrCreateInstance(el);
+        modal.show();
+    }
+}
+</script>
 @endsection
 
