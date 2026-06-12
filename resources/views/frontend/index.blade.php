@@ -301,7 +301,6 @@
         border-radius: var(--radius-lg);
         text-align: center;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        backdrop-filter: blur(12px);
         overflow: hidden;
         cursor: default;
     }
@@ -410,7 +409,6 @@
         padding: 2.5rem 2rem;
         text-align: center;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        backdrop-filter: blur(10px);
         position: relative;
         overflow: hidden;
     }
@@ -487,7 +485,7 @@
     .timeline-card {
         background: var(--bg-card); border: 1px solid var(--border-color);
         border-radius: var(--radius-lg); padding: 1.5rem;
-        transition: var(--transition); position: relative; backdrop-filter: blur(10px);
+        transition: var(--transition); position: relative;
     }
     .timeline-card:hover {
         border-color: var(--border-hover); transform: translateY(-5px);
@@ -551,7 +549,6 @@
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(17, 28, 46, 0.96));
         border: 2px solid var(--border-color);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(12px);
         z-index: 2;
         user-select: none;
         will-change: transform;
@@ -684,7 +681,7 @@
     .project-card {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.5), rgba(22, 32, 50, 0.5));
         border: 1px solid var(--border-color); border-radius: var(--radius-lg);
-        overflow: hidden; transition: var(--transition); position: relative; backdrop-filter: blur(10px);
+        overflow: hidden; transition: var(--transition); position: relative;
     }
     .project-card:hover {
         transform: translateY(-8px); border-color: var(--border-hover);
@@ -715,7 +712,7 @@
         background: var(--bg-card); border: 1px solid var(--border-color);
         border-radius: var(--radius-xl); text-align: center;
         position: relative; transition: var(--transition);
-        margin: 0 0.25rem; backdrop-filter: blur(10px);
+        margin: 0 0.25rem;
     }
     .testimonial-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
     .quote-icon { font-size: 3rem; color: rgba(59, 130, 246, 0.15); margin-bottom: 0.5rem; }
@@ -760,7 +757,7 @@
     .contact-item .text .value { font-weight: 600; margin-top: 0.15rem; font-size: 0.92rem; }
     .contact-form {
         background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: var(--radius-xl); padding: 2.5rem; backdrop-filter: blur(10px);
+        border-radius: var(--radius-xl); padding: 2.5rem;
     }
     .form-group { margin-bottom: 1.5rem; }
     .form-group label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.5rem; color: #cbd5e1; }
@@ -999,7 +996,6 @@
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        backdrop-filter: blur(4px);
         transition: background 0.3s ease;
     }
     .btn-download:hover .format-badge {
@@ -1911,26 +1907,6 @@
     typeEffect();
 })();
 
-// ===== NAVBAR SCROLL =====
-(function() {
-    var navbar = document.getElementById('navbar');
-    var backToTop = document.getElementById('backToTop');
-    var adminFloat = document.querySelector('.admin-float-btn');
-    if (!navbar) return;
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) navbar.classList.add('scrolled');
-        else navbar.classList.remove('scrolled');
-        if (backToTop) {
-            if (window.scrollY > 400) backToTop.classList.add('visible');
-            else backToTop.classList.remove('visible');
-        }
-        if (adminFloat) {
-            if (window.scrollY > 300) adminFloat.classList.add('visible');
-            else adminFloat.classList.remove('visible');
-        }
-    });
-})();
-
 // ===== MOBILE MENU =====
 (function() {
     var hamburger = document.getElementById('hamburger');
@@ -1948,28 +1924,51 @@
     });
 })();
 
-// ===== SCROLL REVEAL =====
+// ===== COALESCED SCROLL HANDLER (passive + rAF throttled) =====
 (function() {
-    var elements = document.querySelectorAll('.reveal');
-    function checkReveal() {
-        for (var i = 0; i < elements.length; i++) {
-            var top = elements[i].getBoundingClientRect().top;
-            if (top < window.innerHeight - 80) elements[i].classList.add('active');
-        }
-    }
-    window.addEventListener('scroll', checkReveal);
-    window.addEventListener('load', checkReveal);
-    window.addEventListener('resize', checkReveal);
-})();
+    var navbar = document.getElementById('navbar');
+    var backToTop = document.getElementById('backToTop');
+    var adminFloat = document.querySelector('.admin-float-btn');
+    var progressBar = document.getElementById('scrollProgress');
+    var revealElements = document.querySelectorAll('.reveal');
+    var statNumbers = document.querySelectorAll('.stat-item .number');
+    var ticking = false;
 
-// ===== COUNTER ANIMATION =====
-(function() {
-    function animateCounters() {
-        document.querySelectorAll('.stat-item .number').forEach(function(el) {
-            var target = parseInt(el.getAttribute('data-count'));
-            var rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && !el.dataset.animated) {
+    function onScroll() {
+        var scrollY = window.scrollY;
+        var winHeight = window.innerHeight;
+        var docHeight = document.documentElement.scrollHeight - winHeight;
+        
+        // Navbar
+        if (navbar) {
+            if (scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        }
+        
+        // Back to top & admin float
+        if (backToTop) {
+            if (scrollY > 400) backToTop.classList.add('visible');
+            else backToTop.classList.remove('visible');
+        }
+        if (adminFloat) {
+            if (scrollY > 300) adminFloat.classList.add('visible');
+            else adminFloat.classList.remove('visible');
+        }
+        
+        // Scroll progress bar
+        if (progressBar && docHeight > 0) {
+            progressBar.style.width = Math.min((scrollY / docHeight) * 100, 100) + '%';
+        }
+        
+        // Scroll reveal + counters (run both in same pass)
+        [].forEach.call(revealElements, function(el) {
+            if (el.getBoundingClientRect().top < winHeight - 80) el.classList.add('active');
+        });
+        [].forEach.call(statNumbers, function(el) {
+            if (el.dataset.animated) return;
+            if (el.getBoundingClientRect().top < winHeight) {
                 el.dataset.animated = 'true';
+                var target = parseInt(el.getAttribute('data-count'));
                 var count = 0;
                 var step = Math.ceil(target / 60);
                 var interval = setInterval(function() {
@@ -1980,8 +1979,21 @@
             }
         });
     }
-    window.addEventListener('scroll', animateCounters);
-    window.addEventListener('load', animateCounters);
+
+    // rAF-coalesced scroll for zero layout thrashing
+    function scrollHandler() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                onScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    window.addEventListener('load', onScroll);
+    window.addEventListener('resize', onScroll);
 })();
 
 // ===== SKILL BALLS FLOATING ANIMATION =====
@@ -2042,11 +2054,11 @@
     var mouseY = -9999;
     var mouseInside = false;
 
+    // Use cached rect — no getBoundingClientRect on every mouse move!
     document.addEventListener('mousemove', function(e) {
-        var rect = container.getBoundingClientRect();
-        var mx = e.clientX - rect.left;
-        var my = e.clientY - rect.top;
-        if (mx >= 0 && mx <= rect.width && my >= 0 && my <= rect.height) {
+        var mx = e.clientX - containerRect.left;
+        var my = e.clientY - containerRect.top;
+        if (mx >= 0 && mx <= containerRect.width && my >= 0 && my <= containerRect.height) {
             mouseX = mx;
             mouseY = my;
             mouseInside = true;
@@ -2059,13 +2071,27 @@
         mouseInside = false;
     });
 
-    // Cache container dimensions — recalculate ONLY on resize, NOT every frame!
+    // Cache container dimensions — recalculate ONLY on resize/scroll, NOT every frame!
     var cwCache = container.clientWidth;
     var chCache = container.clientHeight;
+    // Cached rect for mouse tracking — updated on scroll + resize to avoid layout thrash
+    var containerRect = container.getBoundingClientRect();
 
     var time = 0;
 
+    // Pause animation when container is not visible (save CPU/GPU)
+    var paused = false;
+    var visibilityObserver = new IntersectionObserver(function(entries) {
+        paused = !entries[0].isIntersecting;
+    }, { threshold: 0 });
+    visibilityObserver.observe(container);
+
     function animateFloatingBalls() {
+        if (paused) {
+            // Still keep the loop alive but skip CPU-heavy logic
+            requestAnimationFrame(animateFloatingBalls);
+            return;
+        }
         time += 0.005;
         // Use cached dimensions to avoid layout thrashing from getBoundingClientRect
         var cw = cwCache;
@@ -2120,18 +2146,27 @@
 
     // Recalculate on resize ONLY — no getBoundingClientRect in the animation loop!
     var resizeTimer;
+    function updateCache() {
+        cwCache = container.clientWidth;
+        chCache = container.clientHeight;
+        containerRect = container.getBoundingClientRect();
+        states.forEach(function(s) {
+            // Keep balls within new bounds
+            s.x = Math.max(0, Math.min(s.x, cwCache - s.size));
+            s.y = Math.max(0, Math.min(s.y, chCache - s.size));
+        });
+    }
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            cwCache = container.clientWidth;
-            chCache = container.clientHeight;
-            states.forEach(function(s) {
-                // Keep balls within new bounds
-                s.x = Math.max(0, Math.min(s.x, cwCache - s.size));
-                s.y = Math.max(0, Math.min(s.y, chCache - s.size));
-            });
-        }, 200);
+        resizeTimer = setTimeout(updateCache, 200);
     });
+    // Also update rect cache on scroll since the container moves
+    window.addEventListener('scroll', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            containerRect = container.getBoundingClientRect();
+        }, 200);
+    }, { passive: true });
 })();
 
 // ===== PROJECT CARD TILT =====
