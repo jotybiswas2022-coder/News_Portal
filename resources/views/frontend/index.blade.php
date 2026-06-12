@@ -535,7 +535,8 @@
         border: 1px solid rgba(59, 130, 246, 0.06);
     }
     html.light-theme .skills-balls-container {
-        background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.04), transparent 70%);
+        background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.06), transparent 70%);
+        border-color: rgba(59, 130, 246, 0.1);
     }
     .skill-ball {
         position: absolute;
@@ -557,7 +558,28 @@
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     html.light-theme .skill-ball {
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.98));
+        background: linear-gradient(145deg, #ffffff, #f0f4ff);
+        border-color: rgba(59, 130, 246, 0.15);
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+    html.light-theme .skill-ball:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.18), 0 12px 40px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+    html.light-theme .skill-ball .ball-icon {
+        color: var(--accent);
+    }
+    html.light-theme .skill-ball .ball-name {
+        color: #475569;
+    }
+    html.light-theme .skill-ball .ball-shine {
+        background: radial-gradient(ellipse, rgba(255, 255, 255, 0.7), transparent 70%);
+    }
+    html.light-theme .skill-ball .ball-percent {
+        border-color: #f8fafc;
+    }
+    html.light-theme .skill-ball .ball-glow {
+        background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.12), transparent 60%);
     }
     .skill-ball:hover {
         border-color: var(--accent);
