@@ -49,7 +49,6 @@
     html.light-theme .project-card {
         background: linear-gradient(145deg, #ffffff, #f8fafc) !important;
     }
-    html.light-theme .skill-card,
     html.light-theme .timeline-card,
     html.light-theme .contact-form,
     html.light-theme .contact-item,
@@ -525,24 +524,108 @@
     /* Skills */
     .skills-section { background: linear-gradient(180deg, #080d1a 0%, var(--bg-secondary) 100%); }
     html.light-theme .skills-section { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; }
-    .skill-card {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: var(--radius-md); padding: 2rem 1.2rem;
-        text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: default; backdrop-filter: blur(10px);
+    /* Skills Floating Balls */
+    .skills-balls-container {
+        position: relative;
+        width: 100%;
+        height: 480px;
+        overflow: hidden;
+        border-radius: var(--radius-xl);
+        background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.03), transparent 70%);
+        border: 1px solid rgba(59, 130, 246, 0.06);
     }
-    .skill-card:hover {
-        transform: translateY(-8px) scale(1.03); border-color: var(--accent);
-        background: rgba(59, 130, 246, 0.06);
-        box-shadow: 0 20px 60px rgba(59, 130, 246, 0.1);
+    html.light-theme .skills-balls-container {
+        background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.04), transparent 70%);
     }
-    .skill-card .icon { font-size: 2.5rem; margin-bottom: 0.8rem; display: block; transition: var(--transition); }
-    .skill-card:hover .icon { transform: scale(1.2); }
-    .skill-card .name { font-weight: 600; font-size: 0.9rem; }
-    .skill-card .percentage-label { display: block; font-size: 0.75rem; color: var(--accent-light); font-weight: 600; margin-top: 0.3rem; }
-    .skill-card .bar-wrapper { margin-top: 0.8rem; background: rgba(59, 130, 246, 0.08); border-radius: 10px; height: 4px; overflow: hidden; }
-    .skill-card .bar-fill { height: 100%; background: var(--accent-gradient); border-radius: 10px; width: 0; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .skill-ball {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(17, 28, 46, 0.96));
+        border: 2px solid var(--border-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(12px);
+        z-index: 2;
+        user-select: none;
+        will-change: transform;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    html.light-theme .skill-ball {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.98));
+    }
+    .skill-ball:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.25), 0 8px 32px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
+    .skill-ball .ball-icon {
+        font-size: 1.8rem;
+        color: var(--accent-light);
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        line-height: 1;
+    }
+    .skill-ball:hover .ball-icon {
+        transform: scale(1.3);
+    }
+    .skill-ball .ball-name {
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        margin-top: 3px;
+        letter-spacing: 0.3px;
+        text-align: center;
+        line-height: 1.2;
+        max-width: 72px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .skill-ball .ball-percent {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--accent-gradient);
+        color: #fff;
+        font-size: 0.55rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(59, 130, 246, 0.4);
+        border: 2px solid var(--bg-primary);
+    }
+    .skill-ball .ball-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.1), transparent 60%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .skill-ball:hover .ball-glow {
+        opacity: 1;
+    }
+    .skill-ball .ball-shine {
+        position: absolute;
+        top: 12%;
+        left: 18%;
+        width: 30%;
+        height: 20%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255, 255, 255, 0.15), transparent 70%);
+        pointer-events: none;
+    }
 
     /* Filter Tabs */
     .filter-tabs {
@@ -1017,10 +1100,11 @@
         .hero-buttons .btn-outline-custom { width: 100%; justify-content: center; padding: 0.75rem 1.5rem; font-size: 0.88rem; }
         .hero::before { width: 300px; height: 300px; }
         
-        .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
-        .skill-card { padding: 1.2rem 0.6rem; }
-        .skill-card .icon { font-size: 2rem; }
-        .skill-card .name { font-size: 0.8rem; }
+        .skills-balls-container { height: 320px; }
+        .skill-ball { width: 78px; height: 78px; }
+        .skill-ball .ball-icon { font-size: 1.4rem; }
+        .skill-ball .ball-name { font-size: 0.5rem; max-width: 56px; }
+        .skill-ball .ball-percent { width: 22px; height: 22px; font-size: 0.48rem; top: -4px; right: -4px; }
         
         .about-grid { gap: 2rem; }
         .about-image .img-wrapper { width: 150px; height: 150px; border-radius: 24px; }
@@ -1087,8 +1171,8 @@
         .cursor-dot, .cursor-ring { display: none !important; }
         #particles-canvas { display: none; }
         .magnetic { transition: none !important; }
-        .project-card, .skill-card { transform: none !important; }
-        .project-card:hover, .skill-card:hover { transform: translateY(-4px) !important; }
+        .project-card, .skill-ball { transform: none !important; }
+        .project-card:hover, .skill-ball:hover { transform: translateY(-4px) !important; }
     }
     
     /* Very Small Screens (max 360px) */
@@ -1096,8 +1180,11 @@
         .hero h1 { font-size: 1.5rem; }
         .about-image .img-wrapper { width: 130px; height: 130px; }
         .about-image .glow-ring { width: 150px; height: 150px; }
-        .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-        .skill-card { padding: 1rem 0.4rem; }
+        .skills-balls-container { height: 260px; }
+        .skill-ball { width: 68px; height: 68px; }
+        .skill-ball .ball-icon { font-size: 1.2rem; }
+        .skill-ball .ball-name { font-size: 0.45rem; max-width: 48px; }
+        .skill-ball .ball-percent { width: 20px; height: 20px; font-size: 0.42rem; top: -3px; right: -3px; }
         .stat-item { min-width: 100% !important; }
         .about-stats { flex-direction: column; }
         .section-title h2 { font-size: 1.4rem; }
@@ -1291,23 +1378,26 @@
                 <h2>{{ __('messages.skills_title') }}</h2>
                 <p>{{ __('messages.skills_subtitle') }}</p>
             </div>
-            <div class="skills-grid">
-                @forelse($skills as $index => $skill)
-                    @php $delay = ($index % 4) + 1; @endphp
-                    <div class="skill-card reveal reveal-delay-{{ $delay }}" data-skill="{{ $skill->percentage }}">
-                        <span class="icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></span>
-                        <span class="name">{{ $skill->name }}</span>
-                        <span class="percentage-label">{{ $skill->percentage }}%</span>
-                        <div class="bar-wrapper"><div class="bar-fill" data-width="{{ $skill->percentage }}%"></div></div>
-                    </div>
-                @empty
-                    <div class="empty-state" style="grid-column: 1 / -1;">
-                        <i class="bi bi-lightning-charge"></i>
+
+            @if($skills->isNotEmpty())
+                <div class="skills-balls-container reveal" id="skillsBallContainer">
+                    @foreach($skills as $index => $skill)
+                        <div class="skill-ball" data-percent="{{ $skill->percentage }}">
+                            <div class="ball-glow"></div>
+                            <div class="ball-shine"></div>
+                            <div class="ball-icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></div>
+                            <div class="ball-name">{{ $skill->name }}</div>
+                            <div class="ball-percent">{{ $skill->percentage }}%</div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state reveal">
+                    <i class="bi bi-lightning-charge"></i>
                     <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_skills') }}</p>
                     <p>{{ __('messages.no_skills_desc') }}</p>
-                    </div>
-                @endforelse
-            </div>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -1765,7 +1855,7 @@
         ring.style.left = e.clientX + 'px';
         ring.style.top = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .magnetic, .project-card, .skill-card').forEach(function(el) {
+    document.querySelectorAll('a, button, .magnetic, .project-card, .skill-ball').forEach(function(el) {
         el.addEventListener('mouseenter', function() { ring.classList.add('active'); dot.classList.add('active'); });
         el.addEventListener('mouseleave', function() { ring.classList.remove('active'); dot.classList.remove('active'); });
     });
@@ -1872,19 +1962,151 @@
     window.addEventListener('load', animateCounters);
 })();
 
-// ===== SKILL BAR ANIMATION =====
+// ===== SKILL BALLS FLOATING ANIMATION =====
 (function() {
-    function animateSkillBars() {
-        document.querySelectorAll('.bar-fill').forEach(function(bar) {
-            var rect = bar.getBoundingClientRect();
-            if (rect.top < window.innerHeight && !bar.dataset.animated) {
-                bar.dataset.animated = 'true';
-                setTimeout(function() { bar.style.width = bar.getAttribute('data-width'); }, 300);
-            }
+    var container = document.getElementById('skillsBallContainer');
+    if (!container) return;
+    var balls = container.querySelectorAll('.skill-ball');
+    var count = balls.length;
+    if (!count) return;
+
+    // Particle states: each ball gets x, y, vx, vy, base vx/vy, size
+    var states = [];
+    var cw = container.offsetWidth;
+    var ch = container.offsetHeight;
+
+    // Ball sizes vary slightly
+    var sizeRange = { min: 80, max: 110 };
+    // For mobile
+    if (cw < 768) { sizeRange.min = 72; sizeRange.max = 84; }
+    if (cw < 480) { sizeRange.min = 62; sizeRange.max = 72; }
+
+    balls.forEach(function(ball, i) {
+        var size = sizeRange.min + (i % 3) * ((sizeRange.max - sizeRange.min) / 2);
+        ball.style.width = size + 'px';
+        ball.style.height = size + 'px';
+
+        // Place balls in a loose grid-ish pattern initially, then they'll drift
+        var cols = Math.min(count, Math.ceil(Math.sqrt(count * cw / ch)));
+        var rows = Math.ceil(count / cols);
+        var col = i % cols;
+        var row = Math.floor(i / cols);
+        var cellW = (cw - size) / cols;
+        var cellH = (ch - size) / rows;
+        var x = col * cellW + Math.random() * cellW * 0.9;
+        var y = row * cellH + Math.random() * cellH * 0.9;
+        // Clamp to container
+        x = Math.max(0, Math.min(x, cw - size));
+        y = Math.max(0, Math.min(y, ch - size));
+
+        states.push({
+            el: ball,
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: size,
+            baseVx: (Math.random() - 0.5) * 0.5,
+            baseVy: (Math.random() - 0.5) * 0.5,
+            phaseX: Math.random() * Math.PI * 2,
+            phaseY: Math.random() * Math.PI * 2,
         });
+
+        ball.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    });
+
+    // Mouse tracking (relative to container)
+    var mouseX = -9999;
+    var mouseY = -9999;
+    var mouseInside = false;
+
+    document.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var mx = e.clientX - rect.left;
+        var my = e.clientY - rect.top;
+        if (mx >= 0 && mx <= rect.width && my >= 0 && my <= rect.height) {
+            mouseX = mx;
+            mouseY = my;
+            mouseInside = true;
+        } else {
+            mouseInside = false;
+        }
+    });
+
+    container.addEventListener('mouseleave', function() {
+        mouseInside = false;
+    });
+
+    var time = 0;
+
+    function animateFloatingBalls() {
+        time += 0.005;
+        var rect = container.getBoundingClientRect();
+        var cw = rect.width;
+        var ch = rect.height;
+
+        states.forEach(function(s) {
+            // Natural sinusoidal drift — gives organic floating motion
+            s.vx += Math.sin(time * 0.7 + s.phaseX) * 0.008;
+            s.vy += Math.cos(time * 0.5 + s.phaseY) * 0.008;
+
+            // Pull gently toward base velocity
+            s.vx += (s.baseVx - s.vx) * 0.005;
+            s.vy += (s.baseVy - s.vy) * 0.005;
+
+            // Mouse repulsion (when mouse is near)
+            if (mouseInside) {
+                var dx = s.x + s.size / 2 - mouseX;
+                var dy = s.y + s.size / 2 - mouseY;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 160 && dist > 1) {
+                    var force = Math.pow((160 - dist) / 160, 2) * 1.8;
+                    s.vx += (dx / dist) * force * 0.08;
+                    s.vy += (dy / dist) * force * 0.08;
+                }
+            }
+
+            // Damping
+            s.vx *= 0.97;
+            s.vy *= 0.97;
+            // Speed limit
+            var speed = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+            if (speed > 1.5) { s.vx = (s.vx / speed) * 1.5; s.vy = (s.vy / speed) * 1.5; }
+
+            // Update position
+            s.x += s.vx;
+            s.y += s.vy;
+
+            // Bounce off walls
+            if (s.x < 0) { s.x = 0; s.vx *= -0.7; }
+            if (s.x > cw - s.size) { s.x = cw - s.size; s.vx *= -0.7; }
+            if (s.y < 0) { s.y = 0; s.vy *= -0.7; }
+            if (s.y > ch - s.size) { s.y = ch - s.size; s.vy *= -0.7; }
+
+            // Apply position via translate for GPU-accelerated rendering
+            s.el.style.transform = 'translate(' + s.x + 'px, ' + s.y + 'px)';
+        });
+
+        requestAnimationFrame(animateFloatingBalls);
     }
-    window.addEventListener('scroll', animateSkillBars);
-    window.addEventListener('load', animateSkillBars);
+
+    animateFloatingBalls();
+
+    // Recalculate on resize
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            var rect = container.getBoundingClientRect();
+            cw = rect.width;
+            ch = rect.height;
+            states.forEach(function(s) {
+                // Keep balls within new bounds
+                s.x = Math.max(0, Math.min(s.x, cw - s.size));
+                s.y = Math.max(0, Math.min(s.y, ch - s.size));
+            });
+        }, 200);
+    });
 })();
 
 // ===== PROJECT CARD TILT =====
