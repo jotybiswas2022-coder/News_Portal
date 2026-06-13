@@ -57,6 +57,7 @@
             visibility: hidden;
             pointer-events: none;
         }
+
         .loader-ring {
             width: 56px;
             height: 56px;
@@ -197,6 +198,12 @@
             var content = document.getElementById('pageContent');
             if (content) content.style.opacity = '1';
         }, 2000);
+    })();
+
+    // Ensure content is visible immediately (runs before Bootstrap loads)
+    (function() {
+        var content = document.getElementById('pageContent');
+        if (content) content.style.opacity = '1';
     })();
 
     // ===== SMOOTH PAGE TRANSITIONS (link clicks) =====
