@@ -101,10 +101,11 @@
         }
         /* Fade-in animation for page content */
         .page-content {
+            opacity: 1 !important;
             animation: pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes pageFadeIn {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 1; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 

@@ -128,12 +128,12 @@
         border: 1px solid rgba(59, 130, 246, 0.25);
         border-radius: 50px; font-size: 0.82rem;
         color: var(--accent-light); margin-bottom: 1.5rem;
-        animation: fadeInDown 0.8s ease forwards; opacity: 0;
+        animation: fadeInDown 0.8s ease forwards;
     }
     .hero h1 {
         font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900;
         line-height: 1.05; margin-bottom: 1rem;
-        animation: fadeInUp 1s ease forwards; opacity: 0;
+        animation: fadeInUp 1s ease forwards;
         animation-delay: 0.2s; letter-spacing: -1.5px;
     }
     .hero h1 .gradient-text {
@@ -152,7 +152,7 @@
         display: inline-flex; align-items: center; gap: 3px;
         color: var(--accent-light); font-size: 1.15rem;
         margin-bottom: 1.5rem; font-weight: 500;
-        animation: fadeInUp 1s ease forwards; opacity: 0; animation-delay: 0.3s;
+        animation: fadeInUp 1s ease forwards; animation-delay: 0.3s;
     }
     .typing-cursor {
         width: 2px; height: 1.3em;
@@ -162,13 +162,13 @@
     .hero p {
         font-size: 1.15rem; color: var(--text-secondary);
         max-width: 640px; margin: 0 auto 2.5rem;
-        animation: fadeInUp 1s ease forwards; opacity: 0;
+        animation: fadeInUp 1s ease forwards;
         animation-delay: 0.4s; line-height: 1.8;
     }
     .hero-buttons {
         display: flex; gap: 1rem; justify-content: center;
         flex-wrap: wrap;
-        animation: fadeInUp 1s ease forwards; opacity: 0; animation-delay: 0.6s;
+        animation: fadeInUp 1s ease forwards; animation-delay: 0.6s;
     }
     .btn-primary-custom {
         display: inline-flex; align-items: center; gap: 0.5rem;
@@ -247,7 +247,7 @@
         from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal { transform: translateY(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
