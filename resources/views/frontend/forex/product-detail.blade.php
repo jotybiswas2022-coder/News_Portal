@@ -215,7 +215,7 @@
                             @if(!empty($plan['old_price']) && $plan['old_price'] > 0)
                             <span style="font-size:1rem;color:rgba(234,234,234,0.3);text-decoration:line-through;margin-right:0.5rem;font-weight:500">{{ formatPrice($plan['old_price']) }}</span>
                             @endif
-                            <span style="font-size:2.25rem;font-weight:800;color:#EAEAEA;font-family:'JetBrains Mono',monospace">{{ formatPrice($plan['price'] ?? 0) }}</span>
+                            <span style="font-size:2.25rem;font-weight:800;color:#EAEAEA;font-family:'JetBrains Mono',monospace;white-space:nowrap">{{ formatPrice($plan['price'] ?? 0) }}</span>
                             <span style="color:rgba(234,234,234,0.35);font-size:0.8rem;margin-left:0.5rem;font-weight:500">One Time</span>
                         </div>
 

@@ -73,7 +73,7 @@
                 {{-- Price + CTA --}}
                 <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;animation:fadeInUp 0.6s ease 0.3s both">
                     <div style="display:flex;align-items:baseline;gap:10px">
-                        <span style="font-size:2.5rem;font-weight:800;background:{{ $gradient }};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'JetBrains Mono',monospace">{{ formatPrice($sourceCode->price) }}</span>
+                        <span style="font-size:2.5rem;font-weight:800;background:{{ $gradient }};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'JetBrains Mono',monospace;white-space:nowrap">{{ formatPrice($sourceCode->price) }}</span>
                         @if($sourceCode->old_price)
                         <span style="color:rgba(234,234,234,0.2);font-size:1.125rem;text-decoration:line-through">{{ formatPrice($sourceCode->old_price) }}</span>
                         <span style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.15);color:#ef4444;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:50px">
@@ -250,7 +250,7 @@
                     {{-- Price display --}}
                     <div style="margin-bottom:1.5rem">
                         <div style="display:flex;align-items:center;justify-content:center;gap:12px">
-                            <span style="font-size:3.5rem;font-weight:800;color:#EAEAEA;font-family:'JetBrains Mono',monospace;line-height:1">{{ formatPrice($sourceCode->price) }}</span>
+                            <span style="font-size:3.5rem;font-weight:800;color:#EAEAEA;font-family:'JetBrains Mono',monospace;line-height:1;white-space:nowrap">{{ formatPrice($sourceCode->price) }}</span>
                             @if($sourceCode->old_price)
                             <span style="color:rgba(234,234,234,0.15);font-size:1.25rem;text-decoration:line-through;font-weight:500">{{ formatPrice($sourceCode->old_price) }}</span>
                             @endif
