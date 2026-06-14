@@ -141,7 +141,7 @@
                                 @error('price') <span class="sc-err">{{ $message }}</span> @enderror
                             </div>
                             <div class="sc-fg" style="flex:1">
-                                <label class="sc-label">Old Price ($)</label>
+                                <label class="sc-label">Original ($)</label>
                                 <input type="number" step="0.01" min="0" name="old_price" class="sc-input"
                                        value="{{ old('old_price', $sourceCode->old_price ?? '') }}"
                                        placeholder="299.00 (strikethrough)">

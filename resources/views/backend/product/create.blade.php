@@ -277,7 +277,7 @@
                         ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => 10, 'vps' => '3 Months', 'features' => '', 'popular' => false],
                         ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => '', 'vps' => 'Lifetime', 'features' => '', 'popular' => false],
                     ]);
-                    $planLabels = ['Plan Name', 'Price ($)', 'Old Price ($)', 'Base Price ($)', 'Licenses', 'Validity', 'Features'];
+                    $planLabels = ['Plan Name', 'Price ($)', 'Original ($)', 'Base Price ($)', 'Licenses', 'Validity', 'Features'];
                     $planKeys = ['name', 'price', 'old_price', 'base_price', 'licenses', 'vps', 'features'];
                 @endphp
                 <div class="prod-plans-table">
