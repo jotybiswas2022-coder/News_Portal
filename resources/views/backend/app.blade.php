@@ -33,6 +33,8 @@ Swal.setDefaults({
 </head>
 <body>
 
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
     @include('backend.partials.sidebar')
 
     <main class="content-area" id="mainContent">
@@ -132,7 +134,7 @@ main.content-area {
 }
 @media (max-width: 768px) {
     body {
-        grid-template-columns: 200px 1fr;
+        grid-template-columns: 1fr;
     }
     main.content-area {
         max-height: calc(100vh - 57px);
@@ -140,7 +142,7 @@ main.content-area {
 }
 @media (max-width: 480px) {
     body {
-        grid-template-columns: 160px 1fr;
+        grid-template-columns: 1fr;
     }
 }
 

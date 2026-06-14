@@ -2,10 +2,23 @@
 use Illuminate\Support\Str;
 @endphp
 
+<script>
+function toggleSidebar() {
+    var sidebar = document.querySelector('.sidebar');
+    var overlay = document.querySelector('.sidebar-overlay');
+    if (!sidebar) return;
+    sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('show');
+}
+</script>
+
 <!-- Top Navbar -->
 <nav class="top-navbar">
     <div class="top-nav-inner">
         <div class="navbar-left-group">
+            <button class="sidebar-toggle" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
             <a class="top-nav-brand" href="/admin">
                 <i class="bi bi-speedometer2"></i>
                 <span class="brand-text">Admin <span class="brand-text-desktop">Dashboard</span></span>
@@ -52,6 +65,9 @@ use Illuminate\Support\Str;
     <div class="sidebar-brand">
         <i class="bi bi-layout-sidebar"></i>
         <span>Navigation</span>
+        <button class="sidebar-close" type="button" onclick="toggleSidebar()" aria-label="Close sidebar">
+            <i class="bi bi-x"></i>
+        </button>
     </div>
     <ul class="sidebar-menu">
         <li>
@@ -286,8 +302,61 @@ use Illuminate\Support\Str;
 .sidebar::-webkit-scrollbar-track { background: transparent; }
 .sidebar::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.12); border-radius: 10px; }
 
+/* ─── Sidebar Toggle & Close Buttons ─── */
+.sidebar-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+.sidebar-toggle:hover {
+    color: #60A5FA;
+    background: rgba(37,99,235,0.08);
+}
+.sidebar-toggle:focus { outline: none; }
+.sidebar-close {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 1.3rem;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    line-height: 1;
+}
+.sidebar-close:hover {
+    color: #f1f5f9;
+    background: rgba(255,255,255,0.06);
+}
+.sidebar-close:focus { outline: none; }
+
+/* ─── Overlay ─── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.sidebar-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
+    .sidebar-toggle { display: flex; align-items: center; justify-content: center; }
     .nav-toggler { display: flex; align-items: center; justify-content: center; }
     .top-nav-links {
         display: none;
@@ -306,11 +375,23 @@ use Illuminate\Support\Str;
     .top-nav-links.show {
         display: flex;
     }
-    /* Sidebar stays inline in grid like desktop — just narrower */
-    .sidebar { 
-        width: 200px;
-        min-width: 200px;
+    /* Sidebar — off-canvas on mobile */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 260px;
+        min-width: 260px;
+        height: 100vh;
+        max-height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        border-right: 1px solid rgba(255,255,255,0.08);
     }
+    .sidebar.open {
+        left: 0;
+    }
+    .sidebar-close { display: flex; align-items: center; justify-content: center; }
     .sidebar-brand { padding: 16px 16px 12px; gap: 8px; font-size: 0.7rem; }
     .sidebar-menu { padding: 10px 8px; }
     .sidebar-menu a { font-size: 0.82rem; padding: 8px 12px; gap: 10px; }
@@ -321,10 +402,12 @@ use Illuminate\Support\Str;
     .top-nav-brand i { font-size: 1.1rem; }
 }
 @media (max-width: 480px) {
-    .sidebar { 
-        width: 160px;
-        min-width: 160px;
+    .sidebar {
+        left: -180px;
+        width: 170px;
+        min-width: 170px;
     }
+    .sidebar.open { left: 0; }
     .sidebar-brand { padding: 12px 12px 10px; font-size: 0.65rem; }
     .sidebar-menu { padding: 8px 6px; }
     .sidebar-menu a { font-size: 0.78rem; padding: 6px 10px; gap: 8px; }
