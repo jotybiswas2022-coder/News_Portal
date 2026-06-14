@@ -208,6 +208,33 @@
 .plat-item:hover .plat-title{color:var(--cyan)}
 .plat-sub{font-size:11px;color:var(--muted);margin-top:2px}
 
+@media(max-width:992px){
+  .platform-bar{padding:0 24px}
+  .plat-item{padding:16px 18px;gap:12px}
+  .plat-icon-wrap{width:44px;height:44px}
+  .plat-icon-wrap img{height:30px!important}
+  .plat-title{font-size:12px}
+  .plat-sub{font-size:10px}
+}
+@media(max-width:768px){
+  .platform-bar{flex-wrap:wrap;padding:0 16px}
+  .plat-item{min-width:calc(50% - 0px);flex:1 1 50%;padding:14px 14px;gap:10px;border-right:none;border-bottom:1px solid var(--border)}
+  .plat-item:nth-child(even){border-right:none}
+  .plat-item:last-child,.plat-item:nth-last-child(2){border-bottom:none}
+  .plat-icon-wrap{width:38px;height:38px}
+  .plat-icon-wrap img{height:26px!important}
+  .plat-title{font-size:11px}
+  .plat-sub{font-size:9px}
+}
+@media(max-width:480px){
+  .plat-item{padding:12px 10px;gap:8px}
+  .plat-icon-wrap{width:32px;height:32px;padding:0 6px!important}
+  .plat-icon-wrap svg{width:18px;height:18px}
+  .plat-icon-wrap img{height:22px!important}
+  .plat-title{font-size:10px}
+  .plat-sub{font-size:8px}
+}
+
 /* ===================== PRODUCTS ===================== */
 .products-section{padding:70px 40px;background:var(--bg-primary)}
 .section-title{text-align:center;font-size:34px;font-weight:800;color:#fff;margin-bottom:40px;position:relative;display:flex;align-items:center;justify-content:center;gap:16px}
