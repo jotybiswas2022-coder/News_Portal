@@ -200,6 +200,9 @@
 .plat-item:hover .plat-icon-wrap{transform:scale(1.12)}
 .plat-item:hover .plat-icon-wrap svg{animation:icon-bounce .5s ease}
 @keyframes icon-bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}60%{transform:translateY(-2px)}}
+.plat-icon-wrap.broker-img{width:auto;height:48px;padding:0 12px;border-radius:8px;background:rgba(0,95,231,0.08)}
+.plat-icon-wrap.broker-img.green-bg{background:rgba(34,197,94,0.08)}
+.plat-icon-wrap.broker-img img{height:36px;width:auto;object-fit:contain;filter:brightness(1.1)}
 .plat-icon-wrap.cyan-glow{background:rgba(0,95,231,0.1);box-shadow:0 0 20px rgba(0,95,231,0.15)}
 .plat-icon-wrap.green-glow{background:rgba(34,197,94,0.1);box-shadow:0 0 20px rgba(34,197,94,0.15)}
 .plat-icon-wrap.purple-glow{background:rgba(255,45,120,0.1);box-shadow:0 0 20px rgba(255,45,120,0.15)}
@@ -212,6 +215,7 @@
   .platform-bar{padding:0 24px}
   .plat-item{padding:16px 18px;gap:12px}
   .plat-icon-wrap{width:44px;height:44px}
+  .plat-icon-wrap.broker-img{width:auto!important;height:38px!important;padding:0 10px!important}
   .plat-icon-wrap img{height:30px!important}
   .plat-title{font-size:12px}
   .plat-sub{font-size:10px}
@@ -222,6 +226,7 @@
   .plat-item:nth-child(even){border-right:none}
   .plat-item:last-child,.plat-item:nth-last-child(2){border-bottom:none}
   .plat-icon-wrap{width:38px;height:38px}
+  .plat-icon-wrap.broker-img{width:auto!important;height:32px!important;padding:0 8px!important}
   .plat-icon-wrap img{height:26px!important}
   .plat-title{font-size:11px}
   .plat-sub{font-size:9px}
@@ -229,6 +234,7 @@
 @media(max-width:480px){
   .plat-item{padding:12px 10px;gap:8px}
   .plat-icon-wrap{width:32px;height:32px;padding:0 6px!important}
+  .plat-icon-wrap.broker-img{width:auto!important;height:28px!important;padding:0 6px!important}
   .plat-icon-wrap svg{width:18px;height:18px}
   .plat-icon-wrap img{height:22px!important}
   .plat-title{font-size:10px}
@@ -837,8 +843,8 @@
 <!-- ======= PLATFORM BAR ======= -->
 <div class="platform-bar">
   <div class="plat-item">
-    <div class="plat-icon-wrap" style="width:auto;height:48px;padding:0 10px;border-radius:8px;background:rgba(0,95,231,0.08);">
-      <img src="{{ url('/assets/frontend/img/mt4-brokers.png') }}" alt="MT4 Brokers" style="height:36px;width:auto;object-fit:contain;filter:brightness(1.1)">
+    <div class="plat-icon-wrap broker-img">
+      <img src="{{ url('/assets/frontend/img/mt4-brokers.png') }}" alt="MT4 Brokers">
     </div>
     <div>
       <div class="plat-title">MT4 Support</div>
@@ -846,8 +852,8 @@
     </div>
   </div>
   <div class="plat-item">
-    <div class="plat-icon-wrap" style="width:auto;height:48px;padding:0 10px;border-radius:8px;background:rgba(34,197,94,0.08);">
-      <img src="{{ url('/assets/frontend/img/mt5-brokers.png') }}" alt="MT5 Brokers" style="height:36px;width:auto;object-fit:contain;filter:brightness(1.1)">
+    <div class="plat-icon-wrap broker-img green-bg">
+      <img src="{{ url('/assets/frontend/img/mt5-brokers.png') }}" alt="MT5 Brokers">
     </div>
     <div>
       <div class="plat-title">MT5 Support</div>
