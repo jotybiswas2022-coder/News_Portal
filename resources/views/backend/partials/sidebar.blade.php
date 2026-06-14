@@ -92,10 +92,10 @@ function toggleSidebar() {
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.profit-loss') }}"
-               class="{{ request()->is('admin/profit-loss*') ? 'active' : '' }}">
-                <i class="bi bi-graph-up"></i>
-                <span>Profit-Loss</span>
+            <a href="{{ route('admin.total-sell') }}"
+               class="{{ request()->is('admin/total-sell*') ? 'active' : '' }}">
+                <i class="bi bi-currency-dollar"></i>
+                <span>Total Sell</span>
             </a>
         </li>
         <li>

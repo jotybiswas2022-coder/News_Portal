@@ -6,7 +6,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PartnerController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SourceCodeController;
-use App\Http\Controllers\Backend\ProfitLossController;
+use App\Http\Controllers\Backend\TotalSellController;
 
 Route::prefix('admin')->middleware('admin')->group(function () {
     // Dashboard
@@ -33,8 +33,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
-    // Profit & Loss
-    Route::get('/profit-loss', [ProfitLossController::class, 'index'])->name('admin.profit-loss');
+    // Total Sell
+    Route::get('/total-sell', [TotalSellController::class, 'index'])->name('admin.total-sell');
 
     // Source Codes
     Route::get('/source-codes', [SourceCodeController::class, 'index'])->name('admin.source-codes.index');

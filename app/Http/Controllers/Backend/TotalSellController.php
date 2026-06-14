@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\SourceCode;
 use Illuminate\Http\Request;
 
-class ProfitLossController extends Controller
+class TotalSellController extends Controller
 {
     public function index(Request $request)
     {
@@ -23,14 +23,12 @@ class ProfitLossController extends Controller
 
         $rows = [];
         $totalSelling = 0;
-        $totalBase = 0;
-        $totalProfit = 0;
+        $totalItems = 0;
 
         foreach ($orders as $order) {
             foreach ($order->items ?? [] as $item) {
                 $itemId = $item['id'] ?? '';
                 $sellingPrice = (float) ($item['price'] ?? 0);
-                $basePrice = 0;
                 $type = 'N/A';
 
                 if (str_starts_with($itemId, 'src-')) {
@@ -49,13 +47,10 @@ class ProfitLossController extends Controller
                             $plans = $product->plans ?? [];
                             if (isset($plans[$planIndex])) {
                                 $type = 'Product';
-                                $basePrice = (float) ($plans[$planIndex]['base_price'] ?? 0);
                             }
                         }
                     }
                 }
-
-                $profit = $sellingPrice - $basePrice;
 
                 $rows[] = [
                     'date' => $order->created_at->format('d M Y'),
@@ -63,19 +58,18 @@ class ProfitLossController extends Controller
                     'item_name' => $item['name'] ?? 'Item',
                     'type' => $type,
                     'selling_price' => $sellingPrice,
-                    'base_price' => $basePrice,
-                    'profit' => $profit,
                 ];
 
                 $totalSelling += $sellingPrice;
-                $totalBase += $basePrice;
-                $totalProfit += $profit;
+                $totalItems++;
             }
         }
 
-        return view('backend.profit-loss', compact(
+        $avgPrice = $totalItems > 0 ? $totalSelling / $totalItems : 0;
+
+        return view('backend.total-sell', compact(
             'rows', 'from', 'to',
-            'totalSelling', 'totalBase', 'totalProfit'
+            'totalSelling', 'totalItems', 'avgPrice'
         ));
     }
 }
