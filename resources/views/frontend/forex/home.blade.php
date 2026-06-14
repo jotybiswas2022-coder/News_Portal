@@ -257,6 +257,68 @@
   position:relative;
   backdrop-filter:blur(12px);
 }
+.prod-card--featured{
+  transform:scale(1.1);
+  z-index:2;
+  border-color:rgba(0,95,231,0.3);
+  box-shadow:0 0 0 1px rgba(0,95,231,0.12), 0 12px 40px rgba(0,95,231,0.12);
+  background:linear-gradient(170deg,rgba(255,255,255,0.07),rgba(0,95,231,0.03));
+}
+.prod-card--featured::after{opacity:1}
+.prod-card--featured .prod-chart-area{height:280px}
+.prod-card--featured .prod-chart-area::before{
+  opacity:1;
+  background:radial-gradient(circle at 30% 40%,rgba(0,95,231,0.14) 0%,transparent 60%),
+              radial-gradient(circle at 70% 60%,rgba(255,45,120,0.10) 0%,transparent 50%);
+}
+.prod-card--featured .prod-name{font-size:22px}
+.prod-card--featured .prod-price{font-size:28px}
+.prod-card--featured .prod-info{background:linear-gradient(0deg,rgba(5,5,15,1),rgba(5,5,15,0.88))}
+.prod-card--featured .btn-view-detail{
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  border-color:transparent;
+  font-size:13px;
+  padding:13px 14px;
+}
+.prod-card--featured:hover{transform:translateY(-6px) scale(1.12);box-shadow:0 20px 60px rgba(0,95,231,0.18),0 0 0 1px rgba(0,95,231,0.12)}
+
+/* ===== CAROUSEL ARROWS ===== */
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:10;
+  width:44px;height:44px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(8,12,26,0.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+.carousel-btn:hover{
+  border-color:var(--cyan);
+  background:rgba(0,95,231,0.15);
+  box-shadow:0 4px 25px rgba(0,95,231,0.25),0 0 0 4px rgba(0,95,231,0.08);
+  transform:translateY(-50%) scale(1.08);
+}
+.carousel-btn:active{transform:translateY(-50%) scale(.95)}
+.carousel-btn-prev{left:-20px}
+.carousel-btn-next{right:-20px}
+.carousel-btn svg{width:18px;height:18px;transition:transform .2s}
+.carousel-btn-prev:hover svg{transform:translateX(-2px)}
+.carousel-btn-next:hover svg{transform:translateX(2px)}
+.carousel-btn:disabled{opacity:0.25;cursor:default;pointer-events:none}
+@media(max-width:768px){
+  .carousel-btn{width:36px;height:36px;left:-16px}
+  .carousel-btn-next{left:auto;right:-16px}
+  .carousel-btn svg{width:14px;height:14px}
+}
+
 .prod-card::before{
   content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.4) 100%);
@@ -554,6 +616,8 @@
   .products-section{padding:40px 16px}
   .prod-card{min-width:calc(100% - 0px);max-width:calc(100% - 0px)}
   .prod-chart-area{height:180px}
+  .prod-card--featured .prod-chart-area{height:200px}
+  .prod-card--featured{transform:scale(1.04)}
   .platform-bar{padding:0 16px;overflow-x:auto}
   .hero{padding:80px 16px 40px}
 }
@@ -804,7 +868,7 @@
         $colors = ['#005fe7','#ff2d78','#22c55e','#f59e0b','#a855f7','#3b82f6','#ec4899','#10b981'];
         $bgColor = $colors[crc32($p->id ?? 0) % count($colors)];
       @endphp
-      <div class="prod-card">
+      <div class="prod-card" data-index="{{ $loop->index }}">
         <!-- Badge with gradient price tag -->
         <div style="position:absolute;top:14px;right:14px;z-index:3;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:11px;font-weight:800;padding:5px 14px;border-radius:50px;letter-spacing:0.5px;box-shadow:0 4px 15px rgba(0,95,231,0.3)">{{ formatPrice($price, 0) }}</div>
         
@@ -845,18 +909,20 @@
           </div>
         </div>
       </div>
-      @empty
-      <div style="min-width:100%;text-align:center;padding:60px 40px;color:var(--muted);font-size:15px">
-        <div style="font-size:40px;margin-bottom:12px;opacity:0.3">📦</div>
-        No products available yet. Check back soon!
-      </div>
-      @endforelse
+      @endforeach
     </div>
+  </div>
 
-    <button class="scroll-arrow scroll-arrow-next" onclick="scrollProducts(1)" aria-label="Next products">
+    <button class="carousel-btn carousel-btn-next" id="carouselNext" onclick="carouselMove(1)" aria-label="Next products">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
     </button>
   </div>
+  @else
+  <div style="text-align:center;padding:60px 40px;color:var(--muted);font-size:15px">
+    <div style="font-size:40px;margin-bottom:12px;opacity:0.3">📦</div>
+    No products available yet. Check back soon!
+  </div>
+  @endif
 
   <div class="view-all-wrap">
     <a href="{{ route('forex.products') }}" class="btn-view-all">View All Indicators &nbsp;›</a>
@@ -922,13 +988,78 @@ window.addEventListener('storage', updateTopCartCount);
 // Also update periodically
 setInterval(updateTopCartCount, 2000);
 
-// Horizontal scroll arrows
-function scrollProducts(direction) {
+// ===== CAROUSEL — shift by 1 card at a time =====
+var carouselState = {
+  currentIndex: 0,
+  totalCards: {{ $dbProducts->count() }},
+  visibleCards: 5
+};
+
+function getVisibleCards() {
+  var w = window.innerWidth;
+  if (w < 600) return 1;
+  if (w < 768) return 2;
+  if (w < 992) return 3;
+  if (w < 1200) return 4;
+  return 5;
+}
+
+function carouselMove(direction) {
   var grid = document.getElementById('productsGrid');
   if (!grid) return;
-  var card = grid.querySelector('.prod-card');
-  var scrollAmount = card ? card.offsetWidth + 18 : 300; // card width + gap
-  grid.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  var cards = grid.querySelectorAll('.prod-card');
+  if (!cards.length) return;
+
+  var visible = getVisibleCards();
+  var maxIndex = Math.max(0, cards.length - visible);
+  var newIndex = carouselState.currentIndex + direction;
+  newIndex = Math.max(0, Math.min(newIndex, maxIndex));
+  carouselState.currentIndex = newIndex;
+
+  // Calculate translate: sum of (card width + gap) for each shifted card
+  var firstCard = cards[0];
+  var cardWidth = firstCard.offsetWidth;
+  var gap = 18; // matches CSS gap
+  var translateX = -(newIndex * (cardWidth + gap));
+  grid.style.transform = 'translateX(' + translateX + 'px)';
+
+  // Update disabled state on buttons
+  var prevBtn = document.getElementById('carouselPrev');
+  var nextBtn = document.getElementById('carouselNext');
+  if (prevBtn) prevBtn.disabled = (newIndex === 0);
+  if (nextBtn) nextBtn.disabled = (newIndex >= maxIndex);
+
+  // Update edge fade classes
+  var carousel = document.getElementById('productsCarousel');
+  if (carousel) {
+    carousel.classList.toggle('at-start', newIndex === 0);
+    carousel.classList.toggle('at-end', newIndex >= maxIndex);
+  }
+
+  // Update featured card (3rd visible = newIndex + 2, but cap to total)
+  cards.forEach(function(c) { c.classList.remove('prod-card--featured'); });
+  var featuredIdx = Math.min(newIndex + Math.floor(visible / 2), cards.length - 1);
+  if (cards[featuredIdx]) cards[featuredIdx].classList.add('prod-card--featured');
 }
+
+// Initialize carousel on load and resize
+function initCarousel() {
+  carouselState.currentIndex = 0;
+  carouselMove(0);
+}
+window.addEventListener('load', initCarousel);
+window.addEventListener('resize', function() {
+  // Recalculate on resize - keep index within bounds
+  var grid = document.getElementById('productsGrid');
+  if (!grid) return;
+  var cards = grid.querySelectorAll('.prod-card');
+  if (!cards.length) return;
+  var visible = getVisibleCards();
+  var maxIndex = Math.max(0, cards.length - visible);
+  if (carouselState.currentIndex > maxIndex) {
+    carouselState.currentIndex = maxIndex;
+  }
+  carouselMove(0);
+});
 </script>
 @endsection
