@@ -277,72 +277,70 @@
                         ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => 10, 'vps' => '3 Months', 'features' => '', 'popular' => false],
                         ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => '', 'vps' => 'Lifetime', 'features' => '', 'popular' => false],
                     ]);
+                    $planLabels = ['Plan Name', 'Price ($)', 'Old Price ($)', 'Base Price ($)', 'Licenses', 'Validity', 'Features'];
+                    $planKeys = ['name', 'price', 'old_price', 'base_price', 'licenses', 'vps', 'features'];
                 @endphp
-                <div class="prod-plans-grid">
-                    @foreach($plans as $i => $plan)
-                        <div class="prod-plan-card {{ (isset($plan['popular']) && $plan['popular']) ? 'prod-plan-popular' : '' }}" id="planCard{{ $i }}">
-                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-                                <div style="display:flex;align-items:center;gap:8px">
-                                    <span class="prod-sub-num">{{ $i + 1 }}</span>
-                                    <span style="font-size:14px;font-weight:600;color:var(--ptext)">Plan {{ $i + 1 }}</span>
-                                </div>
-                                <label class="prod-toggle" style="margin:0">
-                                    <input type="checkbox" name="plans[{{ $i }}][popular]" value="1"
-                                        {{ (isset($plan['popular']) && $plan['popular']) ? 'checked' : '' }}
-                                        onchange="document.getElementById('planCard{{ $i }}').classList.toggle('prod-plan-popular', this.checked)">
-                                    <span class="prod-toggle-slider" style="width:28px;height:16px"></span>
-                                    <span class="prod-toggle-label" style="font-size:12px">Popular</span>
-                                </label>
-                            </div>
-                            <div class="prod-inline-group">
-                                <div class="prod-fg" style="flex:2">
-                                    <label class="prod-label">Plan Name</label>
-                                    <input type="text" name="plans[{{ $i }}][name]" class="prod-input"
-                                        value="{{ $plan['name'] ?? '' }}"
-                                        placeholder="e.g. Dark Algo">
-                                </div>
-                                <div class="prod-fg" style="flex:1">
-                                    <label class="prod-label">Price ($)</label>
-                                    <input type="number" name="plans[{{ $i }}][price]" class="prod-input"
-                                        value="{{ $plan['price'] ?? '' }}" min="0" step="0.01"
-                                        placeholder="399">
-                                </div>
-                                <div class="prod-fg" style="flex:1">
-                                    <label class="prod-label">Old Price ($)</label>
-                                    <input type="number" name="plans[{{ $i }}][old_price]" class="prod-input"
-                                        value="{{ $plan['old_price'] ?? '' }}" min="0" step="0.01"
-                                        placeholder="599">
-                                    <span class="prod-hint">Original price (shown with strikethrough)</span>
+                <div class="prod-plans-table">
+                    <div class="ppt-header">
+                        <div class="ppt-label-cell"></div>
+                        @foreach($plans as $i => $plan)
+                            <div class="ppt-col ppt-col-{{ $i }}">
+                                <div class="ppt-col-head">
+                                    <span class="ppt-col-num">{{ $i + 1 }}</span>
+                                    <span>Plan {{ $i + 1 }}</span>
                                 </div>
                             </div>
-                            <div class="prod-inline-group">
-                                <div class="prod-fg" style="flex:1">
-                                    <label class="prod-label">Base Price ($)</label>
-                                    <input type="number" name="plans[{{ $i }}][base_price]" class="prod-input"
-                                        value="{{ $plan['base_price'] ?? '' }}" min="0" step="0.01"
-                                        placeholder="299">
-                                    <span class="prod-hint">Base price for internal calculation</span>
-                                </div>
-                                <div class="prod-fg" style="flex:1">
-                                    <label class="prod-label">Licenses</label>
-                                    <input type="number" name="plans[{{ $i }}][licenses]" class="prod-input"
-                                        value="{{ $plan['licenses'] ?? 5 }}" min="0">
-                                </div>
-                                <div class="prod-fg" style="flex:1">
-                                    <label class="prod-label">Validity</label>
-                                    <input type="text" name="plans[{{ $i }}][vps]" class="prod-input"
-                                        value="{{ $plan['vps'] ?? '' }}"
-                                        placeholder="e.g. 1 Month">
-                                </div>
+                        @endforeach
+                    </div>
+                    @foreach($planLabels as $ri => $label)
+                        @php $key = $planKeys[$ri]; @endphp
+                        <div class="ppt-row {{ $ri % 2 === 0 ? 'ppt-row-striped' : '' }}">
+                            <div class="ppt-label-cell">
+                                <span class="ppt-label">{{ $label }}</span>
                             </div>
-                            <div class="prod-fg">
-                                <label class="prod-label">Features</label>
-                                <textarea name="plans[{{ $i }}][features]" class="prod-input prod-textarea" rows="3"
-                                    placeholder="Comma-separated list of features&#10;e.g. 5 Flexible Licenses, MT4 & MT5, Free Updates">{{ isset($plan['features']) && is_array($plan['features']) ? implode(', ', $plan['features']) : ($plan['features'] ?? '') }}</textarea>
-                                <span class="prod-hint">Comma-separated list of plan features</span>
-                            </div>
+                            @foreach($plans as $i => $plan)
+                                <div class="ppt-col ppt-col-{{ $i }}">
+                                    @if($key === 'features')
+                                        <textarea name="plans[{{ $i }}][features]" class="ppt-input" rows="2"
+                                            placeholder="Comma-separated&#10;e.g. 5 Licenses, MT4 & MT5">{{ isset($plan['features']) && is_array($plan['features']) ? implode(', ', $plan['features']) : ($plan['features'] ?? '') }}</textarea>
+                                    @elseif($key === 'name')
+                                        <input type="text" name="plans[{{ $i }}][name]" class="ppt-input"
+                                            value="{{ $plan['name'] ?? '' }}" placeholder="e.g. Dark Algo">
+                                    @elseif($key === 'vps')
+                                        <input type="text" name="plans[{{ $i }}][vps]" class="ppt-input"
+                                            value="{{ $plan['vps'] ?? '' }}" placeholder="e.g. 1 Month">
+                                    @elseif($key === 'popular')
+                                        <label class="ppt-toggle">
+                                            <input type="checkbox" name="plans[{{ $i }}][popular]" value="1"
+                                                {{ (isset($plan['popular']) && $plan['popular']) ? 'checked' : '' }}>
+                                            <span class="ppt-toggle-slider"></span>
+                                        </label>
+                                    @elseif(in_array($key, ['price', 'old_price', 'base_price']))
+                                        <input type="number" name="plans[{{ $i }}][{{ $key }}]" class="ppt-input"
+                                            value="{{ $plan[$key] ?? '' }}" min="0" step="0.01" placeholder="0">
+                                    @elseif($key === 'licenses')
+                                        <input type="number" name="plans[{{ $i }}][licenses]" class="ppt-input"
+                                            value="{{ $plan['licenses'] ?? '' }}" min="0" placeholder="5">
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
                     @endforeach
+                    {{-- Popular row --}}
+                    <div class="ppt-row ppt-row-striped">
+                        <div class="ppt-label-cell">
+                            <span class="ppt-label">Popular</span>
+                        </div>
+                        @foreach($plans as $i => $plan)
+                            <div class="ppt-col ppt-col-{{ $i }}">
+                                <label class="ppt-toggle">
+                                    <input type="checkbox" name="plans[{{ $i }}][popular]" value="1"
+                                        {{ (isset($plan['popular']) && $plan['popular']) ? 'checked' : '' }}>
+                                    <span class="ppt-toggle-slider"></span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -517,17 +515,136 @@
     font-size: 12px; font-weight: 700; flex-shrink: 0;
 }
 
-/* Plans grid */
-.prod-plans-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;
+/* Plans table */
+.prod-plans-table {
+    display: grid;
+    grid-template-columns: 140px repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--pborder);
+    border-radius: 10px;
+    overflow: hidden;
 }
-.prod-plan-card {
-    background: rgba(10,10,10,0.4); border: 1px solid var(--pborder);
-    border-radius: 12px; padding: 20px; transition: all 0.3s;
+.ppt-header {
+    display: contents;
 }
-.prod-plan-popular {
+.ppt-row {
+    display: contents;
+}
+.ppt-label-cell {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    background: rgba(10,10,10,0.3);
+    border-bottom: 1px solid var(--pborder);
+    border-right: 1px solid var(--pborder);
+}
+.ppt-header .ppt-label-cell {
+    background: rgba(96,165,250,0.06);
+    border-bottom: 1px solid var(--pborder);
+}
+.ppt-row-striped .ppt-label-cell,
+.ppt-row-striped .ppt-col {
+    background: rgba(255,255,255,0.015);
+}
+.ppt-col {
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--pborder);
+    border-right: 1px solid var(--pborder);
+    min-height: 20px;
+}
+.ppt-col:last-child {
+    border-right: none;
+}
+.ppt-row:last-child .ppt-label-cell,
+.ppt-row:last-child .ppt-col {
+    border-bottom: none;
+}
+.ppt-col-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--pprimary);
+}
+.ppt-col-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--pprimary-dim); color: var(--pprimary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.ppt-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pmuted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.ppt-input {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 13px;
+    background: rgba(10,10,10,0.5);
+    border: 1px solid var(--pborder);
+    border-radius: 6px;
+    color: var(--ptext);
+    transition: all 0.2s;
+    box-sizing: border-box;
+    font-family: inherit;
+    outline: none;
+    min-height: 0;
+}
+.ppt-input:focus {
     border-color: var(--pprimary);
-    box-shadow: 0 0 20px rgba(96,165,250,0.08);
+    box-shadow: 0 0 0 2px rgba(96,165,250,0.1);
+}
+.ppt-input::placeholder {
+    color: var(--psub);
+    opacity: 0.6;
+}
+textarea.ppt-input {
+    resize: vertical;
+    line-height: 1.4;
+}
+.ppt-toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+.ppt-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.ppt-toggle-slider {
+    position: relative;
+    width: 30px;
+    height: 17px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+.ppt-toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    left: 2px;
+    top: 2px;
+    background: #fff;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+.ppt-toggle input:checked + .ppt-toggle-slider {
+    background: linear-gradient(135deg, #2563EB, #1E40AF);
+}
+.ppt-toggle input:checked + .ppt-toggle-slider::before {
+    transform: translateX(13px);
 }
 
 /* Actions */
@@ -560,18 +677,19 @@
 @media (max-width: 992px) {
     .prod-form-page { padding: 20px 22px; }
     .prod-form-grid { grid-template-columns: 1fr; gap: 0; }
-    .prod-plans-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
     .prod-form-page { padding: 16px; }
     .prod-form-header { padding: 14px 16px; flex-direction: column; align-items: flex-start; }
     .prod-form-header-left { gap: 10px; }
     .prod-inline-group { flex-direction: column; gap: 0; }
-    .prod-plans-grid { grid-template-columns: 1fr; }
     .prod-form-card-hd { padding: 12px 16px; font-size: 12px; }
     .prod-form-card-bd { padding: 16px; }
     .prod-input { font-size: 13px; padding: 8px 12px; }
     .prod-img-upload { padding: 16px; }
+    .prod-plans-table { grid-template-columns: 100px repeat(3, 1fr); }
+    .ppt-label { font-size: 10px; }
+    .ppt-input { font-size: 12px; padding: 5px 8px; }
 }
 @media (max-width: 480px) {
     .prod-form-page { padding: 10px; }
@@ -592,8 +710,9 @@
     .prod-sub-section { margin-bottom: 14px; }
     .prod-sub-border { padding-bottom: 14px; }
     .prod-sub-num { width: 20px; height: 20px; font-size: 10px; }
-    .prod-plan-card { padding: 14px; }
     .prod-hint { font-size: 10px; }
+    .prod-plans-table { grid-template-columns: 1fr; }
+    .ppt-header { display: none; }
 }
 @media (max-width: 380px) {
     .prod-form-page { padding: 8px; }
