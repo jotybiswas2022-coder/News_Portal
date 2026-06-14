@@ -273,9 +273,9 @@
             <div class="prod-form-card-bd">
                 @php
                     $plans = old('plans', $product->plans ?? [
-                        ['name' => '', 'price' => '', 'old_price' => '', 'licenses' => 5, 'vps' => '1 Month', 'features' => '', 'popular' => false],
-                        ['name' => '', 'price' => '', 'old_price' => '', 'licenses' => 10, 'vps' => '3 Months', 'features' => '', 'popular' => false],
-                        ['name' => '', 'price' => '', 'old_price' => '', 'licenses' => '', 'vps' => 'Lifetime', 'features' => '', 'popular' => false],
+                        ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => 5, 'vps' => '1 Month', 'features' => '', 'popular' => false],
+                        ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => 10, 'vps' => '3 Months', 'features' => '', 'popular' => false],
+                        ['name' => '', 'price' => '', 'old_price' => '', 'base_price' => '', 'licenses' => '', 'vps' => 'Lifetime', 'features' => '', 'popular' => false],
                     ]);
                 @endphp
                 <div class="prod-plans-grid">
@@ -316,6 +316,13 @@
                                 </div>
                             </div>
                             <div class="prod-inline-group">
+                                <div class="prod-fg" style="flex:1">
+                                    <label class="prod-label">Base Price ($)</label>
+                                    <input type="number" name="plans[{{ $i }}][base_price]" class="prod-input"
+                                        value="{{ $plan['base_price'] ?? '' }}" min="0" step="0.01"
+                                        placeholder="299">
+                                    <span class="prod-hint">Base price for internal calculation</span>
+                                </div>
                                 <div class="prod-fg" style="flex:1">
                                     <label class="prod-label">Licenses</label>
                                     <input type="number" name="plans[{{ $i }}][licenses]" class="prod-input"
