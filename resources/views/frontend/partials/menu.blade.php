@@ -1,535 +1,1251 @@
-<style>
-    /* ===== NAVBAR (SHARED ACROSS ALL PAGES) ===== */
-    .navbar-main {
-        position: fixed; top: 0; left: 0; right: 0;
-        z-index: 1000; padding: 1rem 2rem;
-        display: flex; justify-content: space-between; align-items: center;
-        background: rgba(10, 15, 30, 0.88);
-        backdrop-filter: blur(24px) saturate(1.4);
-        -webkit-backdrop-filter: blur(24px) saturate(1.4);
-        border-bottom: 1px solid rgba(59, 130, 246, 0.12);
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    html.light-theme .navbar-main {
-        background: rgba(248, 250, 252, 0.92);
-        border-bottom: 1px solid rgba(59, 130, 246, 0.12);
-    }
-    .navbar-main.scrolled {
-        padding: 0.6rem 2rem;
-        background: rgba(10, 15, 30, 0.96);
-        border-bottom: 1px solid rgba(59, 130, 246, 0.25);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    }
-    html.light-theme .navbar-main.scrolled {
-        background: rgba(248, 250, 252, 0.96);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-    }
-    .nav-logo {
-        font-size: 1.4rem; font-weight: 800;
-        background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa, #3b82f6);
-        background-size: 300% 300%;
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: navGradient 4s ease infinite;
-        letter-spacing: -0.5px;
-        text-decoration: none;
-    }
-    @keyframes navGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* ===== DESKTOP NAV LINKS ===== */
-    .nav-links { display: flex; gap: 0.25rem; list-style: none; align-items: center; margin: 0; padding: 0; }
-    .nav-links a { 
-        color: #94a3b8; font-weight: 500; font-size: 0.88rem;
-        padding: 0.5rem 0.9rem; border-radius: 8px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        text-decoration: none; white-space: nowrap;
-    }
-    html.light-theme .nav-links a { color: #475569; }
-    .nav-links a:hover { color: #60a5fa; background: rgba(59, 130, 246, 0.08); }
-    .nav-links a.nav-active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
-
-    .nav-action-login { 
-        color: #60a5fa !important; border: 1px solid rgba(59, 130, 246, 0.25); 
-        padding: 0.45rem 1rem !important; border-radius: 8px !important; font-weight: 600 !important;
-    }
-    .nav-action-login:hover { background: rgba(59, 130, 246, 0.12) !important; border-color: #3b82f6 !important; }
-    .nav-action-signup { 
-        background: linear-gradient(135deg, #3b82f6, #2563eb) !important; color: #fff !important; 
-        border: none !important; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
-        padding: 0.45rem 1rem !important; border-radius: 8px !important; font-weight: 600 !important;
-    }
-    .nav-action-signup:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important; }
-    .nav-action-admin { 
-        background: rgba(59, 130, 246, 0.1) !important; color: #60a5fa !important; 
-        border: 1px solid rgba(59, 130, 246, 0.2) !important; font-weight: 600 !important;
-    }
-    .nav-action-logout { 
-        color: #f87171 !important; border: 1px solid rgba(248, 113, 113, 0.2) !important; font-weight: 600 !important;
-    }
-    .nav-action-logout:hover { background: rgba(248, 113, 113, 0.1) !important; }
-
-    /* ===== RIGHT GROUP ===== */
-    .nav-right-group {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-    }
-
-    /* Theme Toggle */
-    .theme-toggle-btn {
-        width: 36px; height: 36px;
-        border-radius: 50%; border: 1px solid rgba(59, 130, 246, 0.25);
-        background: rgba(59, 130, 246, 0.08);
-        color: #60a5fa; font-size: 1rem;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        padding: 0;
-    }
-    .theme-toggle-btn:hover {
-        background: rgba(59, 130, 246, 0.18);
-        transform: scale(1.1);
-    }
-    html.light-theme .theme-toggle-btn {
-        color: #f59e0b;
-        border-color: rgba(245, 158, 11, 0.3);
-        background: rgba(245, 158, 11, 0.1);
-    }
-    html.light-theme .theme-toggle-btn:hover {
-        background: rgba(245, 158, 11, 0.2);
-    }
-
-    /* ===== HAMBURGER ===== */
-    .hamburger {
-        display: none; flex-direction: column; gap: 5px;
-        cursor: pointer; z-index: 1002; padding: 5px;
-        background: none; border: none;
-    }
-    .hamburger span {
-        width: 24px; height: 2px; background: #e2e8f0;
-        border-radius: 2px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        transform-origin: center;
-    }
-    html.light-theme .hamburger span { background: #334155; }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-    /* ===== LANGUAGE SWITCHER ===== */
-    .lang-switcher { display: flex; align-items: center; gap: 2px; margin: 0 0.3rem; }
-    .lang-btn {
-        color: #64748b; font-size: 0.78rem; font-weight: 600;
-        padding: 3px 6px; border-radius: 4px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        text-decoration: none !important;
-        letter-spacing: 0.3px;
-    }
-    .lang-btn:hover { color: #60a5fa; }
-    .lang-btn.active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
-    .lang-divider { color: #475569; font-size: 0.75rem; }
-
-    /* ===== MOBILE: DRAWER + BACKDROP ===== */
-    .mobile-backdrop {
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1001;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        cursor: pointer;
-    }
-    .mobile-backdrop.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    html.light-theme .mobile-backdrop {
-        background: rgba(0, 0, 0, 0.3);
-    }
-
-    .mobile-drawer {
-        position: fixed;
-        top: 0; right: 0;
-        width: 85%; max-width: 360px;
-        height: 100vh;
-        z-index: 1002;
-        background: rgba(10, 15, 30, 0.98);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        display: flex;
-        flex-direction: column;
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
-    }
-    html.light-theme .mobile-drawer {
-        background: rgba(248, 250, 252, 0.98);
-    }
-    .mobile-drawer.open {
-        transform: translateX(0);
-    }
-
-    /* Drawer Header */
-    .drawer-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.2rem;
-        border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-        flex-shrink: 0;
-    }
-    .drawer-logo {
-        font-size: 1.1rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa, #3b82f6);
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: navGradient 4s ease infinite;
-        letter-spacing: -0.5px;
-        text-decoration: none;
-    }
-    .drawer-close {
-        width: 34px; height: 34px;
-        border-radius: 10px;
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        background: rgba(59, 130, 246, 0.06);
-        color: var(--text-muted, #64748b);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 0;
-    }
-    .drawer-close:hover {
-        background: rgba(59, 130, 246, 0.15);
-        color: #60a5fa;
-        transform: rotate(90deg);
-    }
-
-    /* Drawer Body */
-    .drawer-body {
-        flex: 1;
-        padding: 0.8rem 1rem 1rem;
-        display: flex;
-        flex-direction: column;
-    }
-    .drawer-nav {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .drawer-nav li {
-        margin-bottom: 2px;
-    }
-    .drawer-nav a,
-    .drawer-nav button {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        padding: 0.7rem 0.8rem;
-        border-radius: 10px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: var(--text-secondary, #94a3b8);
-        text-decoration: none;
-        transition: all 0.2s ease;
-        width: 100%;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-family: inherit;
-        text-align: left;
-    }
-    .drawer-nav a i,
-    .drawer-nav button i {
-        width: 22px;
-        text-align: center;
-        font-size: 1.05rem;
-        color: var(--text-muted, #64748b);
-        transition: color 0.2s;
-    }
-    .drawer-nav a:hover {
-        background: rgba(59, 130, 246, 0.08);
-        color: #60a5fa;
-    }
-    .drawer-nav a:hover i {
-        color: #60a5fa;
-    }
-    .drawer-nav a.active {
-        background: rgba(59, 130, 246, 0.12);
-        color: #3b82f6;
-    }
-    .drawer-nav a.active i {
-        color: #3b82f6;
-    }
-
-    /* Divider */
-    .drawer-divider {
-        height: 1px;
-        background: rgba(59, 130, 246, 0.1);
-        margin: 0.6rem 0;
-    }
-
-    /* Auth buttons in drawer */
-    .drawer-login-btn {
-        justify-content: center !important;
-        background: rgba(59, 130, 246, 0.08) !important;
-        border: 1px solid rgba(59, 130, 246, 0.25) !important;
-        color: #60a5fa !important;
-        font-weight: 600 !important;
-    }
-    .drawer-login-btn:hover {
-        background: rgba(59, 130, 246, 0.15) !important;
-    }
-    .drawer-signup-btn {
-        justify-content: center !important;
-        background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
-        border: none !important;
-        color: #fff !important;
-        font-weight: 600 !important;
-        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    }
-    .drawer-signup-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
-    }
-    .drawer-logout-btn {
-        color: #f87171 !important;
-    }
-    .drawer-logout-btn:hover {
-        background: rgba(248, 113, 113, 0.08) !important;
-        color: #f87171 !important;
-    }
-    .drawer-admin-btn {
-        color: #60a5fa !important;
-        border: 1px solid rgba(59, 130, 246, 0.2) !important;
-    }
-    .drawer-admin-btn:hover {
-        background: rgba(59, 130, 246, 0.1) !important;
-    }
-
-    /* Drawer Footer (lang) */
-    .drawer-footer {
-        margin-top: auto;
-        padding-top: 0.8rem;
-        border-top: 1px solid rgba(59, 130, 246, 0.08);
-        display: flex;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-
-    /* ===== MOBILE RESPONSIVE ===== */
-    @media (max-width: 768px) {
-        .navbar-main {
-            padding: 0.8rem 1.2rem;
-        }
-        .navbar-main.scrolled {
-            padding: 0.5rem 1.2rem;
-        }
-        .nav-logo {
-            font-size: 1.2rem;
-        }
-        .nav-links {
-            display: none !important;
-        }
-        .hamburger {
-            display: flex;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .navbar-main {
-            padding: 0.65rem 1rem;
-        }
-        .navbar-main.scrolled {
-            padding: 0.4rem 1rem;
-        }
-        .nav-logo {
-            font-size: 1.05rem;
-        }
-        .theme-toggle-btn {
-            width: 32px; height: 32px; font-size: 0.85rem;
-        }
-        .lang-btn { font-size: 0.7rem; padding: 2px 4px; }
-        .mobile-drawer { width: 100%; max-width: none; }
-        .drawer-nav a, .drawer-nav button { font-size: 0.9rem; padding: 0.6rem 0.7rem; }
-    }
-
-    /* ===== BODY SCROLL LOCK ===== */
-    body.menu-open {
-        overflow: hidden !important;
-    }
-</style>
-
-<nav class="navbar-main" id="navbar">
-    <!-- Logo -->
-    <a href="/" class="nav-logo">{{ config('app.name', 'Portfolio') }}</a>
-
-    <!-- Desktop Nav Links -->
-    <ul class="nav-links" id="navLinks">
-        <li><a href="/" class="{{ request()->is('/') ? 'nav-active' : '' }}"><i class="bi bi-house-fill me-1"></i>{{ __('messages.home') }}</a></li>
-        <li><a href="{{ url('/blog') }}" class="{{ request()->is('blog') || request()->is('blog/*') ? 'nav-active' : '' }}"><i class="bi bi-journal-text me-1"></i>{{ __('messages.blog') }}</a></li>
-
-        @auth
-            @if(auth()->user()->is_admin == 1)
-                <li><a href="/admin" class="nav-action-admin">{{ __('messages.admin') }}</a></li>
-            @endif
-            <li>
-                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="nav-action-logout" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:0.88rem; display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 1rem; border-radius:8px; font-weight:600;">
-                        {{ __('messages.logout') }}
-                    </button>
-                </form>
-            </li>
-        @else
-            <li><a href="/login" class="nav-action-login">{{ __('messages.login') }}</a></li>
-            <li><a href="/register" class="nav-action-signup">{{ __('messages.signup') }}</a></li>
-        @endauth
-    </ul>
-
-    <!-- Right Group -->
-    <div class="nav-right-group">
-        <div class="lang-switcher d-none d-md-flex">
-            <a href="{{ route('language.switch', 'en') }}" 
-               class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
-               title="{{ __('messages.english') }}">EN</a>
-            <span class="lang-divider">|</span>
-            <a href="{{ route('language.switch', 'bn') }}" 
-               class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
-               title="{{ __('messages.bengali') }}">বাংলা</a>
-        </div>
-        <button class="theme-toggle-btn" id="themeToggle" aria-label="{{ __('messages.toggle_theme') }}">
-            <i class="bi bi-sun-fill"></i>
-        </button>
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-</nav>
-
-<!-- Mobile Backdrop -->
-<div class="mobile-backdrop" id="mobileBackdrop"></div>
-
-<!-- Mobile Drawer -->
-<div class="mobile-drawer" id="mobileDrawer">
-    <!-- Drawer Header -->
-    <div class="drawer-header">
-        <a href="/" class="drawer-logo">{{ config('app.name', 'Portfolio') }}</a>
-        <button class="drawer-close" id="drawerClose" aria-label="Close menu">
-            <i class="bi bi-x-lg"></i>
-        </button>
-    </div>
-
-    <!-- Drawer Body -->
-    <div class="drawer-body">
-        <ul class="drawer-nav">
-            <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}"><i class="bi bi-house-fill"></i>{{ __('messages.home') }}</a></li>
-            <li><a href="{{ url('/blog') }}" class="{{ request()->is('blog') || request()->is('blog/*') ? 'active' : '' }}"><i class="bi bi-journal-text me-1"></i>{{ __('messages.blog') }}</a></li>
-        </ul>
-
-        <div class="drawer-divider"></div>
-
-        <ul class="drawer-nav">
-            @auth
+<!-- Top Bar -->
+<nav class="navbar navbar-expand-lg chatbox-top-navbar py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand chatbox-brand-link d-flex align-items-center gap-2 fw-bold fs-5" href="/">
+            <div class="chatbox-brand-icon-wrap">
+                <i class="bi bi-diagram-3-fill chatbox-brand-icon"></i>
+            </div>
+            <span class="chatbox-brand-text">Website Name</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @auth
                 @if(auth()->user()->is_admin == 1)
-                    <li><a href="/admin" class="drawer-admin-btn"><i class="bi bi-speedometer2"></i>{{ __('messages.admin') }}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link chatbox-navlink-top {{ Str::startsWith(request()->path(), 'admin') ? 'active-navlink-chatbox' : '' }}" href="/admin">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
                 @endif
-                <li>
-                    <form action="{{ route('logout') }}" method="POST">
+                @endauth
+                <li class="nav-item">
+                    <a class="nav-link chatbox-navlink-top {{ request()->is('contact') ? 'active-navlink-chatbox' : '' }}" href="/contact">
+                        <i class="bi bi-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right: auth actions (login/signup or logout) -->
+            <ul class="navbar-nav align-items-center gap-2 flex-shrink-0 chatbox-auth-right me-3 mt-2 mt-lg-0">
+                @auth
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
-                        <button type="submit" class="drawer-logout-btn">
-                            <i class="bi bi-box-arrow-right"></i>{{ __('messages.logout') }}
+                        <button type="submit" class="nav-link chatbox-navlink-top chatbox-logout-btn border-0">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Logout</span>
                         </button>
                     </form>
                 </li>
-            @else
-                <li><a href="/login" class="drawer-login-btn"><i class="bi bi-person-circle"></i>{{ __('messages.login') }}</a></li>
-                <li><a href="/register" class="drawer-signup-btn"><i class="bi bi-person-plus"></i>{{ __('messages.signup') }}</a></li>
-            @endauth
-        </ul>
-
-        <div class="drawer-footer">
-            <a href="{{ route('language.switch', 'en') }}" 
-               class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
-               title="{{ __('messages.english') }}">EN</a>
-            <span class="lang-divider">|</span>
-            <a href="{{ route('language.switch', 'bn') }}" 
-               class="lang-btn {{ app()->getLocale() == 'bn' ? 'active' : '' }}"
-               title="{{ __('messages.bengali') }}">বাংলা</a>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link chatbox-navlink-top chatbox-login-link {{ request()->is('login') ? 'active-navlink-chatbox' : '' }}" href="/login">
+                        <i class="bi bi-person-circle"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link chatbox-signup-button" href="/register">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Signup</span>
+                    </a>
+                </li>
+                @endauth
+            </ul>
         </div>
     </div>
-</div>
+</nav>
 
-<script>
-// ===== MOBILE MENU TOGGLE =====
-(function() {
-    var hamburger = document.getElementById('hamburger');
-    var drawer = document.getElementById('mobileDrawer');
-    var backdrop = document.getElementById('mobileBackdrop');
-    var closeBtn = document.getElementById('drawerClose');
-    var body = document.body;
 
-    if (!hamburger || !drawer || !backdrop) return;
+<style>
+    /* Connectly - Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    function openMenu() {
-        drawer.classList.add('open');
-        backdrop.classList.add('show');
-        hamburger.classList.add('active');
-        body.classList.add('menu-open');
+:root {
+    --clr-primary: #2563EB;
+    --clr-light: #60A5FA;
+    --clr-dark: #1E40AF;
+    --clr-gradient: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+    --clr-gradient-light: linear-gradient(135deg, #60A5FA 0%, #2563EB 100%);
+    --clr-bg: #F0F5FF;
+    --clr-surface: #FFFFFF;
+    --clr-text: #0F172A;
+    --clr-muted: #64748B;
+    --clr-border: rgba(37, 99, 235, 0.08);
+    --chatbox-navbar-height: 68px;
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 16px rgba(37, 99, 235, 0.08);
+    --shadow-lg: 0 8px 32px rgba(37, 99, 235, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 999px;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    overflow-x: hidden;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== TOP NAVBAR ===== */
+.chatbox-top-navbar {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--clr-border);
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    flex-shrink: 0;
+    min-height: var(--chatbox-navbar-height);
+    animation: chatbox-navbar-slide-down 0.5s ease-out forwards;
+    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.04);
+}
+
+.chatbox-top-navbar .container-fluid {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+@keyframes chatbox-navbar-slide-down {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== BRAND / LOGO ===== */
+.chatbox-brand-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chatbox-brand-link:hover {
+    transform: translateY(-1px);
+}
+
+.chatbox-brand-icon-wrap {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--clr-gradient);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transition: all 0.3s ease;
+    animation: chatbox-brand-float 3s ease-in-out infinite;
+}
+
+.chatbox-brand-link:hover .chatbox-brand-icon-wrap {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    transform: rotate(-8deg) scale(1.05);
+}
+
+@keyframes chatbox-brand-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.chatbox-brand-icon {
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.chatbox-brand-text {
+    font-size: 1.35rem;
+    font-weight: 800;
+    background: var(--clr-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    position: relative;
+}
+
+.chatbox-brand-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--clr-gradient);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.chatbox-brand-link:hover .chatbox-brand-text::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* ===== TOGGLER ===== */
+.chatbox-toggler {
+    border: none;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.chatbox-toggler:hover {
+    background: var(--clr-border);
+}
+
+.chatbox-toggler:focus {
+    box-shadow: none;
+}
+
+.chatbox-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(37,99,235,0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ===== NAV LINKS ===== */
+.navbar .chatbox-navlink-top {
+    text-decoration: none;
+    color: var(--clr-muted);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    background: transparent;
+}
+
+.navbar .chatbox-navlink-top i {
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+}
+
+.navbar .chatbox-navlink-top span {
+    transition: color 0.25s ease;
+}
+
+.navbar .chatbox-navlink-top::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-sm);
+    background: var(--clr-gradient);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 0;
+}
+
+.navbar .chatbox-navlink-top:hover {
+    color: var(--clr-primary);
+}
+
+.navbar .chatbox-navlink-top:hover::before {
+    opacity: 0.08;
+}
+
+.navbar .chatbox-navlink-top:hover i {
+    transform: translateY(-1px);
+}
+
+/* Active link styling */
+.navbar .active-navlink-chatbox {
+    color: #fff !important;
+    background: var(--clr-gradient);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.navbar .active-navlink-chatbox::before {
+    display: none;
+}
+
+.navbar .active-navlink-chatbox:hover::before {
+    opacity: 0;
+}
+
+.navbar .active-navlink-chatbox:hover i {
+    transform: none;
+}
+
+.navbar .active-navlink-chatbox i {
+    color: #fff !important;
+}
+
+.navbar .active-navlink-chatbox span {
+    color: #fff !important;
+}
+
+/* ===== AUTH BUTTONS ===== */
+
+/* Login link */
+.chatbox-login-link {
+    background: transparent !important;
+}
+
+.chatbox-login-link:hover {
+    color: var(--clr-primary) !important;
+    background: rgba(37, 99, 235, 0.06) !important;
+}
+
+/* Signup button */
+.chatbox-signup-button {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px !important;
+    background: var(--clr-gradient) !important;
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: var(--radius-full) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25) !important;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.chatbox-signup-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+}
+
+.chatbox-signup-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35) !important;
+    color: #fff !important;
+}
+
+.chatbox-signup-button:hover::before {
+    opacity: 1;
+}
+
+.chatbox-signup-button i,
+.chatbox-signup-button span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Logout button */
+.chatbox-logout-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    color: #DC2626 !important;
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 8px 14px !important;
+    border-radius: var(--radius-sm) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer;
+    background: transparent !important;
+}
+
+.chatbox-logout-btn:hover {
+    background: rgba(220, 38, 38, 0.06) !important;
+    color: #B91C1C !important;
+    transform: translateY(-1px);
+}
+
+/* Main Layout */
+.chatbox-main-layout-row {
+    flex: 1;
+    min-height: 0;
+    height: calc(100vh - var(--chatbox-navbar-height));
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    width: 100%;
+}
+
+.chatbox-layout-landing {
+    height: auto;
+    min-height: calc(100vh - var(--chatbox-navbar-height));
+}
+
+.chatbox-layout-landing .chatbox-content-area {
+    height: auto;
+    min-height: calc(100vh - var(--chatbox-navbar-height));
+    overflow: visible;
+}
+
+.chatbox-layout-message {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+/* Sidebar Styles */
+.chatbox-sidebar-container {
+    background: #f9fafb;
+    height: 100%;
+    border-right: none;
+    overflow-y: auto;
+    animation: chatbox-sidebar-slide-in 0.6s ease-out;
+}
+
+.chatbox-layout-message .col-md-3 .chatbox-sidebar-container {
+    border-right: 1px solid #e5e7eb;
+}
+
+@keyframes chatbox-sidebar-slide-in {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.chatbox-sidebar-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chatbox-sidebar-container::-webkit-scrollbar-track {
+    background: #f9fafb;
+}
+
+.chatbox-sidebar-container::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.chatbox-sidebar-container::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Search Box */
+.chatbox-search-wrapper {
+    padding-top: 20px;
+    animation: chatbox-search-fade-in 0.8s ease-out;
+}
+
+@keyframes chatbox-search-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbox-search-input-box {
+    position: relative;
+}
+
+.chatbox-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    z-index: 1;
+    font-size: 16px;
+}
+
+.chatbox-search-field {
+    padding-left: 40px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.chatbox-search-field:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+.chatbox-search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-top: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
+}
+
+/* Sidebar User List */
+.chatbox-sidebar-user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chatbox-section-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.chatbox-user-list-item {
+    animation: chatbox-user-item-fade-in 0.5s ease-out backwards;
+}
+
+.chatbox-user-list-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.chatbox-user-list-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.chatbox-user-list-item:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.chatbox-user-list-item:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.chatbox-user-list-item:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+@keyframes chatbox-user-item-fade-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.chatbox-user-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #1f2937;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.chatbox-user-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.1) 0%, transparent 100%);
+    transition: width 0.3s ease;
+}
+
+.chatbox-user-link:hover {
+    background: #FFFFFF;
+}
+
+.chatbox-user-link:hover::before {
+    width: 100%;
+}
+
+.active-user-chatbox {
+    background: #eff6ff;
+    border-left-color: #2563EB;
+}
+
+.active-user-chatbox::before {
+    width: 100%;
+}
+
+.chatbox-user-avatar-wrapper {
+    position: relative;
+    margin-right: 12px;
+}
+
+.chatbox-user-avatar-icon {
+    font-size: 36px;
+    color: #6b7280;
+}
+
+.active-user-chatbox .chatbox-user-avatar-icon {
+    color: #2563EB;
+}
+
+.chatbox-online-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background: #10b981;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    animation: chatbox-online-pulse 2s infinite;
+}
+
+@keyframes chatbox-online-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+    }
+}
+
+.chatbox-user-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatbox-user-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.chatbox-user-status {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+.chatbox-unread-badge {
+    background: #2563EB;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    min-width: 20px;
+    text-align: center;
+    animation: chatbox-badge-bounce 0.5s ease;
+}
+
+@keyframes chatbox-badge-bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Content Area */
+.chatbox-content-area {
+    background: #FFFFFF;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.chatbox-chat-page-column {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+
+/* Message thread: lock page scroll; only the inbox list scrolls */
+html.chatbox-message-active,
+body.chatbox-message-active {
+    height: 100%;
+    overflow: hidden;
+}
+
+body.chatbox-message-active {
+    min-height: 0;
+}
+
+.chatbox-layout-message > .col-md-3 {
+    width: 25%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border-right: 1px solid #e5e7eb;
+}
+
+.chatbox-layout-message > .col-md-9 {
+    width: 75%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+}
+
+.chatbox-layout-message {
+    flex: 1;
+    min-height: 0;
+    height: calc(100vh - var(--chatbox-navbar-height));
+    height: calc(100dvh - var(--chatbox-navbar-height));
+    max-height: calc(100vh - var(--chatbox-navbar-height));
+    max-height: calc(100dvh - var(--chatbox-navbar-height));
+    overflow: hidden;
+}
+
+.chatbox-layout-message > [class*="col-"] {
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatbox-layout-message .chatbox-sidebar-container {
+    flex: 1;
+    min-height: 0;
+}
+
+.chatbox-main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px;
+    animation: chatbox-content-fade-in 0.8s ease-out;
+}
+
+@keyframes chatbox-content-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbox-welcome-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #2563EB 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: chatbox-title-slide-up 0.8s ease-out;
+}
+
+@keyframes chatbox-title-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbox-welcome-subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 40px;
+    animation: chatbox-subtitle-fade-in 1s ease-out;
+}
+
+@keyframes chatbox-subtitle-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.chatbox-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.chatbox-feature-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.4s ease;
+    animation: chatbox-card-float-in 0.8s ease-out backwards;
+}
+
+.chatbox-feature-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.chatbox-feature-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.chatbox-feature-card:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes chatbox-card-float-in {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbox-feature-card:hover {
+    background: #FFFFFF;
+    border-color: #2563EB;
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+}
+
+.chatbox-feature-icon {
+    font-size: 48px;
+    color: #2563EB;
+    margin-bottom: 16px;
+    animation: chatbox-icon-rotate 3s linear infinite;
+}
+
+@keyframes chatbox-icon-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.chatbox-feature-card:hover .chatbox-feature-icon {
+    animation: chatbox-icon-bounce 0.6s ease;
+}
+
+@keyframes chatbox-icon-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.chatbox-feature-card h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.chatbox-feature-card p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .chatbox-top-navbar .navbar-nav {
+        text-align: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .chatbox-main-layout-row:not(.chatbox-layout-message) {
+        flex-direction: column;
     }
 
-    function closeMenu() {
-        drawer.classList.remove('open');
-        backdrop.classList.remove('show');
-        hamburger.classList.remove('active');
-        body.classList.remove('menu-open');
+    .chatbox-main-layout-row:not(.chatbox-layout-message) .chatbox-sidebar-container {
+        height: auto;
+        min-height: 300px;
     }
 
-    hamburger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (drawer.classList.contains('open')) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeMenu);
+    .chatbox-main-layout-row:not(.chatbox-layout-message) .chatbox-content-area {
+        height: auto;
+        min-height: 400px;
     }
 
-    // Click backdrop to close
-    backdrop.addEventListener('click', closeMenu);
+    .chatbox-layout-message {
+        flex-direction: column;
+    }
 
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && drawer.classList.contains('open')) {
-            closeMenu();
-        }
-    });
+    .chatbox-layout-message > .col-md-3 {
+        flex: 0 0 auto;
+        max-height: 32vh;
+        height: auto;
+    }
 
-    // Close when a nav link is clicked
-    drawer.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', closeMenu);
-    });
+    .chatbox-layout-message > .col-md-3 .chatbox-sidebar-container {
+        max-height: 32vh;
+        height: 100%;
+    }
 
-    // Close when logout form is submitted (but allow form to submit)
-    drawer.querySelectorAll('form').forEach(function(form) {
-        form.addEventListener('submit', function() {
-            // Small delay to allow form submission
-            setTimeout(closeMenu, 100);
-        });
-    });
+    .chatbox-layout-message > .chatbox-chat-page-column {
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto;
+    }
 
-    // Prevent clicks inside drawer from closing via backdrop
-    drawer.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-})();
-</script>
+    .chatbox-welcome-title {
+        font-size: 28px;
+    }
+
+    .chatbox-features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading Animation */
+@keyframes chatbox-shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.chatbox-loading-shimmer {
+    animation: chatbox-shimmer 2s infinite linear;
+    background: linear-gradient(to right, #f9fafb 0%, #e5e7eb 50%, #f9fafb 100%);
+    background-size: 1000px 100%;
+}
+
+/* Smooth Transitions */
+.chatbox-transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Effects */
+.chatbox-hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+.chatbox-hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Glass Morphism Effect */
+.chatbox-glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gradient Text */
+.chatbox-gradient-text {
+    background: linear-gradient(135deg, #2563EB 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Box Shadow Utilities */
+.chatbox-shadow-sm {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chatbox-shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.chatbox-shadow-lg {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chatbox-shadow-xl {
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== NOTIFICATION DROPDOWN ===== */
+.chatbox-notif-bell {
+    position: relative;
+}
+
+.chatbox-notif-badge {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0 5px;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+    animation: chatbox-notif-pulse 2s infinite;
+    pointer-events: none;
+    line-height: 1;
+}
+
+@keyframes chatbox-notif-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.chatbox-notif-dropdown {
+    width: 360px;
+    max-width: 90vw;
+    padding: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    margin-top: 10px !important;
+    overflow: hidden;
+}
+
+.chatbox-notif-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #eef2f8;
+    background: #f8fafc;
+    font-size: 0.9rem;
+}
+
+.chatbox-notif-mark-all {
+    font-size: 0.78rem;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0;
+}
+
+.chatbox-notif-mark-all:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+.chatbox-notif-list {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.chatbox-notif-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chatbox-notif-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 2px;
+}
+
+.chatbox-notif-item {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s ease;
+}
+
+.chatbox-notif-item:last-child {
+    border-bottom: none;
+}
+
+.chatbox-notif-item:hover {
+    background: #f8fafc;
+}
+
+.chatbox-notif-unread {
+    background: #eff6ff;
+}
+
+.chatbox-notif-unread:hover {
+    background: #dbeafe;
+}
+
+.chatbox-notif-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: #1f2937;
+    position: relative;
+}
+
+.chatbox-notif-avatar {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+}
+
+.chatbox-notif-avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eef2f8;
+}
+
+.chatbox-notif-avatar-fallback {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.chatbox-notif-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.chatbox-notif-text {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: #374151;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.chatbox-notif-time {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-top: 2px;
+    display: block;
+}
+
+.chatbox-notif-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2563eb;
+    flex-shrink: 0;
+    margin-top: 6px;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.chatbox-notif-empty {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: #9ca3af;
+}
+
+.chatbox-notif-empty i {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.chatbox-notif-loading {
+    padding: 2rem;
+}
+
+.chatbox-notif-footer {
+    display: block;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    border-top: 1px solid #eef2f8;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+    background: #f8fafc;
+    transition: background 0.2s ease;
+}
+
+.chatbox-notif-footer:hover {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+@media (max-width: 576px) {
+    .chatbox-notif-dropdown {
+        width: 100vw;
+        max-width: 100vw;
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: var(--chatbox-navbar-height) !important;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+}
+
+/* Responsive Auth Right (perfect centering on desktop) */
+@media (min-width: 992px) {
+  .chatbox-auth-right {
+    position: absolute !important;
+    right: 1rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-top: 0 !important;
+  }
+}
+@media (max-width: 991.98px) {
+  .chatbox-auth-right {
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* Utility Classes */
+.chatbox-text-primary {
+    color: #2563EB;
+}
+
+.chatbox-bg-primary {
+    background-color: #2563EB;
+}
+
+.chatbox-border-primary {
+    border-color: #2563EB;
+}
+</style>

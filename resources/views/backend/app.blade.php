@@ -8,36 +8,247 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// ===================== GLOBAL SWEETALERT2 DEFAULTS (Backend blue theme) =====================
+Swal.setDefaults({
+    background: '#1e293b',
+    color: '#f1f5f9',
+    confirmButtonColor: '#2563EB',
+    cancelButtonColor: '#64748b',
+    iconColor: '#60A5FA',
+    buttonsStyling: true,
+    reverseButtons: true,
+    customClass: {
+        popup: 'swal-back-popup',
+        confirmButton: 'swal-back-confirm',
+        cancelButton: 'swal-back-cancel'
+    }
+});
+</script>
     <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://junait.com/tiny_pro.js"></script>
 
-    <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
 </head>
 <body>
 
-    {{-- Top Navigation Bar --}}
-    @include('backend.partials.topbar')
+    @include('backend.partials.sidebar')
 
-    {{-- Admin Layout: Sidebar + Content --}}
-    <div class="admin-layout" style="display:flex; min-height:calc(100vh - 57px);">
+    <main class="content-area" id="mainContent">
+        @yield('content')
+    </main>
 
-        {{-- Sidebar --}}
-        @include('backend.partials.sidebar')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-        {{-- Main Content --}}
-        <main class="admin-main" style="flex:1; min-width:0; background:#f1f5f9; padding:1.5rem 2rem; overflow-y:auto;">
-            @yield('content')
-        </main>
+@yield('scripts')
 
-    </div>
+{{-- Top scrollbar sync for all backend tables --}}
+<script>
+window.addEventListener('load', function () {
+    document.querySelectorAll('.table-scroll-wrap').forEach(function(wrapper) {
+        // Only add top scrollbar if the content overflows
+        if (wrapper.scrollWidth <= wrapper.clientWidth) return;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('backend/js/custom.js') }}"></script>
+        var container = document.createElement('div');
+        container.className = 'table-scrollbar-container';
+        container.style.cssText = 'display:flex;flex-direction:column;';
 
-    @yield('scripts')
+        var topBar = document.createElement('div');
+        topBar.className = 'table-scrollbar-top';
+
+        var spacer = document.createElement('div');
+        spacer.style.cssText = 'height:1px;width:' + wrapper.scrollWidth + 'px;';
+        topBar.appendChild(spacer);
+
+        // Wrap wrapper in container with topBar before it
+        wrapper.parentNode.insertBefore(container, wrapper);
+        container.appendChild(topBar);
+        container.appendChild(wrapper);
+
+        // Sync top scroll → bottom scroll
+        topBar.addEventListener('scroll', function () {
+            wrapper.scrollLeft = this.scrollLeft;
+        });
+
+        // Sync bottom scroll → top scroll
+        wrapper.addEventListener('scroll', function () {
+            topBar.scrollLeft = this.scrollLeft;
+        });
+    });
+});
+</script>
 </body>
+
+<style>
+/* ─── Base Reset ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    overflow-x: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "navbar navbar"
+        "sidebar content";
+    min-height: 100vh;
+    background: #0f172a;
+    color: #f1f5f9;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Grid area assignments */
+nav.top-navbar {
+    grid-area: navbar;
+}
+
+aside.sidebar {
+    grid-area: sidebar;
+}
+
+main.content-area {
+    grid-area: content;
+    overflow-y: auto;
+    max-height: calc(100vh - 57px);
+    background: #0f172a;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1200px) {
+    body { grid-template-columns: 220px 1fr; }
+}
+@media (max-width: 992px) {
+    body {
+        grid-template-columns: 200px 1fr;
+    }
+    main.content-area {
+        max-height: calc(100vh - 57px);
+    }
+}
+@media (max-width: 768px) {
+    body {
+        grid-template-columns: 200px 1fr;
+    }
+    main.content-area {
+        max-height: calc(100vh - 57px);
+    }
+}
+@media (max-width: 480px) {
+    body {
+        grid-template-columns: 160px 1fr;
+    }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.2); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.35); }
+
+/* ─── Top Scrollbar Separator ─── */
+.table-scrollbar-top {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    height: 10px;
+    background: transparent;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.table-scrollbar-top::-webkit-scrollbar { height: 6px; }
+.table-scrollbar-top::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.15); }
+.table-scrollbar-top::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.3); }
+
+/* ─── Pagination (global style for all backend pages) ─── */
+.pagination {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.pagination .page-item .page-link {
+    display: grid;
+    place-items: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-decoration: none;
+    background: rgba(255,255,255,0.03);
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.pagination .page-item .page-link:hover {
+    background: rgba(37,99,235,0.1);
+    border-color: rgba(37,99,235,0.2);
+    color: #60A5FA;
+}
+.pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #2563EB, #1E40AF);
+    border-color: #2563EB;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+}
+.pagination .page-item.disabled .page-link {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* ─── Swal2 Dark Override ─── */
+.swal-back-popup {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    border-radius: 16px !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+.swal-back-popup .swal2-title { color: #f1f5f9 !important; }
+.swal-back-popup .swal2-html-container { color: #94a3b8 !important; }
+.swal-back-confirm {
+    background: linear-gradient(135deg, #2563EB, #1E40AF) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3) !important;
+    transition: all 0.2s ease !important;
+}
+.swal-back-confirm:hover {
+    box-shadow: 0 6px 20px rgba(37,99,235,0.4) !important;
+    transform: translateY(-1px) !important;
+}
+.swal-back-cancel {
+    background: rgba(255,255,255,0.06) !important;
+    color: #94a3b8 !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    padding: 10px 24px !important;
+    transition: all 0.2s ease !important;
+}
+.swal-back-cancel:hover {
+    background: rgba(255,255,255,0.1) !important;
+}
+.swal2-toast.swal-back-popup {
+    background: #1e293b !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+}
+.swal2-toast .swal2-timer-progress-bar {
+    background: linear-gradient(90deg, #2563EB, #60A5FA) !important;
+}
+.swal2-icon {
+    border-color: rgba(96,165,250,0.2) !important;
+}
+</style>
 
 </html>

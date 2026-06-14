@@ -3,604 +3,952 @@
 @section('content')
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* ===== DASHBOARD PAGE (scoped) ===== */
+.db-page {
+    --clr-primary: #2563EB;
+    --clr-light: #60A5FA;
+    --clr-dark: #1E40AF;
+    --clr-accent-green: #00FF9F;
+    --clr-accent-purple: #A855F7;
+    --clr-accent-amber: #F59E0B;
+    --clr-accent-rose: #F43F5E;
+    --clr-bg: #0f172a;
+    --clr-card: rgba(255,255,255,0.04);
+    --clr-border: rgba(255,255,255,0.06);
+    --clr-text: #f1f5f9;
+    --clr-muted: #94a3b8;
+    --clr-hover: rgba(37,99,235,0.08);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-.dsb-body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font);
+    color: var(--clr-text);
+    -webkit-font-smoothing: antialiased;
     position: relative;
-}
-.dsb-body::before {
-    content: '';
-    position: fixed;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(ellipse 800px 500px at 15% 30%, rgba(99,102,241,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse 600px 600px at 85% 20%, rgba(139,92,246,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 500px 400px at 50% 80%, rgba(59,130,246,0.05) 0%, transparent 60%),
-                radial-gradient(ellipse 400px 400px at 20% 70%, rgba(236,72,153,0.04) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+    background: var(--clr-bg);
+    min-height: calc(100vh - 80px);
+    padding: 28px 24px;
 }
 
-/* ─── Header Hero ─── */
-.dsb-header {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #334155 100%);
-    border-radius: 20px;
-    padding: 2rem 2.2rem;
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
+/* ===== ORBS ===== */
+.db-orb {
+    position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0;
 }
-.dsb-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 600px 400px at 0% 100%, rgba(99,102,241,0.15), transparent),
-                radial-gradient(ellipse 400px 400px at 100% 0%, rgba(139,92,246,0.1), transparent);
-    z-index: -1;
+.db-orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(37,99,235,0.1), transparent 70%);
+    top: -200px; right: -100px;
+    animation: dbo1 14s ease-in-out infinite;
 }
-.dsb-header::after {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(99,102,241,0.08), transparent 70%);
-    z-index: -1;
+.db-orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(96,165,250,0.07), transparent 70%);
+    bottom: -150px; left: -80px;
+    animation: dbo2 16s ease-in-out infinite;
 }
-.dsb-header-grid {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -1;
-    opacity: 0.5;
+.db-orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(30,64,175,0.08), transparent 70%);
+    top: 30%; left: 60%;
+    animation: dbo3 18s ease-in-out infinite;
+}
+.db-orb-4 {
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(37,99,235,0.05), transparent 70%);
+    bottom: 20%; right: 30%;
+    animation: dbo1 22s ease-in-out infinite reverse;
+}
+@keyframes dbo1 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(60px,40px) scale(1.1); } }
+@keyframes dbo2 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-40px,-60px) scale(1.08); } }
+@keyframes dbo3 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(25px,-35px) scale(1.12); } }
+
+/* ===== PARTICLES ===== */
+.db-particles { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+.db-p {
+    position:absolute;
+    background:linear-gradient(135deg,var(--clr-primary),var(--clr-light));
+    border-radius:50%;
+    animation:dbr linear infinite;
+}
+@keyframes dbr {
+    0% { transform:translateY(0) rotate(0deg); opacity:0; }
+    10% { opacity:0.35; }
+    90% { opacity:0.1; }
+    100% { transform:translateY(-100vh) rotate(360deg); opacity:0; }
 }
 
-/* ─── Stat Cards ─── */
-.dsb-stat {
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.6);
-    border-radius: 16px;
-    padding: 1.25rem 1.4rem;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
-}
-.dsb-stat:hover {
-    transform: translateY(-6px) scale(1.02);
-    background: rgba(255,255,255,0.88);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 6px 12px rgba(99,102,241,0.06);
-    border-color: rgba(255,255,255,0.9);
-}
-.dsb-stat-glow {
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    opacity: 0.06;
-    transition: all 0.6s ease;
-    pointer-events: none;
-}
-.dsb-stat:hover .dsb-stat-glow {
-    transform: scale(2.5);
-    opacity: 0.1;
-}
-.dsb-stat-icon {
-    width: 46px; height: 46px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.25rem;
-    flex-shrink: 0;
-    transition: all 0.4s ease;
-    position: relative;
-}
-.dsb-stat:hover .dsb-stat-icon {
-    transform: scale(1.1) rotate(-5deg);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-}
-.dsb-stat-num {
-    font-size: 1.7rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-}
-.dsb-stat-label {
-    color: #94a3b8;
-    font-size: 0.78rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-}
-.dsb-stat-sub {
-    font-size: 0.7rem;
-    font-weight: 600;
-    margin-top: 3px;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-}
-
-/* ─── Content Cards ─── */
-.dsb-card {
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.03), 0 1px 4px rgba(0,0,0,0.02);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    height: 100%;
-    overflow: hidden;
-}
-.dsb-card:hover {
-    background: rgba(255,255,255,0.85);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.03);
-    border-color: rgba(255,255,255,0.8);
-    transform: translateY(-3px);
-}
-.dsb-card-hd {
-    padding: 1.1rem 1.4rem;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 700;
-    font-size: 0.88rem;
-    letter-spacing: -0.2px;
-}
-.dsb-card-hd i:first-child {
-    font-size: 1.1rem;
-    margin-right: 0.6rem;
-}
-.dsb-card-bd {
-    padding: 0;
-}
-
-/* ─── Recent Items List ─── */
-.dsb-item {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 0.75rem 1.4rem;
-    border-bottom: 1px solid rgba(0,0,0,0.03);
-    transition: all 0.25s ease;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-}
-.dsb-item:last-child { border-bottom: none; }
-.dsb-item::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 4px; bottom: 4px;
-    width: 3px;
-    border-radius: 0 3px 3px 0;
-    opacity: 0;
-    transition: opacity 0.25s;
-}
-.dsb-item:hover {
-    background: rgba(99,102,241,0.03);
-    padding-left: 1.7rem;
-}
-.dsb-item:hover::before { opacity: 1; }
-.dsb-item-av {
-    width: 38px; height: 38px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.95rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    transition: all 0.3s;
-}
-.dsb-item:hover .dsb-item-av {
-    transform: scale(1.08);
-}
-.dsb-item-info { flex: 1; min-width: 0; }
-.dsb-item-title {
-    font-weight: 600;
-    font-size: 0.84rem;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    display: block;
-}
-.dsb-item-meta {
-    font-size: 0.72rem;
-    color: #94a3b8;
-    margin-top: 1px;
-}
-.dsb-item-meta i { margin-right: 3px; }
-.dsb-badge {
-    font-size: 0.65rem;
-    padding: 0.15rem 0.65rem;
-    border-radius: 20px;
-    font-weight: 600;
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-
-/* ─── Quick Actions ─── */
-.dsb-qa-wrap {
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
-}
-.dsb-qa-wrap::-webkit-scrollbar { height: 3px; }
-.dsb-qa-wrap::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 3px; }
-
-.modal-backdrop { background: rgba(15,23,42,0.5); }
-.modal-backdrop.show { opacity: 1; }
-.dsb-qa {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 0.95rem;
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 10px;
-    text-decoration: none;
-    color: #1e293b;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: all 0.25s ease;
-    white-space: nowrap;
-}
-.dsb-qa:hover {
-    background: rgba(255,255,255,0.8);
-    border-color: #6366f1;
-    color: #6366f1;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99,102,241,0.1);
-}
-.dsb-qa i { font-size: 0.85rem; }
-
-/* ─── Animations ─── */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-}
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
+/* ===== ANIMATIONS ===== */
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity:0; transform:translateY(24px); }
+    to { opacity:1; transform:translateY(0); }
 }
-.dsb-fade { animation: fadeUp 0.5s ease forwards; opacity: 0; }
-.dsb-fade:nth-child(2) { animation-delay: 0.05s; }
-.dsb-fade:nth-child(3) { animation-delay: 0.1s; }
-.dsb-fade:nth-child(4) { animation-delay: 0.15s; }
-.dsb-fade:nth-child(5) { animation-delay: 0.2s; }
-.dsb-fade:nth-child(6) { animation-delay: 0.25s; }
-.dsb-fade:nth-child(7) { animation-delay: 0.3s; }
-.dsb-fade:nth-child(8) { animation-delay: 0.35s; }
-.dsb-fade:nth-child(9) { animation-delay: 0.4s; }
+@keyframes fadeIn {
+    from { opacity:0; }
+    to { opacity:1; }
+}
+@keyframes slideUp {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+}
+@keyframes countUp {
+    0% { opacity:0; transform:translateY(12px); }
+    100% { opacity:1; transform:translateY(0); }
+}
 
-/* ─── Responsive ─── */
-@media (max-width: 768px) {
-    .dsb-header { padding: 1.5rem; }
-    .dsb-stat { padding: 1rem; }
-    .dsb-stat-num { font-size: 1.3rem; }
-    .dsb-stat-icon { width: 38px; height: 38px; font-size: 1rem; }
-    .dsb-item { padding: 0.6rem 1rem; }
+/* ===== HEADER (Hero Card) ===== */
+.db-header {
+    position:relative; z-index:5;
+    background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(30,64,175,0.04));
+    border:1px solid rgba(37,99,235,0.1);
+    border-radius:20px; padding:28px 32px; margin-bottom:24px;
+    overflow:hidden;
+    animation:fadeUp 0.8s cubic-bezier(.16,1,.3,1) forwards;
+}
+.db-header-bg {
+    position:absolute; inset:0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.1), transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(96,165,250,0.06), transparent 50%);
+    pointer-events:none;
+}
+.db-header-glow {
+    position:absolute; bottom:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(37,99,235,0.2),transparent);
+}
+.db-header-content {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+}
+.db-header-left { display:flex; align-items:center; gap:20px; }
+
+/* ── Admin Logo ── */
+.db-admin-logo { position:relative; flex-shrink:0; }
+.db-admin-logo-img {
+    width:64px; height:64px; border-radius:50%; object-fit:cover;
+    border:2px solid rgba(37,99,235,0.3);
+    box-shadow:0 4px 16px rgba(37,99,235,0.2);
+    transition:all 0.3s ease;
+}
+.db-admin-logo-img:hover {
+    border-color:rgba(96,165,250,0.6);
+    box-shadow:0 6px 24px rgba(37,99,235,0.3);
+    transform:scale(1.05);
+}
+.db-admin-logo-fallback {
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg,var(--clr-primary),var(--clr-dark));
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; font-weight:700; color:#fff;
+    border:2px solid rgba(37,99,235,0.3);
+    box-shadow:0 4px 16px rgba(37,99,235,0.2);
+    transition:all 0.3s ease;
+}
+.db-admin-logo-fallback:hover {
+    transform:scale(1.05);
+    border-color:rgba(96,165,250,0.6);
+}
+.db-admin-logo-dot {
+    position:absolute; bottom:2px; right:2px;
+    width:14px; height:14px; background:#22c55e;
+    border:2.5px solid var(--clr-bg); border-radius:50%;
+    animation:dbPulse 2s ease-in-out infinite;
+}
+
+.db-greeting {
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:0.8rem; font-weight:600; color:var(--clr-light);
+    margin-bottom:8px; letter-spacing:0.3px;
+}
+.db-greeting-dot {
+    width:6px; height:6px; border-radius:50%; background:#22c55e;
+    animation:dbPulse 2s ease-in-out infinite;
+}
+@keyframes dbPulse { 0%,100% { box-shadow:0 0 0 0 rgba(34,197,94,0.5); } 50% { box-shadow:0 0 0 5px rgba(34,197,94,0); } }
+.db-header-title {
+    font-size:1.6rem; font-weight:800; color:var(--clr-text);
+    margin-bottom:4px; letter-spacing:-0.3px;
+}
+.db-header-name {
+    background:linear-gradient(135deg,var(--clr-light),var(--clr-primary));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+.db-header-sub { font-size:0.88rem; color:var(--clr-muted); }
+.db-header-right { display:flex; gap:16px; }
+.db-header-stat {
+    text-align:center; padding:10px 20px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:12px; min-width:90px;
+}
+.db-header-stat-num {
+    display:block; font-size:1.3rem; font-weight:800; color:var(--clr-light);
+    line-height:1.2;
+}
+.db-header-stat-label {
+    display:block; font-size:0.7rem; color:var(--clr-muted); font-weight:500;
+    text-transform:uppercase; letter-spacing:0.5px;
+}
+
+/* ===== STAT CARDS GRID ===== */
+.db-stats {
+    display:grid; grid-template-columns:repeat(5,1fr); gap:14px;
+    margin-bottom:24px; position:relative; z-index:5;
+}
+.db-stat-card {
+    position:relative; overflow:hidden;
+    background:var(--clr-card); backdrop-filter:blur(16px) saturate(180%);
+    -webkit-backdrop-filter:blur(16px) saturate(180%);
+    border:1px solid var(--clr-border);
+    border-radius:16px; padding:20px 18px;
+    transition:all 0.4s cubic-bezier(.16,1,.3,1); cursor:default;
+}
+.db-stat-card:hover {
+    transform:translateY(-4px);
+    border-color:var(--accent);
+    box-shadow:0 12px 40px rgba(0,0,0,0.2);
+}
+/* Top accent line */
+.db-stat-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:var(--accent);
+    border-radius:3px 3px 0 0;
+    opacity:0.8;
+}
+/* Glow orb on hover */
+.db-stat-card::after {
+    content:''; position:absolute; top:-3rem; right:-3rem;
+    width:8rem; height:8rem;
+    background:var(--accent);
+    border-radius:50%; filter:blur(50px);
+    opacity:0; transition:opacity 0.5s cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+}
+.db-stat-card:hover::after { opacity:0.15; }
+
+.db-stat-inner { position:relative; z-index:2; }
+.db-stat-top {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+}
+.db-stat-icon {
+    width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+    background:var(--accent-bg);
+    border-radius:12px; font-size:1.2rem; color:var(--accent); flex-shrink:0;
+    transition:transform 0.3s ease;
+}
+.db-stat-card:hover .db-stat-icon { transform:scale(1.1); }
+.db-stat-badge {
+    font-size:0.65rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.4px; padding:3px 10px; border-radius:20px;
+    color:var(--accent); background:var(--accent-bg);
+    border:1px solid var(--accent-border);
+}
+.db-stat-value {
+    display:block; font-size:1.75rem; font-weight:800; color:var(--clr-text);
+    line-height:1.15; letter-spacing:-0.5px; margin-bottom:2px;
+}
+.db-stat-value.pulse { animation:countUp 0.6s cubic-bezier(.16,1,.3,1) forwards; }
+.db-stat-label {
+    display:block; font-size:0.78rem; color:var(--clr-muted); font-weight:500;
+}
+
+/* ===== SECTION CONTAINER (for messages, orders, quick actions) ===== */
+.db-section {
+    position:relative; z-index:5;
+    background:var(--clr-card); backdrop-filter:blur(16px) saturate(180%);
+    -webkit-backdrop-filter:blur(16px) saturate(180%);
+    border:1px solid var(--clr-border);
+    border-radius:20px; overflow:hidden;
+    transition:all 0.4s cubic-bezier(.16,1,.3,1);
+    margin-bottom:20px;
+}
+.db-section:hover { border-color:rgba(37,99,235,0.1); }
+
+.db-section-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 24px; gap:16px;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.db-section-header-left { display:flex; align-items:center; gap:14px; }
+.db-section-icon {
+    width:42px; height:42px; display:flex; align-items:center; justify-content:center;
+    background:rgba(37,99,235,0.1);
+    border:1px solid rgba(37,99,235,0.12);
+    border-radius:10px; font-size:1.15rem; color:var(--clr-light); flex-shrink:0;
+}
+.db-section-title { font-size:1.05rem; font-weight:700; color:var(--clr-text); margin:0; }
+.db-section-sub { font-size:0.78rem; color:var(--clr-muted); margin:2px 0 0; }
+.db-section-link {
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:0.82rem; font-weight:600; color:var(--clr-primary);
+    text-decoration:none; transition:all 0.3s ease;
+    padding:6px 14px; border-radius:8px;
+    background:rgba(37,99,235,0.06); white-space:nowrap;
+}
+.db-section-link:hover { color:var(--clr-light); gap:8px; background:rgba(37,99,235,0.1); }
+.db-section-link i { transition:transform 0.3s ease; }
+.db-section-link:hover i { transform:translateX(3px); }
+
+/* ===== EMPTY STATE ===== */
+.db-empty {
+    text-align:center; padding:50px 20px;
+    animation:fadeIn 0.5s ease;
+}
+.db-empty-icon {
+    width:60px; height:60px; display:flex; align-items:center; justify-content:center;
+    margin:0 auto 12px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:16px; font-size:1.6rem; color:rgba(255,255,255,0.08);
+}
+.db-empty-title { font-size:1rem; font-weight:700; color:var(--clr-text); margin-bottom:4px; }
+.db-empty-desc { font-size:0.82rem; color:var(--clr-muted); max-width:320px; margin:0 auto; }
+
+/* ===== TABLE ===== */
+.db-table-wrap { overflow-x:auto; }
+.db-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+.db-th {
+    text-align:left; padding:14px 18px; font-weight:600; font-size:0.75rem;
+    color:var(--clr-muted); text-transform:uppercase; letter-spacing:0.5px;
+    background:rgba(255,255,255,0.02);
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    white-space:nowrap;
+}
+.db-tr { transition:background 0.3s ease; }
+.db-tr:hover { background:var(--clr-hover); }
+.db-td {
+    padding:14px 18px; color:var(--clr-text); vertical-align:middle;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.db-td-name { display:flex; align-items:center; gap:10px; }
+.db-avatar {
+    width:34px; height:34px; border-radius:50%;
+    background:linear-gradient(135deg,var(--clr-primary),var(--clr-dark));
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.75rem; font-weight:700; color:#fff; flex-shrink:0;
+}
+.db-email-link { color:var(--clr-primary); text-decoration:none; font-weight:500; transition:color 0.3s; }
+.db-email-link:hover { color:var(--clr-light); text-decoration:underline; }
+
+.db-view-btn {
+    display:inline-flex; align-items:center; gap:5px;
+    padding:5px 13px; font-size:0.78rem; font-weight:600;
+    background:rgba(37,99,235,0.08);
+    border:1px solid rgba(37,99,235,0.12);
+    border-radius:8px; color:var(--clr-light);
+    cursor:pointer; transition:all 0.3s ease; font-family:var(--font);
+}
+.db-view-btn:hover { background:rgba(37,99,235,0.15); transform:translateY(-1px); }
+
+.db-action-btn {
+    width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:8px; color:var(--clr-muted);
+    cursor:pointer; transition:all 0.3s ease; font-size:0.9rem; text-decoration:none;
+}
+.db-action-btn:hover { background:var(--clr-hover); color:var(--clr-light); }
+
+/* Status badge */
+.db-status {
+    display:inline-flex; align-items:center; gap:5px;
+    padding:3px 12px; border-radius:20px;
+    font-size:0.72rem; font-weight:700; text-transform:capitalize;
+}
+.db-status-pending { background:rgba(245,158,11,0.1); color:#F59E0B; border:1px solid rgba(245,158,11,0.15); }
+.db-status-processing { background:rgba(37,99,235,0.1); color:#60A5FA; border:1px solid rgba(37,99,235,0.15); }
+.db-status-completed { background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.15); }
+.db-status-cancelled { background:rgba(239,68,68,0.1); color:#f87171; border:1px solid rgba(239,68,68,0.15); }
+
+/* ===== TWO-COLUMN GRID ===== */
+.db-grid-2 {
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+    position:relative; z-index:5; margin-bottom:20px;
+}
+
+/* ===== QUICK ACTIONS ===== */
+.db-actions {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:20px 24px;
+}
+.db-action-item {
+    display:flex; align-items:center; gap:14px;
+    padding:16px 18px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:12px;
+    text-decoration:none; color:var(--clr-text);
+    transition:all 0.3s cubic-bezier(.16,1,.3,1);
+}
+.db-action-item:hover {
+    background:rgba(37,99,235,0.06);
+    border-color:rgba(37,99,235,0.15);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.15);
+}
+.db-action-icon {
+    width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    border-radius:10px; font-size:1.1rem; flex-shrink:0;
+}
+.db-action-info { flex:1; }
+.db-action-title { font-size:0.88rem; font-weight:600; color:var(--clr-text); margin-bottom:1px; }
+.db-action-desc { font-size:0.75rem; color:var(--clr-muted); }
+.db-action-arrow { color:var(--clr-muted); font-size:0.85rem; transition:transform 0.3s ease; }
+.db-action-item:hover .db-action-arrow { transform:translateX(3px); color:var(--clr-light); }
+
+/* ===== MODAL ===== */
+.db-modal-content {
+    background:#1e293b;
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:20px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);
+}
+.db-modal-header {
+    display:flex; align-items:center; gap:14px;
+    padding:20px 24px;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.db-modal-avatar {
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; font-weight:700; color:#fff;
+}
+.db-modal-info { flex:1; }
+.db-modal-name { font-size:1rem; font-weight:700; color:var(--clr-text); margin:0; }
+.db-modal-email { font-size:0.8rem; color:var(--clr-muted); }
+.db-modal-close {
+    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.04); border:none; border-radius:8px;
+    color:var(--clr-muted); cursor:pointer; transition:all 0.3s ease; font-size:0.8rem;
+}
+.db-modal-close:hover { background:rgba(255,255,255,0.08); color:var(--clr-text); }
+.db-modal-body { padding:24px; }
+.db-modal-meta {
+    display:flex; gap:20px; margin-bottom:14px; font-size:0.8rem; color:var(--clr-muted);
+}
+.db-modal-meta i { margin-right:5px; color:var(--clr-primary); }
+.db-modal-divider { height:1px; background:rgba(255,255,255,0.04); margin-bottom:16px; }
+.db-modal-text { font-size:0.92rem; line-height:1.7; color:var(--clr-text); margin:0; }
+.db-modal-footer {
+    display:flex; justify-content:flex-end; gap:10px;
+    padding:16px 24px;
+    border-top:1px solid rgba(255,255,255,0.04);
+}
+.db-btn-secondary {
+    padding:9px 20px; font-size:0.82rem; font-weight:600;
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px; color:var(--clr-muted); cursor:pointer;
+    font-family:var(--font); transition:all 0.3s ease; text-decoration:none;
+}
+.db-btn-secondary:hover { background:rgba(255,255,255,0.08); color:var(--clr-text); }
+.db-btn-primary {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:9px 20px; font-size:0.82rem; font-weight:600;
+    background:linear-gradient(135deg,var(--clr-primary),var(--clr-dark));
+    border:none; border-radius:10px; color:#fff; cursor:pointer;
+    text-decoration:none; font-family:var(--font);
+    transition:all 0.3s ease; box-shadow:0 4px 12px rgba(37,99,235,0.25);
+}
+.db-btn-primary:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(37,99,235,0.35); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .db-stats { grid-template-columns:repeat(3,1fr); }
+    .db-grid-2 { grid-template-columns:1fr; }
+}
+@media (max-width: 992px) {
+    .db-page { padding:20px 16px; }
+    .db-stats { grid-template-columns:repeat(2,1fr); }
+    .db-header-content { flex-direction:column; align-items:flex-start; }
+    .db-header-right { width:100%; justify-content:space-around; }
+    .db-header-stat { min-width:0; flex:1; }
+    .db-actions { grid-template-columns:1fr; }
+}
+@media (max-width: 640px) {
+    .db-page { padding:16px 12px; }
+    .db-header { padding:20px 18px; border-radius:16px; }
+    .db-admin-logo-img, .db-admin-logo-fallback { width:48px; height:48px; font-size:1.2rem; }
+    .db-header-title { font-size:1.25rem; }
+    .db-header-left { gap:14px; }
+    .db-header-right { gap:8px; flex-wrap:wrap; }
+    .db-header-stat { padding:8px 12px; flex:1; min-width:60px; }
+    .db-header-stat-num { font-size:1.1rem; }
+    .db-stats { grid-template-columns:1fr; gap:12px; }
+    .db-section-header { flex-direction:column; align-items:flex-start; }
+    .db-section-header-left { gap:10px; }
+    .db-section { border-radius:14px; }
+    .db-section-header { padding:16px 18px; }
+    .db-stat-card { padding:16px 18px; }
+    .db-stat-value { font-size:1.5rem; }
+    .db-actions { padding:16px 18px; }
+    .db-actions { grid-template-columns:1fr; }
+    .db-action-item { padding:14px 16px; }
+}
+@media (max-width: 480px) {
+    .db-page { padding:12px 10px; }
+    .db-header { padding:16px 14px; border-radius:14px; }
+    .db-header-content { gap:16px; }
+    .db-header-left { flex-direction:column; align-items:flex-start; gap:12px; }
+    .db-admin-logo-img, .db-admin-logo-fallback { width:44px; height:44px; font-size:1.1rem; }
+    .db-header-title { font-size:1.1rem; }
+    .db-header-sub { font-size:0.8rem; }
+    .db-header-right { width:100%; }
+    .db-greeting { font-size:0.72rem; }
+    .db-stat-card { padding:14px 16px; border-radius:14px; }
+    .db-stat-value { font-size:1.35rem; }
+    .db-stat-icon { width:38px; height:38px; font-size:1rem; }
+    .db-section { border-radius:12px; margin-bottom:14px; }
+    .db-section-header { padding:14px 16px; }
+    .db-section-title { font-size:0.95rem; }
+    .db-section-sub { font-size:0.72rem; }
+    .db-section-link { font-size:0.75rem; padding:5px 10px; }
+    .db-th { padding:10px 12px; font-size:0.7rem; }
+    .db-td { padding:10px 12px; font-size:0.8rem; }
+    .db-avatar { width:28px; height:28px; font-size:0.65rem; }
+    .db-action-item { padding:12px 14px; border-radius:10px; }
+    .db-action-icon { width:34px; height:34px; font-size:0.95rem; }
+    .db-action-title { font-size:0.82rem; }
+    .db-action-desc { font-size:0.7rem; }
 }
 </style>
 
-<div class="dsb-body container-fluid py-3">
+<div class="db-page">
 
-    {{-- ─── HEADER ─── --}}
-    <div class="dsb-header mb-4 dsb-fade">
-        <div class="dsb-header-grid"></div>
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-            <div>
-                <div class="d-flex align-items-center gap-3 mb-1">
-                    <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;box-shadow:0 8px 24px rgba(99,102,241,0.3);">
-                        <i class="bi bi-speedometer2"></i>
+    {{-- BG Orbs --}}
+    <div class="db-orb db-orb-1"></div>
+    <div class="db-orb db-orb-2"></div>
+    <div class="db-orb db-orb-3"></div>
+    <div class="db-orb db-orb-4"></div>
+
+    {{-- Particles --}}
+    <div class="db-particles" id="dbParticles"></div>
+
+    {{-- ===================== HEADER ===================== --}}
+    <div class="db-header">
+        <div class="db-header-bg"></div>
+        <div class="db-header-glow"></div>
+        <div class="db-header-content">
+            <div class="db-header-left">
+                <div class="db-admin-logo">
+                    @php
+                        $admin = Auth::user();
+                        $adminInitial = $admin ? strtoupper(substr($admin->name ?? 'A', 0, 1)) : 'A';
+                    @endphp
+                    <div class="db-admin-logo-fallback">{{ $adminInitial }}</div>
+                    <div class="db-admin-logo-dot"></div>
+                </div>
+                <div>
+                    <div class="db-greeting">
+                        <span class="db-greeting-dot"></span>
+                        @php
+                            $hour = now()->format('H');
+                            $greeting = 'Good Evening';
+                            if ((int)$hour < 12) $greeting = 'Good Morning';
+                            elseif ((int)$hour < 17) $greeting = 'Good Afternoon';
+                        @endphp
+                        {{ $greeting }}, Admin
                     </div>
-                    <div>
-                        <h4 class="fw-bold mb-0" style="color:#fff;letter-spacing:-0.3px;">Dashboard</h4>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.6);font-size:0.82rem;">
-                            Welcome back, <strong style="color:#a5b4fc;">{{ auth()->user()->name }}</strong>
-                            @if($account)
-                                <span style="color:rgba(255,255,255,0.35);"> &middot; {{ $account->name }}</span>
-                            @endif
-                        </p>
-                    </div>
+                    <h1 class="db-header-title">
+                        Welcome back, <span class="db-header-name">{{ $admin->name ?? 'Admin' }}</span>
+                    </h1>
+                    <p class="db-header-sub">
+                        Here's what's happening with your site today.
+                    </p>
                 </div>
             </div>
-            <div class="d-flex align-items-center gap-2">
-                <span style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.4rem 1rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:50px;color:rgba(255,255,255,0.7);font-weight:500;font-size:0.78rem;">
-                    <i class="bi bi-calendar3"></i> {{ now()->format('M d, Y') }}
-                </span>
-            </div>
-        </div>
-        {{-- Mini stats row inside header --}}
-        <div class="row g-2 mt-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.06);">
-            <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Projects</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeProjects }}/{{ $projectsCount }}</div>
-            </div>
-            <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Posts</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $publishedPosts }}/{{ $postsCount }}</div>
-            </div>
-            <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Messages</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $contactsCount }}</div>
-            </div>
-            <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Users</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $usersCount }}</div>
-            </div>
-            <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Skills</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeSkills }}/{{ $skillsCount }}</div>
-            </div>
-            <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">FAQs</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeFaqs }}/{{ $faqsCount }}</div>
+            <div class="db-header-right">
+                <div class="db-header-stat">
+                    <span class="db-header-stat-num">{{ $totalOrders }}</span>
+                    <span class="db-header-stat-label">Total Orders</span>
+                </div>
+                <div class="db-header-stat">
+                    <span class="db-header-stat-num" style="color:var(--clr-accent-green)">{{ $pendingOrders }}</span>
+                    <span class="db-header-stat-label">Pending</span>
+                </div>
+                <div class="db-header-stat">
+                    <span class="db-header-stat-num" style="color:var(--clr-accent-purple)">{{ $totalContacts }}</span>
+                    <span class="db-header-stat-label">Messages</span>
+                </div>
             </div>
         </div>
     </div>
 
-    {{-- ─── STAT CARDS ─── --}}
-    <div class="row g-3 mb-4">
-        @php
-            $stats = [
-                ['count' => $projectsCount, 'active' => $activeProjects, 'label' => 'Projects', 'icon' => 'bi-folder2-open', 'color' => '#6366f1', 'bg' => 'rgba(99,102,241,0.08)'],
-                ['count' => $servicesCount, 'active' => $activeServices, 'label' => 'Services', 'icon' => 'bi-gear', 'color' => '#10b981', 'bg' => 'rgba(16,185,129,0.08)'],
-                ['count' => $experiencesCount, 'active' => $activeExperiences, 'label' => 'Experiences', 'icon' => 'bi-briefcase', 'color' => '#f59e0b', 'bg' => 'rgba(245,158,11,0.08)'],
-                ['count' => $skillsCount, 'active' => $activeSkills, 'label' => 'Skills', 'icon' => 'bi-lightning-charge', 'color' => '#8b5cf6', 'bg' => 'rgba(139,92,246,0.08)'],
-                ['count' => $testimonialsCount, 'active' => $activeTestimonials, 'label' => 'Testimonials', 'icon' => 'bi-chat-quote', 'color' => '#ec4899', 'bg' => 'rgba(236,72,153,0.08)'],
-            ];
-        @endphp
-        @foreach($stats as $s)
-        <div class="col-6 col-md-4 col-lg col-xl dsb-fade">
-            <div class="dsb-stat">
-                <div class="dsb-stat-glow" style="background:radial-gradient(circle, {{ $s['color'] }}, transparent);"></div>
-                <div class="d-flex align-items-center gap-3 mb-2">
-                    <div class="dsb-stat-icon" style="background:{{ $s['bg'] }}; color:{{ $s['color'] }};">
-                        <i class="bi {{ $s['icon'] }}"></i>
-                    </div>
+    {{-- ===================== STAT CARDS ===================== --}}
+    <div class="db-stats">
+
+        {{-- Contacts --}}
+        <div class="db-stat-card" style="--accent:#60A5FA;--accent-bg:rgba(96,165,250,0.1);--accent-border:rgba(96,165,250,0.15);">
+            <div class="db-stat-inner">
+                <div class="db-stat-top">
+                    <div class="db-stat-icon"><i class="bi bi-envelope-fill"></i></div>
+                    <span class="db-stat-badge">Inbox</span>
+                </div>
+                <span class="db-stat-value">{{ $totalContacts }}</span>
+                <span class="db-stat-label">Contact Messages</span>
+            </div>
+        </div>
+
+        {{-- Orders --}}
+        <div class="db-stat-card" style="--accent:#00FF9F;--accent-bg:rgba(0,255,159,0.08);--accent-border:rgba(0,255,159,0.12);">
+            <div class="db-stat-inner">
+                <div class="db-stat-top">
+                    <div class="db-stat-icon" style="color:var(--clr-accent-green)"><i class="bi bi-bag-fill"></i></div>
+                    <span class="db-stat-badge" style="color:var(--clr-accent-green);background:rgba(0,255,159,0.08);border-color:rgba(0,255,159,0.12);">{{ $pendingOrders }} pending</span>
+                </div>
+                <span class="db-stat-value">{{ $totalOrders }}</span>
+                <span class="db-stat-label">Total Orders</span>
+            </div>
+        </div>
+
+        {{-- Products --}}
+        <div class="db-stat-card" style="--accent:#A855F7;--accent-bg:rgba(168,85,247,0.1);--accent-border:rgba(168,85,247,0.15);">
+            <div class="db-stat-inner">
+                <div class="db-stat-top">
+                    <div class="db-stat-icon" style="color:var(--clr-accent-purple)"><i class="bi bi-box-seam-fill"></i></div>
+                    <span class="db-stat-badge" style="color:var(--clr-accent-purple);background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.12);">Products</span>
+                </div>
+                <span class="db-stat-value">{{ $totalProducts }}</span>
+                <span class="db-stat-label">Products</span>
+            </div>
+        </div>
+
+        {{-- Source Codes --}}
+        <div class="db-stat-card" style="--accent:#F59E0B;--accent-bg:rgba(245,158,11,0.1);--accent-border:rgba(245,158,11,0.15);">
+            <div class="db-stat-inner">
+                <div class="db-stat-top">
+                    <div class="db-stat-icon" style="color:var(--clr-accent-amber)"><i class="bi bi-code-slash"></i></div>
+                    <span class="db-stat-badge" style="color:var(--clr-accent-amber);background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.12);">Code</span>
+                </div>
+                <span class="db-stat-value">{{ $totalSourceCodes }}</span>
+                <span class="db-stat-label">Source Codes</span>
+            </div>
+        </div>
+
+        {{-- Partners --}}
+        <div class="db-stat-card" style="--accent:#F43F5E;--accent-bg:rgba(244,63,94,0.1);--accent-border:rgba(244,63,94,0.15);">
+            <div class="db-stat-inner">
+                <div class="db-stat-top">
+                    <div class="db-stat-icon" style="color:var(--clr-accent-rose)"><i class="bi bi-people-fill"></i></div>
+                    <span class="db-stat-badge" style="color:var(--clr-accent-rose);background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.12);">Partners</span>
+                </div>
+                <span class="db-stat-value">{{ $totalPartners }}</span>
+                <span class="db-stat-label">Partnerships</span>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- ===================== TWO-COLUMN GRID ===================== --}}
+    <div class="db-grid-2">
+
+        {{-- === RECENT MESSAGES === --}}
+        <div class="db-section">
+            <div class="db-section-header">
+                <div class="db-section-header-left">
+                    <div class="db-section-icon"><i class="bi bi-chat-dots"></i></div>
                     <div>
-                        <div class="dsb-stat-num">{{ $s['count'] }}</div>
-                        <div class="dsb-stat-label">{{ $s['label'] }}</div>
-                        <div class="dsb-stat-sub" style="color:{{ $s['color'] }};"><i class="bi bi-check-circle-fill"></i> {{ $s['active'] }} active</div>
+                        <h2 class="db-section-title">Recent Messages</h2>
+                        <p class="db-section-sub">Latest inquiries from the contact form.</p>
+                    </div>
+                </div>
+                <a href="{{ route('admin.contact') }}" class="db-section-link">
+                    View all <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            @if($contacts->isEmpty())
+                <div class="db-empty">
+                    <div class="db-empty-icon"><i class="bi bi-inbox"></i></div>
+                    <h3 class="db-empty-title">No messages yet</h3>
+                    <p class="db-empty-desc">Messages from the contact form will appear here.</p>
+                </div>
+            @else
+                <div class="db-table-wrap">
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th class="db-th">Name</th>
+                                <th class="db-th">Email</th>
+                                <th class="db-th">Message</th>
+                                <th class="db-th">Date</th>
+                                <th class="db-th" style="text-align:center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($contacts as $contact)
+                                <tr class="db-tr">
+                                    <td class="db-td">
+                                        <div class="db-td-name">
+                                            <div class="db-avatar">
+                                                {{ strtoupper(substr($contact->name, 0, 1)) }}
+                                            </div>
+                                            <span>{{ $contact->name }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="db-td">
+                                        <a href="mailto:{{ $contact->email }}" class="db-email-link">{{ $contact->email }}</a>
+                                    </td>
+                                    <td class="db-td">
+                                        <button class="db-view-btn" data-modal-target="msgModal{{ $contact->id }}">
+                                            <i class="bi bi-eye"></i> View
+                                        </button>
+                                    </td>
+                                    <td class="db-td" style="white-space:nowrap;color:var(--clr-muted);font-size:0.8rem;">
+                                        {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y, h:i A') }}
+                                    </td>
+                                    <td class="db-td" style="text-align:center">
+                                        <button class="db-action-btn" data-modal-target="msgModal{{ $contact->id }}" title="View message">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach                    </tbody>
+                </table>
+            </div>
+            @endif
+        </div>
+
+        {{-- === RECENT ORDERS === --}}
+        <div class="db-section">
+            <div class="db-section-header">
+                <div class="db-section-header-left">
+                    <div class="db-section-icon" style="background:rgba(0,255,159,0.08);border-color:rgba(0,255,159,0.1);color:var(--clr-accent-green)"><i class="bi bi-bag-fill"></i></div>
+                    <div>
+                        <h2 class="db-section-title">Recent Orders</h2>
+                        <p class="db-section-sub">Latest orders from customers.</p>
+                    </div>
+                </div>
+                <a href="{{ route('admin.orders.index') }}" class="db-section-link">
+                    View all <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            @if($recentOrders->isEmpty())
+                <div class="db-empty">
+                    <div class="db-empty-icon"><i class="bi bi-cart-x"></i></div>
+                    <h3 class="db-empty-title">No orders yet</h3>
+                    <p class="db-empty-desc">Customer orders will appear here once they start coming in.</p>
+                </div>
+            @else
+                <div class="db-table-wrap">
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th class="db-th">Order #</th>
+                                <th class="db-th">Customer</th>
+                                <th class="db-th">Total</th>
+                                <th class="db-th">Status</th>
+                                <th class="db-th" style="text-align:center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recentOrders as $order)
+                                <tr class="db-tr">
+                                    <td class="db-td" style="font-weight:600;font-family:'JetBrains Mono',monospace;font-size:0.8rem;">
+                                        {{ $order->order_number ?? '#' . $order->id }}
+                                    </td>
+                                    <td class="db-td">
+                                        <div class="db-td-name">
+                                            @php
+                                                $initial = strtoupper(substr($order->customer_name ?? 'U', 0, 1));
+                                            @endphp
+                                            <div class="db-avatar" style="background:linear-gradient(135deg,#0EA5E9,#0284C7);width:30px;height:30px;font-size:0.65rem;">
+                                                {{ $initial }}
+                                            </div>
+                                            <div>
+                                                <span style="font-weight:500">{{ $order->customer_name ?? 'Unknown' }}</span>
+                                                @if($order->customer_email)
+                                                    <br><span style="font-size:0.72rem;color:var(--clr-muted)">{{ $order->customer_email }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="db-td" style="font-weight:700;font-family:'JetBrains Mono',monospace;">
+                                        ${{ number_format((float)$order->total, 2) }}
+                                    </td>
+                                    <td class="db-td">
+                                        <span class="db-status db-status-{{ $order->status ?? 'pending' }}">
+                                            @if(($order->status ?? 'pending') == 'pending')
+                                                <i class="bi bi-clock-history"></i>
+                                            @elseif($order->status == 'processing')
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            @elseif($order->status == 'completed')
+                                                <i class="bi bi-check-circle"></i>
+                                            @elseif($order->status == 'cancelled')
+                                                <i class="bi bi-x-circle"></i>
+                                            @endif
+                                            {{ $order->status ?? 'pending' }}
+                                        </span>
+                                    </td>
+                                    <td class="db-td" style="text-align:center">
+                                        <a href="{{ route('admin.orders.show', $order->id) }}" class="db-action-btn" title="View order">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+
+    </div>
+
+    {{-- Modals (placed outside .db-section to avoid overflow:hidden clipping of Bootstrap modal backdrop) --}}
+    @if(!$contacts->isEmpty())
+        @foreach($contacts as $contact)
+            <div class="modal fade" id="msgModal{{ $contact->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content db-modal-content">
+                        <div class="db-modal-header">
+                            <div class="db-modal-avatar" style="background:linear-gradient(135deg,#2563EB,#1E40AF);">
+                                {{ strtoupper(substr($contact->name, 0, 1)) }}
+                            </div>
+                            <div class="db-modal-info">
+                                <h5 class="db-modal-name">{{ $contact->name }}</h5>
+                                <span class="db-modal-email">{{ $contact->email }}</span>
+                            </div>
+                            <button type="button" class="db-modal-close" data-bs-dismiss="modal">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                        <div class="db-modal-body">
+                            <div class="db-modal-meta">
+                                <span><i class="bi bi-calendar3"></i> {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}</span>
+                                <span><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}</span>
+                            </div>
+                            <div class="db-modal-divider"></div>
+                            <p class="db-modal-text">{{ $contact->message }}</p>
+                        </div>
+                        <div class="db-modal-footer">
+                            <button type="button" class="db-btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endforeach
-    </div>
+    @endif
 
-    {{-- ─── STAT CARDS ROW 2 ─── --}}
-    <div class="row g-3 mb-4">
-        @php
-            $stats2 = [
-                ['count' => $postsCount, 'sub' => "$publishedPosts published", 'label' => 'Blog Posts', 'icon' => 'bi-pencil-square', 'color' => '#3b82f6', 'bg' => 'rgba(59,130,246,0.08)'],
-                ['count' => $faqsCount, 'sub' => "$activeFaqs active", 'label' => 'FAQs', 'icon' => 'bi-question-circle', 'color' => '#f97316', 'bg' => 'rgba(249,115,22,0.08)'],
-                ['count' => $contactsCount, 'sub' => 'all inbox', 'label' => 'Messages', 'icon' => 'bi-envelope', 'color' => '#ef4444', 'bg' => 'rgba(239,68,68,0.08)'],
-                ['count' => $usersCount, 'sub' => 'registered', 'label' => 'Users', 'icon' => 'bi-people', 'color' => '#0ea5e9', 'bg' => 'rgba(14,165,233,0.08)'],
-            ];
-        @endphp
-        @foreach($stats2 as $s)
-        <div class="col-6 col-md-3 dsb-fade">
-            <div class="dsb-stat">
-                <div class="dsb-stat-glow" style="background:radial-gradient(circle, {{ $s['color'] }}, transparent);"></div>
-                <div class="d-flex align-items-center gap-3 mb-2">
-                    <div class="dsb-stat-icon" style="background:{{ $s['bg'] }}; color:{{ $s['color'] }};">
-                        <i class="bi {{ $s['icon'] }}"></i>
-                    </div>
-                    <div>
-                        <div class="dsb-stat-num">{{ $s['count'] }}</div>
-                        <div class="dsb-stat-label">{{ $s['label'] }}</div>
-                        <div class="dsb-stat-sub" style="color:{{ $s['color'] }};"><i class="bi bi-check-circle-fill"></i> {{ $s['sub'] }}</div>
-                    </div>
+    {{-- ===================== QUICK ACTIONS ===================== --}}
+    <div class="db-section">
+        <div class="db-section-header">
+            <div class="db-section-header-left">
+                <div class="db-section-icon" style="background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.1);color:var(--clr-accent-purple)"><i class="bi bi-lightning-fill"></i></div>
+                <div>
+                    <h2 class="db-section-title">Quick Actions</h2>
+                    <p class="db-section-sub">Manage your site content in a few clicks.</p>
                 </div>
             </div>
         </div>
-        @endforeach
-    </div>
-
-    {{-- ─── RECENT ITEMS GRID ─── --}}
-    <div class="row g-4">
-
-        {{-- Recent Projects --}}
-        <div class="col-lg-6 dsb-fade">
-            <div class="dsb-card">
-                <div class="dsb-card-hd">
-                    <span><i class="bi bi-folder2-open" style="color:#6366f1;"></i> Recent Projects</span>
-                    <a href="{{ url('/admin/projects') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
-                        View All <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
+        <div class="db-actions">
+            <a href="{{ route('admin.products.index') }}" class="db-action-item">
+                <div class="db-action-icon" style="background:rgba(96,165,250,0.1);color:#60A5FA;"><i class="bi bi-box-seam-fill"></i></div>
+                <div class="db-action-info">
+                    <div class="db-action-title">Manage Products</div>
+                    <div class="db-action-desc">Add, edit or remove products</div>
                 </div>
-                <div class="dsb-card-bd">
-                    @forelse($recentProjects as $p)
-                        <a href="{{ url('/admin/projects/edit/' . $p->id) }}" class="dsb-item" style="--accent:#6366f1;">
-                            <span class="dsb-item-av" style="background:rgba(99,102,241,0.08); color:#6366f1;">
-                                <i class="bi bi-folder2"></i>
-                            </span>
-                            <span class="dsb-item-info">
-                                <span class="dsb-item-title">{{ $p->title }}</span>
-                                <span class="dsb-item-meta">
-                                    @if($p->category)<span><i class="bi bi-tag"></i>{{ $p->category }} &middot; </span>@endif
-                                    <span><i class="bi bi-clock"></i>{{ $p->created_at->diffForHumans() }}</span>
-                                </span>
-                            </span>
-                            <span class="dsb-badge {{ $p->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">{{ $p->is_active ? 'Active' : 'Draft' }}</span>
-                        </a>
-                    @empty
-                        <div class="text-center py-4 text-muted small"><i class="bi bi-folder2-open fs-2 d-block mb-2"></i>No projects yet</div>
-                    @endforelse
+                <i class="bi bi-chevron-right db-action-arrow"></i>
+            </a>
+            <a href="{{ route('admin.source-codes.index') }}" class="db-action-item">
+                <div class="db-action-icon" style="background:rgba(245,158,11,0.1);color:#F59E0B;"><i class="bi bi-code-slash"></i></div>
+                <div class="db-action-info">
+                    <div class="db-action-title">Manage Source Codes</div>
+                    <div class="db-action-desc">Add, edit or remove source codes</div>
                 </div>
-            </div>
-        </div>
-
-        {{-- Recent Posts --}}
-        <div class="col-lg-6 dsb-fade">
-            <div class="dsb-card">
-                <div class="dsb-card-hd">
-                    <span><i class="bi bi-pencil-square" style="color:#3b82f6;"></i> Recent Blog Posts</span>
-                    <a href="{{ url('/admin/blog') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
-                        View All <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
+                <i class="bi bi-chevron-right db-action-arrow"></i>
+            </a>
+            <a href="{{ route('admin.orders.index') }}" class="db-action-item">
+                <div class="db-action-icon" style="background:rgba(0,255,159,0.08);color:#00FF9F;"><i class="bi bi-bag-fill"></i></div>
+                <div class="db-action-info">
+                    <div class="db-action-title">View Orders</div>
+                    <div class="db-action-desc">Track and manage customer orders</div>
                 </div>
-                <div class="dsb-card-bd">
-                    @forelse($recentPosts as $p)
-                        <a href="{{ url('/admin/blog/edit/' . $p->id) }}" class="dsb-item" style="--accent:#3b82f6;">
-                            <span class="dsb-item-av" style="background:rgba(59,130,246,0.08); color:#3b82f6;">
-                                <i class="bi bi-file-text"></i>
-                            </span>
-                            <span class="dsb-item-info">
-                                <span class="dsb-item-title">{{ $p->title }}</span>
-                                <span class="dsb-item-meta">
-                                    @if($p->category)<span><i class="bi bi-folder"></i>{{ $p->category }} &middot; </span>@endif
-                                    <span><i class="bi bi-clock"></i>{{ $p->created_at->diffForHumans() }}</span>
-                                </span>
-                            </span>
-                            <span class="dsb-badge {{ $p->is_published ? 'text-bg-success' : 'text-bg-warning' }}">{{ $p->is_published ? 'Published' : 'Draft' }}</span>
-                        </a>
-                    @empty
-                        <div class="text-center py-4 text-muted small"><i class="bi bi-pencil-square fs-2 d-block mb-2"></i>No posts yet</div>
-                    @endforelse
+                <i class="bi bi-chevron-right db-action-arrow"></i>
+            </a>
+            <a href="{{ route('admin.partners.index') }}" class="db-action-item">
+                <div class="db-action-icon" style="background:rgba(244,63,94,0.1);color:#F43F5E;"><i class="bi bi-people-fill"></i></div>
+                <div class="db-action-info">
+                    <div class="db-action-title">Manage Partners</div>
+                    <div class="db-action-desc">Review and manage partnership requests</div>
                 </div>
-            </div>
-        </div>
-
-        {{-- Recent Services --}}
-        <div class="col-lg-6 dsb-fade">
-            <div class="dsb-card">
-                <div class="dsb-card-hd">
-                    <span><i class="bi bi-gear" style="color:#10b981;"></i> Recent Services</span>
-                    <a href="{{ url('/admin/services') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
-                        View All <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
-                </div>
-                <div class="dsb-card-bd">
-                    @forelse($recentServices as $s)
-                        <a href="{{ url('/admin/services/edit/' . $s->id) }}" class="dsb-item" style="--accent:#10b981;">
-                            <span class="dsb-item-av" style="background:rgba(16,185,129,0.08); color:#10b981;">
-                                <i class="bi bi-gear"></i>
-                            </span>
-                            <span class="dsb-item-info">
-                                <span class="dsb-item-title">{{ $s->title }}</span>
-                                <span class="dsb-item-meta">
-                                    <span><i class="bi bi-clock"></i>{{ $s->created_at->diffForHumans() }}</span>
-                                </span>
-                            </span>
-                            <span class="dsb-badge {{ $s->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">{{ $s->is_active ? 'Active' : 'Inactive' }}</span>
-                        </a>
-                    @empty
-                        <div class="text-center py-4 text-muted small"><i class="bi bi-gear fs-2 d-block mb-2"></i>No services yet</div>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-
-        {{-- Recent Messages --}}
-        <div class="col-lg-6 dsb-fade">
-            <div class="dsb-card">
-                <div class="dsb-card-hd">
-                    <span><i class="bi bi-chat-dots" style="color:#ef4444;"></i> Recent Messages</span>
-                    <a href="{{ url('/admin/contact') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
-                        View All <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
-                </div>
-                <div class="dsb-card-bd">
-                    @forelse($recentMessages as $m)
-                        <button type="button" class="dsb-item" onclick="openMessageModal(this)" data-msg-name="{{ htmlspecialchars($m->name) }}" data-msg-email="{{ htmlspecialchars($m->email) }}" data-msg-content="{{ htmlspecialchars($m->message) }}" style="cursor:pointer;width:100%;border:none;background:transparent;text-align:left;font-family:inherit;color:inherit;--accent:#ef4444;">
-                            <span class="dsb-item-av" style="background:rgba(239,68,68,0.08); color:#ef4444;">
-                                {{ strtoupper(substr($m->name, 0, 1)) }}
-                            </span>
-                            <span class="dsb-item-info">
-                                <span class="dsb-item-title">{{ $m->name }}</span>
-                                <span class="dsb-item-meta">
-                                    <span><i class="bi bi-envelope"></i>{{ $m->email }} &middot; </span>
-                                    <span><i class="bi bi-clock"></i>{{ $m->created_at->diffForHumans() }}</span>
-                                </span>
-                            </span>
-                            <span class="dsb-badge text-bg-primary" style="font-size:0.65rem;"><i class="bi bi-eye"></i></span>
-                        </button>
-                    @empty
-                        <div class="text-center py-4 text-muted small"><i class="bi bi-inbox fs-2 d-block mb-2"></i>No messages yet</div>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ─── MESSAGE MODAL ─── --}}
-    <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content shadow" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.6);">
-                <div class="modal-header" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:1.2rem 1.5rem;">
-                    <h5 class="modal-title fw-semibold"><i class="bi bi-person-circle me-2"></i><span id="msgName"></span></h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body px-4 py-4">
-                    <div class="mb-3 pb-3 border-bottom d-flex align-items-center gap-2">
-                        <span style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.8rem;background:rgba(99,102,241,0.06);border-radius:8px;color:#6366f1;font-weight:500;font-size:0.82rem;">
-                            <i class="bi bi-envelope-fill"></i> <span id="msgEmail"></span>
-                        </span>
-                    </div>
-                    <div>
-                        <small class="text-muted fw-semibold d-block mb-2" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;">Message</small>
-                        <p class="mb-0 lh-base" id="msgContent" style="white-space:pre-wrap;color:#334155;font-size:0.92rem;"></p>
-                    </div>
-                </div>
-                <div class="modal-footer border-0 px-4 pb-4 pt-0">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4" style="background:#f1f5f9;color:#64748b;border:none;font-weight:600;" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ─── QUICK ACTIONS ─── --}}
-    <div class="row mt-4 dsb-fade">
-        <div class="col-12">
-            <div class="dsb-card">
-                <div class="dsb-card-hd">
-                    <span><i class="bi bi-lightning-charge" style="color:#f59e0b;"></i> Quick Actions</span>
-                </div>
-                <div class="p-3 dsb-qa-wrap">
-                    <div class="d-flex flex-nowrap gap-2">
-                        <a href="{{ url('/admin/projects/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#6366f1;"></i> Project</a>
-                        <a href="{{ url('/admin/services/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#10b981;"></i> Service</a>
-                        <a href="{{ url('/admin/experiences/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f59e0b;"></i> Experience</a>
-                        <a href="{{ url('/admin/skills/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#8b5cf6;"></i> Skill</a>
-                        <a href="{{ url('/admin/testimonials/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#ec4899;"></i> Testimonial</a>
-                        <a href="{{ url('/admin/blog/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#3b82f6;"></i> Blog Post</a>
-                        <a href="{{ url('/admin/faqs/create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f97316;"></i> FAQ</a>
-                        <a href="{{ url('/admin/account/edit') }}" class="dsb-qa"><i class="bi bi-pencil" style="color:#0ea5e9;"></i> Account</a>
-                    </div>
-                </div>
-            </div>
+                <i class="bi bi-chevron-right db-action-arrow"></i>
+            </a>
         </div>
     </div>
 
 </div>
 
-@endsection
-
-@section('scripts')
 <script>
-function openMessageModal(btn) {
-    document.getElementById('msgName').textContent = btn.getAttribute('data-msg-name');
-    document.getElementById('msgEmail').textContent = btn.getAttribute('data-msg-email');
-    document.getElementById('msgContent').textContent = btn.getAttribute('data-msg-content');
-    var el = document.getElementById('messageModal');
-    if (el) {
-        var modal = bootstrap.Modal.getOrCreateInstance(el);
-        modal.show();
+document.addEventListener('DOMContentLoaded', function() {
+    // ===== PARTICLES =====
+    const pc = document.getElementById('dbParticles');
+    if (pc) {
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'db-p';
+            const s = Math.random() * 3 + 2;
+            p.style.cssText = `
+                width:${s}px;height:${s}px;
+                left:${Math.random() * 100}%;
+                animation-duration:${Math.random() * 14 + 10}s;
+                animation-delay:${Math.random() * 5}s;
+                bottom:-10px;
+                opacity:${Math.random() * 0.35 + 0.1};
+            `;
+            pc.appendChild(p);
+        }
     }
-}
+
+    // ===== STAGGER ANIMATIONS =====
+    const statCards = document.querySelectorAll('.db-stat-card');
+    statCards.forEach((el, i) => {
+        el.style.animation = `fadeUp 0.6s cubic-bezier(.16,1,.3,1) ${0.2 + i * 0.08}s forwards`;
+        el.style.opacity = '0';
+    });
+
+    const sections = document.querySelectorAll('.db-section');
+    sections.forEach((el, i) => {
+        el.style.animation = `slideUp 0.6s cubic-bezier(.16,1,.3,1) ${0.5 + i * 0.12}s forwards`;
+        el.style.opacity = '0';
+    });
+
+    // ===== MODAL INITIALIZATION =====
+    document.querySelectorAll('[data-modal-target]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var modalId = this.getAttribute('data-modal-target');
+            var modalEl = document.getElementById(modalId);
+            if (modalEl) {
+                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                    var modal = bootstrap.Modal.getInstance(modalEl);
+                    if (!modal) {
+                        modal = new bootstrap.Modal(modalEl, {
+                            backdrop: true,
+                            keyboard: true
+                        });
+                    }
+                    modal.show();
+                } else {
+                    modalEl.classList.add('show');
+                    modalEl.style.display = 'block';
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var modalEl = this.closest('.modal');
+            if (modalEl) {
+                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                    var modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) modal.hide();
+                } else {
+                    modalEl.classList.remove('show');
+                    modalEl.style.display = 'none';
+                }
+            }
+        });
+    });
+});
 </script>
+
 @endsection

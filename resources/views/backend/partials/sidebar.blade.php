@@ -1,82 +1,326 @@
-<!-- Sidebar (desktop only) -->
-<aside class="sidebar d-none d-md-block" id="sidebarCollapse" style="width:260px; min-width:260px; background:linear-gradient(180deg,#0f172a,#1e293b); flex-shrink:0;">
-    <div class="sidebar-header" style="padding:1.2rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:0.5rem; flex-shrink:0;">
-        <a href="/admin" class="brand" style="display:flex; align-items:center; gap:0.75rem; color:#fff; text-decoration:none; font-size:1.2rem; font-weight:800; letter-spacing:-0.3px;">
-            <i class="bi bi-grid-1x2-fill" style="font-size:1.6rem; color:#6366f1;"></i>
-            <span style="background:linear-gradient(135deg,#fff 60%,#94a3b8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">{{ __('messages.admin') }} Panel</span>
-        </a>
-    </div>
+@php
+use Illuminate\Support\Str;
+@endphp
 
-    <ul class="sidebar-menu">
-        <li>
-            <a href="{{ url('/admin') }}"
-               class="{{ request()->is('admin') ? 'active' : '' }}">
+<!-- Top Navbar -->
+<nav class="top-navbar">
+    <div class="top-nav-inner">
+        <div class="navbar-left-group">
+            <a class="top-nav-brand" href="/admin">
                 <i class="bi bi-speedometer2"></i>
-                <span>Dashboard</span>
+                <span class="brand-text">Admin <span class="brand-text-desktop">Dashboard</span></span>
             </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/account') }}"
-               class="{{ request()->is('admin/account') ? 'active' : '' }}">
-                <i class="bi bi-person-circle"></i>
-                <span>Account</span>
+        </div>
+
+        <div class="navbar-right-group">
+            <button class="nav-toggler" type="button" onclick="document.getElementById('navbarTopNav').classList.toggle('show')" aria-label="Toggle navigation links">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+
+        <div class="top-nav-links" id="navbarTopNav">
+            <a class="nav-link-custom {{ request()->is('/') ? 'active' : '' }}" href="/">
+                <i class="bi bi-house-door"></i> Home
             </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/projects') }}"
-               class="{{ request()->is('admin/projects*') ? 'active' : '' }}">
-                <i class="bi bi-folder2-open"></i>
-                <span>Projects</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/services') }}"
-               class="{{ request()->is('admin/services*') ? 'active' : '' }}">
-                <i class="bi bi-gear"></i>
-                <span>Services</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/experiences') }}"
-               class="{{ request()->is('admin/experiences*') ? 'active' : '' }}">
-                <i class="bi bi-briefcase"></i>
-                <span>Experiences</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/skills') }}"
-               class="{{ request()->is('admin/skills*') ? 'active' : '' }}">
-                <i class="bi bi-lightning-charge"></i>
-                <span>Skills</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/testimonials') }}"
-               class="{{ request()->is('admin/testimonials*') ? 'active' : '' }}">
-                <i class="bi bi-chat-quote"></i>
-                <span>Testimonials</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/blog') }}"
-               class="{{ request()->is('admin/blog*') ? 'active' : '' }}">
-                <i class="bi bi-pencil-square"></i>
-                <span>Blog</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('/admin/faqs') }}"
-               class="{{ request()->is('admin/faqs*') ? 'active' : '' }}">
-                <i class="bi bi-question-circle"></i>
-                <span>FAQs</span>
-            </a>
-        </li>
+
+            @auth
+                @if(auth()->user()->is_admin == 1)
+                    <a class="nav-link-custom {{ Str::startsWith(request()->path(), 'admin') ? 'active' : '' }}" href="/admin">
+                        <i class="bi bi-speedometer2"></i> Admin Panel
+                    </a>
+                @endif
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="nav-link-btn logout-btn">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
+            @else
+                <a class="nav-link-custom {{ request()->is('login') ? 'active' : '' }}" href="/login">
+                    <i class="bi bi-person-circle"></i> Login
+                </a>
+                <a class="nav-link-custom signup-link" href="/register">
+                    <i class="bi bi-person-plus"></i> Signup
+                </a>
+            @endauth
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-brand">
+        <i class="bi bi-layout-sidebar"></i>
+        <span>Navigation</span>
+    </div>
+    <ul class="sidebar-menu">
         <li>
             <a href="{{ url('/admin/contact') }}"
                class="{{ request()->is('admin/contact') ? 'active' : '' }}">
-                <i class="bi bi-envelope-paper"></i>
-                <span>Messages</span>
+                <i class="bi bi-envelope-fill"></i>
+                <span>Contact</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.orders.index') }}"
+               class="{{ request()->is('admin/orders*') ? 'active' : '' }}">
+                <i class="bi bi-bag-fill"></i>
+                <span>Orders</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.partners.index') }}"
+               class="{{ request()->is('admin/partners*') ? 'active' : '' }}">
+                <i class="bi bi-people-fill"></i>
+                <span>Partners</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.products.index') }}"
+               class="{{ request()->is('admin/products*') ? 'active' : '' }}">
+                <i class="bi bi-box-seam-fill"></i>
+                <span>Products</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.source-codes.index') }}"
+               class="{{ request()->is('admin/source-codes*') ? 'active' : '' }}">
+                <i class="bi bi-code-slash"></i>
+                <span>Source Codes</span>
             </a>
         </li>
     </ul>
+    <div class="sidebar-footer">
+        <span class="sidebar-version">Connectly v1.0</span>
+    </div>
 </aside>
+
+<style>
+/* ─── Top Navbar (Dark Theme) ─── */
+.top-navbar {
+    background: linear-gradient(135deg, #0f172a 0%, #131e3a 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.top-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    gap: 16px;
+}
+.top-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f1f5f9;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+}
+.top-nav-brand i {
+    font-size: 1.3rem;
+    color: #60A5FA;
+}
+.navbar-left-group { display: flex; align-items: center; gap: 4px; }
+.navbar-right-group { display: flex; align-items: center; gap: 2px; }
+.brand-text-desktop { display: inline; }
+.nav-toggler {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.3rem;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+.nav-toggler:hover {
+    color: #60A5FA;
+    background: rgba(37,99,235,0.08);
+}
+.nav-toggler:focus { outline: none; }
+
+.top-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.nav-link-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    color: #94a3b8;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+.nav-link-custom:hover {
+    color: #60A5FA;
+    background: rgba(37,99,235,0.08);
+}
+.nav-link-custom.active {
+    color: #60A5FA;
+    background: rgba(37,99,235,0.12);
+}
+.nav-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    color: #f87171;
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+.nav-link-btn:hover {
+    background: rgba(248,113,113,0.1);
+    color: #ef4444;
+}
+.signup-link {
+    background: linear-gradient(135deg, #2563EB, #1E40AF);
+    color: #fff !important;
+    padding: 7px 18px;
+}
+.signup-link:hover {
+    background: linear-gradient(135deg, #1E40AF, #1e3a8a);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+/* ─── Sidebar (Dark Theme) ─── */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: linear-gradient(180deg, #0a0f1e 0%, #0f172a 100%);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 57px);
+}
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 20px 16px;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar-brand i {
+    font-size: 0.9rem;
+    color: #475569;
+}
+.sidebar-menu {
+    list-style: none;
+    padding: 12px 10px;
+    margin: 0;
+    flex: 1;
+}
+.sidebar-menu li { margin-bottom: 2px; }
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #94a3b8;
+    padding: 10px 14px;
+    font-weight: 500;
+    font-size: 0.88rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+.sidebar-menu a i {
+    font-size: 1.05rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.sidebar-menu a:hover {
+    background: rgba(37,99,235,0.1);
+    color: #60A5FA;
+}
+.sidebar-menu a.active {
+    background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(37,99,235,0.05));
+    color: #60A5FA;
+    border: 1px solid rgba(37,99,235,0.12);
+    box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+}
+.sidebar-footer {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar-version {
+    font-size: 0.65rem;
+    color: rgba(148,163,184,0.35);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ─── Scrollbar ─── */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.12); border-radius: 10px; }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .nav-toggler { display: flex; align-items: center; justify-content: center; }
+    .top-nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px 0;
+        gap: 2px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0f172a;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        z-index: 99;
+    }
+    .top-nav-links.show {
+        display: flex;
+    }
+    /* Sidebar stays inline in grid like desktop — just narrower */
+    .sidebar { 
+        width: 200px;
+        min-width: 200px;
+    }
+    .sidebar-brand { padding: 16px 16px 12px; gap: 8px; font-size: 0.7rem; }
+    .sidebar-menu { padding: 10px 8px; }
+    .sidebar-menu a { font-size: 0.82rem; padding: 8px 12px; gap: 10px; }
+    .sidebar-menu a i { font-size: 0.95rem; width: 18px; }
+    .brand-text-desktop { display: none; }
+    .navbar-left-group { gap: 2px; }
+    .top-nav-brand { font-size: 0.9rem; }
+    .top-nav-brand i { font-size: 1.1rem; }
+}
+@media (max-width: 480px) {
+    .sidebar { 
+        width: 160px;
+        min-width: 160px;
+    }
+    .sidebar-brand { padding: 12px 12px 10px; font-size: 0.65rem; }
+    .sidebar-menu { padding: 8px 6px; }
+    .sidebar-menu a { font-size: 0.78rem; padding: 6px 10px; gap: 8px; }
+    .sidebar-menu a i { font-size: 0.85rem; width: 16px; }
+}
+</style>
