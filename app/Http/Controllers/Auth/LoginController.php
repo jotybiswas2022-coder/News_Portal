@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth; // ← Add this
 
 class LoginController extends Controller
 {
@@ -39,12 +40,13 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the application's login form.
+     * Log the user out of the application.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function showLoginForm()
+    public function logout()
     {
-        return view('frontend.auth.login');
+        Auth::logout();
+        return redirect('/login'); // redirect to login page after logout
     }
 }

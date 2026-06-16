@@ -1,42 +1,56 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\OrderController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backend\TotalSellController;
-use App\Http\Controllers\Backend\SettingsController;
-use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\SettingsController;
+use App\Http\Controllers\admin\ContactController;
+use App\Http\Controllers\admin\SliderController;
+use App\Http\Controllers\admin\PostController;
 
 Route::prefix('admin')->middleware('admin')->group(function () {
+
     // Dashboard
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [DashboardController::class, 'index']);
 
-    // Contact messages
-    Route::get('/contact', [DashboardController::class, 'contact'])->name('admin.contact');
+    // Posts
+    Route::prefix('posts')->controller(PostController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/create', 'create');       
+        Route::post('/store', 'store');        
+        Route::get('/edit/{id}', 'edit');       
+        Route::post('/update/{id}', 'update')->name('posts.update'); 
+        Route::get('/delete/{id}', 'delete'); 
+        Route::get('/file/{id}', 'viewFile')->name('posts.viewFile');
+    });
 
-    // Orders
-    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
-    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('admin.orders.show');
-    Route::post('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.status');
-
-    // Products
-    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('admin.products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('admin.products.store');
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
-    Route::put('/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
-    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
-
-    // Total Sell
-    Route::get('/total-sell', [TotalSellController::class, 'index'])->name('admin.total-sell');
-
-    // Banner
-    Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner');
-    Route::post('/banner/upload', [BannerController::class, 'upload'])->name('admin.banner.upload');
-    Route::post('/banner/remove', [BannerController::class, 'remove'])->name('admin.banner.remove');
+    // Contacts
+    Route::prefix('contacts')->controller(ContactController::class)->group(function () {
+        Route::get('/', 'index');
+    });
 
     // Settings
-    Route::get('/settings', [SettingsController::class, 'index'])->name('admin.settings');
-    Route::post('/settings', [SettingsController::class, 'update'])->name('admin.settings.update');
+    Route::get('/settings', [SettingsController::class, 'index']);
+    Route::post('/settings', [SettingsController::class, 'update']);
+
+    // Categories
+    Route::prefix('category')->controller(CategoryController::class)->group(function () {
+        Route::get('/', 'index');        
+        Route::get('/create', 'create');      
+        Route::post('/store', 'store');       
+        Route::get('/edit/{id}', 'edit');  
+        Route::post('/update/{id}', 'update');  
+        Route::get('/delete/{id}', 'delete');   
+    });
+
+    // Sliders
+    Route::prefix('sliders')->controller(SliderController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/create', 'create');       
+        Route::post('/store', 'store');        
+        Route::get('/edit/{id}', 'edit');       
+        Route::post('/update/{id}', 'update'); 
+        Route::get('/delete/{id}', 'delete'); 
+    });
+
 });

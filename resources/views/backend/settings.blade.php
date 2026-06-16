@@ -1,191 +1,114 @@
 @extends('backend.app')
 
-@section('title', 'Settings — Admin')
-
 @section('content')
 
-<div class="st-page">
-    <div class="st-header">
-        <div class="st-header-inner">
-            <div class="st-header-left">
-                <div class="st-header-icon">
-                    <i class="bi bi-gear"></i>
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+<div class="container-fluid" style="height: calc(100vh - 80px); overflow-y: auto; padding: 20px 0;">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-gear-fill me-2"></i> Settings
+                    </h4>
                 </div>
-                <div>
-                    <h4 class="st-header-title">Settings</h4>
-                    <p class="st-header-sub">Manage application settings</p>
+
+                <div class="card-body">
+
+                    <form action="{{ url('admin/settings') }}" method="POST">
+                        @csrf
+
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-semibold">Email</label>
+                            <input type="email" name="email" id="email" class="form-select" value="{{ $settings?->email ?? '' }}" placeholder="Enter email">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="phone" class="form-label fw-semibold">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-select" value="{{ $settings?->phone ?? '' }}" placeholder="Enter phone number">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="location" class="form-label fw-semibold">Location</label>
+                            <input type="text" name="location" id="location" class="form-select" value="{{ $settings?->location ?? '' }}" placeholder="Enter location">
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-dark px-4">
+                                <i class="bi bi-save me-1"></i> Save Settings
+                            </button>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
+
         </div>
     </div>
 
-    <div class="st-card">
-        <div class="st-card-head">
-            <i class="bi bi-currency-exchange"></i>
-            <span>Currency</span>
-        </div>
-        <div class="st-card-bd">
-            <form method="POST" action="{{ route('admin.settings.update') }}">
-                @csrf
-
-                <div class="st-fg">
-                    <label class="st-label">Default Currency</label>
-                    <select name="currency" class="st-select">
-                        <option value="">— Select Currency —</option>
-                        <option value="USD" {{ $currency === 'USD' ? 'selected' : '' }}>USD ($)</option>
-                        <option value="BDT" {{ $currency === 'BDT' ? 'selected' : '' }}>BDT (৳)</option>
-                    </select>
-                    @error('currency')
-                        <span class="st-err">{{ $message }}</span>
-                    @enderror
-                    <span class="st-hint">Choose the currency to display across all pages. Leave empty to show prices without a symbol.</span>
-                </div>
-
-                <div class="st-preview">
-                    <span class="st-preview-label">Preview:</span>
-                    <span class="st-preview-value">{{ formatPrice(1499.99) }}</span>
-                </div>
-
-                <button type="submit" class="st-btn">
-                    <i class="bi bi-check-lg"></i> Save Settings
-                </button>
-            </form>
-        </div>
-    </div>
 </div>
 
 <style>
-.st-page {
-    padding: 24px 28px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #f1f5f9;
-}
-.st-header {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 18px 22px;
-    backdrop-filter: blur(8px);
-    margin-bottom: 20px;
-}
-.st-header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
-.st-header-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-.st-header-icon {
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(96,165,250,0.05));
-    border: 1px solid rgba(96,165,250,0.12);
-    border-radius: 12px;
-    font-size: 20px; color: #60A5FA; flex-shrink: 0;
-}
-.st-header-title {
-    font-size: 18px; font-weight: 700; margin: 0 0 2px 0;
-}
-.st-header-sub {
-    font-size: 13px; color: #94a3b8; margin: 0;
-}
-.st-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+.card {
     border-radius: 14px;
     overflow: hidden;
-    backdrop-filter: blur(8px);
-    margin-bottom: 20px;
+    transition: all .3s ease;
 }
-.st-card-head {
-    display: flex; align-items: center; gap: 8px;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, rgba(96,165,250,0.08), rgba(96,165,250,0.02));
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    font-size: 13px; font-weight: 600; color: #60A5FA;
-    text-transform: uppercase; letter-spacing: 0.4px;
+
+.card:hover {
+    box-shadow: 0 12px 35px rgba(0,0,0,.15);
+    transform: translateY(-2px);
 }
-.st-card-head i { font-size: 15px; }
-.st-card-bd { padding: 24px; }
-.st-fg { margin-bottom: 20px; }
-.st-label {
-    display: block; font-size: 12px; font-weight: 600;
-    color: #94a3b8; margin-bottom: 6px;
-    text-transform: uppercase; letter-spacing: 0.3px;
+
+.card-header {
+    padding: 18px 24px;
+    letter-spacing: .5px;
 }
-.st-select {
-    width: 100%; max-width: 320px;
-    padding: 10px 14px; font-size: 14px;
-    background: rgba(10,10,10,0.6); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px; color: #f1f5f9;
-    transition: all 0.2s; outline: none; font-family: inherit;
-    cursor: pointer;
+
+.form-label {
+    font-size: 15px;
+    color: #333;
 }
-.st-select:focus {
-    border-color: #60A5FA;
-    box-shadow: 0 0 0 3px rgba(96,165,250,0.12);
+
+.form-select {
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    transition: all .3s ease;
 }
-.st-select option {
-    background: #1e293b; color: #f1f5f9;
+
+.form-select:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 .15rem rgba(0,0,0,.15);
 }
-.st-err {
-    display: block; font-size: 12px; color: #ef4444; margin-top: 4px;
+
+.btn-dark {
+    border-radius: 30px;
+    padding: 10px 26px;
+    font-weight: 600;
+    transition: all .3s ease;
 }
-.st-hint {
-    display: block; font-size: 11px; color: #64748b; margin-top: 4px;
-}
-.st-preview {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 16px;
-    background: rgba(10,10,10,0.4);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-.st-preview-label {
-    font-size: 12px; font-weight: 600;
-    color: #94a3b8; text-transform: uppercase; letter-spacing: 0.3px;
-}
-.st-preview-value {
-    font-size: 22px; font-weight: 700; color: #60A5FA;
-}
-.st-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 28px; font-size: 14px; font-weight: 600;
-    background: linear-gradient(135deg, #2563EB, #1E40AF);
-    color: #fff; border: none; border-radius: 8px; cursor: pointer;
-    transition: all 0.3s; font-family: inherit;
-}
-.st-btn:hover {
+
+.btn-dark:hover {
+    background-color: #111;
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
 }
-@media (max-width: 480px) {
-    .st-page { padding: 16px; }
-    .st-card-bd { padding: 16px; }
-    .st-select { max-width: 100%; }
+
+.alert {
+    border-radius: 12px;
+    font-size: 14px;
 }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var success = document.getElementById('sessionSuccess');
-    if (success && success.value) {
-        Swal.fire({
-            icon: 'success', title: 'Success',
-            text: success.value, timer: 2500, showConfirmButton: false,
-            background: '#1e293b', color: '#f1f5f9', iconColor: '#10B981'
-        });
-    }
-});
-</script>
-
-@if(session('success'))
-<input type="hidden" id="sessionSuccess" value="{{ session('success') }}">
-@endif
 
 @endsection

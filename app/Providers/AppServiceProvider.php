@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use App\Models\Product;
-use App\Models\UserNotification;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,23 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Share store data with the navbar for the drawer
-        View::composer('frontend.forex.partials.navbar', function ($view) {
-            $view->with('storeProducts', Product::where('available', true)->orderBy('name')->get());
+        view()->composer('*', function ($view) {
+            $carts = collect();
 
-            // Share unread notifications for authenticated users
-            $unreadNotifications = collect();
-            $unreadCount = 0;
-            if (Auth::check()) {
-                $unreadNotifications = UserNotification::forUser(Auth::id())
-                    ->unread()
-                    ->latest()
-                    ->take(10)
-                    ->get();
-                $unreadCount = UserNotification::forUser(Auth::id())->unread()->count();
-            }
-            $view->with('unreadNotifications', $unreadNotifications);
-            $view->with('unreadNotificationCount', $unreadCount);
+            $view->with('carts', $carts);
         });
     }
 }

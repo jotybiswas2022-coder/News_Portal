@@ -25,7 +25,7 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -35,15 +35,5 @@ class ConfirmPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display the password confirmation view.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function showConfirmForm()
-    {
-        return view('frontend.auth.passwords.confirm');
     }
 }
