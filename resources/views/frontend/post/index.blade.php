@@ -2,388 +2,285 @@
 
 @section('content')
 
-{{-- ===== Inline Styles for News Portal Theme ===== --}}
 <style>
-    /* ===== GOOGLE FONTS ===== */
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Source+Serif+4:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-    /* ===== ROOT VARIABLES ===== */
     :root {
-        --np-black: #000000;
+        --np-dark-1: #0a0a0f;
+        --np-dark-2: #111118;
+        --np-dark-3: #1a1a24;
+        --np-dark-4: #242430;
         --np-red: #D32F2F;
-        --np-red-hover: #E53935;
+        --np-red-dark: #B71C1C;
         --np-white: #FFFFFF;
-        --np-gray-100: #F8F8F8;
-        --np-gray-200: #EEEEEE;
-        --np-gray-400: #BDBDBD;
-        --np-gray-600: #757575;
-        --np-text: #222222;
-        --np-text-light: #555555;
+        --np-text: #d0d0d8;
+        --np-text-dim: #8888a0;
+        --np-text-muted: #555568;
+        --np-border: rgba(255,255,255,0.06);
+        --np-border-light: rgba(255,255,255,0.04);
         --font-headline: 'Playfair Display', Georgia, serif;
-        --font-body: 'Source Serif 4', Georgia, serif;
         --font-ui: 'Inter', Arial, sans-serif;
+        --np-shadow: 0 4px 24px rgba(0,0,0,0.3);
     }
 
-    /* ===== KEYFRAME ANIMATIONS ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-ui); color: var(--np-text); background: var(--np-dark-1); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; }
 
-    @keyframes paperDrop {
-        0% {
-            opacity: 0;
-            transform: translateY(-40px) rotate(-1deg);
-        }
-        60% {
-            opacity: 1;
-            transform: translateY(6px) rotate(0.3deg);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0) rotate(0deg);
-        }
-    }
+    .np-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 768px) { .np-container { padding: 0 16px; } }
 
-    @keyframes revealLeft {
-        0% {
-            clip-path: inset(0 100% 0 0);
-            opacity: 0;
-        }
-        100% {
-            clip-path: inset(0 0 0 0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes revealUp {
-        0% {
-            opacity: 0;
-            transform: translateY(25px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes lineExtend {
-        0% { transform: scaleX(0); }
-        100% { transform: scaleX(1); }
-    }
-
-    @keyframes tickerScroll {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-    }
-
-    @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-    }
-
-    @keyframes stampIn {
-        0% {
-            transform: scale(3) rotate(-12deg);
-            opacity: 0;
-        }
-        70% {
-            transform: scale(0.95) rotate(1deg);
-            opacity: 0.9;
-        }
-        100% {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-        }
-    }
-
-    @keyframes typewriter {
-        0% { width: 0; }
-        100% { width: 100%; }
-    }
-
-    @keyframes blinkCaret {
-        0%, 100% { border-right-color: var(--np-red); }
-        50% { border-right-color: transparent; }
-    }
-
-    @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(211,47,47,0.4); }
-        50% { box-shadow: 0 0 0 10px rgba(211,47,47,0); }
-    }
-
-    @keyframes slideInRight {
-        0% { opacity: 0; transform: translateX(50px); }
-        100% { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes columnFade {
-        0% { opacity: 0; transform: translateY(30px) scale(0.97); }
-        100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    /* ===== NEWS PAGE WRAPPER ===== */
-    .news-page {
-        background-color: var(--np-white);
-        min-height: 100vh;
-        position: relative;
-    }
-
-    /* ===== ALERT STYLES ===== */
-    .alert-success-custom {
-        background: var(--np-white);
-        border: none;
-        border-bottom: 2px solid #2E7D32;
-        color: #1B5E20;
-        font-weight: 500;
-        border-radius: 0;
-        font-family: var(--font-ui);
-        font-size: 0.9rem;
-        animation: revealLeft 0.5s ease-out;
-    }
-
-    .alert-danger-custom {
-        background: var(--np-white);
-        border: none;
-        border-bottom: 2px solid var(--np-red);
-        color: #B71C1C;
-        font-weight: 500;
-        border-radius: 0;
-        font-family: var(--font-ui);
-        font-size: 0.9rem;
-        animation: revealLeft 0.5s ease-out;
-    }
-
-    /* ===== EDITION BAR ===== */
-    .edition-bar {
-        border-bottom: 1px solid var(--np-gray-200);
-        padding: 10px 0;
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    .edition-bar .edition-text {
-        font-family: var(--font-ui);
-        font-size: 0.75rem;
-        color: var(--np-gray-600);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-    }
-
-    .edition-bar .edition-text i {
-        color: var(--np-red);
-    }
-
-    /* ===== MASTHEAD AREA ===== */
-    .article-masthead {
+    .np-alert-bar {
+        background: rgba(0, 200, 83, 0.1);
+        border-bottom: 1px solid rgba(0, 200, 83, 0.15);
+        color: #00c853;
+        padding: 12px 24px;
         text-align: center;
-        padding: 2.5rem 0 1.5rem;
-        position: relative;
-        animation: paperDrop 0.7s ease-out;
+        font-size: 13px;
+        font-weight: 500;
+        animation: npAlertDown 0.5s ease-out;
     }
 
-    .article-masthead .category-flag {
-        display: inline-block;
+    .np-alert-error {
+        background: rgba(211, 47, 47, 0.1);
+        border-bottom: 1px solid rgba(211, 47, 47, 0.15);
+        color: #ef5350;
+        padding: 12px 24px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        animation: npAlertDown 0.5s ease-out;
+    }
+
+    @keyframes npAlertDown {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .np-article-wrap { padding: 40px 0 60px; }
+
+    .np-edition-bar {
+        text-align: center;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--np-border);
+        animation: npFadeIn 0.6s ease-out;
+    }
+
+    .np-edition-bar span {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--np-text-muted);
+    }
+
+    .np-edition-bar i { color: var(--np-red); margin-right: 4px; }
+
+    .np-article-masthead {
+        text-align: center;
+        padding: 10px 0 24px;
+        animation: npPaperDrop 0.7s ease-out;
+    }
+
+    .np-cat-flag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         background: var(--np-red);
         color: var(--np-white);
-        font-family: var(--font-ui);
-        font-size: 0.65rem;
+        padding: 5px 16px;
+        font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 2.5px;
-        padding: 5px 18px;
-        margin-bottom: 1.2rem;
-        animation: stampIn 0.5s ease-out 0.3s both;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        animation: npStampIn 0.5s ease-out 0.3s both;
     }
 
-    .article-masthead .news-title {
+    .np-article-title {
         font-family: var(--font-headline);
-        color: var(--np-black);
-        font-size: 2.6rem;
+        font-size: 2.4rem;
         font-weight: 800;
+        color: var(--np-white);
         line-height: 1.15;
-        letter-spacing: -0.5px;
         max-width: 800px;
         margin: 0 auto;
-        animation: revealUp 0.6s ease-out 0.2s both;
+        animation: npRevealUp 0.6s ease-out 0.2s both;
     }
 
-    .article-meta-line {
+    .np-article-meta {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 20px;
-        margin-top: 1.2rem;
+        gap: 18px;
+        margin-top: 16px;
         flex-wrap: wrap;
-        animation: fadeIn 0.6s ease-out 0.5s both;
+        animation: npFadeIn 0.6s ease-out 0.5s both;
     }
 
-    .meta-item {
-        font-family: var(--font-ui);
-        font-size: 0.78rem;
-        color: var(--np-gray-600);
+    .np-article-meta .np-meta-item {
+        font-size: 12px;
+        color: var(--np-text-dim);
         display: inline-flex;
         align-items: center;
         gap: 5px;
     }
 
-    .meta-item i {
-        color: var(--np-red);
-        font-size: 0.75rem;
-    }
+    .np-article-meta .np-meta-item i { color: var(--np-red); font-size: 11px; }
+    .np-meta-dot { width: 3px; height: 3px; background: var(--np-text-muted); border-radius: 50%; }
 
-    .meta-dot {
-        width: 3px;
-        height: 3px;
-        background: var(--np-gray-400);
-        border-radius: 50%;
-    }
-
-    /* ===== THICK RULE LINES ===== */
-    .rule-thick {
-        border: none;
-        height: 3px;
-        background: var(--np-black);
-        margin: 0;
-        animation: lineExtend 0.8s ease-out both;
-        transform-origin: left;
-    }
-
-    .rule-thin {
-        border: none;
-        height: 1px;
-        background: var(--np-black);
-        margin: 0;
-        animation: lineExtend 0.8s ease-out 0.1s both;
-        transform-origin: left;
-    }
-
-    .rule-double {
-        border: none;
-        height: 0;
-        border-top: 3px solid var(--np-black);
-        border-bottom: 1px solid var(--np-black);
-        padding-top: 3px;
-        margin: 0;
-        animation: lineExtend 0.8s ease-out both;
-        transform-origin: left;
-    }
-
-    .rule-red {
+    .np-article-rule {
         border: none;
         height: 2px;
-        background: var(--np-red);
-        margin: 0;
-        animation: lineExtend 0.6s ease-out 0.3s both;
-        transform-origin: left;
+        background: linear-gradient(to right, transparent, var(--np-red), transparent);
+        margin: 0 0 30px;
+        animation: npLineExtend 0.8s ease-out;
+        transform-origin: center;
     }
 
-    .rule-gray {
-        border: none;
-        height: 1px;
-        background: var(--np-gray-200);
-        margin: 0;
+    @keyframes npLineExtend {
+        from { transform: scaleX(0); opacity: 0; }
+        to { transform: scaleX(1); opacity: 1; }
     }
 
-    /* ===== FEATURED IMAGE ===== */
-    .featured-media {
+    @keyframes npPaperDrop {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes npStampIn {
+        from { transform: scale(2.5) rotate(-10deg); opacity: 0; }
+        to { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    @keyframes npRevealUp {
+        from { opacity: 0; transform: translateY(25px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes npFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .np-article-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 992px) { .np-article-layout { grid-template-columns: 1fr; } }
+
+    .np-featured-media {
         position: relative;
-        margin: 1.5rem 0;
-        animation: revealUp 0.7s ease-out 0.3s both;
+        overflow: hidden;
+        background: var(--np-dark-2);
+        animation: npRevealUp 0.7s ease-out 0.3s both;
     }
 
-    .featured-media img,
-    .featured-media video {
+    .np-featured-media img,
+    .np-featured-media video {
         width: 100%;
-        max-height: 500px;
+        max-height: 480px;
         object-fit: cover;
         display: block;
-        transition: filter 0.4s ease;
+        transition: transform 0.6s ease;
     }
 
-    .featured-media:hover img {
-        filter: brightness(1.03) contrast(1.02);
-    }
+    .np-featured-media:hover img { transform: scale(1.03); }
 
-    .featured-media .media-label {
+    .np-media-label {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 0; left: 0;
         background: var(--np-red);
         color: var(--np-white);
-        font-family: var(--font-ui);
-        font-size: 0.6rem;
+        font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 2px;
-        padding: 5px 14px;
-        animation: stampIn 0.5s ease-out 0.8s both;
+        padding: 6px 14px;
+        animation: npStampIn 0.5s ease-out 0.8s both;
     }
 
-    .featured-media .photo-credit {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background: rgba(0,0,0,0.7);
-        color: rgba(255,255,255,0.8);
-        font-family: var(--font-ui);
-        font-size: 0.65rem;
-        padding: 4px 12px;
-        letter-spacing: 0.5px;
-    }
-
-    .no-media-area {
-        background: var(--np-gray-100);
+    .np-no-media {
+        background: var(--np-dark-3);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 280px;
-        color: var(--np-gray-400);
-        font-family: var(--font-body);
-        font-style: italic;
-        font-size: 0.95rem;
+        min-height: 300px;
+        color: var(--np-text-muted);
+        font-size: 14px;
+        gap: 10px;
     }
 
-    .no-media-area i {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        color: var(--np-gray-200);
+    .np-no-media i { font-size: 2.5rem; color: var(--np-text-muted); }
+
+    .np-share-strip {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--np-border);
+        margin-top: 16px;
+        animation: npFadeIn 0.5s ease-out 0.8s both;
     }
 
-    /* ===== ARTICLE BODY ===== */
-    .article-body-area {
-        animation: revealUp 0.6s ease-out 0.5s both;
+    .np-share-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--np-text-dim);
     }
 
-    .article-label {
-        font-family: var(--font-ui);
-        font-size: 0.7rem;
+    .np-share-btn {
+        width: 34px; height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--np-text);
+        font-size: 14px;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: 1px solid var(--np-border);
+        background: transparent;
+    }
+
+    .np-share-btn:hover { color: var(--np-red); border-color: var(--np-red); background: rgba(211,47,47,0.05); transform: translateY(-2px); }
+
+    .np-article-body {
+        animation: npRevealUp 0.6s ease-out 0.5s both;
+    }
+
+    .np-body-label {
+        font-size: 11px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 2px;
         color: var(--np-red);
-        margin-bottom: 0.8rem;
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
         gap: 6px;
     }
 
-    .article-label i {
-        font-size: 0.85rem;
+    .np-body-rule {
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, var(--np-red), transparent);
+        margin-bottom: 20px;
     }
 
-    .article-body-text {
-        font-family: var(--font-body);
+    .np-body-text {
+        font-family: var(--font-ui);
         color: var(--np-text);
-        font-size: 1.05rem;
+        font-size: 15px;
         line-height: 1.85;
-        text-align: justify;
-        hyphens: auto;
     }
 
-    .article-body-text p {
-        margin-bottom: 1.1rem;
-    }
+    .np-body-text p { margin-bottom: 1rem; }
 
-    .article-body-text p:first-of-type::first-letter {
+    .np-body-text p:first-of-type::first-letter {
         font-family: var(--font-headline);
-        font-size: 3.5rem;
+        font-size: 3.2rem;
         font-weight: 900;
         float: left;
         line-height: 0.8;
@@ -391,564 +288,348 @@
         color: var(--np-red);
     }
 
-    .article-body-text a {
+    .np-body-text a {
         color: var(--np-red);
-        text-decoration: none;
         border-bottom: 1px solid var(--np-red);
         transition: all 0.3s;
     }
 
-    .article-body-text a:hover {
-        color: var(--np-red-hover);
-        border-bottom-width: 2px;
-    }
+    .np-body-text a:hover { color: var(--np-red-dark); border-bottom-width: 2px; }
 
-    /* ===== SHARE BAR ===== */
-    .share-strip {
+    .np-related-section { padding: 50px 0; }
+
+    .np-related-header {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 1rem 0;
-        animation: fadeIn 0.5s ease-out 0.8s both;
+        gap: 14px;
+        margin-bottom: 30px;
+        animation: npRevealUp 0.5s ease-out;
     }
 
-    .share-strip .share-label {
-        font-family: var(--font-ui);
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: var(--np-gray-600);
-    }
-
-    .share-icon-btn {
-        width: 34px;
-        height: 34px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--np-black);
-        font-size: 0.85rem;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        text-decoration: none;
-        position: relative;
-        background: none;
-        border: none;
-    }
-
-    .share-icon-btn::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background: var(--np-red);
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-    }
-
-    .share-icon-btn:hover {
-        color: var(--np-red);
-        transform: translateY(-2px);
-    }
-
-    .share-icon-btn:hover::after {
-        width: 100%;
-    }
-
-    /* ===== RELATED NEWS SECTION ===== */
-    .related-section {
-        padding: 2rem 0 3rem;
-    }
-
-    .section-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 2rem;
-        animation: revealUp 0.5s ease-out;
-    }
-
-    .section-header-title {
+    .np-related-title {
         font-family: var(--font-headline);
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         font-weight: 800;
-        color: var(--np-black);
+        color: var(--np-white);
         text-transform: uppercase;
         letter-spacing: 1px;
         white-space: nowrap;
     }
 
-    .section-header-line {
+    .np-related-title i { color: var(--np-red); margin-right: 6px; }
+
+    .np-related-line {
         flex: 1;
-        height: 0;
-        border-top: 2px solid var(--np-black);
-        border-bottom: 1px solid var(--np-black);
-        padding-top: 3px;
-        animation: lineExtend 0.8s ease-out 0.3s both;
-        transform-origin: left;
+        height: 1px;
+        background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
     }
 
-    /* Related Article Item — No box */
-    .related-item {
-        padding: 0;
+    .np-related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 992px) { .np-related-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 576px) { .np-related-grid { grid-template-columns: 1fr; } }
+
+    .np-related-card {
+        background: rgba(18, 18, 30, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--np-border);
+        overflow: hidden;
+        transition: all 0.4s ease;
         opacity: 0;
         transform: translateY(30px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .related-item.animate-in {
+    .np-related-card.np-animate-in {
         opacity: 1;
         transform: translateY(0);
     }
 
-    .related-item-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-    }
+    .np-related-card:hover { transform: translateY(-5px); border-color: rgba(211,47,47,0.08); box-shadow: var(--np-shadow); }
 
-    .related-item-img {
+    .np-related-card a { display: block; color: inherit; }
+
+    .np-related-img {
         position: relative;
         overflow: hidden;
-        margin-bottom: 0.75rem;
+        height: 170px;
+        background: var(--np-dark-2);
     }
 
-    .related-item-img img,
-    .related-item-img video {
-        width: 100%;
-        height: 190px;
+    .np-related-img img,
+    .np-related-img video {
+        width: 100%; height: 100%;
         object-fit: cover;
-        display: block;
-        transition: transform 0.5s ease, filter 0.3s ease;
-        filter: grayscale(20%);
+        transition: transform 0.5s ease;
     }
 
-    .related-item-link:hover .related-item-img img,
-    .related-item-link:hover .related-item-img video {
-        transform: scale(1.05);
-        filter: grayscale(0%);
-    }
+    .np-related-card:hover .np-related-img img { transform: scale(1.06); }
 
-    .related-item-img .item-number {
+    .np-related-number {
         position: absolute;
-        top: 0;
-        left: 0;
-        background: var(--np-black);
+        top: 0; left: 0;
+        background: var(--np-red);
         color: var(--np-white);
         font-family: var(--font-headline);
-        font-size: 1rem;
+        font-size: 13px;
         font-weight: 800;
-        width: 30px;
-        height: 30px;
+        width: 28px; height: 28px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .related-item h6 {
+    .np-related-body { padding: 14px 16px 18px; }
+
+    .np-related-body h6 {
         font-family: var(--font-headline);
-        font-size: 0.95rem;
+        font-size: 14px;
         font-weight: 700;
-        color: var(--np-black);
+        color: var(--np-white);
         line-height: 1.35;
-        margin-bottom: 0.4rem;
+        margin-bottom: 8px;
         transition: color 0.3s;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .related-item-link:hover h6 {
-        color: var(--np-red);
-    }
+    .np-related-card:hover .np-related-body h6 { color: var(--np-red); }
 
-    .related-item .rel-meta {
-        font-family: var(--font-ui);
-        font-size: 0.7rem;
-        color: var(--np-gray-600);
+    .np-related-meta {
+        font-size: 11px;
+        color: var(--np-text-muted);
         display: flex;
-        align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
-    .related-item .rel-meta i {
-        color: var(--np-red);
-        font-size: 0.65rem;
-    }
+    .np-related-meta i { color: var(--np-red); margin-right: 3px; }
 
-    /* Column divider for related items */
-    .col-divider {
-        border-right: 1px solid var(--np-gray-200);
-    }
-
-    @media (max-width: 991px) {
-        .col-divider {
-            border-right: none;
-            border-bottom: 1px solid var(--np-gray-200);
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
-        }
-    }
-
-    /* ===== BACK TO TOP ===== */
-    .back-to-top-news {
+    .np-scroll-top {
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 42px;
-        height: 42px;
-        background: var(--np-black);
+        bottom: 30px; right: 30px;
+        width: 44px; height: 44px;
+        background: var(--np-red);
         color: var(--np-white);
         border: none;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.1rem;
+        font-size: 18px;
         cursor: pointer;
+        z-index: 999;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 999;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(211,47,47,0.4);
     }
 
-    .back-to-top-news.visible {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .back-to-top-news:hover {
-        background: var(--np-red);
-        animation: pulseGlow 1.5s infinite;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-        .article-masthead .news-title {
-            font-size: 1.7rem;
-        }
-
-        .article-body-text {
-            font-size: 0.95rem;
-        }
-
-        .article-body-text p:first-of-type::first-letter {
-            font-size: 2.8rem;
-        }
-
-        .section-header-title {
-            font-size: 1.1rem;
-        }
-
-        .featured-media img,
-        .featured-media video {
-            max-height: 300px;
-        }
-
-        .related-item-img img,
-        .related-item-img video {
-            height: 160px;
-        }
-    }
+    .np-scroll-top.visible { opacity: 1; visibility: visible; }
+    .np-scroll-top:hover { background: var(--np-red-dark); transform: translateY(-3px); }
 
     @media (max-width: 576px) {
-        .article-masthead .news-title {
-            font-size: 1.45rem;
-        }
-
-        .article-meta-line {
-            gap: 10px;
-        }
-
-        .meta-dot {
-            display: none;
-        }
+        .np-article-title { font-size: 1.5rem; }
+        .np-body-text { font-size: 14px; }
+        .np-body-text p:first-of-type::first-letter { font-size: 2.5rem; }
+        .np-related-title { font-size: 1rem; }
+        .np-featured-media img, .np-featured-media video { max-height: 260px; }
+        .np-article-meta { gap: 10px; }
+        .np-meta-dot { display: none; }
     }
 
-    /* ===== PRINT STYLES ===== */
     @media print {
-        .featured-media .media-label,
-        .featured-media .photo-credit,
-        .back-to-top-news,
-        .share-strip,
-        .edition-bar {
-            display: none !important;
-        }
-
-        .news-page {
-            background: white;
-        }
+        .np-share-strip, .np-scroll-top, .np-edition-bar { display: none !important; }
+        body { background: white; color: black; }
     }
 </style>
 
-{{-- ===== Alert Messages ===== --}}
-@if (session('success'))
-	<div class="alert alert-success alert-dismissible fade show m-3 alert-success-custom">
-		<i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-		<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-	</div>
+@if(session('success'))
+<div class="np-alert-bar">
+    <i class="bi bi-check-circle"></i> {{ session('success') }}
+</div>
 @endif
 
-@if (session('error'))
-	<div class="alert alert-danger alert-dismissible fade show m-3 alert-danger-custom">
-		<i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
-		<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-	</div>
+@if(session('error'))
+<div class="np-alert-error">
+    <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
+</div>
 @endif
 
-<div class="news-page">
+<div class="np-article-wrap">
+    <div class="np-container">
 
-	<!-- ================= EDITION BAR ================= -->
-	<div class="edition-bar">
-		<div class="container">
-			<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-				<span class="edition-text">
-					<i class="bi bi-newspaper me-1"></i> News Portal — Daily Edition
-				</span>
-				<span class="edition-text">
-					<i class="bi bi-geo-alt-fill me-1"></i> Online Edition
-				</span>
-			</div>
-		</div>
-	</div>
+        <div class="np-edition-bar">
+            <span><i class="bi bi-newspaper"></i> News Portal — Daily Edition</span>
+        </div>
 
-	<!-- ================= ARTICLE DETAIL ================= -->
-	<div class="container">
+        <div class="np-article-masthead">
+            <div class="np-cat-flag">
+                <i class="bi bi-bookmark-fill"></i>
+                {{ $post->PostCategory->name ?? 'News Article' }}
+            </div>
+            <h1 class="np-article-title">{{ $post->title }}</h1>
+            <div class="np-article-meta">
+                <span class="np-meta-item">
+                    <i class="bi bi-calendar3"></i>
+                    {{ \Carbon\Carbon::parse($post->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}
+                </span>
+                <span class="np-meta-dot"></span>
+                <span class="np-meta-item">
+                    <i class="bi bi-clock"></i>
+                    {{ \Carbon\Carbon::parse($post->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}
+                </span>
+                <span class="np-meta-dot"></span>
+                <span class="np-meta-item">
+                    <i class="bi bi-eye"></i> News Portal
+                </span>
+            </div>
+        </div>
 
-		<!-- Masthead / Title Area -->
-		<div class="article-masthead">
-			<div class="category-flag">
-				<i class="bi bi-bookmark-fill me-1"></i> News Article
-			</div>
-			<h1 class="news-title">{{ $post->title }}</h1>
-			<div class="article-meta-line">
-				<span class="meta-item">
-					<i class="bi bi-calendar3"></i>
-					{{ \Carbon\Carbon::parse($post->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}
-				</span>
-				<span class="meta-dot"></span>
-				<span class="meta-item">
-					<i class="bi bi-clock"></i>
-					{{ \Carbon\Carbon::parse($post->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}
-				</span>
-				<span class="meta-dot"></span>
-				<span class="meta-item">
-					<i class="bi bi-eye"></i> News Portal
-				</span>
-			</div>
-		</div>
+        <hr class="np-article-rule">
 
-		<!-- Top Rule Lines -->
-		<hr class="rule-thick">
-		<hr class="rule-thin mt-1">
+        <div class="np-article-layout">
 
-		<div class="row g-4 g-lg-5 mt-0">
+            <div>
+                <div class="np-featured-media">
+                    @if($post->file)
+                        @php
+                            $ext = strtolower(pathinfo($post->file, PATHINFO_EXTENSION));
+                            $videoExtensions = ['mp4','webm','ogg','avi','mkv'];
+                            $imageExtensions = ['jpg','jpeg','png','gif','webp'];
+                            $isImage = in_array($ext, $imageExtensions);
+                            $isVideo = in_array($ext, $videoExtensions);
+                        @endphp
 
-			<!-- ===== LEFT: FEATURED MEDIA ===== -->
-			<div class="col-lg-7">
+                        @if($isImage)
+                            <img src="{{ config('app.storage_url') }}{{ $post->file }}" alt="{{ $post->title }}">
+                            <span class="np-media-label"><i class="bi bi-camera-fill"></i> Photo</span>
+                        @elseif($isVideo)
+                            <video controls style="max-height:480px;object-fit:cover;">
+                                <source src="{{ config('app.storage_url') }}{{ $post->file }}" type="video/mp4">
+                            </video>
+                            <span class="np-media-label"><i class="bi bi-play-circle-fill"></i> Video</span>
+                        @else
+                            <div class="np-no-media">
+                                <i class="bi bi-file-earmark-x"></i>
+                                <span>Unsupported Media Format</span>
+                            </div>
+                        @endif
+                    @else
+                        <div class="np-no-media">
+                            <i class="bi bi-image"></i>
+                            <span>No Media Available</span>
+                        </div>
+                    @endif
+                </div>
 
-				<div class="featured-media">
+                <div class="np-share-strip">
+                    <span class="np-share-label"><i class="bi bi-share-fill"></i> Share</span>
+                    <a href="#" class="np-share-btn" title="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="np-share-btn" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="np-share-btn" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" class="np-share-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <button class="np-share-btn" title="Copy Link" onclick="copyArticleLink(event)"><i class="bi bi-link-45deg"></i></button>
+                </div>
+            </div>
 
-					@if($post->file)
+            <div class="np-article-body">
+                <div class="np-body-label">
+                    <i class="bi bi-newspaper"></i> Article Details
+                </div>
+                <hr class="np-body-rule">
+                <div class="np-body-text">
+                    {!! $post->details !!}
+                </div>
+            </div>
 
-						@php
-							$ext = strtolower(pathinfo($post->file, PATHINFO_EXTENSION));
-							$videoExtensions = ['mp4','webm','ogg','avi','mkv'];
-							$imageExtensions = ['jpg','jpeg','png','gif','webp'];
-							$isImage = in_array($ext,$imageExtensions);
-							$isVideo = in_array($ext,$videoExtensions);
-						@endphp
+        </div>
 
-						@if($isImage)
-							<img src="{{ config('app.storage_url') }}{{ $post->file }}"
-								alt="{{ $post->title }}">
-							<span class="media-label"><i class="bi bi-camera-fill me-1"></i> Photo</span>
-						@elseif($isVideo)
-							<video controls class="w-100" style="max-height:500px;object-fit:cover;">
-								<source src="{{ config('app.storage_url') }}{{ $post->file }}" type="video/mp4">
-							</video>
-							<span class="media-label"><i class="bi bi-play-circle-fill me-1"></i> Video</span>
-						@else
-							<div class="no-media-area">
-								<i class="bi bi-file-earmark-x"></i>
-								<span>Unsupported Media Format</span>
-							</div>
-						@endif
-
-					@else
-						<div class="no-media-area">
-							<i class="bi bi-image"></i>
-							<span>No Media Available</span>
-						</div>
-					@endif
-
-				</div>
-
-				<!-- Share Strip -->
-				<div class="share-strip">
-					<span class="share-label"><i class="bi bi-share-fill me-1"></i> Share</span>
-					<a href="#" class="share-icon-btn" title="Facebook"><i class="bi bi-facebook"></i></a>
-					<a href="#" class="share-icon-btn" title="Twitter"><i class="bi bi-twitter-x"></i></a>
-					<a href="#" class="share-icon-btn" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-					<a href="#" class="share-icon-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-					<button class="share-icon-btn" title="Copy Link" onclick="copyArticleLink(event)"><i class="bi bi-link-45deg"></i></button>
-				</div>
-
-			</div>
-
-			<!-- ===== RIGHT: ARTICLE CONTENT ===== -->
-			<div class="col-lg-5">
-
-				<div class="article-body-area">
-
-					<div class="article-label">
-						<i class="bi bi-newspaper"></i> Article Details
-					</div>
-
-					<hr class="rule-red mb-3">
-
-					<div class="article-body-text">
-						{!! $post->details !!}
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- Bottom Double Rule -->
-		<hr class="rule-double mt-4">
-
-	</div>
-
-	<!-- ================= RELATED NEWS ================= -->
-	<div class="container related-section">
-
-		<div class="section-header">
-			<span class="section-header-title">
-				<i class="bi bi-grid-3x2-gap-fill me-1" style="color:var(--np-red);"></i> Related News
-			</span>
-			<div class="section-header-line"></div>
-		</div>
-
-		@if($otherPosts->count() > 0)
-
-			<div class="row g-4">
-
-				@foreach($otherPosts->take(4) as $index => $otherpost)
-					<div class="col-lg-3 col-md-6 col-12 {{ $index < 3 ? 'col-divider' : '' }}">
-
-						<div class="related-item" data-delay="{{ $index * 120 }}">
-
-							<a href="{{ url('/post/'.$otherpost->id) }}" class="related-item-link">
-
-								<div class="related-item-img">
-
-									@if($otherpost->file)
-
-										@php
-											$ext = strtolower(pathinfo($otherpost->file, PATHINFO_EXTENSION));
-											$videoExtensions = ['mp4','webm','ogg','avi','mkv'];
-											$imageExtensions = ['jpg','jpeg','png','gif','webp'];
-											$isImage = in_array($ext,$imageExtensions);
-											$isVideo = in_array($ext,$videoExtensions);
-										@endphp
-
-										@if($isImage)
-											<img src="{{ config('app.storage_url') }}{{ $otherpost->file }}"
-												alt="{{ $otherpost->title }}">
-										@elseif($isVideo)
-											<video class="w-100" muted>
-												<source src="{{ config('app.storage_url') }}{{ $otherpost->file }}">
-											</video>
-										@endif
-
-									@endif
-
-									<span class="item-number">{{ $index + 1 }}</span>
-
-								</div>
-
-								<h6>{{ $otherpost->title }}</h6>
-
-								<div class="rel-meta">
-									<span>
-										<i class="bi bi-calendar3 me-1"></i>
-										{{ \Carbon\Carbon::parse($otherpost->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}
-									</span>
-									<span>
-										<i class="bi bi-clock me-1"></i>
-										{{ \Carbon\Carbon::parse($otherpost->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}
-									</span>
-								</div>
-
-							</a>
-
-						</div>
-
-					</div>
-				@endforeach
-
-			</div>
-
-		@endif
-
-	</div>
-
-	<!-- Final Rule -->
-	<div class="container">
-		<hr class="rule-thick mb-0">
-	</div>
-
+    </div>
 </div>
 
-<!-- Back to Top Button -->
-<button class="back-to-top-news" id="backToTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">
-	<i class="bi bi-chevron-up"></i>
+@if($otherPosts->count() > 0)
+<section class="np-related-section">
+    <div class="np-container">
+        <div class="np-related-header">
+            <span class="np-related-title">
+                <i class="bi bi-grid-3x2-gap-fill"></i> Related News
+            </span>
+            <div class="np-related-line"></div>
+        </div>
+        <div class="np-related-grid">
+            @foreach($otherPosts->take(4) as $index => $otherpost)
+            <div class="np-related-card" data-delay="{{ $index * 120 }}">
+                <a href="{{ url('/post/'.$otherpost->id) }}">
+                    <div class="np-related-img">
+                        @if($otherpost->file)
+                            @php
+                                $ext = strtolower(pathinfo($otherpost->file, PATHINFO_EXTENSION));
+                                $videoExtensions = ['mp4','webm','ogg','avi','mkv'];
+                                $imageExtensions = ['jpg','jpeg','png','gif','webp'];
+                                $isImage = in_array($ext, $imageExtensions);
+                                $isVideo = in_array($ext, $videoExtensions);
+                            @endphp
+                            @if($isImage)
+                                <img src="{{ config('app.storage_url') }}{{ $otherpost->file }}" alt="{{ $otherpost->title }}" loading="lazy">
+                            @elseif($isVideo)
+                                <video muted><source src="{{ config('app.storage_url') }}{{ $otherpost->file }}"></video>
+                            @endif
+                        @endif
+                        <span class="np-related-number">{{ $index + 1 }}</span>
+                    </div>
+                    <div class="np-related-body">
+                        <h6>{{ $otherpost->title }}</h6>
+                        <div class="np-related-meta">
+                            <span><i class="bi bi-calendar3"></i> {{ \Carbon\Carbon::parse($otherpost->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}</span>
+                            <span><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($otherpost->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+<button class="np-scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="bi bi-arrow-up"></i>
 </button>
 
-{{-- ===== JavaScript ===== --}}
 <script>
-	// Back to top visibility
-	window.addEventListener('scroll', function() {
-		const btn = document.getElementById('backToTopBtn');
-		if (btn) {
-			btn.classList.toggle('visible', window.scrollY > 300);
-		}
-	});
+    window.addEventListener('scroll', function() {
+        var btn = document.getElementById('scrollTopBtn');
+        if (btn) { btn.classList.toggle('visible', window.scrollY > 300); }
+    });
 
-	// Copy article link
-	function copyArticleLink(e) {
-		e.preventDefault();
-		navigator.clipboard.writeText(window.location.href).then(function() {
-			const icon = e.currentTarget.querySelector('i');
-			icon.className = 'bi bi-check-lg';
-			e.currentTarget.style.color = '#2E7D32';
-			setTimeout(() => {
-				icon.className = 'bi bi-link-45deg';
-				e.currentTarget.style.color = '';
-			}, 2000);
-		});
-	}
+    function copyArticleLink(e) {
+        e.preventDefault();
+        navigator.clipboard.writeText(window.location.href).then(function() {
+            var icon = e.currentTarget.querySelector('i');
+            icon.className = 'bi bi-check-lg';
+            e.currentTarget.style.color = '#00c853';
+            setTimeout(function() {
+                icon.className = 'bi bi-link-45deg';
+                e.currentTarget.style.color = '';
+            }, 2000);
+        });
+    }
 
-	// Intersection Observer for scroll-triggered animations on related items
-	document.addEventListener('DOMContentLoaded', function() {
-		const observer = new IntersectionObserver(function(entries) {
-			entries.forEach(function(entry) {
-				if (entry.isIntersecting) {
-					const delay = entry.target.getAttribute('data-delay') || 0;
-					setTimeout(function() {
-						entry.target.classList.add('animate-in');
-					}, parseInt(delay));
-					observer.unobserve(entry.target);
-				}
-			});
-		}, { threshold: 0.15 });
-
-		document.querySelectorAll('.related-item').forEach(function(item) {
-			observer.observe(item);
-		});
-	});
+    document.addEventListener('DOMContentLoaded', function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var delay = parseInt(entry.target.getAttribute('data-delay')) || 0;
+                    setTimeout(function() {
+                        entry.target.classList.add('np-animate-in');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.np-related-card').forEach(function(item) {
+            observer.observe(item);
+        });
+    });
 </script>
 
 @endsection
