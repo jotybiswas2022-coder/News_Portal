@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+@section('title', 'Latest News')
+
 @section('content')
 
 <style>
