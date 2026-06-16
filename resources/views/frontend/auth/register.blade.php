@@ -1,1247 +1,1160 @@
-<!-- Floating Newspaper Snippets -->
-<div class="floating-snippet">
-    BREAKING: Markets surge to new highs amid global recovery efforts across sectors...
-</div>
+<!-- ===== NEWS PORTAL DARK — REGISTER PAGE ===== -->
 
-<div class="floating-snippet">
-    EDITORIAL: The future of digital journalism and its impact on modern society...
-</div>
+<div class="np-dark-wrap">
 
-<div class="floating-snippet">
-    WORLD: International summit addresses climate change with bold new proposals...
-</div>
+    <div class="np-dark-bg"></div>
 
-<div class="floating-snippet">
-    TECH: Artificial intelligence reshaping the landscape of modern newsrooms...
-</div>
+    <div class="np-orb np-orb-1"></div>
+    <div class="np-orb np-orb-2"></div>
+    <div class="np-orb np-orb-3"></div>
 
-<div class="floating-snippet">
-    SPORTS: Championship finals deliver historic overtime victory for underdogs...
-</div>
+    <div class="np-float-particle" style="top:12%; left:6%; width:32px; height:40px; animation-delay:0s; opacity:0.06;"></div>
+    <div class="np-float-particle" style="top:65%; right:4%; width:28px; height:36px; animation-delay:2s; opacity:0.05;"></div>
+    <div class="np-float-particle" style="top:75%; left:8%; width:24px; height:30px; animation-delay:4s; opacity:0.04;"></div>
+    <div class="np-float-particle" style="top:20%; right:10%; width:30px; height:38px; animation-delay:6s; opacity:0.05;"></div>
+    <div class="np-float-particle" style="top:45%; left:2%; width:20px; height:26px; animation-delay:8s; opacity:0.04;"></div>
+    <div class="np-float-particle" style="top:55%; right:15%; width:26px; height:34px; animation-delay:3s; opacity:0.05;"></div>
 
-<div class="floating-snippet">
-    OPINION: Democracy thrives when the press remains free and accountable...
-</div>
+    <div class="np-star" style="top:8%; left:12%; width:3px; height:3px; animation-delay:0s;"></div>
+    <div class="np-star" style="top:30%; left:85%; width:2px; height:2px; animation-delay:1.2s;"></div>
+    <div class="np-star" style="top:60%; left:5%; width:4px; height:4px; animation-delay:2.5s;"></div>
+    <div class="np-star" style="top:80%; left:92%; width:2px; height:2px; animation-delay:3.8s;"></div>
+    <div class="np-star" style="top:15%; left:50%; width:3px; height:3px; animation-delay:5s;"></div>
+    <div class="np-star" style="top:70%; left:45%; width:2px; height:2px; animation-delay:1.8s;"></div>
+    <div class="np-star" style="top:40%; left:20%; width:3px; height:3px; animation-delay:3s;"></div>
+    <div class="np-star" style="top:85%; left:65%; width:2px; height:2px; animation-delay:4.5s;"></div>
 
+    <div class="np-dark-ticker">
+        <div class="np-dark-ticker-label">
+            <i class="bi bi-megaphone"></i>
+            <span>LIVE</span>
+        </div>
+        <div class="np-dark-ticker-track-wrap">
+            <div class="np-dark-ticker-track">
+                <span>Breaking: Global markets see historic rally as tech sector surges</span>
+                <span>Weather Alert: Severe storm warning issued for coastal regions</span>
+                <span>Technology: AI breakthrough promises to revolutionize healthcare</span>
+                <span>Politics: World leaders gather for landmark climate summit</span>
+                <span>Breaking: Global markets see historic rally as tech sector surges</span>
+                <span>Weather Alert: Severe storm warning issued for coastal regions</span>
+                <span>Technology: AI breakthrough promises to revolutionize healthcare</span>
+                <span>Politics: World leaders gather for landmark climate summit</span>
+            </div>
+        </div>
+    </div>
 
-<!-- LOGIN CONTAINER -->
-<div class="login-container">
+    <div class="np-dark-center">
 
-    <div class="login-wrapper">
+        <div class="np-dark-card">
 
-        <div class="card login-card">
+            <div class="np-dark-top-glow"></div>
 
+            <div class="np-dark-head">
 
-            <!-- HEADER -->
-            <div class="card-header login-header">
-
-                <div class="edition-bar">
-                    <span>
-                        <i class="bi bi-geo-alt-fill" style="color:#D32F2F;"></i>
-                        Worldwide Edition
-                    </span>
-
-                    <span id="currentDate"></span>
-
-                    <span>
-                        Est. 2025
-                    </span>
+                <div class="np-dark-badge">
+                    <span class="np-dark-badge-dot"></span>
+                    Online Edition
                 </div>
 
-
-                <div class="header-icon">
-                    <i class="bi bi-newspaper"></i>
+                <div class="np-dark-icon-ring">
+                    <div class="np-dark-icon">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
                 </div>
 
+                <h1 class="np-dark-title">
+                    News <span>Portal</span>
+                </h1>
 
-                <div class="masthead-title">
-                    News Portal
-                </div>
+                <p class="np-dark-sub" id="npTypingSub">Join Our Community.</p>
 
-
-                <div class="news-separator">
-
-                    <div class="sep-line"></div>
-
+                <div class="np-dark-divider">
+                    <span class="np-dark-d-line"></span>
                     <i class="bi bi-diamond-fill"></i>
-                    <i class="bi bi-hexagon-fill"></i>
-                    <i class="bi bi-diamond-fill"></i>
-
-                    <div class="sep-line"></div>
-
+                    <span class="np-dark-d-line"></span>
                 </div>
 
-
-                <span class="brand-tagline">
-                    Create Your Account
-                    <span class="typewriter-cursor"></span>
-                </span>
+                <div class="np-dark-status">
+                    <span class="np-dark-status-dot"></span>
+                    <span class="np-dark-status-text">System Online</span>
+                    <span class="np-dark-status-sep">|</span>
+                    <span><i class="bi bi-calendar3"></i> <span id="npLiveDate"></span></span>
+                </div>
 
             </div>
 
+            <div class="np-dark-body">
 
-            <!-- BODY -->
-            <div class="card-body login-body">
-
-
-                <div class="headline-deco">
+                <div class="np-dark-section-title">
                     <i class="bi bi-pencil-fill"></i>
-                    Reader Registration
-                    <i class="bi bi-pencil-fill"></i>
+                    <span>Reader Registration</span>
                 </div>
 
-
-                <form method="POST" action="{{ route('register') }}" autocomplete="off">
-
+                <form method="POST" action="{{ route('register') }}">
                     @csrf
 
-
-                    <!-- NAME -->
-                    <div class="input-group-animated">
-
-                        <label for="name" class="login-label">
-                            <i class="bi bi-person"></i>
-                            Full Name
+                    <div class="np-dark-field" style="--f-delay:0.15s;">
+                        <label for="name" class="np-dark-label">
+                            <i class="bi bi-person"></i> {{ __('Full Name') }}
                         </label>
-
-                        <div class="input-icon-wrap">
-
-                            <i class="bi bi-person-fill"></i>
-
-                            <input
-                                id="name"
-                                type="text"
-                                class="form-control login-input @error('name') is-invalid @enderror"
-                                name="name"
-                                value="{{ old('name') }}"
-                                placeholder="Enter your full name"
-                                required
-                                autofocus
-                                autocomplete="name"
-                            >
-
+                        <div class="np-dark-input-group">
+                            <input id="name"
+                                   type="text"
+                                   name="name"
+                                   value="{{ old('name') }}"
+                                   class="np-dark-input @error('name') np-dark-input-err @enderror"
+                                   placeholder="John Doe"
+                                   required
+                                   autocomplete="name"
+                                   autofocus>
+                            <i class="bi bi-person np-dark-input-icon"></i>
+                            <div class="np-dark-input-line"></div>
                         </div>
-
                         @error('name')
-                            <span class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-
-
-
-                    <!-- EMAIL -->
-                    <div class="input-group-animated">
-
-                        <label for="email" class="login-label">
-                            <i class="bi bi-envelope"></i>
-                            Email Address
-                        </label>
-
-                        <div class="input-icon-wrap">
-
-                            <i class="bi bi-envelope-fill"></i>
-
-                            <input
-                                id="email"
-                                type="email"
-                                class="form-control login-input @error('email') is-invalid @enderror"
-                                name="email"
-                                value="{{ old('email') }}"
-                                placeholder="you@newsportal.com"
-                                required
-                                autocomplete="email"
-                            >
-
-                        </div>
-
-                        @error('email')
-                            <span class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-
-
-
-                    <!-- PASSWORD -->
-                    <div class="input-group-animated">
-
-                        <label for="password" class="login-label">
-                            <i class="bi bi-shield-lock"></i>
-                            Password
-                        </label>
-
-                        <div class="input-icon-wrap">
-
-                            <i class="bi bi-lock-fill"></i>
-
-                            <input
-                                id="password"
-                                type="password"
-                                class="form-control login-input @error('password') is-invalid @enderror"
-                                name="password"
-                                placeholder="••••••••"
-                                required
-                                autocomplete="new-password"
-                            >
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                onclick="togglePassword('password', this)"
-                            >
-                                <i class="bi bi-eye-slash"></i>
-                            </button>
-
-                        </div>
-
-                        @error('password')
-                            <span class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-
-
-
-                    <!-- CONFIRM PASSWORD -->
-                    <div class="input-group-animated">
-
-                        <label for="password-confirm" class="login-label">
-                            <i class="bi bi-shield-check"></i>
-                            Confirm Password
-                        </label>
-
-                        <div class="input-icon-wrap">
-
-                            <i class="bi bi-lock-fill"></i>
-
-                            <input
-                                id="password-confirm"
-                                type="password"
-                                class="form-control login-input"
-                                name="password_confirmation"
-                                placeholder="••••••••"
-                                required
-                                autocomplete="new-password"
-                            >
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                onclick="togglePassword('password-confirm', this)"
-                            >
-                                <i class="bi bi-eye-slash"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- DIVIDER -->
-                    <div class="divider">
-
-                        <span>
-                            <i class="bi bi-newspaper" style="font-size:10px;"></i>
-                            Start Your Story
-                            <i class="bi bi-newspaper" style="font-size:10px;"></i>
+                        <span class="np-dark-err">
+                            <i class="bi bi-exclamation-circle"></i> {{ $message }}
                         </span>
-
+                        @enderror
                     </div>
 
-
-
-                    <!-- BUTTON -->
-                    <div class="input-group-animated mt-3 d-flex flex-column gap-3">
-
-                        <button type="submit" class="btn login-btn">
-                            <i class="bi bi-person-plus-fill"></i>
-                            Register Now
-                        </button>
-
-                        <div class="text-center">
-
-                            <a href="{{ route('login') }}" class="login-link">
-                                <i class="bi bi-box-arrow-in-right"></i>
-                                Already have an account? Sign In
-                            </a>
-
+                    <div class="np-dark-field" style="--f-delay:0.3s;">
+                        <label for="email" class="np-dark-label">
+                            <i class="bi bi-envelope"></i> {{ __('Email Address') }}
+                        </label>
+                        <div class="np-dark-input-group">
+                            <input id="email"
+                                   type="email"
+                                   name="email"
+                                   value="{{ old('email') }}"
+                                   class="np-dark-input @error('email') np-dark-input-err @enderror"
+                                   placeholder="you@example.com"
+                                   required
+                                   autocomplete="email">
+                            <i class="bi bi-envelope np-dark-input-icon"></i>
+                            <div class="np-dark-input-line"></div>
                         </div>
-
+                        @error('email')
+                        <span class="np-dark-err">
+                            <i class="bi bi-exclamation-circle"></i> {{ $message }}
+                        </span>
+                        @enderror
                     </div>
 
+                    <div class="np-dark-field" style="--f-delay:0.45s;">
+                        <label for="password" class="np-dark-label">
+                            <i class="bi bi-shield-lock"></i> {{ __('Password') }}
+                        </label>
+                        <div class="np-dark-input-group">
+                            <input id="password"
+                                   type="password"
+                                   name="password"
+                                   class="np-dark-input @error('password') np-dark-input-err @enderror"
+                                   placeholder="••••••••"
+                                   required
+                                   autocomplete="new-password">
+                            <i class="bi bi-lock np-dark-input-icon"></i>
+                            <button type="button" class="np-dark-pw-toggle" id="npPwToggle1" tabindex="-1">
+                                <i class="bi bi-eye" id="npPwIcon1"></i>
+                            </button>
+                            <div class="np-dark-input-line"></div>
+                        </div>
+                        @error('password')
+                        <span class="np-dark-err">
+                            <i class="bi bi-exclamation-circle"></i> {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="np-dark-field" style="--f-delay:0.6s;">
+                        <label for="password-confirm" class="np-dark-label">
+                            <i class="bi bi-shield-check"></i> {{ __('Confirm Password') }}
+                        </label>
+                        <div class="np-dark-input-group">
+                            <input id="password-confirm"
+                                   type="password"
+                                   name="password_confirmation"
+                                   class="np-dark-input"
+                                   placeholder="••••••••"
+                                   required
+                                   autocomplete="new-password">
+                            <i class="bi bi-lock-fill np-dark-input-icon"></i>
+                            <button type="button" class="np-dark-pw-toggle" id="npPwToggle2" tabindex="-1">
+                                <i class="bi bi-eye" id="npPwIcon2"></i>
+                            </button>
+                            <div class="np-dark-input-line"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="np-dark-btn" id="npRegBtn" style="--f-delay:0.75s;">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Create Account</span>
+                        <i class="bi bi-arrow-repeat np-dark-spin"></i>
+                    </button>
 
                 </form>
 
-            </div>
+                <div class="np-dark-or" style="--f-delay:0.85s;">
+                    <span class="np-dark-or-line"></span>
+                    <span class="np-dark-or-text">
+                        <i class="bi bi-diamond-fill"></i> Already a Member? <i class="bi bi-diamond-fill"></i>
+                    </span>
+                    <span class="np-dark-or-line"></span>
+                </div>
 
-
-
-            <!-- FOOTER -->
-            <div class="card-footer-stamp">
-
-                <div class="footer-text">
-                    News Portal
-                    <i class="bi bi-heart-fill"></i>
-                    Trusted Journalism Since 2025
+                <div class="np-dark-register" style="--f-delay:0.95s;">
+                    <p class="np-dark-reg-text">Already have an account?</p>
+                    <a href="{{ route('login') }}" class="np-dark-reg-btn">
+                        <i class="bi bi-box-arrow-in-right"></i> Sign In
+                    </a>
                 </div>
 
             </div>
 
+            <div class="np-dark-foot">
+                <span>
+                    <i class="bi bi-newspaper"></i>
+                    News Portal &copy; {{ date('Y') }} &mdash; All Rights Reserved
+                </span>
+            </div>
 
         </div>
+    </div>
 
+    <div class="np-live-feed" aria-hidden="true">
+        <div class="np-feed-track">
+            <span>🔴 LIVE: World leaders arrive for climate summit • </span>
+            <span>📰 Tech stocks hit all-time high • </span>
+            <span>🌍 Major earthquake hits Pacific region • </span>
+            <span>⚽ Sports: Underdog team wins championship • </span>
+            <span>🔴 LIVE: World leaders arrive for climate summit • </span>
+            <span>📰 Tech stocks hit all-time high • </span>
+            <span>🌍 Major earthquake hits Pacific region • </span>
+            <span>⚽ Sports: Underdog team wins championship • </span>
+        </div>
     </div>
 
 </div>
 
-
-<!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
-
-    <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #F5F0EB;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* ===== NEWSPAPER BACKGROUND TEXTURE ===== */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background:
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 28px,
-                    rgba(0,0,0,0.015) 28px,
-                    rgba(0,0,0,0.015) 29px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 100px,
-                    rgba(0,0,0,0.008) 100px,
-                    rgba(0,0,0,0.008) 101px
-                );
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ===== FLOATING NEWSPAPER SNIPPETS ===== */
-        .floating-snippet {
-            position: fixed;
-            font-family: 'Libre Baskerville', serif;
-            color: rgba(0,0,0,0.04);
-            font-size: 11px;
-            line-height: 1.4;
-            max-width: 180px;
-            pointer-events: none;
-            z-index: 0;
-            animation: floatSnippet 20s ease-in-out infinite;
-        }
-        .floating-snippet:nth-child(1) { top: 5%; left: 3%; animation-delay: 0s; }
-        .floating-snippet:nth-child(2) { top: 15%; right: 5%; animation-delay: -4s; }
-        .floating-snippet:nth-child(3) { bottom: 20%; left: 5%; animation-delay: -8s; }
-        .floating-snippet:nth-child(4) { bottom: 10%; right: 3%; animation-delay: -12s; }
-        .floating-snippet:nth-child(5) { top: 50%; left: 2%; animation-delay: -6s; }
-        .floating-snippet:nth-child(6) { top: 40%; right: 2%; animation-delay: -10s; }
-
-        @keyframes floatSnippet {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
-            25% { transform: translateY(-15px) rotate(0.5deg); opacity: 0.8; }
-            50% { transform: translateY(-8px) rotate(-0.3deg); opacity: 0.6; }
-            75% { transform: translateY(-20px) rotate(0.2deg); opacity: 0.9; }
-        }
-
-        /* ===== LOGIN CONTAINER ===== */
-        .login-container {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ===== BREAKING NEWS TICKER (Top) ===== */
-        .breaking-ticker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #D32F2F;
-            color: #FFFFFF;
-            z-index: 100;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(211,47,47,0.3);
-        }
-
-        .ticker-label {
-            background: #000000;
-            color: #FFFFFF;
-            padding: 0 16px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 700;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            white-space: nowrap;
-            position: relative;
-            z-index: 2;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .ticker-label i {
-            animation: blink 1s ease-in-out infinite;
-            color: #D32F2F;
-            font-size: 8px;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-
-        .ticker-content {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .ticker-scroll {
-            display: flex;
-            animation: tickerScroll 35s linear infinite;
-            white-space: nowrap;
-        }
-
-        .ticker-scroll span {
-            padding: 0 40px;
-            font-size: 12.5px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .ticker-scroll span::before {
-            content: '\25C6';
-            margin-right: 12px;
-            font-size: 6px;
-            vertical-align: middle;
-            opacity: 0.7;
-        }
-
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* ===== MAIN WRAPPER ===== */
-        .login-wrapper {
-            width: 100%;
-            max-width: 480px;
-            perspective: 1200px;
-            margin-top: 20px;
-        }
-
-        /* ===== CARD ===== */
-        .login-card {
-            background: #FFFFFF;
-            border: none;
-            border-radius: 0;
-            box-shadow:
-                0 1px 0 0 #000000,
-                0 -1px 0 0 #000000,
-                1px 0 0 0 #000000,
-                -1px 0 0 0 #000000,
-                0 20px 60px rgba(0,0,0,0.08),
-                0 8px 25px rgba(0,0,0,0.06);
-            position: relative;
-            overflow: hidden;
-            animation: cardSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        @keyframes cardSlideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Newspaper fold line effect */
-        .login-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(0,0,0,0.03) 10%,
-                rgba(0,0,0,0.03) 90%,
-                transparent 100%
-            );
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Corner fold effect */
-        .login-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 30px 30px 0;
-            border-color: transparent #F5F0EB transparent transparent;
-            z-index: 10;
-            filter: drop-shadow(-1px 1px 1px rgba(0,0,0,0.08));
-        }
-
-        /* ===== HEADER ===== */
-        .login-header {
-            background: #FFFFFF;
-            border-bottom: 3px double #000000;
-            padding: 28px 30px 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        /* Top red accent line */
-        .login-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #D32F2F;
-        }
-
-        /* Edition date bar */
-        .edition-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Inter', sans-serif;
-            font-size: 9px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #888;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #E0E0E0;
-        }
-
-        .header-icon {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 8px;
-        }
-
-        .header-icon i {
-            font-size: 32px;
-            color: #D32F2F;
-            filter: drop-shadow(0 2px 4px rgba(211,47,47,0.2));
-            animation: pressRotate 4s ease-in-out infinite;
-        }
-
-        @keyframes pressRotate {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(-3deg) scale(1.02); }
-            75% { transform: rotate(3deg) scale(1.02); }
-        }
-
-        .masthead-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 900;
-            color: #000000;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin-bottom: 4px;
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Decorative newspaper separator */
-        .news-separator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: 12px 0 8px;
-        }
-
-        .news-separator .sep-line {
-            flex: 1;
-            max-width: 80px;
-            height: 1px;
-            background: #000000;
-            position: relative;
-        }
-
-        .news-separator .sep-line::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #000000;
-        }
-
-        .news-separator i {
-            color: #D32F2F;
-            font-size: 8px;
-            animation: sparkle 2s ease-in-out infinite;
-        }
-
-        .news-separator i:nth-child(3) {
-            font-size: 10px;
-            animation-delay: 0.3s;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.3); }
-        }
-
-        .brand-tagline {
-            display: block;
-            font-family: 'Libre Baskerville', serif;
-            font-size: 13px;
-            font-style: italic;
-            color: #555;
-            margin-top: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== BODY ===== */
-        .login-body {
-            padding: 28px 32px 32px;
-            position: relative;
-        }
-
-        /* Subtle column lines */
-        .login-body::before {
-            content: '';
-            position: absolute;
-            top: 28px;
-            bottom: 32px;
-            left: 31px;
-            width: 1px;
-            background: linear-gradient(to bottom, transparent, rgba(211,47,47,0.08), transparent);
-            pointer-events: none;
-        }
-
-        /* ===== FORM GROUPS ===== */
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            appearance: none;
-            border-radius: 0;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-        .form-control:focus {
-            outline: none;
-        }
-
-        .input-group-animated {
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: slideInField 0.5s ease forwards;
-        }
-
-        .input-group-animated:nth-child(1) { animation-delay: 0.2s; }
-        .input-group-animated:nth-child(2) { animation-delay: 0.35s; }
-        .input-group-animated:nth-child(3) { animation-delay: 0.5s; }
-        .input-group-animated:nth-child(4) { animation-delay: 0.65s; }
-
-        @keyframes slideInField {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .login-label {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #000000;
-            margin-bottom: 6px;
-        }
-
-        .login-label i {
-            color: #D32F2F;
-            font-size: 12px;
-            margin-right: 2px;
-        }
-
-        .input-icon-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-icon-wrap > i:first-child {
-            position: absolute;
-            left: 14px;
-            color: #999;
-            font-size: 15px;
-            z-index: 2;
-            transition: color 0.3s ease;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 12px 14px 12px 42px;
-            border: 2px solid #E0E0E0;
-            border-radius: 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: #000000;
-            background: #FAFAFA;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .login-input::placeholder {
-            color: #BDBDBD;
-            font-style: italic;
-            font-size: 13px;
-        }
-
-        .login-input:focus {
-            border-color: #D32F2F;
-            background: #FFFFFF;
-            box-shadow: 0 0 0 3px rgba(211,47,47,0.08), 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .login-input:focus + .password-toggle,
-        .input-icon-wrap:focus-within > i:first-child {
-            color: #D32F2F;
-        }
-
-        /* Focus state icon color */
-        .login-input:focus ~ .input-icon-wrap > i:first-child {
-            color: #D32F2F;
-        }
-
-        .input-icon-wrap:focus-within > i:first-child {
-            color: #D32F2F;
-        }
-
-        /* ===== PASSWORD TOGGLE ===== */
-        .password-toggle {
-            position: absolute;
-            right: 12px;
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            padding: 4px;
-            font-size: 16px;
-            transition: color 0.3s ease;
-            z-index: 2;
-        }
-
-        .password-toggle:hover {
-            color: #D32F2F;
-        }
-
-        /* ===== VALIDATION ===== */
-        .is-invalid {
-            border-color: #D32F2F !important;
-            background-image: none;
-        }
-
-        .invalid-feedback {
-            display: block;
-            font-size: 11px;
-            color: #D32F2F;
-            margin-top: 4px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-        }
-
-        .invalid-feedback i {
-            margin-right: 3px;
-        }
-
-        /* ===== DIVIDER ===== */
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 24px 0 4px;
-            position: relative;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, transparent, #000000, transparent);
-        }
-
-        .divider span {
-            padding: 0 14px;
-            font-family: 'Libre Baskerville', serif;
-            font-size: 10px;
-            font-style: italic;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            white-space: nowrap;
-        }
-
-        .divider span i {
-            color: #D32F2F;
-            vertical-align: middle;
-        }
-
-        /* ===== BUTTON ===== */
-        .btn {
-            display: inline-block;
-            font-weight: 400;
-            line-height: 1.5;
-            text-align: center;
-            text-decoration: none;
-            vertical-align: middle;
-            cursor: pointer;
-            user-select: none;
-            border: 1px solid transparent;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 13px;
-            background: #D32F2F;
-            color: #FFFFFF;
-            border: 2px solid #D32F2F;
-            border-radius: 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.15),
-                transparent
-            );
-            transition: left 0.6s ease;
-        }
-
-        .login-btn:hover {
-            background: #000000;
-            border-color: #000000;
-            color: #FFFFFF;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-            transform: translateY(-1px);
-        }
-
-        .login-btn:hover::before {
-            left: 100%;
-        }
-
-        .login-btn:active {
-            transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .login-btn i {
-            margin-right: 8px;
-            font-size: 15px;
-        }
-
-        /* ===== PRESS STAMP ANIMATION ON BUTTON ===== */
-        @keyframes pressStamp {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.96); }
-            100% { transform: scale(1); }
-        }
-
-        .login-btn:active {
-            animation: pressStamp 0.2s ease;
-        }
-
-        /* ===== LINKS ===== */
-        .login-link {
-            color: #D32F2F;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .login-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background: #D32F2F;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .login-link:hover {
-            color: #000000;
-        }
-
-        .login-link:hover::after {
-            width: 100%;
-            background: #000000;
-        }
-
-        .login-link i {
-            margin-right: 4px;
-            font-size: 13px;
-        }
-
-        /* ===== UTILITY CLASSES ===== */
-        .mt-3 { margin-top: 1rem; }
-        .d-flex { display: flex; }
-        .flex-column { flex-direction: column; }
-        .gap-3 { gap: 1rem; }
-        .text-center { text-align: center; }
-
-        /* ===== FOOTER WATERMARK ===== */
-        .card-footer-stamp {
-            text-align: center;
-            padding: 14px 30px;
-            border-top: 1px solid #E0E0E0;
-            background: #FAFAFA;
-            position: relative;
-        }
-
-        .card-footer-stamp::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 30px;
-            right: 30px;
-            height: 1px;
-            background: #E0E0E0;
-        }
-
-        .footer-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 9px;
-            color: #BDBDBD;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .footer-text i {
-            color: #D32F2F;
-            font-size: 8px;
-            margin: 0 4px;
-            animation: heartbeat 1.5s ease infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.1); }
-        }
-
-        /* ===== INK SPLASH DECORATION ===== */
-        .ink-corner {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            opacity: 0.03;
-            pointer-events: none;
-        }
-
-        .ink-corner.top-left {
-            top: -5px;
-            left: -5px;
-            border-top: 3px solid #000;
-            border-left: 3px solid #000;
-        }
-
-        .ink-corner.bottom-right {
-            bottom: -5px;
-            right: -5px;
-            border-bottom: 3px solid #000;
-            border-right: 3px solid #000;
-        }
-
-        /* ===== TYPEWRITER CURSOR BLINK ===== */
-        .typewriter-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 14px;
-            background: #D32F2F;
-            margin-left: 3px;
-            vertical-align: text-bottom;
-            animation: cursorBlink 0.8s step-end infinite;
-        }
-
-        @keyframes cursorBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* ===== PRINTING PRESS LOADING DOTS ===== */
-        .press-dots {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            margin-top: 4px;
-        }
-
-        .press-dots span {
-            width: 4px;
-            height: 4px;
-            background: #D32F2F;
-            border-radius: 50%;
-            animation: pressDot 1.4s ease-in-out infinite;
-        }
-
-        .press-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .press-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes pressDot {
-            0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
-            40% { transform: scale(1.2); opacity: 1; }
-        }
-
-        /* ===== SCROLL/PAPER EDGE ===== */
-        .paper-edge-top,
-        .paper-edge-bottom {
-            height: 6px;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 8px,
-                rgba(0,0,0,0.04) 8px,
-                rgba(0,0,0,0.04) 9px
-            );
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 520px) {
-            .login-wrapper {
-                max-width: 100%;
-            }
-
-            .login-header {
-                padding: 24px 20px 16px;
-            }
-
-            .masthead-title {
-                font-size: 26px;
-            }
-
-            .login-body {
-                padding: 24px 20px 28px;
-            }
-
-            .edition-bar {
-                font-size: 8px;
-            }
-        }
-
-        /* ===== PAGE LOAD OVERLAY (Newspaper Print Effect) ===== */
-        .print-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #FFFFFF;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            animation: printFade 1.5s ease 1s forwards;
-        }
-
-        .print-overlay i {
-            font-size: 40px;
-            color: #D32F2F;
-            animation: pressRotate 1s ease-in-out infinite;
-        }
-
-        .print-overlay p {
-            font-family: 'Playfair Display', serif;
-            font-size: 14px;
-            color: #000;
-            margin-top: 12px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        @keyframes printFade {
-            0% { opacity: 1; visibility: visible; }
-            80% { opacity: 0; }
-            100% { opacity: 0; visibility: hidden; pointer-events: none; }
-        }
-
-        /* ===== EXTRA HOVER MICRO-INTERACTIONS ===== */
-        .login-card:hover {
-            box-shadow:
-                0 1px 0 0 #000000,
-                0 -1px 0 0 #000000,
-                1px 0 0 0 #000000,
-                -1px 0 0 0 #000000,
-                0 25px 70px rgba(0,0,0,0.1),
-                0 10px 30px rgba(0,0,0,0.08);
-            transition: box-shadow 0.4s ease;
-        }
-
-        /* ===== HEADLINE STYLE DECORATION ===== */
-        .headline-deco {
-            font-family: 'Playfair Display', serif;
-            font-size: 9px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #D32F2F;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 700;
-            position: relative;
-            padding: 0 10px;
-        }
-
-        .headline-deco::before,
-        .headline-deco::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 30%;
-            height: 1px;
-            background: #E0E0E0;
-        }
-
-        .headline-deco::before { left: 0; }
-        .headline-deco::after { right: 0; }
-
-        .headline-deco i {
-            font-size: 7px;
-            margin: 0 3px;
-            vertical-align: middle;
-        }
-    </style>
-
-        <!-- JavaScript -->
-    <script>
-        // Toggle Password Visibility
-        function togglePassword(fieldId, btn) {
-            const input = document.getElementById(fieldId);
-            const icon = btn.querySelector('i');
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            }
-        }
-
-        // Set Current Date in Edition Bar
-        (function() {
-            const now = new Date();
-            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('en-US', options);
-            const el = document.getElementById('currentDate');
-            if (el) el.textContent = dateStr;
-        })();
-
-        // Add focus ripple effect on inputs
-        document.querySelectorAll('.login-input').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.closest('.input-group-animated').style.transform = 'translateX(4px)';
-                this.closest('.input-group-animated').style.transition = 'transform 0.3s ease';
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const d = document.getElementById('npLiveDate');
+        if (d) {
+            d.textContent = new Date().toLocaleDateString('en-US', {
+                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
             });
+        }
+    });
 
-            input.addEventListener('blur', function() {
-                this.closest('.input-group-animated').style.transform = 'translateX(0)';
+    [['npPwToggle1','npPwIcon1','password'],['npPwToggle2','npPwIcon2','password-confirm']].forEach(([btnId, iconId, inputId]) => {
+        const btn = document.getElementById(btnId);
+        const icon = document.getElementById(iconId);
+        const input = document.getElementById(inputId);
+        if (btn && icon && input) {
+            btn.addEventListener('click', () => {
+                const isPw = input.type === 'password';
+                input.type = isPw ? 'text' : 'password';
+                icon.classList.toggle('bi-eye');
+                icon.classList.toggle('bi-eye-slash');
             });
+        }
+    });
+
+    const regBtn = document.getElementById('npRegBtn');
+    if (regBtn) {
+        regBtn.closest('form').addEventListener('submit', () => {
+            regBtn.classList.add('np-dark-loading');
+            regBtn.disabled = true;
         });
+        regBtn.addEventListener('click', function(e) {
+            const r = this.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'np-dark-ripple';
+            const s = Math.max(r.width, r.height);
+            ripple.style.width = ripple.style.height = s + 'px';
+            ripple.style.left = (e.clientX - r.left - s / 2) + 'px';
+            ripple.style.top = (e.clientY - r.top - s / 2) + 'px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 700);
+        });
+    }
 
-        // Remove print overlay after animation
-        setTimeout(() => {
-            const overlay = document.querySelector('.print-overlay');
-            if (overlay) overlay.remove();
-        }, 2600);
-    </script>
+    document.querySelectorAll('.np-dark-input').forEach(inp => {
+        inp.addEventListener('focus', () => inp.closest('.np-dark-input-group').classList.add('focused'));
+        inp.addEventListener('blur', () => inp.closest('.np-dark-input-group').classList.remove('focused'));
+    });
+
+    (function typeEffect() {
+        const el = document.getElementById('npTypingSub');
+        if (!el) return;
+        const words = ['Join Our Community.', 'Become a Subscriber.', 'Start Your Journey.', 'Stay Informed.'];
+        let wordIdx = 0, charIdx = 0, isDeleting = false;
+        function tick() {
+            const current = words[wordIdx];
+            if (!isDeleting) {
+                el.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+                if (charIdx === current.length) {
+                    setTimeout(() => { isDeleting = true; tick(); }, 2000);
+                    return;
+                }
+                setTimeout(tick, 60 + Math.random() * 40);
+            } else {
+                el.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    wordIdx = (wordIdx + 1) % words.length;
+                    setTimeout(tick, 400);
+                    return;
+                }
+                setTimeout(tick, 30 + Math.random() * 20);
+            }
+        }
+        setTimeout(tick, 1500);
+    })();
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+        --np-dark-1: #0a0a0f;
+        --np-dark-2: #111118;
+        --np-dark-3: #1a1a24;
+        --np-dark-4: #242430;
+        --np-red: #D32F2F;
+        --np-red-glow: rgba(211, 47, 47, 0.3);
+        --np-red-soft: rgba(211, 47, 47, 0.08);
+        --np-red-dark: #B71C1C;
+        --np-white: #FFFFFF;
+        --np-text: #d0d0d8;
+        --np-text-dim: #8888a0;
+        --np-text-muted: #555568;
+        --np-border: rgba(255,255,255,0.06);
+        --font-headline: 'Playfair Display', Georgia, serif;
+        --font-ui: 'Inter', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: var(--font-ui);
+        color: var(--np-text);
+        background: var(--np-dark-1);
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .np-dark-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: var(--np-dark-1);
+        padding: 75px 16px 20px;
+        overflow: hidden;
+    }
+
+    .np-dark-bg {
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse at 20% 50%, rgba(211,47,47,0.04) 0%, transparent 60%),
+            radial-gradient(ellipse at 80% 50%, rgba(211,47,47,0.02) 0%, transparent 60%),
+            radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.01) 0%, transparent 50%),
+            linear-gradient(180deg, #0a0a0f 0%, #0f0f18 40%, #12121e 60%, #0a0a0f 100%);
+        z-index: 0;
+        animation: npDarkBgShift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes npDarkBgShift {
+        0% { filter: brightness(1); }
+        50% { filter: brightness(1.08); }
+        100% { filter: brightness(0.95); }
+    }
+
+    .np-dark-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+        background-size: 80px 80px;
+        animation: npGridShift 30s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes npGridShift {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(80px, 80px); }
+    }
+
+    .np-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .np-orb-1 {
+        width: 400px; height: 400px;
+        background: rgba(211, 47, 47, 0.04);
+        top: -100px; left: -100px;
+        animation: npOrbFloat1 15s ease-in-out infinite;
+    }
+
+    .np-orb-2 {
+        width: 300px; height: 300px;
+        background: rgba(255, 255, 255, 0.02);
+        bottom: -80px; right: -80px;
+        animation: npOrbFloat2 18s ease-in-out infinite reverse;
+    }
+
+    .np-orb-3 {
+        width: 200px; height: 200px;
+        background: rgba(211, 47, 47, 0.03);
+        top: 50%; left: 60%;
+        animation: npOrbFloat3 12s ease-in-out infinite;
+    }
+
+    @keyframes npOrbFloat1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(60px, 40px) scale(1.1); }
+        66% { transform: translate(-30px, 60px) scale(0.9); }
+    }
+
+    @keyframes npOrbFloat2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-50px, -40px) scale(1.15); }
+    }
+
+    @keyframes npOrbFloat3 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+        50% { transform: translate(40px, -30px) scale(1.2); opacity: 0.5; }
+    }
+
+    .np-float-particle {
+        position: absolute;
+        background: var(--np-white);
+        border: 1px solid rgba(255,255,255,0.04);
+        z-index: 0;
+        pointer-events: none;
+        animation: npFloatParticle 18s ease-in-out infinite;
+    }
+
+    .np-float-particle::before {
+        content: '';
+        position: absolute;
+        top: 4px; left: 4px; right: 4px;
+        height: 2px;
+        background: var(--np-red);
+        opacity: 0.3;
+    }
+
+    .np-float-particle::after {
+        content: '';
+        position: absolute;
+        top: 10px; left: 4px; right: 4px; bottom: 4px;
+        background: repeating-linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px);
+    }
+
+    @keyframes npFloatParticle {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-30px) rotate(5deg); }
+        50% { transform: translateY(-15px) rotate(-3deg); }
+        75% { transform: translateY(-40px) rotate(8deg); }
+    }
+
+    .np-star {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--np-white);
+        pointer-events: none;
+        z-index: 0;
+        animation: npTwinkle 3s ease-in-out infinite;
+    }
+
+    @keyframes npTwinkle {
+        0%, 100% { opacity: 0.1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.5); box-shadow: 0 0 4px rgba(255,255,255,0.1); }
+    }
+
+    .np-live-feed {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        height: 32px;
+        background: rgba(211, 47, 47, 0.12);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(211, 47, 47, 0.15);
+        overflow: hidden;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+    }
+
+    .np-feed-track {
+        display: flex;
+        white-space: nowrap;
+        animation: npFeedScroll 50s linear infinite;
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.5px;
+    }
+
+    .np-feed-track span { padding: 0 20px; display: inline-flex; align-items: center; }
+
+    @keyframes npFeedScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    .np-dark-ticker {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 40px;
+        background: rgba(10, 10, 15, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--np-border);
+        display: flex;
+        align-items: center;
+        z-index: 100;
+        overflow: hidden;
+    }
+
+    .np-dark-ticker-label {
+        background: var(--np-red);
+        color: var(--np-white);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        padding: 0 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        text-transform: uppercase;
+        position: relative;
+    }
+
+    .np-dark-ticker-label i { font-size: 12px; animation: npMegaphone 1s ease-in-out infinite; }
+
+    @keyframes npMegaphone {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-10deg); }
+        75% { transform: rotate(10deg); }
+    }
+
+    .np-dark-ticker-label span { animation: npTickerPulse 1.5s step-end infinite; }
+
+    @keyframes npTickerPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+
+    .np-dark-ticker-track-wrap {
+        flex: 1;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .np-dark-ticker-track {
+        display: flex;
+        white-space: nowrap;
+        animation: npDarkTickerMove 40s linear infinite;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(255,255,255,0.55);
+    }
+
+    .np-dark-ticker-track span { padding: 0 28px; display: inline-flex; align-items: center; }
+
+    .np-dark-ticker-track span::before {
+        content: '◆';
+        font-size: 6px;
+        color: var(--np-red);
+        margin-right: 10px;
+        opacity: 0.6;
+    }
+
+    @keyframes npDarkTickerMove {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    .np-dark-center {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 420px;
+        animation: npDarkCardEntry 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes npDarkCardEntry {
+        from { opacity: 0; transform: translateY(50px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .np-dark-card {
+        background: rgba(18, 18, 30, 0.85);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--np-border);
+        position: relative;
+        overflow: visible;
+        box-shadow:
+            0 0 0 1px rgba(211, 47, 47, 0.03),
+            0 4px 24px rgba(0,0,0,0.3),
+            0 12px 60px rgba(0,0,0,0.2),
+            0 0 80px rgba(211, 47, 47, 0.02);
+    }
+
+    .np-dark-card:hover {
+        border-color: rgba(211, 47, 47, 0.08);
+        box-shadow:
+            0 0 0 1px rgba(211, 47, 47, 0.06),
+            0 8px 40px rgba(0,0,0,0.4),
+            0 20px 80px rgba(0,0,0,0.3),
+            0 0 100px rgba(211, 47, 47, 0.03);
+    }
+
+    .np-dark-top-glow {
+        position: absolute;
+        top: -1px;
+        left: 10%;
+        right: 10%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--np-red), transparent);
+        z-index: 10;
+        animation: npGlowBar 3s ease-in-out infinite;
+        border-radius: 0 0 2px 2px;
+    }
+
+    @keyframes npGlowBar {
+        0%, 100% { opacity: 0.4; box-shadow: 0 0 8px rgba(211,47,47,0.2); left: 10%; right: 10%; }
+        50% { opacity: 1; box-shadow: 0 0 20px rgba(211,47,47,0.4); left: 5%; right: 5%; }
+    }
+
+    .np-dark-head {
+        text-align: center;
+        padding: 40px 28px 20px;
+        border-bottom: 1px solid var(--np-border);
+        position: relative;
+    }
+
+    .np-dark-head::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--np-red), transparent);
+        opacity: 0.4;
+    }
+
+    .np-dark-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(211, 47, 47, 0.1);
+        color: var(--np-red);
+        padding: 4px 14px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        border: 1px solid rgba(211, 47, 47, 0.15);
+    }
+
+    .np-dark-badge-dot {
+        width: 5px;
+        height: 5px;
+        background: var(--np-red);
+        border-radius: 50%;
+        animation: npBadgePulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes npBadgePulse {
+        0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(211,47,47,0.4); }
+        50% { opacity: 0.5; transform: scale(1.4); box-shadow: 0 0 0 5px rgba(211,47,47,0); }
+    }
+
+    .np-dark-icon-ring {
+        width: 68px;
+        height: 68px;
+        margin: 0 auto 14px;
+        border: 1px solid rgba(211, 47, 47, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: npRingPulse 3s ease-in-out infinite;
+        position: relative;
+    }
+
+    .np-dark-icon-ring::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border: 1px solid rgba(211, 47, 47, 0.05);
+        animation: npRingRotate 6s linear infinite;
+    }
+
+    @keyframes npRingRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes npRingPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.05); }
+        50% { box-shadow: 0 0 20px 4px rgba(211, 47, 47, 0.08); }
+    }
+
+    .np-dark-icon {
+        width: 52px;
+        height: 52px;
+        background: rgba(211, 47, 47, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: var(--np-red);
+    }
+
+    .np-dark-icon i {
+        filter: drop-shadow(0 0 6px rgba(211, 47, 47, 0.3));
+        animation: npIconGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes npIconGlow {
+        0%, 100% { filter: drop-shadow(0 0 6px rgba(211, 47, 47, 0.3)); }
+        50% { filter: drop-shadow(0 0 15px rgba(211, 47, 47, 0.5)); }
+    }
+
+    .np-dark-card:hover .np-dark-icon {
+        background: rgba(211, 47, 47, 0.15);
+        transform: rotate(-5deg) scale(1.05);
+    }
+
+    .np-dark-title {
+        font-family: var(--font-headline);
+        font-size: 32px;
+        font-weight: 900;
+        color: var(--np-white);
+        letter-spacing: -0.5px;
+        line-height: 1.1;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .np-dark-title span {
+        color: var(--np-red);
+        text-shadow: 0 0 20px rgba(211, 47, 47, 0.2);
+    }
+
+    .np-dark-sub {
+        font-size: 11px;
+        color: var(--np-text-dim);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-top: 4px;
+        font-weight: 300;
+        min-height: 18px;
+    }
+
+    .np-dark-sub::after {
+        content: '|';
+        color: var(--np-red);
+        animation: npCursorBlink 0.8s step-end infinite;
+        margin-left: 3px;
+    }
+
+    @keyframes npCursorBlink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    .np-dark-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 12px 0;
+    }
+
+    .np-dark-d-line {
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    }
+
+    .np-dark-divider i {
+        font-size: 6px;
+        color: var(--np-red);
+        opacity: 0.6;
+    }
+
+    .np-dark-status {
+        font-size: 10px;
+        color: var(--np-text-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .np-dark-status i { color: var(--np-red); margin-right: 2px; font-size: 9px; }
+
+    .np-dark-status-dot {
+        width: 4px;
+        height: 4px;
+        background: #00c853;
+        border-radius: 50%;
+        animation: npStatusPulse 1.5s ease-in-out infinite;
+        box-shadow: 0 0 6px rgba(0,200,83,0.4);
+    }
+
+    @keyframes npStatusPulse {
+        0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 4px rgba(0,200,83,0.4); }
+        50% { opacity: 0.5; transform: scale(1.5); box-shadow: 0 0 8px rgba(0,200,83,0.2); }
+    }
+
+    .np-dark-status-text { color: rgba(0,200,83,0.8); font-weight: 500; }
+    .np-dark-status-sep { color: rgba(255,255,255,0.08); }
+
+    .np-dark-body { padding: 24px 28px 28px; }
+
+    .np-dark-section-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--np-text-dim);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 22px;
+    }
+
+    .np-dark-section-title i { color: var(--np-red); font-size: 14px; }
+
+    .np-dark-section-title::before,
+    .np-dark-section-title::after {
+        content: '';
+        flex: 1;
+        max-width: 30px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    }
+
+    .np-dark-field {
+        margin-bottom: 18px;
+        opacity: 0;
+        transform: translateX(-15px);
+        animation: npDarkFieldIn 0.6s ease-out var(--f-delay, 0s) forwards;
+    }
+
+    @keyframes npDarkFieldIn {
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .np-dark-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--np-text-dim);
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 6px;
+    }
+
+    .np-dark-label i { color: var(--np-red); font-size: 12px; opacity: 0.7; }
+
+    .np-dark-input-group { position: relative; }
+
+    .np-dark-input {
+        width: 100%;
+        padding: 13px 44px 13px 16px;
+        font-family: var(--font-ui);
+        font-size: 14px;
+        color: var(--np-text);
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        outline: none;
+        transition: all 0.35s ease;
+        position: relative;
+        z-index: 2;
+    }
+
+    .np-dark-input::placeholder { color: var(--np-text-muted); font-size: 13px; }
+
+    .np-dark-input:focus {
+        background: rgba(255,255,255,0.05);
+        border-color: rgba(211, 47, 47, 0.3);
+        box-shadow:
+            0 0 0 3px rgba(211, 47, 47, 0.04),
+            0 0 20px rgba(211, 47, 47, 0.02);
+    }
+
+    .np-dark-input-err { border-color: rgba(211, 47, 47, 0.4) !important; }
+
+    .np-dark-input-icon {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--np-text-muted);
+        font-size: 15px;
+        transition: color 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        z-index: 3;
+    }
+
+    .np-dark-input-group.focused .np-dark-input-icon {
+        color: var(--np-red);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .np-dark-input-line {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--np-red), transparent);
+        transition: width 0.4s ease;
+        z-index: 3;
+        opacity: 0;
+    }
+
+    .np-dark-input-group.focused .np-dark-input-line {
+        width: 90%;
+        opacity: 0.5;
+    }
+
+    .np-dark-pw-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--np-text-muted);
+        font-size: 15px;
+        padding: 4px;
+        transition: color 0.3s;
+        z-index: 4;
+    }
+
+    .np-dark-pw-toggle:hover { color: var(--np-red); }
+
+    .np-dark-err {
+        font-size: 12px;
+        color: var(--np-red);
+        margin-top: 4px;
+        display: block;
+        font-weight: 400;
+    }
+
+    .np-dark-err i { margin-right: 3px; font-size: 11px; }
+
+    .np-dark-btn {
+        width: 100%;
+        padding: 15px 24px;
+        font-family: var(--font-ui);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--np-white);
+        background: linear-gradient(135deg, var(--np-red), var(--np-red-dark));
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        opacity: 0;
+        animation: npDarkFieldIn 0.6s ease-out var(--f-delay, 0s) forwards;
+        box-shadow:
+            0 4px 15px rgba(211, 47, 47, 0.2),
+            0 0 40px rgba(211, 47, 47, 0.03);
+    }
+
+    .np-dark-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .np-dark-btn:hover {
+        background: linear-gradient(135deg, var(--np-red-dark), var(--np-red));
+        transform: translateY(-2px);
+        box-shadow:
+            0 8px 25px rgba(211, 47, 47, 0.35),
+            0 0 60px rgba(211, 47, 47, 0.05);
+    }
+
+    .np-dark-btn:hover::before { left: 100%; }
+
+    .np-dark-btn:active { transform: translateY(0); }
+
+    .np-dark-btn .np-dark-spin { display: none; animation: npBtnSpin 1s linear infinite; }
+
+    .np-dark-btn.np-dark-loading .np-dark-spin { display: inline-block; }
+    .np-dark-btn.np-dark-loading span { display: none; }
+
+    @keyframes npBtnSpin {
+        to { transform: rotate(360deg); }
+    }
+
+    .np-dark-ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        transform: scale(0);
+        animation: npRippleAnim 0.7s ease-out;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    @keyframes npRippleAnim {
+        to { transform: scale(4); opacity: 0; }
+    }
+
+    .np-dark-or {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 24px 0;
+        opacity: 0;
+        animation: npDarkFadeIn 0.6s ease-out var(--f-delay, 0s) forwards;
+    }
+
+    @keyframes npDarkFadeIn {
+        to { opacity: 1; }
+    }
+
+    .np-dark-or-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    }
+
+    .np-dark-or-text {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--np-text-muted);
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .np-dark-or-text i { font-size: 5px; color: var(--np-red); opacity: 0.4; }
+
+    .np-dark-register {
+        text-align: center;
+        opacity: 0;
+        animation: npDarkFadeIn 0.6s ease-out var(--f-delay, 0s) forwards;
+    }
+
+    .np-dark-reg-text {
+        font-size: 13px;
+        color: var(--np-text-muted);
+        margin-bottom: 10px;
+    }
+
+    .np-dark-reg-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 11px 30px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--np-text);
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.1);
+        text-decoration: none;
+        transition: all 0.35s ease;
+    }
+
+    .np-dark-reg-btn:hover {
+        border-color: var(--np-red);
+        color: var(--np-white);
+        background: rgba(211, 47, 47, 0.05);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(211,47,47,0.1);
+    }
+
+    .np-dark-reg-btn i { font-size: 14px; }
+
+    .np-dark-foot {
+        text-align: center;
+        padding: 12px 24px;
+        border-top: 1px solid var(--np-border);
+        background: rgba(0,0,0,0.15);
+    }
+
+    .np-dark-foot span {
+        font-size: 10px;
+        color: var(--np-text-muted);
+        letter-spacing: 0.5px;
+    }
+
+    .np-dark-foot i { color: var(--np-red); font-size: 9px; margin-right: 3px; opacity: 0.6; }
+
+    @media (max-width: 576px) {
+        .np-dark-wrap { padding: 60px 10px 16px; }
+        .np-dark-head { padding: 30px 20px 16px; }
+        .np-dark-body { padding: 20px 20px 24px; }
+        .np-dark-title { font-size: 26px; }
+        .np-dark-icon-ring { width: 56px; height: 56px; }
+        .np-dark-icon { width: 44px; height: 44px; font-size: 20px; }
+        .np-dark-ticker { height: 34px; }
+        .np-dark-ticker-label { font-size: 9px; padding: 0 10px; }
+        .np-dark-ticker-track { font-size: 11px; }
+        .np-dark-ticker-track span { padding: 0 16px; }
+        .np-live-feed { height: 26px; }
+        .np-feed-track { font-size: 10px; }
+        .np-float-particle, .np-orb { display: none; }
+    }
+
+    @media (max-width: 380px) {
+        .np-dark-head { padding: 24px 16px 14px; }
+        .np-dark-body { padding: 16px 16px 20px; }
+        .np-dark-title { font-size: 22px; }
+        .np-dark-sub { font-size: 10px; letter-spacing: 2px; }
+        .np-dark-btn { padding: 13px 20px; font-size: 13px; }
+    }
+</style>
