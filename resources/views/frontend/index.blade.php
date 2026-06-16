@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+@section('title', 'Home')
+
 @section('content')
 
 @if(session('success'))

@@ -1,5 +1,7 @@
 @extends('frontend.app')
 
+@section('title', $post->title ?? 'Article')
+
 @section('content')
 
 <style>
