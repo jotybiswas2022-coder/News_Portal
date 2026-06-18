@@ -123,7 +123,6 @@
                             </div>
                         </td>
                     </tr>
-                    @include('backend.posts.editmodal')
                     @empty
                     <tr>
                         <td colspan="7" class="text-center py-5">
@@ -330,5 +329,9 @@ document.addEventListener('DOMContentLoaded', function () {
 @media (max-width: 768px) { .ad-panel-header { flex-direction: column; align-items: stretch !important; gap: 10px; } .ad-search-wrap { width: 100%; } .ad-post-title-cell { max-width: 180px; } }
 @media (max-width: 576px) { .ad-table th, .ad-table td { font-size: 11px; padding: 8px 10px; } .ad-action-btn { width: 28px; height: 28px; font-size: 11px; } }
 </style>
+
+@foreach($posts as $post)
+    @include('backend.posts.editmodal')
+@endforeach
 
 @endsection
