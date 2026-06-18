@@ -80,13 +80,13 @@
                                     $isVideo = in_array($ext, $videoExtensions);
                                 @endphp
                                 @if($isImage)
-                                <a href="#" class="media-preview" data-bs-toggle="modal" data-bs-target="#mediaModal" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <a href="javascript:void(0)" class="media-preview" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
                                     <div class="ad-file-thumb">
                                         <img src="{{ config('app.storage_url') }}{{ $post->file }}" alt="">
                                     </div>
                                 </a>
                                 @elseif($isVideo)
-                                <a href="#" class="media-preview" data-bs-toggle="modal" data-bs-target="#mediaModal" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <a href="javascript:void(0)" class="media-preview" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
                                     <div class="ad-file-thumb ad-video-thumb">
                                         <video src="{{ config('app.storage_url') }}{{ $post->file }}" muted></video>
                                         <span class="ad-play-badge"><i class="bi bi-play-fill"></i></span>
@@ -147,9 +147,9 @@
 <div class="modal fade" id="mediaModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content ad-modal-content">
-            <div class="ad-modal-header">
-                <h5 class="ad-modal-title"><i class="bi bi-eye me-2"></i>Media Preview</h5>
-                <button class="ad-modal-close" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+            <div class="ad-modal-header" style="background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff;">
+                <h5 class="ad-modal-title" style="color: #fff;"><i class="bi bi-eye me-2"></i>Media Preview</h5>
+                <button class="ad-modal-close ad-modal-close-white" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
             </div>
             <div class="ad-modal-body text-center">
                 <img id="mediaImage" class="img-fluid d-none" style="max-height:500px; border-radius: 8px;">
@@ -164,43 +164,53 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const mediaModal = document.getElementById('mediaModal');
+    const mediaModalEl = document.getElementById('mediaModal');
     const mediaImage = document.getElementById('mediaImage');
     const mediaVideo = document.getElementById('mediaVideo');
     const mediaVideoSource = document.getElementById('mediaVideoSource');
     const mediaIframe = document.getElementById('mediaIframe');
+    let bsMediaModal = null;
 
-    document.querySelectorAll('.media-preview').forEach(el => {
-        el.addEventListener('click', function () {
-            const type = el.dataset.type;
-            const src = el.dataset.src;
-            const ext = src.split('.').pop().toLowerCase();
-            mediaImage.classList.add('d-none');
-            mediaVideo.classList.add('d-none');
-            mediaIframe.classList.add('d-none');
-            mediaVideo.pause();
-            if (type === 'image') {
-                mediaImage.src = src;
-                mediaImage.classList.remove('d-none');
-            } else if (type === 'video') {
-                if (ext === 'asf') {
-                    mediaIframe.src = src;
-                    mediaIframe.classList.remove('d-none');
-                } else {
-                    mediaVideoSource.src = src;
-                    mediaVideo.load();
-                    mediaVideo.classList.remove('d-none');
-                }
-            }
-        });
-    });
+    if (mediaModalEl) {
+        bsMediaModal = new bootstrap.Modal(mediaModalEl);
+    }
 
-    mediaModal.addEventListener('hidden.bs.modal', function () {
+    document.addEventListener('click', function (e) {
+        const preview = e.target.closest('.media-preview');
+        if (!preview) return;
+        e.preventDefault();
+
+        const type = preview.dataset.type;
+        const src = preview.dataset.src;
+        const ext = src.split('.').pop().toLowerCase();
+        mediaImage.classList.add('d-none');
+        mediaVideo.classList.add('d-none');
+        mediaIframe.classList.add('d-none');
         mediaVideo.pause();
-        mediaImage.src = '';
-        mediaVideoSource.src = '';
-        mediaIframe.src = '';
+        if (type === 'image') {
+            mediaImage.src = src;
+            mediaImage.classList.remove('d-none');
+        } else if (type === 'video') {
+            if (ext === 'asf') {
+                mediaIframe.src = src;
+                mediaIframe.classList.remove('d-none');
+            } else {
+                mediaVideoSource.src = src;
+                mediaVideo.load();
+                mediaVideo.classList.remove('d-none');
+            }
+        }
+        if (bsMediaModal) bsMediaModal.show();
     });
+
+    if (mediaModalEl) {
+        mediaModalEl.addEventListener('hidden.bs.modal', function () {
+            mediaVideo.pause();
+            mediaImage.src = '';
+            mediaVideoSource.src = '';
+            mediaIframe.src = '';
+        });
+    }
 
     window.confirmation = function (id) {
         Swal.fire({
@@ -314,6 +324,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .ad-modal-title { font-size: 14px; font-weight: 700; color: #1e293b; margin: 0; }
 .ad-modal-close { width: 32px; height: 32px; border-radius: 8px; border: none; background: rgba(0,0,0,0.04); color: #64748b; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 12px; }
 .ad-modal-close:hover { background: rgba(239,68,68,0.08); color: #ef4444; }
+.ad-modal-close-white { background: rgba(255,255,255,0.15); color: #fff; }
+.ad-modal-close-white:hover { background: rgba(255,255,255,0.25); color: #fff; }
 .ad-modal-body { padding: 20px; }
 @media (max-width: 992px) { .ad-table th, .ad-table td { white-space: nowrap; font-size: 12px; padding: 10px 12px; } .ad-search-wrap { width: 200px; } }
 @media (max-width: 768px) { .ad-panel-header { flex-direction: column; align-items: stretch !important; gap: 10px; } .ad-search-wrap { width: 100%; } .ad-post-title-cell { max-width: 180px; } }

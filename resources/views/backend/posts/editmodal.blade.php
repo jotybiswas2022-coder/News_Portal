@@ -58,11 +58,11 @@
                                     $isVideo = in_array($ext, ['mp4']);
                                 @endphp
                                 @if($isImage)
-                                <a href="#" class="media-preview d-inline-block mt-1" data-bs-toggle="modal" data-bs-target="#mediaModal" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <a href="javascript:void(0)" class="media-preview d-inline-block mt-1" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
                                     <div class="ad-file-thumb"><img src="{{ config('app.storage_url') }}{{ $post->file }}" alt=""></div>
                                 </a>
                                 @elseif($isVideo)
-                                <a href="#" class="media-preview d-inline-block mt-1" data-bs-toggle="modal" data-bs-target="#mediaModal" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <a href="javascript:void(0)" class="media-preview d-inline-block mt-1" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
                                     <div class="ad-file-thumb ad-video-thumb">
                                         <video src="{{ config('app.storage_url') }}{{ $post->file }}" muted></video>
                                         <span class="ad-play-badge"><i class="bi bi-play-fill"></i></span>
@@ -140,26 +140,6 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     }
 
-    document.querySelectorAll('.media-preview').forEach(function(el) {
-        el.addEventListener('click', function() {
-            const type = el.dataset.type;
-            const src = el.dataset.src;
-            const mediaImg = document.getElementById('mediaImage');
-            const mediaVid = document.getElementById('mediaVideo');
-            const mediaVidSrc = document.getElementById('mediaVideoSource');
-            if (mediaImg) { mediaImg.classList.add('d-none'); }
-            if (mediaVid) { mediaVid.classList.add('d-none'); }
-            if (type === 'image' && mediaImg) {
-                mediaImg.src = src;
-                mediaImg.classList.remove('d-none');
-            }
-            if (type === 'video' && mediaVid && mediaVidSrc) {
-                mediaVidSrc.src = src;
-                mediaVid.load();
-                mediaVid.classList.remove('d-none');
-            }
-        });
-    });
 });
 </script>
 
