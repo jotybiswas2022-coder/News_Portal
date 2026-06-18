@@ -80,18 +80,18 @@
                                     $isVideo = in_array($ext, $videoExtensions);
                                 @endphp
                                 @if($isImage)
-                                <a href="javascript:void(0)" class="media-preview" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <button type="button" class="media-preview p-0 border-0 bg-transparent" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}" data-bs-toggle="modal" data-bs-target="#mediaModal">
                                     <div class="ad-file-thumb">
                                         <img src="{{ config('app.storage_url') }}{{ $post->file }}" alt="">
                                     </div>
-                                </a>
+                                </button>
                                 @elseif($isVideo)
-                                <a href="javascript:void(0)" class="media-preview" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <button type="button" class="media-preview p-0 border-0 bg-transparent" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}" data-bs-toggle="modal" data-bs-target="#mediaModal">
                                     <div class="ad-file-thumb ad-video-thumb">
                                         <video src="{{ config('app.storage_url') }}{{ $post->file }}" muted></video>
                                         <span class="ad-play-badge"><i class="bi bi-play-fill"></i></span>
                                     </div>
-                                </a>
+                                </button>
                                 @else
                                 <span class="text-muted small">—</span>
                                 @endif
@@ -163,47 +163,46 @@
 </div>
 
 <script>
+let lastMediaData = null;
+
 document.addEventListener('DOMContentLoaded', function () {
     const mediaModalEl = document.getElementById('mediaModal');
     const mediaImage = document.getElementById('mediaImage');
     const mediaVideo = document.getElementById('mediaVideo');
     const mediaVideoSource = document.getElementById('mediaVideoSource');
     const mediaIframe = document.getElementById('mediaIframe');
-    let bsMediaModal = null;
-
-    if (mediaModalEl) {
-        bsMediaModal = new bootstrap.Modal(mediaModalEl);
-    }
 
     document.addEventListener('click', function (e) {
-        const preview = e.target.closest('.media-preview');
-        if (!preview) return;
-        e.preventDefault();
-
-        const type = preview.dataset.type;
-        const src = preview.dataset.src;
-        const ext = src.split('.').pop().toLowerCase();
-        mediaImage.classList.add('d-none');
-        mediaVideo.classList.add('d-none');
-        mediaIframe.classList.add('d-none');
-        mediaVideo.pause();
-        if (type === 'image') {
-            mediaImage.src = src;
-            mediaImage.classList.remove('d-none');
-        } else if (type === 'video') {
-            if (ext === 'asf') {
-                mediaIframe.src = src;
-                mediaIframe.classList.remove('d-none');
-            } else {
-                mediaVideoSource.src = src;
-                mediaVideo.load();
-                mediaVideo.classList.remove('d-none');
-            }
-        }
-        if (bsMediaModal) bsMediaModal.show();
+        const btn = e.target.closest('.media-preview');
+        if (!btn) return;
+        lastMediaData = { type: btn.dataset.type, src: btn.dataset.src };
     });
 
     if (mediaModalEl) {
+        mediaModalEl.addEventListener('show.bs.modal', function () {
+            if (!lastMediaData) return;
+            const type = lastMediaData.type;
+            const src = lastMediaData.src;
+            const ext = src.split('.').pop().toLowerCase();
+            mediaImage.classList.add('d-none');
+            mediaVideo.classList.add('d-none');
+            mediaIframe.classList.add('d-none');
+            mediaVideo.pause();
+            if (type === 'image') {
+                mediaImage.src = src;
+                mediaImage.classList.remove('d-none');
+            } else if (type === 'video') {
+                if (ext === 'asf') {
+                    mediaIframe.src = src;
+                    mediaIframe.classList.remove('d-none');
+                } else {
+                    mediaVideoSource.src = src;
+                    mediaVideo.load();
+                    mediaVideo.classList.remove('d-none');
+                }
+            }
+        });
+
         mediaModalEl.addEventListener('hidden.bs.modal', function () {
             mediaVideo.pause();
             mediaImage.src = '';

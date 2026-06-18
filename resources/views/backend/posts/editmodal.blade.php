@@ -58,16 +58,16 @@
                                     $isVideo = in_array($ext, ['mp4']);
                                 @endphp
                                 @if($isImage)
-                                <a href="javascript:void(0)" class="media-preview d-inline-block mt-1" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <button type="button" class="media-preview d-inline-block mt-1 p-0 border-0 bg-transparent" data-type="image" data-src="{{ config('app.storage_url') }}{{ $post->file }}" data-bs-toggle="modal" data-bs-target="#mediaModal">
                                     <div class="ad-file-thumb"><img src="{{ config('app.storage_url') }}{{ $post->file }}" alt=""></div>
-                                </a>
+                                </button>
                                 @elseif($isVideo)
-                                <a href="javascript:void(0)" class="media-preview d-inline-block mt-1" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}">
+                                <button type="button" class="media-preview d-inline-block mt-1 p-0 border-0 bg-transparent" data-type="video" data-src="{{ config('app.storage_url') }}{{ $post->file }}" data-bs-toggle="modal" data-bs-target="#mediaModal">
                                     <div class="ad-file-thumb ad-video-thumb">
                                         <video src="{{ config('app.storage_url') }}{{ $post->file }}" muted></video>
                                         <span class="ad-play-badge"><i class="bi bi-play-fill"></i></span>
                                     </div>
-                                </a>
+                                </button>
                                 @endif
                             </div>
                             @endif
