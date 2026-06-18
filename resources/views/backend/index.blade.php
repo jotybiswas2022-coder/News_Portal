@@ -364,10 +364,12 @@
 
     /* --- Stats Cards --- */
     .ad-stat-card {
-        background: #ffffff;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border-radius: 14px;
         padding: 20px 22px;
-        border: 1px solid #e9eef3;
+        border: 1px solid rgba(233, 238, 243, 0.6);
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -392,6 +394,7 @@
         transform: translateY(-4px);
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
         border-color: transparent;
+        background: rgba(255, 255, 255, 0.85);
     }
 
     .ad-stat-card:hover::before {
@@ -448,9 +451,11 @@
 
     /* --- Panels --- */
     .ad-panel {
-        background: #ffffff;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border-radius: 14px;
-        border: 1px solid #e9eef3;
+        border: 1px solid rgba(233, 238, 243, 0.6);
         overflow: hidden;
         transition: box-shadow 0.3s ease;
         height: 100%;
@@ -458,6 +463,7 @@
 
     .ad-panel:hover {
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        background: rgba(255, 255, 255, 0.85);
     }
 
     .ad-panel-header {
@@ -623,14 +629,16 @@
     }
 
     .ad-btn-outline {
-        border: 1px solid #e9eef3;
+        border: 1px solid rgba(233, 238, 243, 0.6);
         color: #64748b;
         font-size: 12px;
         font-weight: 600;
         padding: 4px 14px;
         border-radius: 8px;
         transition: all 0.3s ease;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
     }
 
     .ad-btn-outline:hover {
@@ -652,14 +660,16 @@
         gap: 12px;
         padding: 10px 12px;
         border-radius: 10px;
-        background: #fafbfc;
-        border: 1px solid #f1f5f9;
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(241, 245, 249, 0.5);
         transition: all 0.3s ease;
     }
 
     .ad-quick-item:hover {
-        background: #fff;
-        border-color: #e9eef3;
+        background: rgba(255, 255, 255, 0.75);
+        border-color: rgba(233, 238, 243, 0.6);
         transform: translateY(-1px);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }

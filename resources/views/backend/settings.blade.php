@@ -62,16 +62,24 @@
     border-radius: 14px;
     overflow: hidden;
     transition: all .3s ease;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(233, 238, 243, 0.6);
 }
 
 .card:hover {
     box-shadow: 0 12px 35px rgba(0,0,0,.15);
     transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .card-header {
     padding: 18px 24px;
     letter-spacing: .5px;
+    background: rgba(33, 37, 41, 0.85) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .form-label {
@@ -83,8 +91,11 @@
     border-radius: 10px;
     padding: 10px 14px;
     font-size: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(221, 221, 221, 0.5);
     transition: all .3s ease;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .form-select:focus {

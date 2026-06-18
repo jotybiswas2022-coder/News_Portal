@@ -160,7 +160,9 @@ use Illuminate\Support\Str;
 }
 
 .sidebar {
-    background: #fefefe;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     height: 100vh;
     position: fixed;
     top: 56px;
@@ -169,12 +171,14 @@ use Illuminate\Support\Str;
     overflow-y: auto;
     box-shadow: 4px 0 20px rgba(0,0,0,0.08);
     padding-top: 20px;
-    border-right: 1px solid #e3e6f0;
+    border-right: 1px solid rgba(227, 230, 240, 0.5);
     z-index: 1000;
 }
 
 .ad-dashboard-row {
     min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
 }
 
 .sidebar-menu {

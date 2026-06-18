@@ -137,8 +137,8 @@
 <style>
 .ad-alert { border-radius: 12px; border: none; padding: 14px 18px; font-size: 13px; font-weight: 500; margin-bottom: 20px; }
 .ad-alert-success { background: rgba(16,185,129,0.08); color: #10b981; }
-.ad-panel { background: #fff; border-radius: 14px; border: 1px solid #e9eef3; overflow: hidden; transition: box-shadow 0.3s; }
-.ad-panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.ad-panel { background: rgba(255,255,255,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 14px; border: 1px solid rgba(233,238,243,0.6); overflow: hidden; transition: box-shadow 0.3s; }
+.ad-panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: rgba(255,255,255,0.85); }
 .ad-panel-header { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
 .ad-panel-header h5 { font-size: 14px; font-weight: 700; color: #1e293b; margin: 0; display: flex; align-items: center; }
 .ad-panel-body { padding: 0; }
@@ -173,8 +173,8 @@
 .ad-modal-body { padding: 20px; }
 .ad-message-body p { margin: 0; }
 .ad-modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 16px 20px; border-top: 1px solid #f1f5f9; }
-.ad-btn-secondary { padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid #e9eef3; cursor: pointer; transition: all 0.2s; background: #fff; color: #64748b; display: inline-flex; align-items: center; gap: 6px; }
-.ad-btn-secondary:hover { background: #f8fafc; border-color: #cbd5e1; }
+.ad-btn-secondary { padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid rgba(233,238,243,0.5); cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: #64748b; display: inline-flex; align-items: center; gap: 6px; }
+.ad-btn-secondary:hover { background: rgba(248,250,252,0.8); border-color: #cbd5e1; }
 .ad-btn-primary { padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.2); }
 .ad-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); }
 @media (max-width: 768px) { .ad-table th, .ad-table td { white-space: nowrap; font-size: 12px; padding: 10px 12px; } }

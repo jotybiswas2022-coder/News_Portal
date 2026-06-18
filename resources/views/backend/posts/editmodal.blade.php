@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 <style>
+.ad-modal-content { border: none; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; background: rgba(255,255,255,0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
 .ad-modal-close-white {
     background: rgba(255,255,255,0.15);
     color: #fff;
@@ -182,11 +183,13 @@ document.addEventListener('DOMContentLoaded', function(){
 .ad-form-input {
     width: 100%;
     padding: 9px 12px;
-    border: 1px solid #e9eef3;
+    border: 1px solid rgba(233,238,243,0.5);
     border-radius: 8px;
     font-size: 13px;
     color: #334155;
-    background: #fff;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
     font-family: inherit;
@@ -194,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function(){
 .ad-form-input:focus {
     border-color: #6366f1;
     box-shadow: 0 0 0 3px rgba(99,102,241,0.06);
+    background: rgba(255,255,255,0.85);
 }
 .ad-form-textarea {
     min-height: 100px;
@@ -227,14 +231,16 @@ document.addEventListener('DOMContentLoaded', function(){
     border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
-    border: 1px solid #e9eef3;
+    border: 1px solid rgba(233,238,243,0.5);
     cursor: pointer;
     transition: all 0.2s;
-    background: #fff;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: #64748b;
 }
 .ad-btn-secondary:hover {
-    background: #f8fafc;
+    background: rgba(248,250,252,0.8);
     border-color: #cbd5e1;
 }
 </style>

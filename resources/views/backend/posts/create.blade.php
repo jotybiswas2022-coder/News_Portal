@@ -169,8 +169,10 @@ Swal.fire({icon:'error', title:'Validation Error', html:errorMessages.join('<br>
 </script>
 
 <style>
-.product-card { border-radius: 14px; }
-.form-control:focus, .form-select:focus { border-color:#4f46e5; box-shadow:0 0 0 0.15rem rgba(79,70,229,0.25);}
+.product-card { border-radius: 14px; background: rgba(255,255,255,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(233,238,243,0.6); }
+.product-card:hover { background: rgba(255,255,255,0.85); }
+.form-control, .form-select { background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(221,221,221,0.5); }
+.form-control:focus, .form-select:focus { border-color:#4f46e5; box-shadow:0 0 0 0.15rem rgba(79,70,229,0.25); background: rgba(255,255,255,0.85);}
 .btn-success { transition:.25s; }
 .btn-success:hover { background:#4f46e5; border-color:#4f46e5; }
 @media (max-width: 992px) { .card-body { padding:20px; } }
