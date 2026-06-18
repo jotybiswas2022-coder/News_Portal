@@ -2,8 +2,8 @@
 use Illuminate\Support\Str;
 @endphp
 
-<!-- Top Bar -->
-<nav class="navbar navbar-expand-lg shadow-sm py-2" style="background: #ffffff;">
+<!-- Top Bar (Fixed) -->
+<nav class="navbar navbar-expand-lg shadow-sm py-2 ad-topbar" style="background: #ffffff;">
     <div class="container-fluid">
         <!-- Brand -->
         <a class="navbar-brand d-flex align-items-center fw-bold fs-5 text-dark" href="/admin" style="padding-left: 12px;">
@@ -59,7 +59,7 @@ use Illuminate\Support\Str;
 </nav>
 
 <!-- Sidebar + Content -->
-<div class="row m-0 ad-dashboard-row">
+<div class="row m-0 ad-dashboard-row" style="padding-top: 56px;">
 
     <!-- Sidebar -->
     <div class="col-md-3 p-0">
@@ -136,11 +136,19 @@ use Illuminate\Support\Str;
 .signup-btn:hover { opacity:.9; transform:translateY(-1px); }
 
 /* Sidebar - Fixed position */
+.ad-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
 .sidebar {
     background: #fefefe;
     height: 100vh;
     position: fixed;
-    top: 0;
+    top: 56px;
     left: 0;
     width: 25%;
     overflow-y: auto;
@@ -185,6 +193,9 @@ use Illuminate\Support\Str;
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
+    .ad-topbar {
+        position: relative;
+    }
     .sidebar {
         position: relative;
         width: 100%;
@@ -192,6 +203,10 @@ use Illuminate\Support\Str;
         min-height: auto;
         padding-top: 0;
         z-index: auto;
+        top: auto;
+    }
+    .ad-dashboard-row {
+        padding-top: 0 !important;
     }
     .navbar-nav { text-align: center; }
 }
