@@ -35,6 +35,6 @@
 @yield('scripts')
 </body>
 
-<style> html, body { overflow-x: hidden; } .row { margin-left: -2 !important; margin-right: 0 !important; } </style>
+<style> html, body { overflow-x: hidden; } .row { margin-left: -2 !important; margin-right: 0 !important; } .modal-backdrop { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(0,0,0,0.3); }</style>
 
 </html>

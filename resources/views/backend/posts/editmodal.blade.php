@@ -144,14 +144,15 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 <style>
-.ad-modal-content { border: none; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.ad-modal-content { border: none; border-radius: 20px; box-shadow: 0 25px 80px rgba(0,0,0,0.15); overflow: hidden; background: rgba(255,255,255,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
 .ad-modal-close-white {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.2);
     color: #fff;
 }
 .ad-modal-close-white:hover {
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.35);
     color: #fff;
+    transform: rotate(90deg);
 }
 .ad-form-label {
     display: block;
@@ -202,9 +203,9 @@ document.addEventListener('DOMContentLoaded', function(){
 .ad-modal-footer {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
-    padding: 16px 20px;
-    border-top: 1px solid #f1f5f9;
+    gap: 10px;
+    padding: 18px 28px;
+    border-top: 1px solid rgba(241, 245, 249, 0.5);
 }
 .ad-btn-secondary {
     padding: 9px 20px;

@@ -317,14 +317,15 @@ document.addEventListener('DOMContentLoaded', function () {
 .ad-empty-state p { font-size: 12px; margin-bottom: 14px; }
 .ad-btn-primary { padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.2); text-decoration: none; }
 .ad-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); color: #fff; }
-.ad-modal-content { border: none; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.ad-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; background: #fafbfc; }
-.ad-modal-title { font-size: 14px; font-weight: 700; color: #1e293b; margin: 0; }
-.ad-modal-close { width: 32px; height: 32px; border-radius: 8px; border: none; background: rgba(0,0,0,0.04); color: #64748b; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 12px; }
+.ad-modal-content { border: none; border-radius: 20px; box-shadow: 0 25px 80px rgba(0,0,0,0.15); overflow: hidden; background: rgba(255,255,255,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.ad-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; }
+.ad-modal-title { font-size: 15px; font-weight: 700; color: #1e293b; margin: 0; }
+.ad-modal-close { width: 36px; height: 36px; border-radius: 10px; border: none; background: rgba(0,0,0,0.04); color: #64748b; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 13px; }
 .ad-modal-close:hover { background: rgba(239,68,68,0.08); color: #ef4444; }
-.ad-modal-close-white { background: rgba(255,255,255,0.15); color: #fff; }
-.ad-modal-close-white:hover { background: rgba(255,255,255,0.25); color: #fff; }
-.ad-modal-body { padding: 20px; }
+.ad-modal-close-white { background: rgba(255,255,255,0.2); color: #fff; }
+.ad-modal-close-white:hover { background: rgba(255,255,255,0.35); color: #fff; transform: rotate(90deg); }
+.ad-modal-body { padding: 24px 28px; }
+.modal-backdrop { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(0,0,0,0.3); }
 @media (max-width: 992px) { .ad-table th, .ad-table td { white-space: nowrap; font-size: 12px; padding: 10px 12px; } .ad-search-wrap { width: 200px; } }
 @media (max-width: 768px) { .ad-panel-header { flex-direction: column; align-items: stretch !important; gap: 10px; } .ad-search-wrap { width: 100%; } .ad-post-title-cell { max-width: 180px; } }
 @media (max-width: 576px) { .ad-table th, .ad-table td { font-size: 11px; padding: 8px 10px; } .ad-action-btn { width: 28px; height: 28px; font-size: 11px; } }
