@@ -2,95 +2,63 @@
 
 @section('content')
 
-<div class="container-fluid">
-
-    <!-- Header -->
-    <div class="row px-3 pt-3 pb-2 align-items-center">
-        <!-- Page Title & Subtitle -->
-        <div class="col-md-8 col-12">
-            <h3 class="fw-bold mb-1 d-flex align-items-center flex-wrap">
-                <i class="bi bi-folder-plus me-2 text-primary fs-3"></i>
-                <span>Add New Category</span>
-            </h3>
-            <small class="text-muted d-block">
-                Fill the form below to create a new category
-            </small>
-        </div>
-
-        <!-- Go Back Button -->
-        <div class="col-md-4 col-12 text-md-end mt-2 mt-md-0">
-            <a href="{{ url('admin/category') }}"
-               class="btn btn-outline-secondary rounded-pill px-4">
-                <i class="bi bi-arrow-left me-1"></i> Go Back
-            </a>
-        </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-1" style="color: #1e293b;">
+            <i class="bi bi-folder-plus me-2" style="color: #6366f1;"></i>Add New Category
+        </h4>
+        <p class="text-muted mb-0" style="font-size: 13px;">
+            <i class="bi bi-house-door me-1"></i> Dashboard / <a href="{{ url('admin/category') }}" class="text-decoration-none" style="color: #6366f1;">Categories</a> / <span class="fw-medium" style="color: #6366f1;">New</span>
+        </p>
     </div>
+    <div>
+        <a href="{{ url('admin/category') }}" class="ad-btn-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Go Back
+        </a>
+    </div>
+</div>
 
-    <!-- Card -->
-    <div class="card border-0 shadow-sm mx-3 mt-3 category-card">
-        <div class="card-body p-4">
-
-            <form action="{{ url('admin/category/store') }}" method="post">
-                @csrf
-                <div class="row g-3">
-
-                    <!-- Category Name -->
-                    <div class="col-md-6 col-12">
-                        <label class="form-label fw-semibold">
-                            Category Name <span class="text-danger">*</span>
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="bi bi-tag"></i>
-                            </span>
-                            <input type="text"
-                                   class="form-control"
-                                   name="name"
-                                   placeholder="Enter category name"
-                                   required>
-                        </div>
+<div class="ad-panel">
+    <div class="ad-panel-header">
+        <h5><i class="bi bi-folder-plus me-2" style="color: #6366f1;"></i>New Category</h5>
+    </div>
+    <div class="ad-panel-body">
+        <form action="{{ url('admin/category/store') }}" method="post">
+            @csrf
+            <div class="row" style="max-width: 600px;">
+                <div class="col-12">
+                    <label class="ad-form-label">Category Name <span class="text-danger">*</span></label>
+                    <div class="ad-input-group">
+                        <span class="ad-input-icon"><i class="bi bi-tag"></i></span>
+                        <input type="text" class="ad-form-input ad-input-with-icon" name="name" placeholder="Enter category name" required>
                     </div>
-
-                    <!-- Submit Button -->
-                    <div class="col-12 mt-2">
-                        <button type="submit"
-                                class="btn btn-success rounded-pill px-4">
-                            <i class="bi bi-save me-1"></i> Save Category
-                        </button>
-                    </div>
-
                 </div>
-            </form>
-
-        </div>
+                <div class="col-12 mt-3">
+                    <button type="submit" class="ad-btn-primary">
+                        <i class="bi bi-check-lg me-1"></i> Save Category
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-
 </div>
 
 <style>
-.category-card {
-    border-radius: 14px;
-}
-
-.form-control:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 0.15rem rgba(99,102,241,0.25);
-}
-
-.btn-success {
-    transition: 0.25s ease-in-out;
-}
-
-.btn-success:hover {
-    background: #4f46e5;
-    border-color: #4f46e5;
-}
-
-@media (max-width: 768px) {
-    .card-body {
-        padding: 20px;
-    }
-}
+.ad-panel { background: #fff; border-radius: 14px; border: 1px solid #e9eef3; overflow: hidden; transition: box-shadow 0.3s; }
+.ad-panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.ad-panel-header { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+.ad-panel-header h5 { font-size: 14px; font-weight: 700; color: #1e293b; margin: 0; display: flex; align-items: center; }
+.ad-panel-body { padding: 24px; }
+.ad-form-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+.ad-form-input { width: 100%; padding: 10px 12px; border: 1px solid #e9eef3; border-radius: 8px; font-size: 13px; color: #334155; outline: none; transition: border-color 0.3s; font-family: inherit; }
+.ad-form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.06); }
+.ad-input-group { position: relative; }
+.ad-input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
+.ad-input-with-icon { padding-left: 36px; }
+.ad-btn-primary { padding: 10px 28px; border-radius: 10px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.2); text-decoration: none; }
+.ad-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); }
+.ad-btn-secondary { padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; border: 1px solid #e9eef3; cursor: pointer; transition: all 0.2s; background: #fff; color: #64748b; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.ad-btn-secondary:hover { background: #f8fafc; border-color: #cbd5e1; color: #475569; }
 </style>
 
 @endsection
