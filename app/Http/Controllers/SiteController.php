@@ -17,7 +17,7 @@ class SiteController extends Controller
         $slider = Slider::latest()->first();
 
         $posts = Post::where('status', '1')->latest()->get();
-        $categories = Category::all();
+        $categories = Category::withCount('posts')->get();
 
         return view('frontend.index', compact('posts','categories','settings','slider'));
     }

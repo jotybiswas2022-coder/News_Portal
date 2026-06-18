@@ -198,6 +198,13 @@
 
     <!-- ===== CATEGORIES ===== -->
     <section class="np-section np-categories" id="categories">
+        <!-- Decorative background elements -->
+        <div class="np-cat-bg-decor">
+            <span class="np-cat-circle np-cat-c1"></span>
+            <span class="np-cat-circle np-cat-c2"></span>
+            <span class="np-cat-circle np-cat-c3"></span>
+        </div>
+
         <div class="np-container">
             <div class="np-section-head">
                 <span class="np-section-label"><i class="bi bi-grid"></i> Browse</span>
@@ -210,13 +217,52 @@
                 <p class="np-section-desc">Explore news by category — find the stories that matter to you</p>
             </div>
 
+            @php
+                $catAccents = ['#D32F2F', '#1976D2', '#388E3C', '#F57C00', '#7B1FA2', '#0097A7', '#C2185B', '#689F38'];
+                $catIcons = ['bi-collection', 'bi-bookmark', 'bi-camera', 'bi-mic', 'bi-globe2', 'bi-brightness-high', 'bi-heart', 'bi-star'];
+                $catGradients = [
+                    'linear-gradient(135deg, #D32F2F, #B71C1C)',
+                    'linear-gradient(135deg, #1976D2, #0D47A1)',
+                    'linear-gradient(135deg, #388E3C, #1B5E20)',
+                    'linear-gradient(135deg, #F57C00, #E65100)',
+                    'linear-gradient(135deg, #7B1FA2, #4A148C)',
+                    'linear-gradient(135deg, #0097A7, #006064)',
+                    'linear-gradient(135deg, #C2185B, #880E4F)',
+                    'linear-gradient(135deg, #689F38, #33691E)',
+                ];
+            @endphp
+
             <div class="np-cat-grid">
-                @foreach($categories as $category)
-                <a href="{{ url('category/'.$category->id) }}" class="np-cat-card">
-                    <div class="np-cat-icon"><i class="bi bi-collection"></i></div>
-                    <h3 class="np-cat-name">{{ $category->name }}</h3>
-                    <p class="np-cat-desc">{{ $category->description ?? 'Latest news and reports in this category' }}</p>
-                    <span class="np-cat-arrow"><i class="bi bi-arrow-right"></i></span>
+                @foreach($categories as $index => $category)
+                @php
+                    $ci = $index % count($catAccents);
+                    $accent = $catAccents[$ci];
+                    $icon = $catIcons[$ci];
+                    $gradient = $catGradients[$ci];
+                    $postCount = $category->posts_count ?? 0;
+                @endphp
+                <a href="{{ url('category/'.$category->id) }}" class="np-cat-card" style="--cat-accent: {{ $accent }}; --cat-gradient: {{ $gradient }}; --card-delay: {{ $index * 0.08 }}s;">
+                    <div class="np-cat-top-border"></div>
+                    <div class="np-cat-card-inner">
+                        <div class="np-cat-icon-wrap">
+                            <div class="np-cat-icon-bg">
+                                <i class="bi {{ $icon }}"></i>
+                            </div>
+                            @if($postCount > 0)
+                            <span class="np-cat-count">{{ $postCount }}</span>
+                            @endif
+                        </div>
+                        <div class="np-cat-body">
+                            <h3 class="np-cat-name">{{ $category->name }}</h3>
+                            <p class="np-cat-desc">{{ $category->description ?? 'Latest news and reports' }}</p>
+                        </div>
+                        <div class="np-cat-footer">
+                            <span class="np-cat-action">
+                                Explore
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
                 </a>
                 @endforeach
             </div>
@@ -313,7 +359,7 @@
 
     sliderInterval = setInterval(() => changeSlide(1), 5000);
 
-    const revealEls = document.querySelectorAll('.np-card, .np-cat-card, .np-stat, .np-side-card');
+    const revealEls = document.querySelectorAll('.np-card, .np-stat, .np-side-card');
     const revealObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -737,26 +783,294 @@
     .np-side-date { font-size: 11px; color: var(--np-text-muted); }
     .np-side-date i { color: var(--np-red); margin-right: 3px; }
 
-    .np-categories { background: var(--np-dark-1); }
-    .np-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+    /* ===== CATEGORIES REDESIGN ===== */
+    .np-categories {
+        background: var(--np-dark-1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .np-cat-bg-decor {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .np-cat-circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.03;
+    }
+
+    .np-cat-c1 {
+        width: 500px; height: 500px;
+        background: var(--np-red);
+        top: -150px; right: -100px;
+        animation: npCatFloat1 20s ease-in-out infinite;
+    }
+
+    .np-cat-c2 {
+        width: 350px; height: 350px;
+        background: #1976D2;
+        bottom: -80px; left: -80px;
+        animation: npCatFloat2 25s ease-in-out infinite;
+    }
+
+    .np-cat-c3 {
+        width: 200px; height: 200px;
+        background: #388E3C;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        animation: npCatFloat3 30s ease-in-out infinite;
+    }
+
+    @keyframes npCatFloat1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-30px, 20px) scale(1.05); }
+        66% { transform: translate(20px, -30px) scale(0.95); }
+    }
+
+    @keyframes npCatFloat2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(40px, -20px) scale(1.08); }
+        66% { transform: translate(-20px, 30px) scale(0.92); }
+    }
+
+    @keyframes npCatFloat3 {
+        0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        25% { transform: translate(-40%, -60%) scale(1.1) rotate(5deg); }
+        75% { transform: translate(-60%, -40%) scale(0.9) rotate(-5deg); }
+    }
+
+    .np-cat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
     .np-cat-card {
-        background: rgba(18, 18, 30, 0.85);
+        display: block;
+        position: relative;
+        background: rgba(18, 18, 30, 0.7);
+        backdrop-filter: blur(12px);
         border: 1px solid var(--np-border);
-        padding: 32px 24px;
-        text-align: center;
-        transition: all 0.4s ease;
+        overflow: hidden;
         opacity: 0;
         transform: translateY(30px);
+        animation: npCatCardIn 0.6s ease-out var(--card-delay, 0s) forwards;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .np-cat-card.np-visible { opacity: 1; transform: translateY(0); }
-    .np-cat-card:hover { border-color: rgba(211,47,47,0.08); transform: translateY(-6px); box-shadow: var(--np-shadow); }
-    .np-cat-icon { width: 56px; height: 56px; margin: 0 auto 16px; background: rgba(211,47,47,0.1); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--np-red); transition: all 0.3s; }
-    .np-cat-card:hover .np-cat-icon { background: var(--np-red); color: var(--np-white); transform: rotate(-5deg) scale(1.1); }
-    .np-cat-name { font-family: var(--font-headline); font-size: 20px; font-weight: 700; color: var(--np-white); margin-bottom: 8px; transition: color 0.3s; }
-    .np-cat-card:hover .np-cat-name { color: var(--np-red); }
-    .np-cat-desc { font-size: 13px; color: var(--np-text-dim); line-height: 1.6; margin-bottom: 14px; }
-    .np-cat-arrow i { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(255,255,255,0.03); color: var(--np-text); font-size: 14px; transition: all 0.3s; }
-    .np-cat-card:hover .np-cat-arrow i { background: var(--np-red); color: var(--np-white); transform: translateX(4px); }
+
+    @keyframes npCatCardIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .np-cat-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.02));
+        pointer-events: none;
+    }
+
+    .np-cat-card:nth-child(even)::before {
+        background: linear-gradient(225deg, transparent 60%, rgba(255,255,255,0.02));
+    }
+
+    .np-cat-top-border {
+        height: 4px;
+        background: var(--cat-gradient, var(--np-red));
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        transition: height 0.3s ease;
+    }
+
+    .np-cat-card:hover .np-cat-top-border {
+        height: 6px;
+    }
+
+    .np-cat-card-inner {
+        padding: 28px 26px 22px;
+        position: relative;
+    }
+
+    .np-cat-icon-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .np-cat-icon-bg {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .np-cat-icon-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--cat-gradient, var(--np-red));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .np-cat-icon-bg i {
+        position: relative;
+        z-index: 2;
+        color: var(--cat-accent, var(--np-red));
+        transition: all 0.4s ease;
+    }
+
+    .np-cat-card:hover .np-cat-icon-bg {
+        border-color: var(--cat-accent, var(--np-red));
+        transform: rotate(-5deg) scale(1.05);
+        box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    }
+
+    .np-cat-card:hover .np-cat-icon-bg::after {
+        opacity: 0.12;
+    }
+
+    .np-cat-card:hover .np-cat-icon-bg i {
+        color: var(--np-white);
+        transform: scale(1.1);
+    }
+
+    .np-cat-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 26px;
+        padding: 0 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--np-white);
+        background: var(--cat-gradient, var(--np-red));
+        border-radius: 13px;
+        transition: all 0.3s ease;
+        position: relative;
+        top: -4px;
+    }
+
+    .np-cat-card:hover .np-cat-count {
+        transform: scale(1.08);
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .np-cat-body {
+        margin-bottom: 18px;
+    }
+
+    .np-cat-name {
+        font-family: var(--font-headline);
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--np-white);
+        margin-bottom: 6px;
+        transition: color 0.3s ease;
+        line-height: 1.3;
+    }
+
+    .np-cat-card:hover .np-cat-name {
+        color: var(--cat-accent, var(--np-red));
+    }
+
+    .np-cat-desc {
+        font-size: 13px;
+        color: var(--np-text-dim);
+        line-height: 1.6;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .np-cat-footer {
+        padding-top: 14px;
+        border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .np-cat-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--np-text-muted);
+        transition: all 0.4s ease;
+    }
+
+    .np-cat-action i {
+        font-size: 12px;
+        transition: transform 0.4s ease;
+    }
+
+    .np-cat-card:hover .np-cat-action {
+        color: var(--cat-accent, var(--np-red));
+        gap: 12px;
+    }
+
+    .np-cat-card:hover .np-cat-action i {
+        transform: translateX(6px);
+    }
+
+    .np-cat-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid transparent;
+        transition: all 0.4s ease;
+        pointer-events: none;
+    }
+
+    .np-cat-card:hover::after {
+        border-color: var(--cat-accent, var(--np-red));
+        box-shadow: 0 0 30px color-mix(in srgb, var(--cat-accent, var(--np-red)) 8%, transparent),
+                    inset 0 0 30px color-mix(in srgb, var(--cat-accent, var(--np-red)) 3%, transparent);
+    }
+
+    .np-cat-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+        .np-cat-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .np-cat-card-inner { padding: 22px 20px 18px; }
+        .np-cat-icon-bg { width: 48px; height: 48px; font-size: 18px; }
+        .np-cat-name { font-size: 17px; }
+        .np-cat-card:hover { transform: translateY(-4px) scale(1.01); }
+    }
+
+    @media (max-width: 480px) {
+        .np-cat-grid { grid-template-columns: 1fr; }
+    }
+    /* ===== END CATEGORIES REDESIGN ===== */
 
     .np-newsletter {
         padding: 70px 0;
