@@ -59,7 +59,7 @@ use Illuminate\Support\Str;
 </nav>
 
 <!-- Sidebar + Content -->
-<div class="row m-0" style="min-height: 100vh;">
+<div class="row m-0" style="min-height: 100vh; align-items: flex-start;">
 
     <!-- Sidebar -->
     <div class="col-md-3 p-0">
@@ -138,7 +138,10 @@ use Illuminate\Support\Str;
 /* Sidebar */
 .sidebar {
     background: #fefefe;
-    min-height: 100vh;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
     box-shadow: 4px 0 20px rgba(0,0,0,0.08);
     padding-top: 20px;
     border-right: 1px solid #e3e6f0;
