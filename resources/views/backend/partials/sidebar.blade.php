@@ -59,7 +59,7 @@ use Illuminate\Support\Str;
 </nav>
 
 <!-- Sidebar + Content -->
-<div class="row m-0" style="min-height: 100vh; align-items: flex-start;">
+<div class="row m-0 ad-dashboard-row">
 
     <!-- Sidebar -->
     <div class="col-md-3 p-0">
@@ -135,17 +135,25 @@ use Illuminate\Support\Str;
 }
 .signup-btn:hover { opacity:.9; transform:translateY(-1px); }
 
-/* Sidebar */
+/* Sidebar - Fixed position */
 .sidebar {
     background: #fefefe;
     height: 100vh;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 25%;
     overflow-y: auto;
     box-shadow: 4px 0 20px rgba(0,0,0,0.08);
     padding-top: 20px;
     border-right: 1px solid #e3e6f0;
+    z-index: 1000;
 }
+
+.ad-dashboard-row {
+    min-height: 100vh;
+}
+
 .sidebar-menu {
     list-style: none;
     padding: 0;
@@ -177,7 +185,14 @@ use Illuminate\Support\Str;
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
-    .sidebar { min-height: auto; padding-top: 0; }
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding-top: 0;
+        z-index: auto;
+    }
     .navbar-nav { text-align: center; }
 }
 </style>
