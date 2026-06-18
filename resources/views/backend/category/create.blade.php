@@ -44,14 +44,14 @@
 </div>
 
 <style>
-.ad-panel { background: rgba(255,255,255,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 14px; border: 1px solid rgba(233,238,243,0.6); overflow: hidden; transition: box-shadow 0.3s; }
-.ad-panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: rgba(255,255,255,0.85); }
+.ad-panel { background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 14px; border: 1px solid rgba(233,238,243,0.8); overflow: hidden; transition: box-shadow 0.3s; }
+.ad-panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: rgba(255,255,255,0.95); }
 .ad-panel-header { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
 .ad-panel-header h5 { font-size: 14px; font-weight: 700; color: #1e293b; margin: 0; display: flex; align-items: center; }
 .ad-panel-body { padding: 24px; }
 .ad-form-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; }
-.ad-form-input { width: 100%; padding: 10px 12px; border: 1px solid rgba(233,238,243,0.5); border-radius: 8px; font-size: 13px; color: #334155; outline: none; transition: border-color 0.3s; font-family: inherit; background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.ad-form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.06); background: rgba(255,255,255,0.85); }
+.ad-form-input { width: 100%; padding: 10px 12px; border: 1px solid rgba(233,238,243,0.7); border-radius: 8px; font-size: 13px; color: #334155; outline: none; transition: border-color 0.3s; font-family: inherit; background: rgba(255,255,255,0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.ad-form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.06); background: rgba(255,255,255,0.95); }
 .ad-input-group { position: relative; }
 .ad-input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
 .ad-input-with-icon { padding-left: 36px; }

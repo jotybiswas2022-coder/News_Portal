@@ -215,17 +215,17 @@ document.querySelectorAll('.ad-drop-zone').forEach(function(zone) {
     color: #ef4444;
 }
 .ad-panel {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 14px;
-    border: 1px solid rgba(233, 238, 243, 0.6);
+    border: 1px solid rgba(233, 238, 243, 0.8);
     overflow: hidden;
     transition: box-shadow 0.3s ease;
 }
 .ad-panel:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
 }
 .ad-panel-header {
     padding: 18px 24px;
@@ -243,10 +243,10 @@ document.querySelectorAll('.ad-drop-zone').forEach(function(zone) {
     padding: 24px;
 }
 .ad-upload-card {
-    background: rgba(250, 251, 252, 0.6);
+    background: rgba(250, 251, 252, 0.8);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(233, 238, 243, 0.5);
+    border: 1px solid rgba(233, 238, 243, 0.7);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -260,10 +260,10 @@ document.querySelectorAll('.ad-drop-zone').forEach(function(zone) {
     align-items: center;
     gap: 12px;
     padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border-bottom: 1px solid rgba(241, 245, 249, 0.5);
+    border-bottom: 1px solid rgba(241, 245, 249, 0.7);
 }
 .ad-upload-badge {
     width: 36px;

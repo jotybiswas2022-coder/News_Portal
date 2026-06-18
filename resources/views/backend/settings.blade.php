@@ -62,16 +62,16 @@
     border-radius: 14px;
     overflow: hidden;
     transition: all .3s ease;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(233, 238, 243, 0.6);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(233, 238, 243, 0.8);
 }
 
 .card:hover {
     box-shadow: 0 12px 35px rgba(0,0,0,.15);
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .card-header {
@@ -91,9 +91,9 @@
     border-radius: 10px;
     padding: 10px 14px;
     font-size: 15px;
-    border: 1px solid rgba(221, 221, 221, 0.5);
+    border: 1px solid rgba(221, 221, 221, 0.7);
     transition: all .3s ease;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
 }
