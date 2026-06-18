@@ -3,7 +3,7 @@ use Illuminate\Support\Str;
 @endphp
 
 <!-- Top Bar (Fixed) -->
-<nav class="navbar navbar-expand-lg shadow-sm py-2 ad-topbar" style="background: #ffffff;">
+<nav class="navbar navbar-expand-lg shadow-sm py-2 ad-topbar">
     <div class="container-fluid">
         <!-- Brand -->
         <a class="navbar-brand d-flex align-items-center fw-bold fs-5 text-dark" href="/admin" style="padding-left: 12px;">
@@ -113,6 +113,16 @@ use Illuminate\Support\Str;
     color:#6366f1; 
     transform:translateY(-1px);
 }
+.navbar .top-nav-link.active-link {
+    color: #6366f1 !important;
+    background: rgba(99, 102, 241, 0.08);
+    border-radius: 8px;
+}
+
+.navbar .top-nav-link.active-link i {
+    color: #6366f1;
+}
+
 .navbar .top-nav-link.active-link::after {
     content:""; 
     display:block; 
@@ -121,8 +131,9 @@ use Illuminate\Support\Str;
     border-radius:1px;
     position:absolute; 
     bottom:0; 
-    left:0; 
-    width:100%;
+    left:20%; 
+    width:60%;
+    box-shadow: 0 0 8px rgba(99,102,241,0.3);
 }
 
 /* Brand */
@@ -142,6 +153,10 @@ use Illuminate\Support\Str;
     left: 0;
     width: 100%;
     z-index: 1001;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(233, 238, 243, 0.5);
 }
 
 .sidebar {
