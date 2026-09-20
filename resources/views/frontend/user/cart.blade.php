@@ -8,9 +8,11 @@
 @php
     use App\Models\Setting;
 
-    $settings    = Setting::first();
-    $delivery    = (float) ($settings?->delivery_charge ?? 0);
-    $taxPercent  = (int) ($settings?->tax_percentage ?? 0);
+    $settings         = Setting::first();
+    $deliveryInside   = (float) ($settings?->delivery_charge ?? 0);
+    $deliveryOutside  = (float) ($settings?->delivery_outside ?? 0);
+    $delivery         = $deliveryInside;
+    $taxPercent       = (int) ($settings?->tax_percentage ?? 0);
     $currency    = currency();
     $placeholder = 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80';
 
@@ -176,6 +178,26 @@
             <aside class="cart-summary">
                 <h3 class="cart-summary__title">Order Summary</h3>
 
+                <div class="cart-summary__region" id="cart-region">
+                    <span class="cart-form__label">Delivery Region</span>
+                    <div class="cart-form__options">
+                        <label class="cart-form__option">
+                            <input type="radio" name="delivery_region" value="inside">
+                            <span class="cart-form__option-btn">
+                                <span class="cart-form__option-name">Inside Khulna</span>
+                                <span class="cart-form__option-price">{{ $currency }} {{ number_format($deliveryInside, 2) }}</span>
+                            </span>
+                        </label>
+                        <label class="cart-form__option">
+                            <input type="radio" name="delivery_region" value="outside">
+                            <span class="cart-form__option-btn">
+                                <span class="cart-form__option-name">Outside Khulna</span>
+                                <span class="cart-form__option-price">{{ $currency }} {{ number_format($deliveryOutside, 2) }}</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
                 <ul class="cart-summary__rows">
                     <li class="cart-summary__row">
                         <span>Subtotal</span>
@@ -185,15 +207,15 @@
                         <span>Tax ({{ $taxPercent }}%)</span>
                         <span>{{ $currency }} {{ number_format($taxAmount, 2) }}</span>
                     </li>
-                    <li class="cart-summary__row">
-                        <span>Delivery</span>
-                        <span>{{ $currency }} {{ number_format($delivery, 2) }}</span>
+                    <li class="cart-summary__row cart-summary__row--delivery" data-inside="{{ $deliveryInside }}" data-outside="{{ $deliveryOutside }}">
+                        <span>Delivery <span class="cart-summary__row-region"></span></span>
+                        <span class="cart-summary__delivery-value">{{ $currency }} {{ number_format($delivery, 2) }}</span>
                     </li>
                 </ul>
 
                 <div class="cart-summary__total">
                     <span>Grand Total</span>
-                    <span>{{ $currency }} {{ number_format($grandTotal, 2) }}</span>
+                    <span id="cart-grand-total" data-base="{{ number_format($grandTotal, 2, '.', '') }}" data-currency="{{ $currency }}">{{ $currency }} {{ number_format($grandTotal, 2) }}</span>
                 </div>
 
                 <a class="btn btn--block" href="{{ url('/billing') }}">Proceed to Checkout</a>
@@ -208,5 +230,45 @@
 @endif
 
 @include('frontend.partials.footer')
+
+<script>
+(function () {
+    var regionBox = document.getElementById('cart-region');
+    if (!regionBox) { return; }
+
+    var radios = Array.prototype.slice.call(regionBox.querySelectorAll('input[name="delivery_region"]'));
+    var deliveryRow = document.querySelector('.cart-summary__row--delivery');
+    var grandTotal  = document.getElementById('cart-grand-total');
+    if (!deliveryRow || !grandTotal) { return; }
+
+    var deliveryValue = deliveryRow.querySelector('.cart-summary__delivery-value');
+    var regionTag     = deliveryRow.querySelector('.cart-summary__row-region');
+    var inside  = parseFloat(deliveryRow.getAttribute('data-inside')) || 0;
+    var outside = parseFloat(deliveryRow.getAttribute('data-outside')) || 0;
+    var base    = parseFloat(grandTotal.getAttribute('data-base')) || 0;
+    var cur     = grandTotal.getAttribute('data-currency') || '';
+    var names   = { inside: 'Inside Khulna', outside: 'Outside Khulna' };
+
+    function fmt(n) { return cur + ' ' + n.toFixed(2); }
+
+    function apply(region) {
+        var charge = region === 'outside' ? outside : inside;
+        deliveryValue.textContent = fmt(charge);
+        regionTag.textContent = '(' + names[region] + ')';
+        grandTotal.textContent = fmt(base - inside + charge);
+        radios.forEach(function (r) { r.checked = (r.value === region); });
+        try { localStorage.setItem('cart_region', region); } catch (e) {}
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem('cart_region'); } catch (e) {}
+    if (saved === 'inside' || saved === 'outside') { apply(saved); }
+    else { apply('inside'); }
+
+    radios.forEach(function (r) {
+        r.addEventListener('change', function () { if (r.checked) { apply(r.value); } });
+    });
+})();
+</script>
 
 @endsection
