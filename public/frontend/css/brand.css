@@ -689,6 +689,7 @@ p { margin: 0; }
 
 /* CTA — always visible, sits under the price */
 .product-card__cta {
+    margin-top: auto;
     padding: 0 20px 22px;
     transform: none;
     opacity: 1;
