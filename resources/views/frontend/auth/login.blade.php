@@ -17,6 +17,13 @@
     </div>
 @endif
 
+<a class="auth-back" href="{{ url('/') }}" aria-label="Back to website">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6"/>
+    </svg>
+    Back to website
+</a>
+
 {{-- ==================================================== PAGE INTRO --}}
 <section class="page-head">
     <div class="brand-container">
@@ -95,10 +102,37 @@
 
 @section('styles')
 <style>
+    .auth-back { display: none; }
+
     @media (max-width: 560px) {
         .site-header,
         .site-footer,
         .page-head { display: none; }
+
+        .auth-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            z-index: 20;
+            padding: 10px 15px;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 2px;
+            color: var(--color-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            box-shadow: var(--shadow-soft);
+            transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
+        }
+        .auth-back:hover {
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
 
         main#main {
             min-height: 100vh;
