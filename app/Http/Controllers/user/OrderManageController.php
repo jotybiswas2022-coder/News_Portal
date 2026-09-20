@@ -22,11 +22,17 @@ class OrderManageController extends Controller
             'email'           => 'required|email',
             'phone'           => 'required|string|max:20',
             'address'         => 'required|string|max:500',
-            'payment_method'  => 'required|in:cod,bkash,nagad', 
+            'payment_method'  => 'required|in:cod,bkash,nagad',
+            'delivery_region' => 'sometimes|in:inside,outside',
         ]);
 
         $setting = Setting::first();
-        $delivery_charge = $setting?->delivery_charge ?? 0;
+        $region = $request->input('delivery_region', 'inside');
+
+        // Delivery charge depends on the chosen delivery region
+        $delivery_charge = ($region === 'outside')
+            ? ($setting?->delivery_outside ?? 0)
+            : ($setting?->delivery_charge ?? 0);
         $tax_percentage  = $setting?->tax_percentage ?? 0;
 
         $carts = Cart::with('product')->where('user_id', $user_id)->get();

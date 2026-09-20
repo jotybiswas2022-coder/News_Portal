@@ -10,6 +10,7 @@
 
     $settings   = Setting::first();
     $delivery   = (float) ($settings?->delivery_charge ?? 0);
+    $deliveryOutside = (float) ($settings?->delivery_outside ?? 0);
     $taxPercent = (int) ($settings?->tax_percentage ?? 0);
     $currency   = $settings?->currency ?? '৳';
     $bkashNo    = $settings?->bkash_number;
@@ -209,22 +210,28 @@
                     <ul class="checkout-summary__rows">
                         <li class="checkout-summary__row">
                             <span>Subtotal</span>
-                            <span>{{ $currency }} {{ number_format($subtotal, 2) }}</span>
+                            <span id="checkout-subtotal">{{ $currency }} {{ number_format($subtotal, 2) }}</span>
                         </li>
                         <li class="checkout-summary__row">
                             <span>Tax ({{ $taxPercent }}%)</span>
                             <span>{{ $currency }} {{ number_format($taxAmount, 2) }}</span>
                         </li>
-                        <li class="checkout-summary__row">
-                            <span>Delivery</span>
-                            <span>{{ $currency }} {{ number_format($delivery, 2) }}</span>
+                        <li class="checkout-summary__row checkout-summary__row--delivery"
+                            data-inside="{{ $delivery }}" data-outside="{{ $deliveryOutside }}"
+                            data-subtotal="{{ $subtotal + $taxAmount }}">
+                            <span>Delivery <span class="checkout-summary__row-region"></span></span>
+                            <span class="checkout-summary__delivery-value">{{ $currency }} {{ number_format($delivery, 2) }}</span>
                         </li>
                     </ul>
 
-                    <div class="checkout-summary__total">
+                    <div class="checkout-summary__total" id="checkout-grand-total"
+                         data-base="{{ $subtotal + $taxAmount + $delivery }}"
+                         data-currency="{{ $currency }}">
                         <span>Grand Total</span>
                         <span>{{ $currency }} {{ number_format($grandTotal, 2) }}</span>
                     </div>
+
+                    <input type="hidden" name="delivery_region" id="delivery-region-input" value="inside">
 
                     <button type="submit" class="btn btn--block">Proceed to Payment</button>
 
@@ -248,5 +255,39 @@
 @endif
 
 @include('frontend.partials.footer')
+
+<script>
+(function () {
+    var deliveryRow = document.querySelector('.checkout-summary__row--delivery');
+    var grandTotal  = document.getElementById('checkout-grand-total');
+    var regionInput = document.getElementById('delivery-region-input');
+    if (!deliveryRow || !grandTotal || !regionInput) { return; }
+
+    var deliveryValue = deliveryRow.querySelector('.checkout-summary__delivery-value');
+    var regionTag     = deliveryRow.querySelector('.checkout-summary__row-region');
+    var inside  = parseFloat(deliveryRow.getAttribute('data-inside')) || 0;
+    var outside = parseFloat(deliveryRow.getAttribute('data-outside')) || 0;
+    var base    = parseFloat(grandTotal.getAttribute('data-base')) || 0;
+    var cur     = grandTotal.getAttribute('data-currency') || '';
+    var names   = { inside: 'Inside Khulna', outside: 'Outside Khulna' };
+
+    function fmt(n) { return cur + ' ' + n.toFixed(2); }
+
+    function apply(region) {
+        var charge = region === 'outside' ? outside : inside;
+        deliveryValue.textContent = fmt(charge);
+        regionTag.textContent = '(' + names[region] + ')';
+        grandTotal.querySelector('span:last-child').textContent =
+            fmt(base - inside + charge);
+        regionInput.value = region;
+        try { localStorage.setItem('cart_region', region); } catch (e) {}
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem('cart_region'); } catch (e) {}
+    if (saved === 'inside' || saved === 'outside') { apply(saved); }
+    else { apply('inside'); }
+})();
+</script>
 
 @endsection
