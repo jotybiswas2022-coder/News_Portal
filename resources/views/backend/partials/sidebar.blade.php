@@ -238,7 +238,7 @@ use Illuminate\Support\Str;
 
     <!-- Content -->
     <div class="col-md-9 p-4">
-        @if (isset($slot)) {{ $slot }} @endif
+        @yield('content')
     </div>
 </div>
 

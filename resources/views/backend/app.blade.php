@@ -13,28 +13,18 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://junait.com/tiny_pro.js"></script>
 
-
     <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
 </head>
 <body>
 
-    <div class="row">
+    @include('backend.partials.sidebar')
 
-        {{-- Sidebar --}}
-        @include('backend.partials.sidebar')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
 
-        {{-- Main Content --}}
-        @yield('content')
-
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('backend/js/custom.js') }}"></script>
-
-@yield('scripts')
+    @yield('scripts')
 </body>
 
-<style> html, body { overflow-x: hidden; } .row { margin-left: -2 !important; margin-right: 0 !important; } </style>
+<style> html, body { overflow-x: hidden; } </style>
 
 </html>
