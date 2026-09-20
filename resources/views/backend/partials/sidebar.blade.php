@@ -332,7 +332,7 @@ use Illuminate\Support\Str;
     left: 0;
 }
 .mobile-menu-header { background: #fafafa; }
-.mobile-menu-section { flex: 1; }
+.mobile-menu-section { flex: 0 0 auto; }
 
 /* Mobile menu compact sidebar items */
 .mobile-menu .sidebar-menu li { margin-bottom: 4px; }
