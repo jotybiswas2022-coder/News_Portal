@@ -81,24 +81,11 @@
                             <tr data-category="{{ $product->category_id }}" data-stock="{{ $product->stock }}">
                                 <td class="fw-medium">{{ $loop->iteration }}</td>
                                 <td class="text-start">
-                                    <div class="d-flex align-items-center gap-3">
-                                        @if($product->image)
-                                            <img src="{{ config('app.storage_url') }}{{ $product->image }}"
-                                                 alt="{{ $product->name }}"
-                                                 class="rounded shadow-sm"
-                                                 style="width:45px; height:45px; object-fit:cover;">
-                                        @else
-                                            <div class="bg-light rounded d-flex align-items-center justify-content-center"
-                                                 style="width:45px; height:45px;">
-                                                <i class="bi bi-box-seam text-muted"></i>
-                                            </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">{{ $product->name }}</h6>
+                                        @if($product->details)
+                                            <small class="text-muted d-none d-md-block">{{ Str::limit(html_entity_decode(strip_tags($product->details)), 40) }}</small>
                                         @endif
-                                        <div>
-                                            <h6 class="mb-0 fw-semibold">{{ $product->name }}</h6>
-                                            @if($product->details)
-                                                <small class="text-muted d-none d-md-block">{{ Str::limit(html_entity_decode(strip_tags($product->details)), 40) }}</small>
-                                            @endif
-                                        </div>
                                     </div>
                                 </td>
                                 <td>
