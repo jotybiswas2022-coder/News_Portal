@@ -47,6 +47,13 @@
                             <button class="nav__link nav__link--logout" type="submit">Logout</button>
                         </form>
                     </li>
+                @else
+                    <li>
+                        <a class="nav__link {{ request()->is('login') ? 'is-active' : '' }}" href="{{ url('/login') }}">Login</a>
+                    </li>
+                    <li>
+                        <a class="nav__link nav__link--auth {{ request()->is('register') ? 'is-active' : '' }}" href="{{ url('/register') }}">Register</a>
+                    </li>
                 @endauth
             </ul>
 
@@ -117,6 +124,7 @@
                     <a href="{{ url('/orders') }}">My Orders</a>
                 @else
                     <a href="{{ url('/login') }}">Sign In</a>
+                    <a href="{{ url('/register') }}">Create Account</a>
                 @endauth
             </li>
         </ul>
