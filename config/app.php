@@ -56,6 +56,13 @@ return [
     'storage_url' => 'http://localhost/core/storage/app/public/',
 
     /*
+    | The site is served from a front controller at the web root (htdocs/index.php),
+    | so the public/ directory is reached through this path instead of a document
+    | root. Keep it in sync with APP_URL when the project is moved or deployed.
+    */
+    'public_url' => env('PUBLIC_URL', 'http://localhost/core/public/'),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
