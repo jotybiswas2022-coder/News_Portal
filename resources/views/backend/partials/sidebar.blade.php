@@ -5,13 +5,18 @@ use Illuminate\Support\Str;
 <!-- Top Bar -->
 <nav class="navbar navbar-expand-lg shadow-sm py-2" style="background: #ffffff;">
     <div class="container-fluid">
+        <!-- Mobile Sidebar Toggle -->
+        <button class="btn btn-outline-secondary d-lg-none me-2" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list fs-5"></i>
+        </button>
+
         <!-- Brand -->
         <a class="navbar-brand d-flex align-items-center fw-bold fs-5 text-dark" href="/admin" style="padding-left: 12px;">
             <i class="bi bi-speedometer2 me-2 fs-3 text-primary"></i>
             <span style="margin-left: 4px;">Welcome to Admin Dashboard</span>
         </a>
 
-        <!-- Toggler -->
+        <!-- Toggler for top nav -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,12 +68,15 @@ use Illuminate\Support\Str;
     </div>
 </nav>
 
+<!-- Mobile Sidebar Overlay -->
+<div class="sidebar-overlay d-lg-none" id="sidebarOverlay"></div>
+
 <!-- Sidebar + Content -->
 <div class="row m-0" style="min-height: 100vh;">
 
     <!-- Sidebar -->
     <div class="col-md-3 p-0">
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <ul class="sidebar-menu">
                 <li>
                     <a href="/admin/sliders" class="{{ request()->is('admin/sliders') ? 'active' : '' }}">
@@ -195,9 +203,100 @@ use Illuminate\Support\Str;
     border-left: 4px solid #6366f1;
 }
 
+/* Mobile Sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1030;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        position: fixed;
+        top: 56px; /* navbar height */
+        left: -280px;
+        width: 280px;
+        height: calc(100vh - 56px);
+        z-index: 1031;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+        transition: left 0.3s ease;
+        min-height: auto;
+        padding-top: 20px;
+    }
+    .sidebar.show {
+        left: 0;
+    }
+    .col-md-9 { width: 100%; }
+    .col-md-3 { width: 100%; padding: 0; }
+}
+
+@media (min-width: 992px) {
+    .sidebar { left: 0 !important; }
+    .sidebar-overlay { display: none !important; }
+}
+
 /* Responsive tweaks */
 @media (max-width: 768px) {
-    .sidebar { min-height: auto; padding-top: 0; }
     .navbar-nav { text-align: center; }
+    .navbar-brand span { font-size: 1.1rem; }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    if (!toggle || !sidebar || !overlay) return;
+
+    function openSidebar() {
+        sidebar.classList.add('show');
+        overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', function() {
+        if (sidebar.classList.contains('show')) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    // Close on link click
+    sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('show')) {
+            closeSidebar();
+        }
+    });
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992 && sidebar.classList.contains('show')) {
+            closeSidebar();
+        }
+    });
+});
+</script>
