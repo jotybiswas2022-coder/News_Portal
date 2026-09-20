@@ -148,7 +148,6 @@
                                                 title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </button>
-                                        @include('backend.product.editmodal')
 
                                         <button class="btn btn-sm btn-danger rounded-pill px-3"
                                                 onclick="confirmation({{ $product->id }})"
@@ -158,6 +157,8 @@
                                     </div>
                                 </td>
                             </tr>
+
+                            @include('backend.product.editmodal')
 
                             <!-- Image Preview Modal -->
                             <div class="modal fade" id="imageModal{{ $product->id }}" tabindex="-1" aria-hidden="true">
