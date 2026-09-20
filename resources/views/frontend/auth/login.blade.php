@@ -87,3 +87,27 @@
 @include('frontend.partials.footer')
 
 @endsection
+
+@section('styles')
+<style>
+    @media (max-width: 560px) {
+        .site-header,
+        .site-footer,
+        .page-head { display: none; }
+
+        main#main {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        main#main .section--white {
+            width: 100%;
+            padding-block: 28px;
+        }
+        .auth-card {
+            max-width: 400px;
+            padding: 34px 24px;
+        }
+    }
+</style>
+@endsection
