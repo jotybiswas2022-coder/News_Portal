@@ -46,6 +46,7 @@ $delivery = $settings->delivery_charge;
                 <th>Total</th>
                 <th>Delivery Charge</th>
                 <th>Payment Mrthod</th>
+                <th>Payment Status</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -134,6 +135,25 @@ $delivery = $settings->delivery_charge;
                             </span>
                         </td>
 
+                        @php
+                            $payStatus = strtolower(trim($order->payment_status ?? 'unpaid'));
+                            $payClass = match($payStatus) {
+                                'paid' => 'status-approved',
+                                'submitted' => 'status-processing',
+                                default => 'status-pending',
+                            };
+                            $payLabel = match($payStatus) {
+                                'paid' => 'Paid',
+                                'submitted' => 'Submitted',
+                                default => 'Unpaid',
+                            };
+                        @endphp
+                        <td data-label="Payment Status">
+                            <span class="status-badge {{ $payClass }}">
+                                {{ $payLabel }}
+                            </span>
+                        </td>
+
                         <td data-label="Status">
                             <span class="status-badge {{ $statusClass }}">
                                 {{ ucfirst($product->status) }}
@@ -166,7 +186,7 @@ $delivery = $settings->delivery_charge;
                 @endforeach
             @empty
                 <tr>
-                    <td colspan="9">
+                    <td colspan="10">
                         <div class="empty-state">
                             <div class="empty-icon">
                                 <i class="bi bi-bag-x"></i>

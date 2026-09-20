@@ -10,6 +10,8 @@ use App\Http\Controllers\user\SearchController;
 
 Route::prefix('/user/order')->middleware('auth')->controller(OrderManageController::class)->group(function () {
     Route::post('/store', 'store');
+    Route::get('/payment/{id}', 'payment');
+    Route::post('/payment/{id}', 'paymentSubmit');
 });
 
 Route::middleware('auth')->controller(UserController::class)->group(function () {

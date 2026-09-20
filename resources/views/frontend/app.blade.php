@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     {{-- ESHA'S ROKOMARIS 2 brand theme (files live in the project's public/ directory) --}}
-    <link rel="stylesheet" href="{{ rtrim(config('app.public_url'), '/') }}/frontend/css/brand.css?v=2">
+    <link rel="stylesheet" href="{{ rtrim(config('app.public_url'), '/') }}/frontend/css/brand.css?v=3">
 
     @yield('styles')
 </head>

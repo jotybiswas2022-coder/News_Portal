@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Storage;
 
 class OrderManageController extends Controller
 {
@@ -82,6 +83,71 @@ class OrderManageController extends Controller
 
         Cart::where('user_id', $user_id)->delete();
 
-        return redirect('/cart')->with('success', 'Order Created Successfully!');
+        return redirect('/user/order/payment/' . $order->id);
+    }
+
+    // ================== PAYMENT PAGE ==================
+    public function payment(int $id)
+    {
+        $order = Order::with('orderdetails')->findOrFail($id);
+
+        if ($order->user_id !== auth()->id()) {
+            abort(403, 'You do not have access to this order.');
+        }
+
+        $settings  = Setting::first();
+        $currency  = $settings?->currency ?? '৳';
+        $bkashNo   = $settings?->bkash_number;
+        $nagadNo   = $settings?->nagad_number;
+        $method    = strtolower(trim($order->payment_method ?? ''));
+
+        // Amount the customer must send now:
+        //  - bKash/Nagad order -> full total
+        //  - Cash on Delivery  -> delivery charge in advance
+        $amountDue = ($method === 'cod') ? (float) $order->delivery_charge : (float) $order->total_price;
+
+        return view('frontend.user.payment', compact('order', 'settings', 'currency', 'bkashNo', 'nagadNo', 'method', 'amountDue'));
+    }
+
+    // ================== SUBMIT PAYMENT PROOF ==================
+    public function paymentSubmit(Request $request, int $id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->user_id !== auth()->id()) {
+            abort(403, 'You do not have access to this order.');
+        }
+
+        $method = strtolower(trim($order->payment_method ?? ''));
+
+        $rules = [
+            'sender_number' => 'required|string|max:20',
+            'transaction_id' => 'required|string|max:100',
+            'screenshot'     => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ];
+
+        if ($method === 'cod') {
+            $rules['advance_method'] = 'required|in:bkash,nagad';
+        }
+
+        $request->validate($rules);
+
+        $data = [
+            'sender_number'    => $request->sender_number,
+            'transaction_id'   => $request->transaction_id,
+            'advance_method'   => ($method === 'cod') ? $request->advance_method : $method,
+            'payment_status'   => 'submitted',
+        ];
+
+        if ($request->hasFile('screenshot')) {
+            if ($order->payment_screenshot && Storage::disk('public')->exists($order->payment_screenshot)) {
+                Storage::disk('public')->delete($order->payment_screenshot);
+            }
+            $data['payment_screenshot'] = $request->file('screenshot')->store('payment-proofs', 'public');
+        }
+
+        $order->update($data);
+
+        return redirect('/orders')->with('success', 'Payment details submitted successfully! We will verify shortly.');
     }
 }

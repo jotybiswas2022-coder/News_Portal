@@ -92,8 +92,44 @@
                                     'nagad' => 'Nagad',
                                     default => 'Unknown',
                                 };
+
+                                $payStatus = strtolower(trim($order->payment_status ?? 'unpaid'));
+                                $payStatusClass = match($payStatus) {
+                                    'paid' => 'bg-success',
+                                    'submitted' => 'bg-info text-dark',
+                                    default => 'bg-secondary',
+                                };
+                                $payStatusText = match($payStatus) {
+                                    'paid' => 'Paid',
+                                    'submitted' => 'Submitted',
+                                    default => 'Unpaid',
+                                };
                             @endphp
                             <span class="badge {{ $methodClass }}">{{ $methodText }}</span>
+                            <br>
+                            <span class="badge {{ $payStatusClass }} payment-status-badge">
+                                {{ $payStatusText }}
+                            </span>
+
+                            @if($order->sender_number || $order->transaction_id || $order->payment_screenshot)
+                                <ul class="payment-proof mt-1 mb-0">
+                                    @if($order->advance_method)
+                                        <li><strong>Advance:</strong> {{ ucfirst($order->advance_method) }}
+                                            ({{ number_format($order->delivery_charge,2) }} {{ $currency }})</li>
+                                    @endif
+                                    @if($order->sender_number)
+                                        <li><strong>Sender:</strong> {{ $order->sender_number }}</li>
+                                    @endif
+                                    @if($order->transaction_id)
+                                        <li><strong>Txn:</strong> {{ $order->transaction_id }}</li>
+                                    @endif
+                                    @if($order->payment_screenshot)
+                                        <li><strong>Proof:</strong>
+                                            <a href="{{ config('app.storage_url') . $order->payment_screenshot }}" target="_blank" rel="noopener">View screenshot</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            @endif
                         </td>
 
                         <!-- Status -->
@@ -109,6 +145,14 @@
 
                         <!-- Actions -->
                         <td class="action-cell">
+                            <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
+
+                            @if($order->payment_status !== 'paid')
+                                <button class="btn btn-sm btn-warning text-dark btn-mark-paid w-100"
+                                        data-id="{{ $order->id }}">
+                                    <i class="bi bi-cash-coin"></i> Mark Paid
+                                </button>
+                            @endif
 
                             @if($status === 'pending')
                                 <button class="btn btn-sm btn-primary btn-approve"
@@ -130,6 +174,7 @@
                                 <span class="text-muted">No actions</span>
                             @endif
 
+                            </div>
                         </td>
                     </tr>
 
@@ -152,6 +197,8 @@
 .product-list {list-style:none; font-size:12px;}
 .product-list li {display:flex; justify-content:space-between;}
 .record-time {font-size:12px;}
+.payment-proof {list-style:none; font-size:11px; text-align:left; padding-left:0;}
+.payment-proof li {line-height:1.5;}
 </style>
 
 @endsection
@@ -256,6 +303,34 @@ $(function(){
                 updateStatus(row,'Delivered','bg-primary');
                 removeActions(row);
                 Swal.fire('Order Delivered!','','success');
+            })
+            .fail(function(xhr){
+                Swal.fire('Error!', xhr.responseJSON?.error || 'Something went wrong','error');
+            });
+        });
+    });
+
+    // ================= MARK PAID =================
+    $(document).on('click','.btn-mark-paid',function(){
+        let id = $(this).data('id');
+        let btn = $(this);
+
+        Swal.fire({
+            title:'Mark payment as paid?',
+            text:'This confirms the customer has paid.',
+            icon:'question',
+            showCancelButton:true,
+            confirmButtonColor:'#198754',
+            confirmButtonText:'Yes, mark paid'
+        }).then((result)=>{
+            if(!result.isConfirmed) return;
+
+            $.post('/admin/orders/mark-paid/'+id)
+            .done(function(){
+                let row = $('#order-'+id);
+                row.find('.payment-status-badge').attr('class','badge bg-success payment-status-badge').text('Paid');
+                btn.remove();
+                Swal.fire('Payment Paid!','','success');
             })
             .fail(function(xhr){
                 Swal.fire('Error!', xhr.responseJSON?.error || 'Something went wrong','error');

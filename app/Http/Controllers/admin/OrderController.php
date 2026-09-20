@@ -107,6 +107,23 @@ class OrderController extends Controller
         }
     }
 
+    // ================== MARK PAYMENT PAID ==================
+    public function markPaid(int $id)
+    {
+        try {
+            $order = Order::findOrFail($id);
+            $order->update(['payment_status' => 'paid']);
+
+            return response()->json([
+                'success' => 'Payment marked as paid'
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 400);
+        }
+    }
+
     // ================== DELIVERED ==================
     public function delivered(int $id)
     {

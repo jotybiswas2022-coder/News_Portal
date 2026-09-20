@@ -18,7 +18,12 @@ class Order extends Model
         'tax',
         'total_price',
         'status',
-        'payment_method', 
+        'payment_method',
+        'sender_number',
+        'transaction_id',
+        'payment_screenshot',
+        'advance_method',
+        'payment_status',
     ];
 
     public function orderdetails()

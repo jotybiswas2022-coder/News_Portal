@@ -22,6 +22,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
         Route::post('/approve/{id}', 'approve');
         Route::post('/cancel/{id}', 'cancel');
         Route::post('/delivered/{id}', 'delivered');
+        Route::post('/mark-paid/{id}', 'markPaid');
     });
 
     // Contacts
