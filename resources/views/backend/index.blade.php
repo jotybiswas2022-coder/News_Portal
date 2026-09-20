@@ -257,22 +257,24 @@
 }
 
 @media (max-width: 991px) {
-    .row.mx-3 { margin: 0.5rem !important; }
+    .row.mx-3 { margin: 1rem !important; }
     .col-lg-7, .col-lg-5 { width: 100%; }
 }
 
 @media (max-width: 767px) {
-    .card-body { padding: 1rem; }
-    .card-header { padding: 1rem; }
+    .card-body { padding: 1.25rem; }
+    .card-header { padding: 1.25rem; }
     h2, .fs-4 { font-size: 1.4rem; }
     h3 { font-size: 1.5rem; }
     h4 { font-size: 1.25rem; }
 }
 
 @media (max-width: 575px) {
-    .container-fluid { padding: 0.75rem; }
-    .row.mx-3 { margin: 0.25rem !important; }
+    .container-fluid { padding: 1rem; }
+    .row.mx-3 { margin: 0.75rem !important; }
     .col-md-3.col-6 { width: 50%; }
+    .card.shadow-sm { margin-bottom: 1rem; }
+    .card.shadow-sm:last-child { margin-bottom: 0; }
 }
 </style>
 
