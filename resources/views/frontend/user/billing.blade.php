@@ -175,7 +175,13 @@ $grandTotal = $subtotal + $taxAmount + $delivery;
                     <i class="bi bi-phone"></i>
                     <div class="payment-label-text">
                         bKash
-                        <div class="payment-label-sub">Instant mobile payment</div>
+                        <div class="payment-label-sub">
+                            @if($settings->bkash_number)
+                                Send money to: {{ $settings->bkash_number }}
+                            @else
+                                Instant mobile payment
+                            @endif
+                        </div>
                     </div>
                 </label>
 
@@ -184,7 +190,13 @@ $grandTotal = $subtotal + $taxAmount + $delivery;
                     <i class="bi bi-wallet2"></i>
                     <div class="payment-label-text">
                         Nagad
-                        <div class="payment-label-sub">Secure online payment</div>
+                        <div class="payment-label-sub">
+                            @if($settings->nagad_number)
+                                Send money to: {{ $settings->nagad_number }}
+                            @else
+                                Secure online payment
+                            @endif
+                        </div>
                     </div>
                 </label>
             </div>

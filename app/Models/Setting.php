@@ -11,6 +11,8 @@ class Setting extends Model
         'language',
         'delivery_charge',
         'delivery_outside',
+        'bkash_number',
+        'nagad_number',
         'tax_percentage',
     ];
 }

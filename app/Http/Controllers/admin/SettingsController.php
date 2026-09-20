@@ -21,6 +21,8 @@ class SettingsController extends Controller
             'language'          => 'required|string',
             'delivery_charge'   => 'nullable|numeric|min:0',
             'delivery_outside'  => 'nullable|numeric|min:0',
+            'bkash_number'      => 'nullable|string|max:20',
+            'nagad_number'      => 'nullable|string|max:20',
             'tax_percentage'    => 'nullable|numeric|min:0',
         ]);
 
@@ -30,6 +32,8 @@ class SettingsController extends Controller
         $settings->language        = $request->language;
         $settings->delivery_charge = $request->delivery_charge ?? 0;
         $settings->delivery_outside = $request->delivery_outside ?? 0;
+        $settings->bkash_number    = $request->bkash_number;
+        $settings->nagad_number    = $request->nagad_number;
         $settings->tax_percentage  = $request->tax_percentage ?? 0;
 
         $settings->save();

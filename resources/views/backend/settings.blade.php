@@ -14,6 +14,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
+            <form action="{{ url('admin/settings') }}" method="POST">
+                @csrf
+
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-dark text-white">
                     <h4 class="mb-0">
@@ -22,9 +25,6 @@
                 </div>
 
                 <div class="card-body">
-
-                    <form action="{{ url('admin/settings') }}" method="POST">
-                        @csrf
 
                         <div class="mb-4">
                             <label for="currency" class="form-label fw-semibold">Currency</label>
@@ -80,10 +80,50 @@
                             </button>
                         </div>
 
-                    </form>
-
                 </div>
             </div>
+
+            {{-- ------------------------------------------ PAYMENT METHODS --}}
+            <div class="card mt-4 shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-credit-card me-2"></i> Payment Methods
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="bkash_number" class="form-label fw-semibold">
+                                <i class="bi bi-phone me-1 text-danger"></i> bKash Number
+                            </label>
+                            <input type="text" name="bkash_number" id="bkash_number"
+                                   class="form-select" value="{{ $settings?->bkash_number }}"
+                                   placeholder="Enter bKash number">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="nagad_number" class="form-label fw-semibold">
+                                <i class="bi bi-wallet2 me-1 text-warning"></i> Nagad Number
+                            </label>
+                            <input type="text" name="nagad_number" id="nagad_number"
+                                   class="form-select" value="{{ $settings?->nagad_number }}"
+                                   placeholder="Enter Nagad number">
+                        </div>
+                    </div>
+
+                    <p class="form-text text-muted mt-3 mb-0">
+                        These numbers will be shown to customers when they pick bKash or Nagad at checkout.
+                    </p>
+
+                    <div class="text-end mt-3">
+                        <button type="submit" class="btn btn-dark px-4">
+                            <i class="bi bi-save me-1"></i> Save Payment Methods
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </form>
 
         </div>
     </div>
