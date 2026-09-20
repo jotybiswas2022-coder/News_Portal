@@ -3,7 +3,8 @@
     Expects $card (array) with:
       name, category, price, url, image,
       old_price (optional), badge (optional, e.g. "New" / "20% Off"),
-      badge_style (optional: 'gold'), in_cart (optional bool)
+      badge_style (optional: 'gold'), in_cart (optional bool),
+      sold_out (optional bool)
 --}}
 <article class="product-card reveal">
     @if(!empty($card['badge']))
@@ -36,7 +37,9 @@
 
     <div class="product-card__cta">
         <a class="btn btn--block" href="{{ $card['url'] }}">
-            @if(!empty($card['in_cart']))
+            @if(!empty($card['sold_out']))
+                Sold Out
+            @elseif(!empty($card['in_cart']))
                 In Bag
             @else
                 Add to Bag

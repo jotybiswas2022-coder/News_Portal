@@ -26,9 +26,11 @@
         'product_4' => 'https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=700&q=80',
     ];
 
-    /* Build the collection cards from real products when they exist. */
-    $cards = collect($products ?? [])->take(8)->map(function ($product) use ($currency, $placeholders) {
+    /* Collection cards are built straight from the products stored in the
+       backend, so anything added in the admin panel shows up here. */
+    $cards = collect($products ?? [])->map(function ($product) use ($currency, $placeholders) {
         $hasDiscount = ($product->discount ?? 0) > 0;
+        $soldOut     = (int) ($product->stock ?? 0) <= 0;
         $finalPrice  = $hasDiscount
             ? $product->price - ($product->price * $product->discount / 100)
             : $product->price;
@@ -37,31 +39,17 @@
             'name'        => $product->name,
             'category'    => optional($product->ProductCategory)->name ?? "Women's Collection",
             'url'         => url('/product/' . $product->id),
-            'image'       => $product->image ? config('app.storage_url') . $product->image : $placeholders['product_1'],
+            'image'       => $product->image
+                                ? config('app.storage_url') . $product->image
+                                : $placeholders['product_1'],
             'price'       => $currency . ' ' . number_format($finalPrice, 0),
             'old_price'   => $hasDiscount ? $currency . ' ' . number_format($product->price, 0) : null,
-            'badge'       => $hasDiscount ? $product->discount . '% Off' : null,
-            'badge_style' => 'gold',
+            'badge'       => $soldOut ? 'Sold Out' : ($hasDiscount ? $product->discount . '% Off' : null),
+            'badge_style' => $soldOut ? '' : 'gold',
+            'sold_out'    => $soldOut,
             'in_cart'     => auth()->check() && IsAddedToCart(auth()->id(), $product->id),
         ];
     });
-
-    /* Fallback showcase — the four pieces from the brand brief. */
-    if ($cards->isEmpty()) {
-        $cards = collect([
-            ['name' => 'Rose Bloom Dress',   'category' => "Women's Dress",       'price' => '৳1,850', 'image' => $placeholders['product_1'], 'badge' => 'New', 'badge_style' => ''],
-            ['name' => 'Everyday Elegance',  'category' => "Women's Wear",        'price' => '৳1,650', 'image' => $placeholders['product_2']],
-            ['name' => 'Soft Petal Kurti',   'category' => 'Traditional Wear',    'price' => '৳1,250', 'image' => $placeholders['product_3']],
-            ['name' => 'Pastel Muse',        'category' => "Women's Collection",  'price' => '৳1,950', 'image' => $placeholders['product_4'], 'badge' => 'New', 'badge_style' => ''],
-        ])->map(function ($card) {
-            $card['url']        = '#products';
-            $card['old_price']  = null;
-            $card['badge']      = $card['badge'] ?? null;
-            $card['badge_style']= $card['badge_style'] ?? '';
-            $card['in_cart']    = false;
-            return $card;
-        });
-    }
 
     $heroImage = $slider && $slider->slider1
         ? config('app.storage_url') . $slider->slider1
@@ -148,20 +136,35 @@
             <span class="deco-line" aria-hidden="true"></span>
         </div>
 
-        <div class="product-grid">
-            @foreach($cards as $card)
-                @include('frontend.partials.product-card', ['card' => $card])
-            @endforeach
-        </div>
+        @if($cards->isEmpty())
+            <div class="collection-empty reveal">
+                <p class="collection-empty__title">The new collection is on its way.</p>
+                <p class="collection-empty__text">
+                    Follow us on Instagram to be the first to see the next drop.
+                </p>
+                <a class="link-arrow" href="https://instagram.com/eshas_rokomaris2" target="_blank" rel="noopener">
+                    Follow Along
+                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                        <path d="M0 5h16M12 1l4 4-4 4"/>
+                    </svg>
+                </a>
+            </div>
+        @else
+            <div class="product-grid">
+                @foreach($cards as $card)
+                    @include('frontend.partials.product-card', ['card' => $card])
+                @endforeach
+            </div>
 
-        <div class="products__foot reveal">
-            <a class="link-arrow" href="{{ url('/search') }}">
-                View All Products
-                <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                    <path d="M0 5h16M12 1l4 4-4 4"/>
-                </svg>
-            </a>
-        </div>
+            <div class="products__foot reveal">
+                <a class="link-arrow" href="{{ url('/search') }}">
+                    View All Products
+                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                        <path d="M0 5h16M12 1l4 4-4 4"/>
+                    </svg>
+                </a>
+            </div>
+        @endif
 
     </div>
 </section>

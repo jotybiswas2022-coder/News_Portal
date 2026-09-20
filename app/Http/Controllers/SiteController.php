@@ -10,7 +10,9 @@ class SiteController extends Controller
     // Homepage
     function index()
     {
-        $products = Product::all();
+        // "Featured Collection" — the newest products added from the admin panel.
+        $products = Product::latest()->take(8)->get();
+
         return view('frontend.index', compact('products'));
     }
 
