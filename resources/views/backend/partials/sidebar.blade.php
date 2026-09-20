@@ -135,8 +135,8 @@ use Illuminate\Support\Str;
                 </button>
             </div>
 
-            <div class="mobile-menu-section p-2 border-bottom">
-                <h6 class="text-muted text-uppercase small fw-bold mb-2 px-1">Navigation</h6>
+            <div class="mobile-menu-section p-2">
+                <h6 class="text-muted text-uppercase small fw-bold mb-1 px-1">Navigation</h6>
                 <ul class="nav flex-column gap-1">
                     <li>
                         <a class="nav-link d-flex align-items-center gap-2 text-dark px-3 py-2 {{ request()->is('/') ? 'active' : '' }}" href="/">
@@ -180,8 +180,8 @@ use Illuminate\Support\Str;
                 </ul>
             </div>
 
-            <div class="mobile-menu-section p-2">
-                <h6 class="text-muted text-uppercase small fw-bold mb-2 px-1">Admin Panel</h6>
+            <div class="mobile-menu-section pt-1 pb-2">
+                <h6 class="text-muted text-uppercase small fw-bold mb-1 px-1">Admin Panel</h6>
                 <ul class="sidebar-menu">
                     <li>
                         <a href="/admin/sliders" class="{{ request()->is('admin/sliders') ? 'active' : '' }}">
