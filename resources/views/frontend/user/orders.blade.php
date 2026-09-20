@@ -25,12 +25,7 @@
     <div class="brand-container">
         <span class="eyebrow">Your Account</span>
         <h1 class="page-head__title">My Orders</h1>
-        <p class="page-head__text">
-            Track your past orders and their payment status.
-            @if($orders->isNotEmpty())
-                You have {{ $orders->count() }} {{ Str::plural('order', $orders->count()) }}.
-            @endif
-        </p>
+        <p class="page-head__text">Track your orders and their payment status.</p>
     </div>
 </section>
 
@@ -50,19 +45,20 @@
 
         @else
 
-            <div class="orders-toolbar">
+            <div class="os-toolbar">
                 <label class="sr-only" for="order-search">Search my orders</label>
-                <input class="form-control" type="search" id="order-search" placeholder="Search by order #, product or payment…">
+                <input class="form-control" type="search" id="order-search"
+                       placeholder="Search orders or products…">
             </div>
 
-            <div class="orders-list" id="orders-list">
+            <div class="os-list" id="orders-list">
 
                 @foreach($orders as $order)
 
                     @php
-                        $status     = strtolower(trim($order->status ?? 'pending'));
-                        $method     = strtolower(trim($order->payment_method ?? ''));
-                        $payStatus  = strtolower(trim($order->payment_status ?? 'unpaid'));
+                        $status    = strtolower(trim($order->status ?? 'pending'));
+                        $method    = strtolower(trim($order->payment_method ?? ''));
+                        $payStatus = strtolower(trim($order->payment_status ?? 'unpaid'));
 
                         $statusLabel = match($status) {
                             'approved' => 'Approved',
@@ -77,150 +73,66 @@
                             default => $order->payment_method ?? 'COD',
                         };
                         $payLabel = match($payStatus) {
-                            'paid' => 'Payment Received',
-                            'submitted' => 'Payment Submitted',
-                            default => 'Payment Pending',
+                            'paid' => 'Payment received',
+                            'submitted' => 'Payment submitted, awaiting confirmation',
+                            default => ($method === 'cod')
+                                ? 'Pay delivery charge in advance to confirm'
+                                : 'Payment not received yet',
                         };
                     @endphp
 
-                    <article class="order-card">
-
-                        <header class="order-card__head">
-
-                            <div class="order-card__ref">
-                                <span class="order-card__id">Order #{{ $order->id }}</span>
-                                <span class="order-card__date">{{ $order->created_at ? $order->created_at->format('d M Y, h:i A') : '' }}</span>
-                            </div>
-
-                            <div class="order-card__tags">
-                                <span class="tag tag--order tag--{{ $status }}">{{ $statusLabel }}</span>
-                                <span class="tag tag--method tag--{{ $method }}">{{ $methodLabel }}</span>
-                                <span class="tag tag--pay tag--{{ $payStatus }}">{{ $payLabel }}</span>
-                            </div>
-
-                        </header>
-
-                        <div class="order-card__body">
-
-                            <ul class="order-items">
-                                @foreach($order->orderdetails as $item)
-                                    @php
-                                        $img = ($item->product && $item->product->image)
-                                            ? config('app.storage_url') . $item->product->image
-                                            : '';
-                                        $unitPrice = ($item->product_price ?? 0) * ((100 - ($item->product->discount ?? 0)) / 100);
-                                    @endphp
-                                    <li class="order-item">
-                                        @if($img)
-                                            <span class="order-item__img">
-                                                <img src="{{ $img }}" alt="{{ $item->product_name }}" loading="lazy">
-                                            </span>
-                                        @endif
-                                        <span class="order-item__name">
-                                            {{ $item->product_name }}
-                                            <span class="order-item__qty">Qty: {{ $item->product_quantity }}</span>
-                                        </span>
-                                        <span class="order-item__price">
-                                            {{ $currency }} {{ number_format($unitPrice * $item->product_quantity, 2) }}
-                                        </span>
-                                    </li>
-                                @endforeach
-                            </ul>
-
-                            <div class="order-card__aside">
-
-                                <ul class="order-totals">
-                                    <li>
-                                        <span>Subtotal</span>
-                                        <span>{{ $currency }} {{ number_format($order->product_price_after_discount ?? 0, 2) }}</span>
-                                    </li>
-                                    <li>
-                                        <span>Tax</span>
-                                        <span>{{ $currency }} {{ number_format($order->tax ?? 0, 2) }}</span>
-                                    </li>
-                                    <li>
-                                        <span>Delivery</span>
-                                        <span>{{ $currency }} {{ number_format($order->delivery_charge ?? 0, 2) }}</span>
-                                    </li>
-                                </ul>
-
-                                <div class="order-totals__grand">
-                                    <span>Order Total</span>
-                                    <span>{{ $currency }} {{ number_format($order->total_price ?? 0, 2) }}</span>
-                                </div>
-
-                                <span class="order-card__customer">
-                                    {{ $order->firstname }} {{ $order->lastname }} · {{ $order->phone }}
-                                </span>
-
-                            </div>
-
+                    <article class="os-card">
+                        <div class="os-card__top">
+                            <span class="os-num">Order #{{ $order->id }}</span>
+                            <span class="os-date">{{ $order->created_at ? $order->created_at->format('d M Y, h:i A') : '' }}</span>
+                            <span class="os-status os-status--{{ $status }}">{{ $statusLabel }}</span>
                         </div>
 
-                        {{-- Payment details block --}}
-                        @if($payStatus === 'paid' || $payStatus === 'submitted' || $order->sender_number)
+                        <ul class="os-items">
+                            @foreach($order->orderdetails as $item)
+                                <li class="os-item">
+                                    <span class="os-item__name">{{ $item->product_name }}</span>
+                                    <span class="os-item__qty">× {{ $item->product_quantity }}</span>
+                                    <span class="os-item__price">
+                                        {{ $currency }} {{ number_format(($item->product_price ?? 0) * $item->product_quantity, 2) }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
 
-                            <footer class="order-payment">
+                        <div class="os-total">
+                            <span>Order Total</span>
+                            <span>{{ $currency }} {{ number_format($order->total_price ?? 0, 2) }}</span>
+                        </div>
 
-                                <div class="order-payment__title">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-                                        <rect x="2" y="5" width="20" height="14" rx="2"/>
-                                        <path d="M2 10h20"/>
-                                    </svg>
-                                    Payment Details
-                                </div>
+                        <div class="os-pay">
+                            <span class="os-pay__method">{{ $methodLabel }} · {{ $payLabel }}</span>
 
-                                <dl class="order-payment__rows">
-                                    @if($order->advance_method && $method === 'cod')
-                                        <div>
-                                            <dt>Paid in advance</dt>
-                                            <dd>
-                                                {{ ucfirst($order->advance_method) }}
-                                                ({{ $currency }} {{ number_format($order->delivery_charge ?? 0, 2) }})
-                                            </dd>
-                                        </div>
-                                    @endif
-                                    @if($order->sender_number)
-                                        <div>
-                                            <dt>Sent from</dt>
-                                            <dd>{{ $order->sender_number }}</dd>
-                                        </div>
-                                    @endif
-                                    @if($order->transaction_id)
-                                        <div>
-                                            <dt>Transaction ID</dt>
-                                            <dd>{{ $order->transaction_id }}</dd>
-                                        </div>
-                                    @endif
-                                    @if($order->payment_screenshot)
-                                        <div>
-                                            <dt>Proof</dt>
-                                            <dd>
-                                                <a href="{{ config('app.storage_url') . $order->payment_screenshot }}"
-                                                   target="_blank" rel="noopener">View payment screenshot</a>
-                                            </dd>
-                                        </div>
-                                    @endif
-                                </dl>
+                            @if($payStatus === 'unpaid')
+                                <a class="os-pay__btn" href="{{ url('/user/order/payment/' . $order->id) }}">Pay Now</a>
+                            @endif
+                        </div>
 
-                            </footer>
-
-                        @endif
-
-                        {{-- Pending payment CTA --}}
-                        @if($payStatus === 'unpaid')
-                            <footer class="order-payment order-payment--cta">
-                                @if($method === 'cod')
-                                    To confirm this order, pay the delivery charge
-                                    ({{ $currency }} {{ number_format($order->delivery_charge ?? 0, 2) }})
-                                    in advance via bKash or Nagad.
-                                @else
-                                    Complete the {{ ucfirst($methodLabel) }} payment to confirm this order.
+                        @if($payStatus !== 'unpaid' && ($order->sender_number || $order->transaction_id || $order->payment_screenshot))
+                            <ul class="os-proof">
+                                @if($order->advance_method && $method === 'cod')
+                                    <li>Delivery paid in advance via {{ ucfirst($order->advance_method) }}
+                                        ({{ $currency }} {{ number_format($order->delivery_charge ?? 0, 2) }})</li>
                                 @endif
-                                <a class="btn btn--block" href="{{ url('/user/order/payment/' . $order->id) }}">Complete Payment</a>
-                            </footer>
+                                @if($order->sender_number)
+                                    <li>Sent from {{ $order->sender_number }}</li>
+                                @endif
+                                @if($order->transaction_id)
+                                    <li>Transaction ID: {{ $order->transaction_id }}</li>
+                                @endif
+                                @if($order->payment_screenshot)
+                                    <li>
+                                        <a href="{{ config('app.storage_url') . $order->payment_screenshot }}"
+                                           target="_blank" rel="noopener">View payment screenshot</a>
+                                    </li>
+                                @endif
+                            </ul>
                         @endif
-
                     </article>
 
                 @endforeach
@@ -242,7 +154,7 @@
 
     input.addEventListener('input', function () {
         var v = this.value.toLowerCase().trim();
-        list.querySelectorAll('.order-card').forEach(function (card) {
+        list.querySelectorAll('.os-card').forEach(function (card) {
             if (!v) { card.style.display = ''; return; }
             card.style.display = (card.innerText || '').toLowerCase().includes(v) ? '' : 'none';
         });
