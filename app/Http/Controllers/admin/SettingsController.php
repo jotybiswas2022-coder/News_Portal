@@ -23,6 +23,10 @@ class SettingsController extends Controller
             'delivery_outside'  => 'nullable|numeric|min:0',
             'bkash_number'      => 'nullable|string|max:20',
             'nagad_number'      => 'nullable|string|max:20',
+            'contact_instagram' => 'nullable|string|max:100',
+            'contact_facebook'  => 'nullable|string|max:150',
+            'contact_phone'     => 'nullable|string|max:30',
+            'contact_email'     => 'nullable|email|max:100',
             'tax_percentage'    => 'nullable|numeric|min:0',
         ]);
 
@@ -34,6 +38,10 @@ class SettingsController extends Controller
         $settings->delivery_outside = $request->delivery_outside ?? 0;
         $settings->bkash_number    = $request->bkash_number;
         $settings->nagad_number    = $request->nagad_number;
+        $settings->contact_instagram = $request->contact_instagram;
+        $settings->contact_facebook  = $request->contact_facebook;
+        $settings->contact_phone     = $request->contact_phone;
+        $settings->contact_email     = $request->contact_email;
         $settings->tax_percentage  = $request->tax_percentage ?? 0;
 
         $settings->save();

@@ -123,6 +123,62 @@
                 </div>
             </div>
 
+            {{-- ------------------------------------------ CONTACT INFO --}}
+            <div class="card mt-4 shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-telephone me-2"></i> Contact Information
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="contact_instagram" class="form-label fw-semibold">
+                                <i class="bi bi-instagram me-1 text-danger"></i> Instagram
+                            </label>
+                            <input type="text" name="contact_instagram" id="contact_instagram"
+                                   class="form-select" value="{{ $settings?->contact_instagram }}"
+                                   placeholder="@eshas_rokomaris2">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="contact_facebook" class="form-label fw-semibold">
+                                <i class="bi bi-facebook me-1 text-primary"></i> Facebook URL
+                            </label>
+                            <input type="text" name="contact_facebook" id="contact_facebook"
+                                   class="form-select" value="{{ $settings?->contact_facebook }}"
+                                   placeholder="https://facebook.com/yourpage">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="contact_phone" class="form-label fw-semibold">
+                                <i class="bi bi-phone me-1 text-success"></i> Phone
+                            </label>
+                            <input type="text" name="contact_phone" id="contact_phone"
+                                   class="form-select" value="{{ $settings?->contact_phone }}"
+                                   placeholder="+880 1XXXXXXXXX">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="contact_email" class="form-label fw-semibold">
+                                <i class="bi bi-envelope me-1"></i> Email
+                            </label>
+                            <input type="email" name="contact_email" id="contact_email"
+                                   class="form-select" value="{{ $settings?->contact_email }}"
+                                   placeholder="hello@example.com">
+                        </div>
+                    </div>
+
+                    <p class="form-text text-muted mt-3 mb-0">
+                        These are shown in the "Let's Connect" section on the homepage.
+                    </p>
+
+                    <div class="text-end mt-3">
+                        <button type="submit" class="btn btn-dark px-4">
+                            <i class="bi bi-save me-1"></i> Save Contact Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             </form>
 
         </div>
