@@ -96,7 +96,7 @@
                                         <div>
                                             <h6 class="mb-0 fw-semibold">{{ $product->name }}</h6>
                                             @if($product->details)
-                                                <small class="text-muted d-none d-md-block">{{ Str::limit($product->details, 40) }}</small>
+                                                <small class="text-muted d-none d-md-block">{{ Str::limit(strip_tags($product->details), 40) }}</small>
                                             @endif
                                         </div>
                                     </div>
