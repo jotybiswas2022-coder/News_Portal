@@ -333,6 +333,7 @@ use Illuminate\Support\Str;
 }
 .mobile-menu-header { background: #fafafa; }
 .mobile-menu-section { flex: 0 0 auto; }
+.mobile-menu-section + .mobile-menu-section { padding-top: 8px; }
 
 /* Mobile menu compact sidebar items */
 .mobile-menu .sidebar-menu li { margin-bottom: 4px; }
