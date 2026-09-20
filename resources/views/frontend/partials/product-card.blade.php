@@ -13,12 +13,26 @@
         </span>
     @endif
 
-    <a class="product-card__media" href="{{ $card['url'] }}"
-       aria-label="{{ $card['name'] }}">
-        <img src="{{ $card['image'] }}"
-             alt="{{ $card['name'] }} — {{ $card['category'] }}"
-             loading="lazy">
-    </a>
+    <div class="product-card__frame">
+        <a class="product-card__media" href="{{ $card['url'] }}"
+           aria-label="{{ $card['name'] }}">
+            <img src="{{ $card['image'] }}"
+                 alt="{{ $card['name'] }} — {{ $card['category'] }}"
+                 loading="lazy">
+        </a>
+
+        <div class="product-card__cta">
+            <a class="btn btn--block" href="{{ $card['url'] }}">
+                @if(!empty($card['sold_out']))
+                    Sold Out
+                @elseif(!empty($card['in_cart']))
+                    In Bag
+                @else
+                    Add to Bag
+                @endif
+            </a>
+        </div>
+    </div>
 
     <div class="product-card__info">
         <span class="product-card__category">{{ $card['category'] }}</span>
@@ -33,17 +47,5 @@
             @endif
             <span>{{ $card['price'] }}</span>
         </p>
-    </div>
-
-    <div class="product-card__cta">
-        <a class="btn btn--block" href="{{ $card['url'] }}">
-            @if(!empty($card['sold_out']))
-                Sold Out
-            @elseif(!empty($card['in_cart']))
-                In Bag
-            @else
-                Add to Bag
-            @endif
-        </a>
     </div>
 </article>

@@ -650,11 +650,14 @@ p { margin: 0; }
     box-shadow: var(--shadow-card);
 }
 
+.product-card__frame {
+    position: relative;
+    overflow: hidden;
+}
 .product-card__media {
     display: block;
     position: relative;
     aspect-ratio: 3 / 4;
-    overflow: hidden;
     background: var(--color-blush);
 }
 .product-card__media img {
