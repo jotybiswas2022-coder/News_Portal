@@ -131,6 +131,16 @@
                             @elseif($row['stock'] <= 5)
                                 <span class="cart-item__stock cart-item__stock--low">Only {{ $row['stock'] }} left</span>
                             @endif
+
+                            <a class="cart-item__remove" href="/manage/destroy/{{ $row['id'] }}" aria-label="Remove {{ $row['name'] }}">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M3 6h18"/>
+                                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+                                    <path d="M10 11v6M14 11v6"/>
+                                </svg>
+                                Remove
+                            </a>
                         </div>
 
                         <div class="cart-item__qty">
@@ -158,12 +168,6 @@
                             <span class="cart-item__line-label">Total</span>
                             <span class="cart-item__line-value">{{ $currency }} {{ number_format($row['lineTotal'], 2) }}</span>
                         </div>
-
-                        <a class="cart-item__remove" href="/manage/destroy/{{ $row['id'] }}" aria-label="Remove {{ $row['name'] }}">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-                                <path d="M18 6 6 18M6 6l12 12"/>
-                            </svg>
-                        </a>
 
                     </li>
                     @endforeach
