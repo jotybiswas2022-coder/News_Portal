@@ -16,14 +16,51 @@
             These images fill the homepage hero section. Upload either one on its own — the other falls back automatically.
         </p>
 
+        <!-- Image Previews (both visible) -->
+        <div class="row g-4 mb-4">
+            <!-- Slider 1 Preview -->
+            <div class="col-12 col-md-6">
+                <div class="border rounded-3 p-3 d-flex flex-column align-items-center" style="background: #f8f9fa;">
+                    <label class="form-label fw-semibold mb-2">
+                        <i class="bi bi-image me-1 text-primary"></i> Current: Hero Image — Desktop
+                    </label>
+                    <img id="preview1"
+                         src="{{ $slider && $slider->slider1 ? config('app.storage_url').$slider->slider1 : '' }}"
+                         class="img-fluid rounded-3 shadow border mb-2"
+                         style="max-height: 200px; min-height: 120px; object-fit: cover;"
+                         onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=No+Image'">
+                    <p class="text-muted small text-center mb-0">
+                        {{ $slider && $slider->slider1 ? '✓ Image uploaded' : '⏺ No image (placeholder shown)' }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slider 2 Preview -->
+            <div class="col-12 col-md-6">
+                <div class="border rounded-3 p-3 d-flex flex-column align-items-center" style="background: #f8f9fa;">
+                    <label class="form-label fw-semibold mb-2">
+                        <i class="bi bi-image me-1 text-success"></i> Current: Hero Image — Mobile
+                    </label>
+                    <img id="preview2"
+                         src="{{ $slider && $slider->slider2 ? config('app.storage_url').$slider->slider2 : '' }}"
+                         class="img-fluid rounded-3 shadow border mb-2"
+                         style="max-height: 200px; min-height: 120px; object-fit: cover;"
+                         onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=No+Image'">
+                    <p class="text-muted small text-center mb-0">
+                        {{ $slider && $slider->slider2 ? '✓ Image uploaded' : '⏺ No image (placeholder shown)' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <form action="/admin/sliders/store" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-4">
 
-                <!-- Slider 1 — homepage hero (wide) -->
+                <!-- Slider 1 Upload -->
                 <div class="col-12 col-md-6">
                     <label class="form-label fw-semibold d-block mb-1">
-                        <i class="bi bi-image me-1 text-primary"></i> Hero Image — Desktop
+                        <i class="bi bi-upload me-1 text-primary"></i> Upload New: Hero Image — Desktop
                     </label>
                     <p class="text-muted small mb-2">Wide shot, shown on tablet and desktop.</p>
                     <input type="file"
@@ -33,18 +70,12 @@
                            id="slider1"
                            onchange="previewImage(event, 'preview1')"
                     >
-                    <div class="mt-3 d-flex justify-content-center">
-                        <img id="preview1"
-                             src="{{ $slider && $slider->slider1 ? config('app.storage_url').$slider->slider1 : '' }}"
-                             class="img-fluid rounded-4 shadow border {{ $slider && $slider->slider1 ? '' : 'd-none' }}"
-                             style="max-height: 180px; transition: all 0.3s ease;">
-                    </div>
                 </div>
 
-                <!-- Slider 2 — homepage hero (portrait) -->
+                <!-- Slider 2 Upload -->
                 <div class="col-12 col-md-6">
                     <label class="form-label fw-semibold d-block mb-1">
-                        <i class="bi bi-image me-1 text-success"></i> Hero Image — Mobile
+                        <i class="bi bi-upload me-1 text-success"></i> Upload New: Hero Image — Mobile
                     </label>
                     <p class="text-muted small mb-2">Portrait shot, shown on phones. Leave empty to reuse the desktop image.</p>
                     <input type="file"
@@ -54,12 +85,6 @@
                            id="slider2"
                            onchange="previewImage(event, 'preview2')"
                     >
-                    <div class="mt-3 d-flex justify-content-center">
-                        <img id="preview2"
-                             src="{{ $slider && $slider->slider2 ? config('app.storage_url').$slider->slider2 : '' }}"
-                             class="img-fluid rounded-4 shadow border {{ $slider && $slider->slider2 ? '' : 'd-none' }}"
-                             style="max-height: 180px; transition: all 0.3s ease;">
-                    </div>
                 </div>
 
                 <!-- Submit Button -->

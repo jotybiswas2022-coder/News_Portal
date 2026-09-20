@@ -1010,8 +1010,19 @@ a.contact-item__value:hover { color: var(--color-primary); }
 .contact-form {
     background: var(--color-white);
     border: 1px solid var(--color-border);
+    border-top: 2px solid var(--color-gold);
     padding: clamp(26px, 3.4vw, 44px);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-card);
+}
+.contact-form__title {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+    color: var(--color-text);
+}
+.contact-form__sub {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-bottom: 24px;
 }
 .form-row {
     display: grid;

@@ -7,8 +7,10 @@
 
 @php
     use App\Models\Slider;
+    use App\Models\Setting;
 
     $slider = Slider::latest()->first();
+    $contact = Setting::first();
 
     /* -----------------------------------------------------------------------
        Placeholder imagery — only used when real product/slider images are not
@@ -25,24 +27,31 @@
 
     /* Hero imagery comes from the backend "Manage Sliders" page:
        slider1 is the wide/desktop shot, slider2 the portrait/mobile shot.
-       Either one alone is enough — the placeholder only fills the gap until
-       something is uploaded. */
-    $heroDesktop = $slider && $slider->slider1 ? config('app.storage_url') . $slider->slider1 : null;
-    $heroMobile  = $slider && $slider->slider2 ? config('app.storage_url') . $slider->slider2 : null;
-    $heroDesktop = $heroDesktop ?: ($heroMobile ?: $placeholders['hero']);
+       Both images rotate in the hero section every 5 seconds.
+       The placeholder only fills the gap until something is uploaded. */
+    $slider1Url = $slider && $slider->slider1 ? config('app.storage_url') . $slider->slider1 : null;
+    $slider2Url = $slider && $slider->slider2 ? config('app.storage_url') . $slider->slider2 : null;
+    $heroFallback = $placeholders['hero'];
 @endphp
-
-@if(session('success'))
-    <div class="brand-container">
-        <p class="notice" role="status">{{ session('success') }}</p>
-    </div>
-@endif
 
 {{-- ============================================================ HERO --}}
 <section class="hero" id="hero">
     <span class="hero__blob hero__blob--rose" aria-hidden="true"></span>
     <span class="hero__blob hero__blob--sage" aria-hidden="true"></span>
     <span class="hero__blob hero__blob--gold" aria-hidden="true"></span>
+
+    <style>
+        .hero__slides { position: relative; width: 100%; height: 100%; }
+        .hero__slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .hero__slide img { width: 100%; height: 100%; object-fit: cover; }
+        .hero__slide.active { opacity: 1; transform: scale(1); }
+    </style>
 
     <div class="brand-container">
         <div class="hero__inner">
@@ -65,14 +74,29 @@
 
             <div class="hero__media">
                 <figure class="hero__frame">
-                    <picture>
-                        @if($heroMobile && $heroMobile !== $heroDesktop)
-                            <source media="(max-width: 900px)" srcset="{{ $heroMobile }}">
+                    <div class="hero__slides" id="heroSlides">
+                        @if($slider1Url)
+                            <div class="hero__slide">
+                                <img src="{{ $slider1Url }}"
+                                     alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
+                                     width="1100" height="1375">
+                            </div>
                         @endif
-                        <img src="{{ $heroDesktop }}"
-                             alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                             width="1100" height="1375">
-                    </picture>
+                        @if($slider2Url)
+                            <div class="hero__slide">
+                                <img src="{{ $slider2Url }}"
+                                     alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
+                                     width="1100" height="1375">
+                            </div>
+                        @endif
+                        @if(!$slider1Url && !$slider2Url)
+                            <div class="hero__slide">
+                                <img src="{{ $heroFallback }}"
+                                     alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
+                                     width="1100" height="1375">
+                            </div>
+                        @endif
+                    </div>
                 </figure>
 
                 <div class="hero__tag">
@@ -163,59 +187,70 @@
                     We'd love to hear from you.
                 </p>
 
-                <ul class="contact-list">
-                    <li class="contact-item reveal">
-                        <span class="contact-item__icon" aria-hidden="true">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                                <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                            </svg>
-                        </span>
-                        <span>
-                            <span class="contact-item__label">Instagram</span>
-                            <a class="contact-item__value" href="https://instagram.com/eshas_rokomaris2" target="_blank" rel="noopener">@eshas_rokomaris2</a>
-                        </span>
-                    </li>
+<ul class="contact-list">
+                    @if($contact?->contact_instagram)
+                        <li class="contact-item reveal">
+                            <span class="contact-item__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                                    <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                                </svg>
+                            </span>
+                            <span>
+                                <span class="contact-item__label">Instagram</span>
+                                <a class="contact-item__value" href="https://instagram.com/{{ ltrim($contact->contact_instagram, '@') }}" target="_blank" rel="noopener">{{ $contact->contact_instagram }}</a>
+                            </span>
+                        </li>
+                    @endif
 
-                    <li class="contact-item reveal">
-                        <span class="contact-item__icon" aria-hidden="true">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                                <path d="M14 8h3a1 1 0 0 1 1 1v2a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6V9a1 1 0 0 1 1-1h3"/>
-                            </svg>
-                        </span>
-                        <span>
-                            <span class="contact-item__label">Facebook</span>
-                            <a class="contact-item__value" href="https://facebook.com/" target="_blank" rel="noopener">Eshas rokomaris 2</a>
-                        </span>
-                    </li>
+                    @if($contact?->contact_facebook)
+                        <li class="contact-item reveal">
+                            <span class="contact-item__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                                    <path d="M14 8h3a1 1 0 0 1 1 1v2a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6V9a1 1 0 0 1 1-1h3"/>
+                                </svg>
+                            </span>
+                            <span>
+                                <span class="contact-item__label">Facebook</span>
+                                <a class="contact-item__value" href="{{ $contact->contact_facebook }}" target="_blank" rel="noopener">Eshas rokomaris 2</a>
+                            </span>
+                        </li>
+                    @endif
 
-                    <li class="contact-item reveal">
-                        <span class="contact-item__icon" aria-hidden="true">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-                                <path d="M6 3h3l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/>
-                            </svg>
-                        </span>
-                        <span>
-                            <span class="contact-item__label">Phone</span>
-                            <a class="contact-item__value" href="tel:+8801000000000">+880 1XXXXXXXXX</a>
-                        </span>
-                    </li>
+                    @if($contact?->contact_phone)
+                        <li class="contact-item reveal">
+                            <span class="contact-item__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+                                    <path d="M6 3h3l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/>
+                                </svg>
+                            </span>
+                            <span>
+                                <span class="contact-item__label">Phone</span>
+                                <a class="contact-item__value" href="tel:{{ preg_replace('/\s+/', '', $contact->contact_phone) }}">{{ $contact->contact_phone }}</a>
+                            </span>
+                        </li>
+                    @endif
 
-                    <li class="contact-item reveal">
-                        <span class="contact-item__icon" aria-hidden="true">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                                <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
-                            </svg>
-                        </span>
-                        <span>
-                            <span class="contact-item__label">Email</span>
-                            <a class="contact-item__value" href="mailto:hello@example.com">hello@example.com</a>
-                        </span>
-                    </li>
+                    @if($contact?->contact_email)
+                        <li class="contact-item reveal">
+                            <span class="contact-item__icon" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                                    <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+                                </svg>
+                            </span>
+                            <span>
+                                <span class="contact-item__label">Email</span>
+                                <a class="contact-item__value" href="mailto:{{ $contact->contact_email }}">{{ $contact->contact_email }}</a>
+                            </span>
+                        </li>
+                    @endif
                 </ul>
             </div>
 
             <form class="contact-form reveal" action="{{ url('/contactus') }}" method="POST" data-contact-form>
                 @csrf
+
+                <h3 class="contact-form__title">Send us a Message</h3>
+                <p class="contact-form__sub">Fill in the form and we'll get back to you shortly.</p>
 
                 <div class="form-row">
                     <div class="form-field">
@@ -248,4 +283,22 @@
 
 @include('frontend.partials.footer')
 
+@endsection
+
+@section('scripts')
+<script>
+    (function () {
+        var slides = document.querySelectorAll('#heroSlides .hero__slide');
+        if (!slides || slides.length < 2) return;
+
+        var index = 0;
+        slides[index].classList.add('active');
+
+        setInterval(function () {
+            slides[index].classList.remove('active');
+            index = (index + 1) % slides.length;
+            slides[index].classList.add('active');
+        }, 5000);
+    })();
+</script>
 @endsection
