@@ -90,7 +90,17 @@
 
                         <ul class="os-items">
                             @foreach($order->orderdetails as $item)
+                                @php
+                                    $itemImg = ($item->product && $item->product->image)
+                                        ? config('app.storage_url') . $item->product->image
+                                        : '';
+                                @endphp
                                 <li class="os-item">
+                                    @if($itemImg)
+                                        <span class="os-item__img">
+                                            <img src="{{ $itemImg }}" alt="{{ $item->product_name }}" loading="lazy">
+                                        </span>
+                                    @endif
                                     <span class="os-item__name">{{ $item->product_name }}</span>
                                     <span class="os-item__qty">× {{ $item->product_quantity }}</span>
                                     <span class="os-item__price">
