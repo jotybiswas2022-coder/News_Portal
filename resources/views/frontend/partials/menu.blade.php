@@ -54,7 +54,7 @@
                     @endif
                 </a>
 
-                <a class="icon-btn" href="https://instagram.com/eshas_rokomaris2" target="_blank" rel="noopener"
+                <a class="icon-btn icon-btn--social" href="https://instagram.com/eshas_rokomaris2" target="_blank" rel="noopener"
                    aria-label="Esha's Rokomaris 2 on Instagram">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
