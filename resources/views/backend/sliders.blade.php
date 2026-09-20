@@ -11,17 +11,21 @@
 
 <div class="container py-4">
     <div class="card shadow-sm border-0 rounded-4 p-4">
-        <h4 class="mb-4 fw-bold text-center">Manage Sliders</h4>
+        <h4 class="mb-2 fw-bold text-center">Manage Sliders</h4>
+        <p class="text-center text-muted small mb-4">
+            These images fill the homepage hero section. Upload either one on its own — the other falls back automatically.
+        </p>
 
         <form action="/admin/sliders/store" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-4">
 
-                <!-- Slider 1 -->
+                <!-- Slider 1 — homepage hero (wide) -->
                 <div class="col-12 col-md-6">
-                    <label class="form-label fw-semibold d-block mb-2">
-                        <i class="bi bi-image me-1 text-primary"></i> Slider Image 1
+                    <label class="form-label fw-semibold d-block mb-1">
+                        <i class="bi bi-image me-1 text-primary"></i> Hero Image — Desktop
                     </label>
+                    <p class="text-muted small mb-2">Wide shot, shown on tablet and desktop.</p>
                     <input type="file"
                            accept="image/*"
                            class="form-control form-control-lg shadow-sm"
@@ -37,11 +41,12 @@
                     </div>
                 </div>
 
-                <!-- Slider 2 -->
+                <!-- Slider 2 — homepage hero (portrait) -->
                 <div class="col-12 col-md-6">
-                    <label class="form-label fw-semibold d-block mb-2">
-                        <i class="bi bi-image me-1 text-success"></i> Slider Image 2
+                    <label class="form-label fw-semibold d-block mb-1">
+                        <i class="bi bi-image me-1 text-success"></i> Hero Image — Mobile
                     </label>
+                    <p class="text-muted small mb-2">Portrait shot, shown on phones. Leave empty to reuse the desktop image.</p>
                     <input type="file"
                            accept="image/*"
                            class="form-control form-control-lg shadow-sm"

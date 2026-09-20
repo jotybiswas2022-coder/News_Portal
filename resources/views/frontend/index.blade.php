@@ -51,9 +51,13 @@
         ];
     });
 
-    $heroImage = $slider && $slider->slider1
-        ? config('app.storage_url') . $slider->slider1
-        : $placeholders['hero'];
+    /* Hero imagery comes from the backend "Manage Sliders" page:
+       slider1 is the wide/desktop shot, slider2 the portrait/mobile shot.
+       Either one alone is enough — the placeholder only fills the gap until
+       something is uploaded. */
+    $heroDesktop = $slider && $slider->slider1 ? config('app.storage_url') . $slider->slider1 : null;
+    $heroMobile  = $slider && $slider->slider2 ? config('app.storage_url') . $slider->slider2 : null;
+    $heroDesktop = $heroDesktop ?: ($heroMobile ?: $placeholders['hero']);
 @endphp
 
 @if(session('success'))
@@ -89,9 +93,14 @@
 
             <div class="hero__media">
                 <figure class="hero__frame">
-                    <img src="{{ $heroImage }}"
-                         alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                         width="1100" height="1375">
+                    <picture>
+                        @if($heroMobile && $heroMobile !== $heroDesktop)
+                            <source media="(max-width: 900px)" srcset="{{ $heroMobile }}">
+                        @endif
+                        <img src="{{ $heroDesktop }}"
+                             alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
+                             width="1100" height="1375">
+                    </picture>
                 </figure>
 
                 <div class="hero__tag">
