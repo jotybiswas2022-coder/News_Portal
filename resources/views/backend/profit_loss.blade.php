@@ -51,15 +51,6 @@
         </form>
     </div>
 
-    @php
-        use App\Models\Product;
-        $ser = 1;
-        $totalProfit = 0;
-        $totalRevenue = 0;
-        $totalCost = 0;
-        $totalOrders = 0;
-    @endphp
-
     <!-- Summary Cards -->
     <div class="row mx-3 mb-3 g-3">
         <div class="col-md-3 col-6">
@@ -67,7 +58,7 @@
                 <div class="card-body py-3">
                     <div class="text-muted small mb-1">Total Revenue</div>
                     <div class="fw-bold text-primary fs-5">
-                        {{ number_format($totalRevenue, 2) }} {{ $currency ?? '৳' }}
+                        {{ number_format($totalRevenue, 2) }} {{ $currency }}
                     </div>
                 </div>
             </div>
@@ -77,7 +68,7 @@
                 <div class="card-body py-3">
                     <div class="text-muted small mb-1">Total Cost</div>
                     <div class="fw-bold text-warning fs-5">
-                        {{ number_format($totalCost, 2) }} {{ $currency ?? '৳' }}
+                        {{ number_format($totalCost, 2) }} {{ $currency }}
                     </div>
                 </div>
             </div>
@@ -87,7 +78,7 @@
                 <div class="card-body py-3">
                     <div class="text-muted small mb-1">Total Profit</div>
                     <div class="fw-bold text-success fs-5">
-                        {{ number_format($totalProfit, 2) }} {{ $currency ?? '৳' }}
+                        {{ number_format($totalProfit, 2) }} {{ $currency }}
                     </div>
                 </div>
             </div>
@@ -118,6 +109,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $ser = 1;
+                        @endphp
                         @forelse ($orders as $order)
                             @foreach ($order->orderdetails as $item)
                                 @php
@@ -132,19 +126,15 @@
                                     $buyPrice = buyprice($item->product_id);
                                     $sellprice = $item->product_price * (100 - $discount) / 100;
                                     $profit = $sellprice - $buyPrice;
-                                    $totalProfit += $profit;
-                                    $totalRevenue += $sellprice;
-                                    $totalCost += $buyPrice;
-                                    $totalOrders++;
                                 @endphp
 
                                 <tr>
                                     <td class="fw-medium">{{ $ser++ }}</td>
                                     <td class="text-start fw-semibold">{{ $item->product_name }}</td>
-                                    <td class="text-end">{{ number_format($buyPrice, 2) }} {{ $currency ?? '৳' }}</td>
-                                    <td class="text-end">{{ number_format($sellprice, 2) }} {{ $currency ?? '৳' }}</td>
+                                    <td class="text-end">{{ number_format($buyPrice, 2) }} {{ $currency }}</td>
+                                    <td class="text-end">{{ number_format($sellprice, 2) }} {{ $currency }}</td>
                                     <td class="text-end fw-bold {{ $profit >= 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ number_format($profit, 2) }} {{ $currency ?? '৳' }}
+                                        {{ number_format($profit, 2) }} {{ $currency }}
                                     </td>
                                     <td class="text-muted small">
                                         {{ \Carbon\Carbon::parse($item->created_at)->timezone('Asia/Dhaka')->format('d M, Y') }}
@@ -165,9 +155,9 @@
                     <tfoot class="table-light text-center">
                         <tr class="fw-bold">
                             <td colspan="2"></td>
-                            <td class="text-end">{{ number_format($totalCost, 2) }} {{ $currency ?? '৳' }}</td>
-                            <td class="text-end">{{ number_format($totalRevenue, 2) }} {{ $currency ?? '৳' }}</td>
-                            <td class="text-end text-success">{{ number_format($totalProfit, 2) }} {{ $currency ?? '৳' }}</td>
+                            <td class="text-end">{{ number_format($totalCost, 2) }} {{ $currency }}</td>
+                            <td class="text-end">{{ number_format($totalRevenue, 2) }} {{ $currency }}</td>
+                            <td class="text-end text-success">{{ number_format($totalProfit, 2) }} {{ $currency }}</td>
                             <td class="text-muted small">Total</td>
                         </tr>
                     </tfoot>
