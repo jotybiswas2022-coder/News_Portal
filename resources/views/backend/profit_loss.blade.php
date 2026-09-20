@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+    use App\Models\Product;
+@endphp
+
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
         {{ session('success') }}
