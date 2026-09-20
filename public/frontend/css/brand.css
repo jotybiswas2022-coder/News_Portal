@@ -1127,6 +1127,12 @@ textarea.form-control { resize: vertical; min-height: 140px; }
     transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
 }
 .auth-switch__link:hover { color: #B87D8A; border-color: #B87D8A; }
+.auth-text {
+    margin: 0 0 24px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+}
 .form-error {
     display: block;
     margin-top: 8px;
@@ -1134,6 +1140,97 @@ textarea.form-control { resize: vertical; min-height: 140px; }
     color: #B3424F;
 }
 .form-control.is-invalid { border-color: #B3424F; }
+
+/* Back-to-website shortcut shown on compact auth screens */
+.auth-back {
+    display: none;
+}
+
+/* Auth pages on phones: keep only the login box, fill the screen, no header/footer */
+@media (max-width: 560px) {
+    .site-header,
+    .site-footer,
+    .page-head { display: none; }
+
+    .auth-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 20;
+        padding: 10px 15px;
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 2px;
+        color: var(--color-muted);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        box-shadow: var(--shadow-soft);
+        transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
+    }
+    .auth-back:hover {
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+
+    main#main {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    main#main .section--white {
+        width: 100%;
+        padding-block: 22px;
+    }
+    .auth-card .notice {
+        margin-top: 0;
+        margin-bottom: 22px;
+    }
+    .auth-card {
+        max-width: 420px;
+        width: 100%;
+        margin-inline: auto;
+        padding: 38px 28px 40px;
+    }
+    .auth-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+    .auth-brand .brand__mark {
+        width: 46px;
+        height: 46px;
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-white);
+        font-size: 1.05rem;
+    }
+    .auth-brand .brand__name { font-size: 0.92rem; }
+
+    .auth-card .form-field { margin-bottom: 20px; }
+    .auth-card .form-field label { font-size: 0.7rem; margin-bottom: 9px; }
+    .auth-card .form-control { padding: 15px 16px; font-size: 0.98rem; }
+
+    .auth-check { margin: 2px 0 26px; font-size: 0.9rem; }
+    .auth-check input[type="checkbox"] { width: 18px; height: 18px; }
+    .auth-link { font-size: 0.88rem; }
+
+    .auth-card .btn--block {
+        padding: 16px;
+        font-size: 0.85rem;
+        min-height: 52px;
+    }
+    .auth-divider { margin: 28px 0 24px; }
+    .auth-switch { font-size: 0.92rem; }
+}
 
 /* ------------------------------------------ 10b. Shop / catalogue page */
 .page-head {

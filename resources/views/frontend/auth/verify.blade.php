@@ -1,110 +1,61 @@
-<div class="login-container">
-    <div class="container">
-        <div class="row justify-content-center w-100">
-            <div class="col-md-6 col-lg-5">
-                <div class="card login-card">
-                    <div class="card-header login-header text-center">
-                        {{ __('Verify Your Email Address') }}
-                    </div>
+@extends('frontend.app')
 
-                    <div class="card-body login-body">
+@section('title', "Verify Email — ESHA'S ROKOMARIS 2")
+@section('meta_description', 'Verify your Esha\'s Rokomaris 2 email address.')
 
-                        @if (session('resent'))
-                            <div class="alert alert-success">
-                                {{ __('A fresh verification link has been sent to your email address.') }}
-                            </div>
-                        @endif
+@section('content')
 
-                        <p class="mb-4">
-                            {{ __('Before proceeding, please check your email for a verification link.') }}
-                        </p>
-                        <p class="mb-3">
-                            {{ __('If you did not receive the email') }},
-                        </p>
+<a class="auth-back" href="{{ url('/') }}" aria-label="Back to website">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6"/>
+    </svg>
+    Back to website
+</a>
 
-                        <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                            @csrf
-                            <button type="submit" class="btn login-btn w-100">
-                                {{ __('Click here to request another') }}
-                            </button>
-                        </form>
+{{-- ==================================================== PAGE INTRO --}}
+<section class="page-head">
+    <div class="brand-container">
+        <span class="eyebrow">Account</span>
+        <h1 class="page-head__title">Verify Your Email</h1>
+        <p class="page-head__text">One more step before you can shop with Esha's Rokomaris 2.</p>
+    </div>
+</section>
 
-                    </div>
-                </div>
+{{-- ======================================================== FORM --}}
+<section class="section section--white">
+    <div class="brand-container">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <span class="brand__mark" aria-hidden="true">ER</span>
+                <span class="brand__name" style="color: inherit;">Esha's Rokomaris 2</span>
             </div>
+
+            @if (session('resent'))
+                <p class="notice" role="status">A fresh verification link has been sent to your email address.</p>
+            @endif
+
+            <p class="auth-text">
+                Before proceeding, please check your email for a verification link. If you did not receive the email, request another below.
+            </p>
+
+            <form method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit" class="btn btn--block auth-submit">
+                    {{ __('Send Verification Link Again') }}
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span>or</span>
+            </div>
+
+            <p class="auth-switch">
+                <a class="auth-switch__link" href="{{ url('/') }}">Back to website</a>
+            </p>
         </div>
     </div>
-</div>
+</section>
 
-<style>
-body {
-    overflow: hidden;
-}
+@include('frontend.partials.footer')
 
-/* Container */
-.login-container {
-    height: calc(100vh - 70px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-}
-
-/* Card */
-.login-card {
-    width: 100%;
-    max-width: 520px;
-    min-height: 300px;
-    border-radius: 20px;
-    border: none;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-    background: #fff;
-}
-
-/* Header */
-.login-header {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-    color: #fff;
-    padding: 22px;
-    font-size: 22px;
-    font-weight: 600;
-    border-bottom: none;
-}
-
-/* Body */
-.login-body {
-    padding: 32px 36px;
-    text-align: center;
-    font-size: 15px;
-    color: #555;
-}
-
-/* Button */
-.login-btn {
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
-    border: none;
-    color: #fff;
-    padding: 10px 28px;
-    font-size: 15px;
-    border-radius: 30px;
-    transition: 0.3s;
-    margin-top: 10px;
-}
-
-.login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(99,102,241,0.4);
-}
-
-/* Mobile */
-@media (max-width: 576px) {
-    body {
-        overflow-y: auto;
-    }
-
-    .login-card {
-        max-width: 94%;
-        min-height: auto;
-    }
-}
-</style>
+@endsection
