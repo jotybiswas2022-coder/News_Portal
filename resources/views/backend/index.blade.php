@@ -177,7 +177,7 @@
                                             };
                                         @endphp
                                         <tr>
-                                            <td class="fw-medium">{{ $order->id }}</td>
+                                            <td class="fw-medium">{{ $loop->iteration }}</td>
                                             <td class="text-truncate" style="max-width: 150px;">{{ $order->firstname }} {{ $order->lastname }}</td>
                                             <td class="fw-bold">{{ number_format($order->total_price, 2) }} {{ $currency }}</td>
                                             <td><span class="badge {{ $badgeClass }} px-2 py-1">{{ ucfirst($status) }}</span></td>
