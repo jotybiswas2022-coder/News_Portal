@@ -9,99 +9,72 @@
     </div>
 @endif
 
-<div class="container-fluid" style="height: calc(100vh - 80px); overflow-y: auto; padding: 20px 0;">
+<div class="container-fluid" style="height: calc(100vh - 80px); overflow-y: auto; padding-bottom: 20px;">
 
-    <!-- Header -->
-    <div class="row px-3 pt-3 pb-2 align-items-center">
-        <!-- Page Title & Subtitle -->
-        <div class="col-md-8 col-12 mb-2 mb-md-0">
-            <h2 class="fw-bold d-flex align-items-center flex-wrap mb-1">
-                <i class="bi bi-tags me-2 text-primary fs-3"></i>
-                <span>Category List</span>
+    <div class="row m-3 align-items-center mb-3">
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-tags me-2 text-primary"></i> Category List
             </h2>
-            <small class="text-muted d-block">Manage all categories efficiently</small>
+            <small class="text-muted">Manage all categories efficiently</small>
         </div>
-
-        <!-- Add New Category Button -->
-        <div class="col-md-4 col-12 text-md-end">
-            <a href="{{ url('admin/category/create') }}" class="btn btn-primary w-100 w-md-auto">
+        <div class="col-md-6 text-end">
+            <a href="{{ url('admin/category/create') }}" class="btn btn-primary rounded-pill px-4">
                 <i class="bi bi-plus-circle me-1"></i> Add New Category
             </a>
         </div>
     </div>
 
-    <!-- Card -->
-    <div class="card mx-3 shadow-sm border-0 rounded-3 mt-3">
-        <div class="card-body p-3">
+    <div class="card mx-3 shadow-sm border-0 rounded-4">
+        <div class="card-body p-2 p-md-3">
 
-            <!-- Search -->
             <div class="mb-3">
-                <input type="text" id="categorySearch" class="form-control" placeholder="Search categories...">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                    <input type="text" id="categorySearch" class="form-control" placeholder="Search categories...">
+                </div>
             </div>
 
-            <!-- Table -->
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
+            <div class="table-responsive rounded-3">
+                <table class="table table-hover table-bordered align-middle text-center mb-0" id="categoryTable">
+                    <thead class="table-light sticky-top">
                         <tr>
-                            <th style="width:60px;">#</th>
-                            <th>Name</th>
-                            <th style="width:180px;">Created At</th>
-                            <th style="width:200px;">Actions</th>
+                            <th style="width:50px;">#</th>
+                            <th class="text-start" style="min-width:250px;">Name</th>
+                            <th style="min-width:180px;">Created</th>
+                            <th style="width:160px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($categories as $category)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td class="fw-medium">{{ $category->name }}</td>
-                                <td>{{ $category->created_at->format('d M, Y H:i') }}</td>
-                                <td class="text-center">
-                                    <!-- Edit Button -->
-                                    <button class="btn btn-sm btn-primary me-2 mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
-                                        <i class="bi bi-pencil-square"></i> Edit
-                                    </button>
+                                <td class="fw-medium">{{ $loop->iteration }}</td>
+                                <td class="text-start fw-semibold">{{ $category->name }}</td>
+                                <td class="text-muted small">{{ $category->created_at->format('d M, Y H:i') }}</td>
+                                <td>
+                                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                                        <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $category->id }}"
+                                                title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        @include('backend.category.editmodal')
 
-                                    <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $category->id }}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content border-0 shadow-lg rounded-4">
-                                                <div class="modal-header bg-primary text-white rounded-top-4">
-                                                    <h5 class="modal-title fw-semibold" id="editModalLabel{{ $category->id }}">
-                                                        <i class="bi bi-pencil-square me-2"></i>Edit Category
-                                                    </h5>
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <form action="{{ url('admin/category/update/'.$category->id) }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body px-4 py-3">
-                                                        <div class="mb-3">
-                                                            <label class="form-label fw-semibold">Category Name <span class="text-danger">*</span></label>
-                                                            <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer border-0 px-4 pb-4 flex-wrap">
-                                                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 mb-2" data-bs-dismiss="modal">
-                                                            <i class="bi bi-x-circle me-1"></i> Cancel
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary rounded-pill px-4 mb-2">
-                                                            <i class="bi bi-save me-1"></i> Save Changes
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        <button class="btn btn-sm btn-danger rounded-pill px-3"
+                                                onclick="confirmation({{ $category->id }})"
+                                                title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </div>
-
-                                    <!-- Delete Button -->
-                                    <button class="btn btn-sm btn-danger mb-1 mb-md-0" onclick="confirmation({{ $category->id }})">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted py-4">No categories found</td>
+                                <td colspan="4" class="text-center text-muted py-5">
+                                    <i class="bi bi-tags fs-1 d-block mb-2"></i>
+                                    No categories found
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -116,13 +89,19 @@
 <script>
 function confirmation(id) {
     Swal.fire({
-        title: 'Delete the Category',
-        text: 'Are you sure you want to delete this category?',
+        title: 'Delete Category?',
+        text: "This action cannot be undone!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#6c757d',
-        confirmButtonText: 'Yes, delete it'
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'Cancel',
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: 'btn btn-danger rounded-pill px-4',
+            cancelButton: 'btn btn-secondary rounded-pill px-4'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             window.location.href = '/admin/category/delete/' + id;
@@ -130,16 +109,17 @@ function confirmation(id) {
     });
 }
 
-// Search functionality
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('categorySearch');
-    searchInput.addEventListener('keyup', function () {
+    const rows = document.querySelectorAll('#categoryTable tbody tr');
+
+    searchInput.addEventListener('input', function () {
         const filter = searchInput.value.toLowerCase();
-        const rows = document.querySelectorAll('table tbody tr');
 
         rows.forEach(row => {
-            const categoryName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-            row.style.display = categoryName.includes(filter) ? '' : 'none';
+            if (row.cells.length < 2) return;
+            const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            row.style.display = name.includes(filter) ? '' : 'none';
         });
     });
 });
@@ -147,41 +127,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <style>
 .table-hover tbody tr:hover {
-    background-color: rgba(13, 110, 253, 0.05);
-    transition: 0.2s;
+    background-color: rgba(13, 110, 253, 0.03);
+    transition: background 0.15s;
 }
 
 .card-body {
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
-.btn-sm i {
-    margin-right: 4px;
+.btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.82rem;
 }
 
-.alert {
-    border-radius: 12px;
-    font-size: 14px;
+.input-group-text {
+    border-color: #dee2e6;
 }
 
-.fw-medium {
-    font-weight: 500;
+.form-control:focus,
+.form-select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 0.15rem rgba(79,70,229,0.15);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .table-responsive {
-        overflow-x: auto;
-    }
+.table th {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6c757d;
+    border-bottom: 2px solid #e9ecef;
+}
 
-    .modal-footer {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+.table td {
+    font-size: 0.88rem;
+    vertical-align: middle;
+}
 
-    .btn-sm {
-        width: 100%;
-    }
+/* Responsive */
+@media (max-width: 1199px) {
+    .table td, .table th { padding: 0.5rem 0.4rem; }
+}
+
+@media (max-width: 991px) {
+    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    #categoryTable { min-width: 650px; }
+    .d-flex.flex-wrap.justify-content-center { flex-direction: row; gap: 4px; }
+    .row.m-3 { margin: 1rem !important; }
+}
+
+@media (max-width: 767px) {
+    .card-body { padding: 1rem; }
+    h2 { font-size: 1.4rem; }
+    .btn-primary { width: 100%; margin-top: 0.5rem; }
+    .table th, .table td { font-size: 0.8rem; padding: 0.4rem 0.3rem; }
+    .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
+}
+
+@media (max-width: 575px) {
+    .container-fluid { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .card.mx-3 { margin: 0.5rem !important; }
+    .table th, .table td { font-size: 0.75rem; padding: 0.3rem 0.25rem; }
+    .input-group-sm .form-control { font-size: 0.82rem; }
 }
 </style>
 
