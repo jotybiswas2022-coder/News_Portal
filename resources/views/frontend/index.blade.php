@@ -6,12 +6,9 @@
 @section('content')
 
 @php
-    use App\Models\Setting;
     use App\Models\Slider;
 
-    $settings = Setting::first();
-    $currency = $settings?->currency ?? '৳';
-    $slider   = Slider::latest()->first();
+    $slider = Slider::latest()->first();
 
     /* -----------------------------------------------------------------------
        Placeholder imagery — only used when real product/slider images are not
@@ -19,37 +16,12 @@
        keeps working untouched.
        ----------------------------------------------------------------------- */
     $placeholders = [
-        'hero'      => 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=80',
-        'product_1' => 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80',
-        'product_2' => 'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=700&q=80',
-        'product_3' => 'https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?auto=format&fit=crop&w=700&q=80',
-        'product_4' => 'https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=700&q=80',
+        'hero' => 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=80',
     ];
 
     /* Collection cards are built straight from the products stored in the
        backend, so anything added in the admin panel shows up here. */
-    $cards = collect($products ?? [])->map(function ($product) use ($currency, $placeholders) {
-        $hasDiscount = ($product->discount ?? 0) > 0;
-        $soldOut     = (int) ($product->stock ?? 0) <= 0;
-        $finalPrice  = $hasDiscount
-            ? $product->price - ($product->price * $product->discount / 100)
-            : $product->price;
-
-        return [
-            'name'        => $product->name,
-            'category'    => optional($product->ProductCategory)->name ?? "Women's Collection",
-            'url'         => url('/product/' . $product->id),
-            'image'       => $product->image
-                                ? config('app.storage_url') . $product->image
-                                : $placeholders['product_1'],
-            'price'       => $currency . ' ' . number_format($finalPrice, 0),
-            'old_price'   => $hasDiscount ? $currency . ' ' . number_format($product->price, 0) : null,
-            'badge'       => $soldOut ? 'Sold Out' : ($hasDiscount ? $product->discount . '% Off' : null),
-            'badge_style' => $soldOut ? '' : 'gold',
-            'sold_out'    => $soldOut,
-            'in_cart'     => auth()->check() && IsAddedToCart(auth()->id(), $product->id),
-        ];
-    });
+    $cards = collect($products ?? [])->map(fn ($product) => product_card($product));
 
     /* Hero imagery comes from the backend "Manage Sliders" page:
        slider1 is the wide/desktop shot, slider2 the portrait/mobile shot.

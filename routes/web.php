@@ -21,16 +21,15 @@ Route::middleware('auth')->controller(UserController::class)->group(function () 
 
 });
 
-Route::middleware('auth')->controller(SearchController::class)->group(function () {
-    Route::get('/search', 'search');
-
-});
 
 
 Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/product/{id}', 'product');
 });
+
+// Public catalogue: keyword search and category browsing
+Route::get('/search', [SearchController::class, 'search']);
 
 // Public contact form (homepage "Let's Connect" section)
 Route::post('/contactus', [UserController::class, 'contactus']);
