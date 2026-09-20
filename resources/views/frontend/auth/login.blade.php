@@ -30,6 +30,11 @@
 <section class="section section--white">
     <div class="brand-container">
         <div class="auth-card">
+            <div class="auth-brand">
+                <span class="brand__mark" aria-hidden="true">ER</span>
+                <span class="brand__name" style="color: inherit;">Esha's Rokomaris 2</span>
+            </div>
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -102,12 +107,46 @@
         }
         main#main .section--white {
             width: 100%;
-            padding-block: 28px;
+            padding-block: 20px;
         }
         .auth-card {
-            max-width: 400px;
-            padding: 34px 24px;
+            max-width: 420px;
+            width: 100%;
+            margin-inline: auto;
+            padding: 42px 30px 44px;
         }
+        .auth-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .auth-brand .brand__mark {
+            width: 46px;
+            height: 46px;
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-white);
+            font-size: 1.05rem;
+        }
+        .auth-brand .brand__name { font-size: 0.95rem; }
+
+        .auth-card .form-field { margin-bottom: 22px; }
+        .auth-card .form-field label { font-size: 0.7rem; margin-bottom: 9px; }
+        .auth-card .form-control { padding: 16px 18px; font-size: 1rem; }
+
+        .auth-check { margin: 2px 0 26px; font-size: 0.9rem; }
+        .auth-check input[type="checkbox"] { width: 18px; height: 18px; }
+        .auth-link { font-size: 0.88rem; }
+
+        .auth-card .btn--block {
+            padding: 17px;
+            font-size: 0.85rem;
+            min-height: 54px;
+        }
+        .auth-divider { margin: 30px 0 26px; }
+        .auth-switch { font-size: 0.95rem; }
     }
 </style>
 @endsection
