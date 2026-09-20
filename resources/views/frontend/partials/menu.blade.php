@@ -33,6 +33,15 @@
                 <li><a class="nav__link" href="{{ $navPrefix }}#products">Shop</a></li>
                 <li><a class="nav__link" href="{{ $navPrefix }}#about">About</a></li>
                 <li><a class="nav__link" href="{{ $navPrefix }}#contact">Contact</a></li>
+
+                @auth
+                    @if(auth()->user()->is_admin == 1)
+                        <li>
+                            <a class="nav__link nav__link--admin {{ request()->is('admin*') ? 'is-active' : '' }}"
+                               href="{{ url('/admin') }}">Admin Panel</a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
 
             {{-- Right actions --}}
@@ -83,6 +92,13 @@
             <li><a href="{{ $navPrefix }}#products">Shop</a></li>
             <li><a href="{{ $navPrefix }}#about">About</a></li>
             <li><a href="{{ $navPrefix }}#contact">Contact</a></li>
+
+            @auth
+                @if(auth()->user()->is_admin == 1)
+                    <li><a href="{{ url('/admin') }}">Admin Panel</a></li>
+                @endif
+            @endauth
+
             <li>
                 @auth
                     <a href="{{ url('/orders') }}">My Orders</a>
