@@ -67,7 +67,7 @@
         <div class="col-md-3 col-6">
             <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
                 <div class="card-body text-white text-center py-4">
-                    <div class="text-muted small mb-1">Total Users</div>
+                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Total Users</div>
                     <h3 class="fw-bold mb-2">{{ number_format($totalUsers) }}</h3>
                     <i class="bi bi-people fs-1 opacity-75"></i>
                 </div>
@@ -76,7 +76,7 @@
         <div class="col-md-3 col-6">
             <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #059669, #10b981);">
                 <div class="card-body text-white text-center py-4">
-                    <div class="text-muted small mb-1">Total Orders</div>
+                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Total Orders</div>
                     <h3 class="fw-bold mb-2">{{ number_format($totalOrders) }}</h3>
                     <i class="bi bi-cart-check fs-1 opacity-75"></i>
                 </div>
@@ -85,7 +85,7 @@
         <div class="col-md-3 col-6">
             <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
                 <div class="card-body text-white text-center py-4">
-                    <div class="text-muted small mb-1">Products</div>
+                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Products</div>
                     <h3 class="fw-bold mb-2">{{ number_format($totalProducts) }}</h3>
                     <i class="bi bi-box-seam fs-1 opacity-75"></i>
                 </div>
@@ -94,7 +94,7 @@
         <div class="col-md-3 col-6">
             <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #dc2626, #ef4444);">
                 <div class="card-body text-white text-center py-4">
-                    <div class="text-muted small mb-1">Total Revenue</div>
+                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Total Revenue</div>
                     <h3 class="fw-bold mb-2">{{ number_format($totalRevenue, 2) }} {{ $currency }}</h3>
                     <i class="bi bi-currency-dollar fs-1 opacity-75"></i>
                 </div>
