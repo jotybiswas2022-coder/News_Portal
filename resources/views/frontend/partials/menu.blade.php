@@ -41,6 +41,12 @@
                                href="{{ url('/admin') }}">Admin Panel</a>
                         </li>
                     @endif
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="nav__link nav__link--logout" type="submit">Logout</button>
+                        </form>
+                    </li>
                 @endauth
             </ul>
 
@@ -97,6 +103,13 @@
                 @if(auth()->user()->is_admin == 1)
                     <li><a href="{{ url('/admin') }}">Admin Panel</a></li>
                 @endif
+
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="drawer-logout" type="submit">Logout</button>
+                    </form>
+                </li>
             @endauth
 
             <li>

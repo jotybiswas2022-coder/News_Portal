@@ -384,6 +384,17 @@ p { margin: 0; }
     color: var(--color-primary);
 }
 
+/* Logout action in the primary nav */
+.nav__link--logout {
+    background: none;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+.nav__link--logout:hover { color: #B3424F; }
+
+
+
 /* Right actions */
 .nav__actions {
     display: flex;
@@ -445,6 +456,21 @@ p { margin: 0; }
     border-bottom: 1px solid var(--color-border);
 }
 .nav__drawer a:hover { color: var(--color-primary); }
+.nav__drawer .drawer-logout {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 15px 4px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    font-family: inherit;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #B3424F;
+    cursor: pointer;
+}
 
 /* Search overlay */
 .search-panel {
