@@ -3,58 +3,64 @@ use Illuminate\Support\Str;
 @endphp
 
 <!-- Top Bar (Desktop + Mobile) -->
-<nav class="navbar navbar-expand-lg shadow-sm py-2" style="background: #ffffff;">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg shadow-sm py-0" style="background: #ffffff; border-bottom: 1px solid #eef2f7;">
+    <div class="container-fluid px-4">
         <!-- Mobile Menu Toggle -->
-        <button class="btn btn-outline-secondary d-lg-none me-2" type="button" id="menuToggle" aria-label="Toggle menu">
+        <button class="btn btn-outline-secondary d-lg-none me-3" type="button" id="menuToggle" aria-label="Toggle menu">
             <i class="bi bi-list fs-5"></i>
         </button>
 
         <!-- Brand -->
-        <a class="navbar-brand d-flex align-items-center fw-bold fs-5 text-dark" href="/admin" style="padding-left: 12px;">
-            <i class="bi bi-speedometer2 me-2 fs-3 text-primary"></i>
-            <span style="margin-left: 4px;">Welcome to Admin Dashboard</span>
+        <a class="navbar-brand d-flex align-items-center fw-semibold fs-4 text-dark" href="/admin" style="padding-left: 0;">
+            <i class="bi bi-speedometer2 me-2 fs-2 text-primary"></i>
+            <span>Admin Dashboard</span>
         </a>
 
         <!-- Desktop Top Nav Links -->
         <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarTopNav">
-            <ul class="navbar-nav ms-auto gap-3 align-items-center">
+            <ul class="navbar-nav ms-auto gap-1 align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link top-nav-link {{ request()->is('/') ? 'active-link' : '' }}" href="/">
-                        <i class="bi bi-house-door me-1"></i> Home
+                    <a class="nav-link top-nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-pill {{ request()->is('/') ? 'active-link' : '' }}" href="/">
+                        <i class="bi bi-house-door fs-5"></i>
+                        <span class="d-none d-sm-inline">Home</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link top-nav-link {{ request()->is('orders') ? 'active-link' : '' }}" href="/orders">
-                        <i class="bi bi-bag-check me-1"></i> Orders
+                    <a class="nav-link top-nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-pill {{ request()->is('orders') ? 'active-link' : '' }}" href="/orders">
+                        <i class="bi bi-bag-check fs-5"></i>
+                        <span class="d-none d-sm-inline">Orders</span>
                     </a>
                 </li>
 
                 @auth
                     @if(auth()->user()->is_admin == 1)
                         <li class="nav-item">
-                            <a class="nav-link top-nav-link {{ Str::startsWith(request()->path(), 'admin') ? 'active-link' : '' }}" href="/admin">
-                                <i class="bi bi-speedometer2 me-1"></i> Admin Panel
+                            <a class="nav-link top-nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-pill {{ Str::startsWith(request()->path(), 'admin') ? 'active-link' : '' }}" href="/admin">
+                                <i class="bi bi-speedometer2 fs-5"></i>
+                                <span class="d-none d-sm-inline">Admin Panel</span>
                             </a>
                         </li>
                     @endif
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="nav-link btn btn-link text-danger fw-semibold">
-                                <i class="bi bi-box-arrow-right me-1"></i> Logout
+                            <button type="submit" class="nav-link top-nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-pill text-danger fw-medium">
+                                <i class="bi bi-box-arrow-right fs-5"></i>
+                                <span class="d-none d-sm-inline">Logout</span>
                             </button>
                         </form>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link top-nav-link {{ request()->is('login') ? 'active-link' : '' }}" href="/login">
-                            <i class="bi bi-person-circle me-1"></i> Login
+                        <a class="nav-link top-nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-pill {{ request()->is('login') ? 'active-link' : '' }}" href="/login">
+                            <i class="bi bi-person-circle fs-5"></i>
+                            <span class="d-none d-sm-inline">Login</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link signup-btn px-3 py-1 rounded text-white" href="/register">
-                            <i class="bi bi-person-plus me-1"></i> Signup
+                        <a class="nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-pill signup-btn text-white" href="/register">
+                            <i class="bi bi-person-plus fs-5"></i>
+                            <span class="d-none d-sm-inline">Signup</span>
                         </a>
                     </li>
                 @endauth
@@ -72,56 +78,84 @@ use Illuminate\Support\Str;
     <!-- Desktop Sidebar (Hidden on Mobile) -->
     <div class="col-md-3 p-0 d-none d-lg-block">
         <div class="sidebar">
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="/admin/sliders" class="{{ request()->is('admin/sliders') ? 'active' : '' }}">
-                        <i class="bi bi-images"></i>
-                        <span>Sliders</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/product" class="{{ request()->is('admin/product') ? 'active' : '' }}">
-                        <i class="bi bi-box-seam"></i>
-                        <span>Products</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/category" class="{{ request()->is('admin/category') ? 'active' : '' }}">
-                        <i class="bi bi-tags"></i>
-                        <span>Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/orders" class="{{ request()->is('admin/orders') ? 'active' : '' }}">
-                        <i class="bi bi-cart-check"></i>
-                        <span>Orders</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/customers" class="{{ request()->is('admin/customers') ? 'active' : '' }}">
-                        <i class="bi bi-people"></i>
-                        <span>Customers</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/contacts" class="{{ request()->is('admin/contacts') ? 'active' : '' }}">
-                        <i class="bi bi-envelope"></i>
-                        <span>Contacts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/profit_loss" class="{{ request()->is('admin/profit_loss') ? 'active' : '' }}">
-                        <i class="bi bi-currency-dollar"></i>
-                        <span>Profit & Loss</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/settings" class="{{ request()->is('admin/settings') ? 'active' : '' }}">
-                        <i class="bi bi-gear"></i>
-                        <span>General Settings</span>
-                    </a>
-                </li>
-            </ul>
+            <!-- Sidebar Brand -->
+            <div class="sidebar-brand d-flex align-items-center px-4 py-4 mb-4 border-bottom" style="border-color: rgba(255,255,255,0.1) !important;">
+                <i class="bi bi-speedometer2 me-2 fs-1 text-primary"></i>
+                <span class="fw-bold fs-4 text-white">Admin</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="px-3">
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="/admin" class="{{ request()->is('admin') ? 'active' : '' }}">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/sliders" class="{{ request()->is('admin/sliders') ? 'active' : '' }}">
+                            <i class="bi bi-images"></i>
+                            <span>Sliders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/product" class="{{ request()->is('admin/product') ? 'active' : '' }}">
+                            <i class="bi bi-box-seam"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/category" class="{{ request()->is('admin/category') ? 'active' : '' }}">
+                            <i class="bi bi-tags"></i>
+                            <span>Categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/orders" class="{{ request()->is('admin/orders') ? 'active' : '' }}">
+                            <i class="bi bi-cart-check"></i>
+                            <span>Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/customers" class="{{ request()->is('admin/customers') ? 'active' : '' }}">
+                            <i class="bi bi-people"></i>
+                            <span>Customers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/contacts" class="{{ request()->is('admin/contacts') ? 'active' : '' }}">
+                            <i class="bi bi-envelope"></i>
+                            <span>Contacts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/profit_loss" class="{{ request()->is('admin/profit_loss') ? 'active' : '' }}">
+                            <i class="bi bi-currency-dollar"></i>
+                            <span>Profit & Loss</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/settings" class="{{ request()->is('admin/settings') ? 'active' : '' }}">
+                            <i class="bi bi-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer mt-auto p-4 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; flex-shrink: 0;">
+                        <i class="bi bi-person-fill text-white fs-5"></i>
+                    </div>
+                    <div class="flex-grow-1 min-width-0">
+                        <div class="text-white fw-medium text-truncate">{{ auth()->user()->name ?? 'Admin' }}</div>
+                        <div class="text-muted small text-truncate">{{ auth()->user()->email ?? 'admin@example.com' }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -184,6 +218,12 @@ use Illuminate\Support\Str;
                 <h6 class="text-muted text-uppercase small fw-bold mb-1 px-1">Admin Panel</h6>
                 <ul class="sidebar-menu">
                     <li>
+                        <a href="/admin" class="{{ request()->is('admin') ? 'active' : '' }}">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/sliders" class="{{ request()->is('admin/sliders') ? 'active' : '' }}">
                             <i class="bi bi-images"></i>
                             <span>Sliders</span>
@@ -228,7 +268,7 @@ use Illuminate\Support\Str;
                     <li>
                         <a href="/admin/settings" class="{{ request()->is('admin/settings') ? 'active' : '' }}">
                             <i class="bi bi-gear"></i>
-                            <span>General Settings</span>
+                            <span>Settings</span>
                         </a>
                     </li>
                 </ul>
@@ -243,77 +283,98 @@ use Illuminate\Support\Str;
 </div>
 
 <style>
-/* Top navbar */
-.navbar .top-nav-link { 
-    font-weight:500; 
-    color:#343a40; 
-    transition: color .3s, transform .3s, border-bottom .3s; 
-    position: relative;
-}
-.navbar .top-nav-link:hover { 
-    color:#6366f1; 
-    transform:translateY(-1px);
-}
-.navbar .top-nav-link.active-link::after {
-    content:""; 
-    display:block; 
-    height:2px; 
-    background:#6366f1; 
-    border-radius:1px;
-    position:absolute; 
-    bottom:0; 
-    left:0; 
-    width:100%;
-}
+/* ===== DESKTOP TOPBAR ===== */
+.navbar { min-height: 64px; }
+.navbar-brand { font-size: 1.25rem; letter-spacing: -0.02em; }
 
-/* Brand */
-.navbar-brand i { font-size:1.4rem; }
+.top-nav-link {
+    font-weight: 500;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+.top-nav-link:hover {
+    color: #4f46e5;
+    background: rgba(79,70,229,0.08);
+}
+.top-nav-link.active-link {
+    color: #4f46e5;
+    background: rgba(79,70,229,0.12);
+}
 
 /* Signup button */
-.signup-btn { 
-    background: linear-gradient(135deg,#6366f1,#8b5cf6); 
-    transition: all 0.3s; 
+.signup-btn {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    transition: all 0.2s;
 }
-.signup-btn:hover { opacity:.9; transform:translateY(-1px); }
+.signup-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
 
-/* Desktop Sidebar */
+/* ===== DESKTOP SIDEBAR ===== */
 .sidebar {
-    background: #fefefe;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
     min-height: 100vh;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.08);
-    padding-top: 20px;
-    border-right: 1px solid #e3e6f0;
+    box-shadow: 4px 0 30px rgba(0,0,0,0.15);
+    padding: 0;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
 }
+
 .sidebar-menu {
     list-style: none;
-    padding: 0;
+    padding: 0 8px;
     margin: 0;
+    flex: 1;
 }
-.sidebar-menu li { margin-bottom: 8px; }
+
+.sidebar-menu li { margin-bottom: 4px; }
+
 .sidebar-menu a {
     display: flex;
     align-items: center;
     gap: 14px;
-    color: #4b4b4b;
-    padding: 12px 22px;
+    color: #94a3b8;
+    padding: 14px 16px;
     font-weight: 500;
-    border-left: 4px solid transparent;
-    border-radius: 6px;
-    transition: all 0.25s ease;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
 }
-.sidebar-menu a i { font-size: 18px; }
+.sidebar-menu a i { 
+    font-size: 1.1rem; 
+    width: 24px; 
+    text-align: center;
+    transition: transform 0.2s ease;
+}
 .sidebar-menu a:hover {
-    background: rgba(99,102,241,0.1);
-    color: #6366f1;
-    border-left: 4px solid #6366f1;
+    background: rgba(255,255,255,0.05);
+    color: #f1f5f9;
+    border-left-color: #4f46e5;
+}
+.sidebar-menu a:hover i {
+    transform: scale(1.1);
 }
 .sidebar-menu a.active {
-    background: rgba(99,102,241,0.15);
-    color: #6366f1;
-    border-left: 4px solid #6366f1;
+    background: linear-gradient(90deg, rgba(79,70,229,0.2), transparent);
+    color: #fff;
+    border-left-color: #4f46e5;
+}
+.sidebar-menu a.active i {
+    color: #a5b4fc;
 }
 
-/* Mobile Menu - Single Drawer */
+/* Sidebar Brand */
+.sidebar-brand {
+    background: rgba(255,255,255,0.02);
+}
+
+/* Sidebar Footer */
+.sidebar-footer { background: rgba(255,255,255,0.02); }
+
+/* ===== MOBILE MENU ===== */
 .mobile-menu {
     position: fixed;
     top: 0;
@@ -328,20 +389,18 @@ use Illuminate\Support\Str;
     flex-direction: column;
     overflow-y: auto;
 }
-.mobile-menu.show {
-    left: 0;
-}
+.mobile-menu.show { left: 0; }
 .mobile-menu-header { background: #fafafa; }
 .mobile-menu-section { flex: 0 0 auto; }
 .mobile-menu-section + .mobile-menu-section { padding-top: 8px; }
 
-/* Mobile menu compact sidebar items */
 .mobile-menu .sidebar-menu li { margin-bottom: 4px; }
 .mobile-menu .sidebar-menu a {
-    padding: 10px 16px;
+    padding: 12px 16px;
     gap: 12px;
+    border-radius: 8px;
 }
-.mobile-menu .sidebar-menu a i { font-size: 16px; }
+.mobile-menu .sidebar-menu a i { font-size: 1.1rem; }
 
 .menu-overlay {
     position: fixed;
@@ -370,7 +429,7 @@ use Illuminate\Support\Str;
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
-    .navbar-brand span { font-size: 1.1rem; }
+    .navbar-brand span { font-size: 1rem; }
 }
 </style>
 
