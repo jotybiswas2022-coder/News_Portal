@@ -180,7 +180,7 @@ use Illuminate\Support\Str;
                 </ul>
             </div>
 
-            <div class="mobile-menu-section pt-1 pb-2">
+            <div class="mobile-menu-section pt-1 pb-2" style="padding-top: 12px !important;">
                 <h6 class="text-muted text-uppercase small fw-bold mb-1 px-1">Admin Panel</h6>
                 <ul class="sidebar-menu">
                     <li>
