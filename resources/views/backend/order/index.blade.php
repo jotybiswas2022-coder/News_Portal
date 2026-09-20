@@ -32,15 +32,14 @@
                 <table class="table table-hover table-bordered align-middle text-center mb-0" id="orderTable">
                     <thead class="table-light sticky-top">
                         <tr>
-                            <th style="width:50px;">#</th>
-                            <th class="text-start" style="min-width:180px;">Customer</th>
-                            <th style="min-width:130px;">Phone</th>
-                            <th style="min-width:250px;">Products</th>
-                            <th style="min-width:120px;">Total</th>
-                            <th style="min-width:150px;">Payment</th>
-                            <th style="min-width:120px;">Status</th>
-                            <th style="min-width:150px;">Record Time</th>
-                            <th style="width:180px;">Actions</th>
+                            <th style="width:45px;">#</th>
+                            <th class="text-start" style="min-width:200px;">Customer</th>
+                            <th style="min-width:200px;">Products</th>
+                            <th style="width:100px;">Total</th>
+                            <th style="width:130px;">Payment</th>
+                            <th style="width:100px;">Status</th>
+                            <th style="width:140px;">Time</th>
+                            <th style="width:150px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,13 +87,7 @@
 
                                 <td class="text-start">
                                     <div class="fw-semibold">{{ $order->firstname }} {{ $order->lastname }}</div>
-                                    <small class="text-muted d-none d-md-block">{{ $order->address ?? '-' }}</small>
-                                </td>
-
-                                <td>
-                                    <a href="tel:{{ $order->phone }}" class="text-decoration-none fw-medium">
-                                        {{ $order->phone }}
-                                    </a>
+                                    <small class="text-muted d-none d-md-block">{{ $order->phone }}{{ $order->address ? ' · ' . $order->address : '' }}</small>
                                 </td>
 
                                 <td class="text-start">
@@ -111,15 +104,17 @@
                                 <td class="fw-bold text-success">{{ number_format($order->total_price,2) }} {{ $currency }}</td>
 
                                 <td class="text-start">
-                                    <div class="d-flex flex-wrap gap-1 mb-1">
+                                    <div class="d-flex flex-wrap gap-1">
                                         <span class="badge {{ $methodClass }} px-2 py-1">{{ $methodText }}</span>
+                                        <span class="badge {{ $payStatusClass }} payment-status-badge px-2 py-1">
+                                            {{ $payStatusText }}
+                                        </span>
                                     </div>
-                                    <span class="badge {{ $payStatusClass }} payment-status-badge px-2 py-1">
-                                        {{ $payStatusText }}
-                                    </span>
-
                                     @if($order->sender_number || $order->transaction_id || $order->payment_screenshot)
-                                        <div class="payment-proof mt-2 small text-start" style="max-height: 120px; overflow-y: auto;">
+                                        <button class="btn btn-sm btn-link text-primary p-0 mt-1" data-bs-toggle="collapse" data-bs-target="#proof-{{ $order->id }}" aria-expanded="false">
+                                            <i class="bi bi-chevron-down me-1"></i> Details
+                                        </button>
+                                        <div class="collapse payment-proof mt-1 small text-start" id="proof-{{ $order->id }}">
                                             @if($order->advance_method)
                                                 <div class="d-flex justify-content-between py-1 border-bottom">
                                                     <span class="text-muted">Advance:</span>
@@ -193,7 +188,7 @@
 
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center text-muted py-5">
+                                <td colspan="8" class="text-center text-muted py-5">
                                     <i class="bi bi-cart-x fs-1 d-block mb-2"></i>
                                     No orders found
                                 </td>
@@ -273,7 +268,7 @@
 
 @media (max-width: 991px) {
     .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    #orderTable { min-width: 1000px; }
+    #orderTable { min-width: 850px; }
     .d-flex.flex-wrap.justify-content-center { flex-direction: row; gap: 4px; }
     .row.m-3 { margin: 1rem !important; }
 }
