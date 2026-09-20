@@ -35,6 +35,9 @@
                 <li><a class="nav__link" href="{{ $navPrefix }}#contact">Contact</a></li>
 
                 @auth
+                    <li>
+                        <a class="nav__link {{ request()->is('orders*') ? 'is-active' : '' }}" href="{{ url('/orders') }}">My Orders</a>
+                    </li>
                     @if(auth()->user()->is_admin == 1)
                         <li>
                             <a class="nav__link nav__link--admin {{ request()->is('admin*') ? 'is-active' : '' }}"
