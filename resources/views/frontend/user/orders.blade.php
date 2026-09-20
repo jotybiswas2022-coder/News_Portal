@@ -83,7 +83,7 @@
 
                     <article class="os-card">
                         <div class="os-card__top">
-                            <span class="os-num">Order #{{ $order->id }}</span>
+                            <span class="os-num">Order #{{ $loop->iteration }}</span>
                             <span class="os-date">{{ $order->created_at ? $order->created_at->format('d M Y, h:i A') : '' }}</span>
                             <span class="os-status os-status--{{ $status }}">{{ $statusLabel }}</span>
                         </div>
