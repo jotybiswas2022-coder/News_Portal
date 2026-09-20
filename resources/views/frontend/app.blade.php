@@ -20,7 +20,7 @@
 
     @yield('styles')
 </head>
-<body>
+<body class="@yield('body_class')">
     @include('frontend.partials.menu')
 
     <main id="main">

@@ -1,6 +1,7 @@
 @extends('frontend.app')
 
 @section('title', "Confirm Password — ESHA'S ROKOMARIS 2")
+@section('body_class', 'auth-page')
 @section('meta_description', 'Confirm your password to continue.')
 
 @section('content')

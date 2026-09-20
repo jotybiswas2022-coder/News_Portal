@@ -1,6 +1,7 @@
 @extends('frontend.app')
 
 @section('title', "Login — ESHA'S ROKOMARIS 2")
+@section('body_class', 'auth-page')
 @section('meta_description', 'Sign in to your Esha\'s Rokomaris 2 account.')
 
 @section('content')

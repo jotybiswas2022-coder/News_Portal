@@ -1,6 +1,7 @@
 @extends('frontend.app')
 
 @section('title', "Verify Email — ESHA'S ROKOMARIS 2")
+@section('body_class', 'auth-page')
 @section('meta_description', 'Verify your Esha\'s Rokomaris 2 email address.')
 
 @section('content')

@@ -1,6 +1,7 @@
 @extends('frontend.app')
 
 @section('title', "Reset Password — ESHA'S ROKOMARIS 2")
+@section('body_class', 'auth-page')
 @section('meta_description', 'Set a new password for your Esha\'s Rokomaris 2 account.')
 
 @section('content')
