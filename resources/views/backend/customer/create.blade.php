@@ -2,75 +2,119 @@
 
 @section('content')
 
-<div class="row m-3 align-items-center mb-3">
-    <div class="col-md-6">
-        <h2 class="fw-bold">Create User Account</h2>
-        <p class="text-muted mb-0">Fill in the details to create a new user</p>
+<div class="container-fluid" style="height: calc(100vh - 80px); overflow-y: auto; padding-bottom: 20px;">
+
+    <div class="row px-3 pt-3 pb-2 align-items-center">
+        <div class="col-md-8">
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-person-plus me-2 text-primary"></i> Create User Account
+            </h3>
+            <small class="text-muted">Fill in the details to create a new user</small>
+        </div>
+        <div class="col-md-4 text-md-end mt-2 mt-md-0">
+            <a href="{{ url('admin/customers') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="bi bi-arrow-left"></i> Go Back
+            </a>
+        </div>
     </div>
-    <div class="col-md-6 text-end">
-        <a href="{{ url('admin/customers') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Back to User List
-        </a>
-    </div>
-</div>
 
-<div class="card mx-3 shadow-sm border-0 rounded-3">
-    <div class="card-body p-4">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <div class="card border-0 shadow-sm mx-3 mt-3 customer-card">
+        <div class="card-body p-4 p-md-5">
 
-        <form action="{{ url('admin/customers/store') }}" method="POST" autocomplete="off">
-            @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
 
-            <div class="mb-3">
-                <label for="name" class="form-label fw-medium">Full Name</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Enter user name" required>
-            </div>
+            <form action="{{ url('admin/customers/store') }}" method="POST" autocomplete="off">
+                @csrf
 
-            <div class="mb-3">
-                <label for="email" class="form-label fw-medium">Email Address</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Enter user email" required>
-            </div>
+                <div class="row g-3">
 
-            <div class="mb-3">
-                <label for="password" class="form-label fw-medium">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
-            </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-person me-1 text-secondary"></i>
+                            Full Name <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" name="name" placeholder="Enter user name" required>
+                        </div>
+                    </div>
 
-            <div class="mb-3">
-                <label for="password_confirmation" class="form-label fw-medium">Confirm Password</label>
-                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
-            </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-envelope me-1 text-secondary"></i>
+                            Email Address <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" name="email" placeholder="Enter user email" required>
+                        </div>
+                    </div>
 
-            <button type="submit" class="btn btn-primary w-100">
-                <i class="bi bi-plus-circle me-1"></i> Create Account
-            </button>
-        </form>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-lock me-1 text-secondary"></i>
+                            Password <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-lock-fill me-1 text-secondary"></i>
+                            Confirm Password <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm password" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <button type="submit" class="btn btn-success rounded-pill px-5 w-100 w-md-auto">
+                            <i class="bi bi-check-circle me-1"></i> Create Account
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
 
 <style>
-.card-body {
-    border-radius: 12px;
+.customer-card { border-radius: 16px; }
+
+.form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 0.15rem rgba(79,70,229,0.15);
 }
 
-.btn i {
-    margin-right: 4px;
-}
+.btn-success { background: #10b981; border: none; transition: 0.2s; }
+.btn-success:hover { background: #059669; transform: translateY(-1px); }
 
-.alert {
-    border-radius: 12px;
-}
+.input-group-text { background: #f8f9fa; border-color: #dee2e6; }
 
-.form-label.fw-medium {
-    font-weight: 500;
+.alert { border-radius: 12px; }
+
+/* Responsive */
+@media (max-width: 991px) { .card-body { padding: 1.5rem; } }
+@media (max-width: 575px) {
+    .btn-success { width: 100%; }
+    .container-fluid { padding: 0.75rem; }
+    .card.mx-3 { margin: 0.5rem !important; }
 }
 </style>
 
