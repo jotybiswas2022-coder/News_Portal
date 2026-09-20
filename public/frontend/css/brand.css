@@ -687,21 +687,10 @@ p { margin: 0; }
     border-color: var(--color-gold);
 }
 
-/* CTA revealed on hover / focus-within */
+/* CTA — always visible, sits under the price */
 .product-card__cta {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    padding: 14px;
-    transform: translateY(101%);
-    opacity: 0;
-    transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
-}
-.product-card:hover .product-card__cta,
-.product-card:focus-within .product-card__cta {
-    transform: translateY(0);
+    padding: 0 20px 22px;
+    transform: none;
     opacity: 1;
 }
 
@@ -1238,13 +1227,8 @@ textarea.form-control { resize: vertical; min-height: 140px; }
     .btn { padding: 14px 20px; letter-spacing: 0.1em; }
 }
 
-/* Touch devices — hover never fires, so keep the card action visible */
+/* Touch devices — hover never fires */
 @media (hover: none) {
-    .product-card__cta {
-        position: static;
-        transform: none;
-        opacity: 1;
-        padding: 0 14px 16px;
-    }
+    .product-card__cta { padding: 0 14px 16px; }
     .product-card:hover { transform: none; }
 }

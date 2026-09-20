@@ -20,18 +20,6 @@
                  alt="{{ $card['name'] }} — {{ $card['category'] }}"
                  loading="lazy">
         </a>
-
-        <div class="product-card__cta">
-            <a class="btn btn--block" href="{{ $card['url'] }}">
-                @if(!empty($card['sold_out']))
-                    Sold Out
-                @elseif(!empty($card['in_cart']))
-                    In Bag
-                @else
-                    Add to Bag
-                @endif
-            </a>
-        </div>
     </div>
 
     <div class="product-card__info">
@@ -47,5 +35,17 @@
             @endif
             <span>{{ $card['price'] }}</span>
         </p>
+    </div>
+
+    <div class="product-card__cta">
+        <a class="btn btn--block" href="{{ $card['url'] }}">
+            @if(!empty($card['sold_out']))
+                Sold Out
+            @elseif(!empty($card['in_cart']))
+                In Bag
+            @else
+                Add to Bag
+            @endif
+        </a>
     </div>
 </article>
