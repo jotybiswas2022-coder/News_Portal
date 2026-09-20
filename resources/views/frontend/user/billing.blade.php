@@ -177,7 +177,8 @@
                     <div class="checkout-note">
                         <strong>Cash on Delivery:</strong>
                         even on COD orders, the delivery charge
-                        ({{ $currency }} {{ number_format($delivery, 2) }}) must be paid in advance
+                        (<span id="cod-delivery-charge">{{ $currency }} {{ number_format($delivery, 2) }}</span>)
+                        must be paid in advance
                         via bKash or Nagad. You'll be guided to do that on the next step.
                     </div>
                 </div>
@@ -265,6 +266,7 @@
 
     var deliveryValue = deliveryRow.querySelector('.checkout-summary__delivery-value');
     var regionTag     = deliveryRow.querySelector('.checkout-summary__row-region');
+    var codNote       = document.getElementById('cod-delivery-charge');
     var inside  = parseFloat(deliveryRow.getAttribute('data-inside')) || 0;
     var outside = parseFloat(deliveryRow.getAttribute('data-outside')) || 0;
     var base    = parseFloat(grandTotal.getAttribute('data-base')) || 0;
@@ -279,6 +281,7 @@
         regionTag.textContent = '(' + names[region] + ')';
         grandTotal.querySelector('span:last-child').textContent =
             fmt(base - inside + charge);
+        if (codNote) { codNote.textContent = fmt(charge); }
         regionInput.value = region;
         try { localStorage.setItem('cart_region', region); } catch (e) {}
     }
