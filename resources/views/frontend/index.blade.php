@@ -190,18 +190,6 @@
 
                     <li class="contact-item reveal">
                         <span class="contact-item__icon" aria-hidden="true">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-                                <path d="M6 3h3l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/>
-                            </svg>
-                        </span>
-                        <span>
-                            <span class="contact-item__label">Phone</span>
-                            <a class="contact-item__value" href="tel:+8801000000000">+880 1XXXXXXXXX</a>
-                        </span>
-                    </li>
-
-                    <li class="contact-item reveal">
-                        <span class="contact-item__icon" aria-hidden="true">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
                                 <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
                             </svg>
