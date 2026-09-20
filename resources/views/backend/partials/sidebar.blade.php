@@ -128,51 +128,51 @@ use Illuminate\Support\Str;
     <!-- Mobile Slide-in Menu (Hidden on Desktop) -->
     <div class="col-md-3 p-0 d-lg-none">
         <div class="mobile-menu" id="mobileMenu">
-            <div class="mobile-menu-header d-flex justify-content-between align-items-center p-3 border-bottom">
+            <div class="mobile-menu-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
                 <h6 class="mb-0 fw-bold">Menu</h6>
                 <button class="btn btn-sm btn-outline-secondary" id="menuClose" aria-label="Close menu">
                     <i class="bi bi-x-lg"></i>
                 </button>
             </div>
 
-            <div class="mobile-menu-section p-3 border-bottom">
-                <h6 class="text-muted text-uppercase small fw-bold mb-3">Navigation</h6>
-                <ul class="nav flex-column gap-2">
+            <div class="mobile-menu-section p-2 border-bottom">
+                <h6 class="text-muted text-uppercase small fw-bold mb-2 px-1">Navigation</h6>
+                <ul class="nav flex-column gap-1">
                     <li>
-                        <a class="nav-link d-flex align-items-center gap-2 text-dark {{ request()->is('/') ? 'active' : '' }}" href="/">
-                            <i class="bi bi-house-door fs-5"></i> Home
+                        <a class="nav-link d-flex align-items-center gap-2 text-dark px-3 py-2 {{ request()->is('/') ? 'active' : '' }}" href="/">
+                            <i class="bi bi-house-door fs-6"></i> Home
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link d-flex align-items-center gap-2 text-dark {{ request()->is('orders') ? 'active' : '' }}" href="/orders">
-                            <i class="bi bi-bag-check fs-5"></i> Orders
+                        <a class="nav-link d-flex align-items-center gap-2 text-dark px-3 py-2 {{ request()->is('orders') ? 'active' : '' }}" href="/orders">
+                            <i class="bi bi-bag-check fs-6"></i> Orders
                         </a>
                     </li>
 
                     @auth
                         @if(auth()->user()->is_admin == 1)
                             <li>
-                                <a class="nav-link d-flex align-items-center gap-2 text-dark {{ Str::startsWith(request()->path(), 'admin') ? 'active' : '' }}" href="/admin">
-                                    <i class="bi bi-speedometer2 fs-5"></i> Admin Panel
+                                <a class="nav-link d-flex align-items-center gap-2 text-dark px-3 py-2 {{ Str::startsWith(request()->path(), 'admin') ? 'active' : '' }}" href="/admin">
+                                    <i class="bi bi-speedometer2 fs-6"></i> Admin Panel
                                 </a>
                             </li>
                         @endif
                         <li>
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="nav-link btn btn-link text-danger fw-semibold d-flex align-items-center gap-2 w-100 text-start p-0">
-                                    <i class="bi bi-box-arrow-right fs-5"></i> Logout
+                                <button type="submit" class="nav-link btn btn-link text-danger fw-semibold d-flex align-items-center gap-2 w-100 text-start px-3 py-2">
+                                    <i class="bi bi-box-arrow-right fs-6"></i> Logout
                                 </button>
                             </form>
                         </li>
                     @else
                         <li>
-                            <a class="nav-link d-flex align-items-center gap-2 text-dark {{ request()->is('login') ? 'active' : '' }}" href="/login">
-                                <i class="bi bi-person-circle fs-5"></i> Login
+                            <a class="nav-link d-flex align-items-center gap-2 text-dark px-3 py-2 {{ request()->is('login') ? 'active' : '' }}" href="/login">
+                                <i class="bi bi-person-circle fs-6"></i> Login
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link d-flex align-items-center gap-2 text-white signup-btn px-3 py-2 rounded w-100 text-center" href="/register">
+                            <a class="nav-link d-flex align-items-center gap-2 text-white signup-btn px-3 py-2 rounded mx-3" href="/register">
                                 <i class="bi bi-person-plus me-1"></i> Signup
                             </a>
                         </li>
@@ -180,8 +180,8 @@ use Illuminate\Support\Str;
                 </ul>
             </div>
 
-            <div class="mobile-menu-section p-3">
-                <h6 class="text-muted text-uppercase small fw-bold mb-3">Admin Panel</h6>
+            <div class="mobile-menu-section p-2">
+                <h6 class="text-muted text-uppercase small fw-bold mb-2 px-1">Admin Panel</h6>
                 <ul class="sidebar-menu">
                     <li>
                         <a href="/admin/sliders" class="{{ request()->is('admin/sliders') ? 'active' : '' }}">
@@ -333,6 +333,14 @@ use Illuminate\Support\Str;
 }
 .mobile-menu-header { background: #fafafa; }
 .mobile-menu-section { flex: 1; }
+
+/* Mobile menu compact sidebar items */
+.mobile-menu .sidebar-menu li { margin-bottom: 4px; }
+.mobile-menu .sidebar-menu a {
+    padding: 10px 16px;
+    gap: 12px;
+}
+.mobile-menu .sidebar-menu a i { font-size: 16px; }
 
 .menu-overlay {
     position: fixed;
