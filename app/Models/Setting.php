@@ -10,6 +10,7 @@ class Setting extends Model
         'currency',
         'language',
         'delivery_charge',
+        'delivery_outside',
         'tax_percentage',
     ];
 }

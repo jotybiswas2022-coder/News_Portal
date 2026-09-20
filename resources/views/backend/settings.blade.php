@@ -47,10 +47,24 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="delivery_charge" class="form-label fw-semibold">Delivery Charge</label>
-                            <input type="number" step="1" name="delivery_charge" id="delivery_charge"
-                                   class="form-select" value="{{ $settings?->delivery_charge ?? 0 }}"
-                                   placeholder="Enter delivery charge">
+                            <label class="form-label fw-semibold d-block">
+                                <i class="bi bi-truck me-1"></i> Delivery Charge
+                            </label>
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label for="delivery_charge" class="form-label small text-muted mb-1">Inside Khulna</label>
+                                    <input type="number" step="1" name="delivery_charge" id="delivery_charge"
+                                           class="form-select" value="{{ $settings?->delivery_charge ?? 0 }}"
+                                           placeholder="Enter inside charge">
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="delivery_outside" class="form-label small text-muted mb-1">Outside Khulna</label>
+                                    <input type="number" step="1" name="delivery_outside" id="delivery_outside"
+                                           class="form-select" value="{{ $settings?->delivery_outside ?? 0 }}"
+                                           placeholder="Enter outside charge">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mb-4">
