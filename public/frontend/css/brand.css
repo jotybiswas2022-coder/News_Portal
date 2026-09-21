@@ -2562,6 +2562,67 @@ a.pagination__link:hover {
 /* Sticky checkout bar — phones only --------------------------------- */
 .checkout-bar { display: none; }
 
+/* --------------------------------------------- 11f. Checkout page upgrade */
+
+/* Card titles carry a small step chip */
+.checkout-card__title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.checkout-card__step {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-primary-50);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    letter-spacing: 0;
+}
+
+/* Cards and summary join the brand's radii + elevation */
+.checkout-card {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+.checkout-summary {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+.pay-option__box { border-radius: var(--radius-sm); }
+.checkout-note { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+
+/* Delivery region picker inside the summary */
+.checkout-summary__region {
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Summary item rows gain a thumbnail */
+.checkout-summary__item {
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+}
+.checkout-summary__item-thumb {
+    width: 42px;
+    height: 54px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: var(--radius-xs);
+    background: var(--color-blush);
+}
+.checkout-summary__item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 /* ------------------------------------------------------- 12. Reveal animations */
 .reveal {
     opacity: 0;
@@ -3626,4 +3687,16 @@ a.pagination__link:hover {
     .qty-control__value { min-width: 32px; }
 
     .cart-empty__icon { width: 56px; height: 56px; margin-bottom: 18px; }
+}
+
+/* --------------------------------------- 18. Checkout page — responsive */
+
+@media (max-width: 560px) {
+    .checkout-card__title { gap: 10px; }
+    .checkout-card__step { width: 24px; height: 24px; font-size: 0.66rem; }
+
+    /* Thumbnails stay readable but the list gets a little more room */
+    .checkout-summary__item-thumb { width: 38px; height: 48px; }
+    .checkout-summary__items { max-height: 260px; }
+    .checkout-summary__region { padding-bottom: 16px; margin-bottom: 16px; }
 }
