@@ -8,22 +8,22 @@
 @php
     use App\Models\Slider;
     use App\Models\Setting;
+    use Illuminate\Support\Str;
 
-    $slider = Slider::latest()->first();
+    $slider  = Slider::latest()->first();
     $contact = Setting::first();
 
     /* -----------------------------------------------------------------------
        Placeholder imagery — only used when real product/slider images are not
-       available yet. Replace the URLs (or upload real images) and the layout
+       available yet. Upload real images from the admin panel and every section
        keeps working untouched.
        ----------------------------------------------------------------------- */
-    $placeholders = [
-        'hero' => 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=80',
-    ];
+    $heroFallback = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=80';
 
     /* Collection cards are built straight from the products stored in the
        backend, so anything added in the admin panel shows up here. */
-    $cards = collect($products ?? [])->map(fn ($product) => product_card($product));
+    $cardProducts = collect($products ?? []);
+    $cards        = $cardProducts->map(fn ($product) => product_card($product));
 
     /* Hero imagery comes from the backend "Manage Sliders" page:
        slider1 is the wide/desktop shot, slider2 the portrait/mobile shot.
@@ -31,7 +31,6 @@
        The placeholder only fills the gap until something is uploaded. */
     $slider1Url = $slider && $slider->slider1 ? config('app.storage_url') . $slider->slider1 : null;
     $slider2Url = $slider && $slider->slider2 ? config('app.storage_url') . $slider->slider2 : null;
-    $heroFallback = $placeholders['hero'];
 
     /* Which frame shape the hero should use, based on what has been uploaded.
        "both"     → the wide desktop shot and the portrait mobile shot each get
@@ -41,7 +40,27 @@
     $frameDevice = !$slider1Url && !$slider2Url
         ? 'fallback'
         : (!$slider1Url ? 'mobile-only' : (!$slider2Url ? 'desktop-only' : 'both'));
+
+    /* Imagery used by the "Our Promise" band and the category tiles: the newest
+       real product shot when there is one, otherwise the editorial placeholder. */
+    $promiseImage = $cardProducts->first()?->image
+        ? config('app.storage_url') . $cardProducts->first()->image
+        : $heroFallback;
+
+    $instagramHandle = $contact?->contact_instagram ?: 'eshas_rokomaris2';
+    $instagramUrl    = 'https://instagram.com/' . ltrim($instagramHandle, '@');
 @endphp
+
+{{-- ==================================================== ANNOUNCEMENT BAR --}}
+<div class="announce" role="region" aria-label="Store highlights">
+    <div class="brand-container">
+        <div class="announce__inner">
+            <p class="announce__item">Handpicked pieces</p>
+            <p class="announce__item">Nationwide delivery</p>
+            <p class="announce__item">Personal styling help</p>
+        </div>
+    </div>
+</div>
 
 {{-- ============================================================ HERO --}}
 <section class="hero" id="hero">
@@ -66,6 +85,21 @@
                     <a class="btn" href="#products">Shop Collection</a>
                     <a class="btn btn--ghost" href="#about">Explore More</a>
                 </div>
+
+                <ul class="hero__proof reveal">
+                    <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+                        Handpicked pieces
+                    </li>
+                    <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+                        Nationwide delivery
+                    </li>
+                    <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+                        Styling help
+                    </li>
+                </ul>
             </div>
 
             <div class="hero__media">
@@ -112,24 +146,108 @@
     </div>
 </section>
 
-{{-- =========================================================== ABOUT --}}
-<section class="about-band" id="about">
+{{-- =========================================================== PROMISE --}}
+<section class="promise" id="about">
     <div class="brand-container">
-        <p class="eyebrow reveal">Our Promise</p>
-        <p class="about-band__text reveal">
-            A small studio curating soft, wearable pieces for real everyday moments —
-            handpicked fabrics, honest pricing and a fit you can rely on.
-        </p>
-        <ul class="about-band__points reveal">
-            <li>Handpicked pieces</li>
-            <li>Nationwide delivery</li>
-            <li>Personal styling help</li>
-        </ul>
+        <div class="promise__inner">
+
+            <div class="promise__media reveal">
+                <img src="{{ $promiseImage }}"
+                     alt="A piece from the Esha's Rokomaris 2 collection"
+                     loading="lazy" decoding="async">
+            </div>
+
+            <div class="promise__body">
+                <span class="eyebrow reveal">Our Promise</span>
+
+                <h2 class="promise__title reveal">
+                    Soft, wearable pieces for real everyday moments
+                </h2>
+
+                <p class="promise__text reveal">
+                    A small studio curating soft, wearable pieces for real everyday moments —
+                    handpicked fabrics, honest pricing and a fit you can rely on.
+                </p>
+
+                <ul class="promise__list">
+                    <li class="promise__item reveal">
+                        <span class="promise__icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+                        </span>
+                        <div>
+                            <h3>Handpicked pieces</h3>
+                            <p>Every style is chosen in small batches, so the fabric, finish and fit are checked before it reaches you.</p>
+                        </div>
+                    </li>
+
+                    <li class="promise__item reveal">
+                        <span class="promise__icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+                        </span>
+                        <div>
+                            <h3>Nationwide delivery</h3>
+                            <p>We deliver across Bangladesh, with everything packed with care and tracked from our studio to your door.</p>
+                        </div>
+                    </li>
+
+                    <li class="promise__item reveal">
+                        <span class="promise__icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/><path d="M12 7v5l3 2"/></svg>
+                        </span>
+                        <div>
+                            <h3>Personal styling help</h3>
+                            <p>Unsure about sizing or styling? Message us and we will happily help you find the right piece.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </div>
 </section>
 
+{{-- ======================================================== CATEGORIES --}}
+@if($categories->isNotEmpty())
+<section class="cats" id="categories">
+    <div class="brand-container">
+
+        <div class="section-head cats__head reveal">
+            <span class="eyebrow">Browse</span>
+            <h2>Shop by Category</h2>
+            <p>Find your next favourite piece by the mood you are dressing for.</p>
+            <span class="deco-line" aria-hidden="true"></span>
+        </div>
+
+        <div class="cat-grid">
+            @foreach($categories as $category)
+                @php
+                    $categoryCover = $category->products->first()?->image
+                        ? config('app.storage_url') . $category->products->first()->image
+                        : $heroFallback;
+                @endphp
+                <a class="cat-card reveal" href="{{ url('/search?category=' . $category->id) }}">
+                    <span class="cat-card__media">
+                        <img src="{{ $categoryCover }}"
+                             alt="{{ $category->name }}"
+                             loading="lazy" decoding="async">
+                    </span>
+                    <span class="cat-card__overlay" aria-hidden="true"></span>
+                    <span class="cat-card__body">
+                        <span class="cat-card__name">{{ $category->name }}</span>
+                        <span class="cat-card__count">
+                            {{ $category->products_count }} {{ Str::plural('piece', $category->products_count) }}
+                        </span>
+                    </span>
+                </a>
+            @endforeach
+        </div>
+
+    </div>
+</section>
+@endif
+
 {{-- ======================================================== PRODUCTS --}}
-<section class="section section--ivory" id="products">
+<section class="section section--white" id="products">
     <div class="brand-container">
 
         <div class="section-head products__head reveal">
@@ -145,7 +263,7 @@
                 <p class="collection-empty__text">
                     Follow us on Instagram to be the first to see the next drop.
                 </p>
-                <a class="link-arrow" href="https://instagram.com/eshas_rokomaris2" target="_blank" rel="noopener">
+                <a class="link-arrow" href="{{ $instagramUrl }}" target="_blank" rel="noopener">
                     Follow Along
                     <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
                         <path d="M0 5h16M12 1l4 4-4 4"/>
@@ -160,7 +278,7 @@
             </div>
 
             <div class="products__foot reveal">
-                <a class="link-arrow" href="{{ url('/search') }}">
+                <a class="btn btn--ghost" href="{{ url('/search') }}">
                     View All Products
                     <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
                         <path d="M0 5h16M12 1l4 4-4 4"/>
@@ -169,6 +287,33 @@
             </div>
         @endif
 
+    </div>
+</section>
+
+{{-- =========================================================== FOLLOW --}}
+<section class="follow">
+    <div class="brand-container">
+        <div class="follow__inner">
+            <span class="follow__icon reveal" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+            </span>
+
+            <h2 class="follow__title reveal">Follow Along</h2>
+
+            <p class="follow__text reveal">
+                New drops, styling notes and behind-the-scenes moments — shared first on Instagram.
+            </p>
+
+            <div class="follow__actions reveal">
+                <a class="btn follow__btn" href="{{ $instagramUrl }}" target="_blank" rel="noopener">
+                    {{ '@' . ltrim($instagramHandle, '@') }}
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -185,7 +330,7 @@
                     We'd love to hear from you.
                 </p>
 
-<ul class="contact-list">
+                <ul class="contact-list">
                     @if($contact?->contact_instagram)
                         <li class="contact-item reveal">
                             <span class="contact-item__icon" aria-hidden="true">
@@ -195,7 +340,7 @@
                             </span>
                             <span>
                                 <span class="contact-item__label">Instagram</span>
-                                <a class="contact-item__value" href="https://instagram.com/{{ ltrim($contact->contact_instagram, '@') }}" target="_blank" rel="noopener">{{ $contact->contact_instagram }}</a>
+                                <a class="contact-item__value" href="{{ $instagramUrl }}" target="_blank" rel="noopener">{{ $contact->contact_instagram }}</a>
                             </span>
                         </li>
                     @endif
