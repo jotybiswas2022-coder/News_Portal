@@ -32,6 +32,15 @@
     $slider1Url = $slider && $slider->slider1 ? config('app.storage_url') . $slider->slider1 : null;
     $slider2Url = $slider && $slider->slider2 ? config('app.storage_url') . $slider->slider2 : null;
     $heroFallback = $placeholders['hero'];
+
+    /* Which frame shape the hero should use, based on what has been uploaded.
+       "both"     → the wide desktop shot and the portrait mobile shot each get
+                    their own shape on the matching screen.
+       "only one" → that single image is reused everywhere, so the frame takes
+                    the shape it was uploaded in. */
+    $frameDevice = !$slider1Url && !$slider2Url
+        ? 'fallback'
+        : (!$slider1Url ? 'mobile-only' : (!$slider2Url ? 'desktop-only' : 'both'));
 @endphp
 
 {{-- ============================================================ HERO --}}
@@ -39,19 +48,6 @@
     <span class="hero__blob hero__blob--rose" aria-hidden="true"></span>
     <span class="hero__blob hero__blob--sage" aria-hidden="true"></span>
     <span class="hero__blob hero__blob--gold" aria-hidden="true"></span>
-
-    <style>
-        .hero__slides { position: relative; width: 100%; height: 100%; }
-        .hero__slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        .hero__slide img { width: 100%; height: 100%; object-fit: cover; }
-        .hero__slide.active { opacity: 1; transform: scale(1); }
-    </style>
 
     <div class="brand-container">
         <div class="hero__inner">
@@ -73,27 +69,29 @@
             </div>
 
             <div class="hero__media">
-                <figure class="hero__frame">
+                <figure class="hero__frame hero__frame--{{ $frameDevice }}">
                     <div class="hero__slides" id="heroSlides">
+                        {{-- slider1 — desktop / tablet (wide) --}}
                         @if($slider1Url)
-                            <div class="hero__slide">
+                            <div class="hero__slide hero__slide--desktop" data-device="desktop">
                                 <img src="{{ $slider1Url }}"
                                      alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                                     width="1100" height="1375">
+                                     width="1600" height="1000" loading="lazy" decoding="async">
                             </div>
                         @endif
+                        {{-- slider2 — mobile (portrait) --}}
                         @if($slider2Url)
-                            <div class="hero__slide">
+                            <div class="hero__slide hero__slide--mobile" data-device="mobile">
                                 <img src="{{ $slider2Url }}"
                                      alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                                     width="1100" height="1375">
+                                     width="1000" height="1333" loading="lazy" decoding="async">
                             </div>
                         @endif
                         @if(!$slider1Url && !$slider2Url)
-                            <div class="hero__slide">
+                            <div class="hero__slide hero__slide--fallback">
                                 <img src="{{ $heroFallback }}"
                                      alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                                     width="1100" height="1375">
+                                     width="1100" height="1375" loading="lazy" decoding="async">
                             </div>
                         @endif
                     </div>
@@ -287,18 +285,68 @@
 
 @section('scripts')
 <script>
+    /*
+     * Hero slider rotation.
+     *
+     * The admin "Manage Sliders" page stores two images — slider1 for
+     * desktop/tablet and slider2 for mobile. Both are printed in the markup and
+     * CSS hides the one that does not belong to the current screen, so here we
+     * only rotate through the slides that are actually being shown. Rotation is
+     * restarted whenever the visitor crosses the mobile breakpoint, and disabled
+     * entirely for visitors who prefer reduced motion.
+     */
     (function () {
-        var slides = document.querySelectorAll('#heroSlides .hero__slide');
-        if (!slides || slides.length < 2) return;
+        var frame = document.getElementById('heroSlides');
+        if (!frame) return;
 
+        var mobileQuery = window.matchMedia('(max-width: 767px)');
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var allSlides = Array.prototype.slice.call(frame.querySelectorAll('.hero__slide'));
+        if (!allSlides.length) return;
+
+        var timer = null;
         var index = 0;
-        slides[index].classList.add('active');
 
-        setInterval(function () {
-            slides[index].classList.remove('active');
-            index = (index + 1) % slides.length;
-            slides[index].classList.add('active');
-        }, 5000);
+        function slidesForDevice() {
+            var device = mobileQuery.matches ? 'mobile' : 'desktop';
+            var matching = allSlides.filter(function (slide) {
+                var forDevice = slide.getAttribute('data-device');
+                return !forDevice || forDevice === device;
+            });
+
+            /* Prefer the image made for this device; if it was never uploaded,
+               fall back to whichever one the admin did provide. */
+            var specific = matching.filter(function (slide) {
+                return slide.getAttribute('data-device');
+            });
+
+            return specific.length ? specific : matching;
+        }
+
+        function start() {
+            window.clearInterval(timer);
+            index = 0;
+
+            allSlides.forEach(function (slide) { slide.classList.remove('active'); });
+
+            var slides = slidesForDevice();
+            if (!slides.length) return;
+
+            slides[0].classList.add('active');
+
+            if (slides.length > 1 && !reduceMotion) {
+                timer = window.setInterval(function () {
+                    slides[index].classList.remove('active');
+                    index = (index + 1) % slides.length;
+                    slides[index].classList.add('active');
+                }, 5000);
+            }
+        }
+
+        start();
+
+        if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', start);
+        else if (mobileQuery.addListener) mobileQuery.addListener(start);
     })();
 </script>
 @endsection
