@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ url('admin/category/update/'.$category->id) }}" method="POST">
+            <form action="{{ url('admin/category/update/'.$category->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body px-4 py-4">
                     <div class="mb-3">
@@ -20,6 +20,41 @@
                             <span class="input-group-text bg-light"><i class="bi bi-tag"></i></span>
                             <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
                         </div>
+                    </div>
+
+                    <div class="mb-1">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-image me-1 text-secondary"></i>
+                            Preview Image <span class="text-muted fw-normal small">(homepage tile)</span>
+                        </label>
+
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <img id="categoryThumb{{ $category->id }}"
+                                 class="modal-thumb"
+                                 src="{{ $category->image ? config('app.storage_url').$category->image : 'https://placehold.co/240x150/e2e8f0/94a3b8?text=No+Image' }}"
+                                 alt="{{ $category->name }} preview"
+                                 onerror="this.src='https://placehold.co/240x150/e2e8f0/94a3b8?text=Invalid+Image'">
+                            <span class="text-muted small">
+                                {{ $category->image ? 'Custom preview image' : 'Using newest product photo' }}
+                            </span>
+                        </div>
+
+                        <input type="file" class="form-control" name="image"
+                               accept="image/*"
+                               onchange="previewModalImage(event, '{{ $category->id }}')">
+                        <div class="form-text">
+                            <i class="bi bi-info-circle me-1"></i>JPG, PNG or WebP — max 2MB.
+                        </div>
+
+                        @if($category->image)
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" name="remove_image" value="1"
+                                       id="removeImage{{ $category->id }}">
+                                <label class="form-check-label small text-danger" for="removeImage{{ $category->id }}">
+                                    Remove current image
+                                </label>
+                            </div>
+                        @endif
                     </div>
                 </div>
 

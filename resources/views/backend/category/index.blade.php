@@ -40,6 +40,7 @@
                     <thead class="table-light sticky-top">
                         <tr>
                             <th style="width:50px;">#</th>
+                            <th style="width:90px;">Preview</th>
                             <th class="text-start" style="min-width:250px;">Name</th>
                             <th style="min-width:180px;">Created</th>
                             <th style="width:160px;">Actions</th>
@@ -49,6 +50,15 @@
                         @forelse($categories as $category)
                             <tr>
                                 <td class="fw-medium">{{ $loop->iteration }}</td>
+                                <td>
+                                    @if($category->image)
+                                        <img src="{{ config('app.storage_url').$category->image }}"
+                                             alt="{{ $category->name }}" class="cat-thumb"
+                                             onerror="this.replaceWith(document.createTextNode('—'))">
+                                    @else
+                                        <span class="text-muted small" title="Falls back to the newest product photo">—</span>
+                                    @endif
+                                </td>
                                 <td class="text-start fw-semibold">{{ $category->name }}</td>
                                 <td class="text-muted small">{{ $category->created_at->format('d M, Y H:i') }}</td>
                                 <td>
@@ -71,7 +81,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted py-5">
+                                <td colspan="5" class="text-center text-muted py-5">
                                     <i class="bi bi-tags fs-1 d-block mb-2"></i>
                                     No categories found
                                 </td>
@@ -109,6 +119,15 @@ function confirmation(id) {
     });
 }
 
+/* Live preview of a newly picked image inside an edit modal. */
+function previewModalImage(event, id) {
+    var file = event.target.files[0];
+    if (!file) return;
+
+    var thumb = document.getElementById('categoryThumb' + id);
+    if (thumb) thumb.src = URL.createObjectURL(file);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('categorySearch');
     const rows = document.querySelectorAll('#categoryTable tbody tr');
@@ -126,6 +145,26 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
+/* Category preview thumbnails */
+.cat-thumb {
+    width: 64px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    background: #f8f9fa;
+}
+
+.modal-thumb {
+    width: 84px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    background: #f8f9fa;
+    flex-shrink: 0;
+}
+
 .table-hover tbody tr:hover {
     background-color: rgba(13, 110, 253, 0.03);
     transition: background 0.15s;

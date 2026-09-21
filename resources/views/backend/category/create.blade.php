@@ -21,7 +21,14 @@
     <div class="card border-0 shadow-sm mx-3 mt-3 category-card">
         <div class="card-body p-4 p-md-5">
 
-            <form action="{{ url('admin/category/store') }}" method="post">
+            @if ($errors->any())
+                <div class="alert alert-danger rounded-3">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            <form action="{{ url('admin/category/store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row g-3">
@@ -33,7 +40,28 @@
                         </label>
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="bi bi-tag"></i></span>
-                            <input type="text" class="form-control" name="name" placeholder="Enter category name" required>
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter category name" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-image me-1 text-secondary"></i>
+                            Preview Image <span class="text-muted fw-normal small">(optional)</span>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-upload"></i></span>
+                            <input type="file" class="form-control" name="image" id="categoryImage"
+                                   accept="image/*" onchange="previewCategoryImage(event)">
+                        </div>
+                        <div class="form-text">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Shown on the homepage "Shop by Category" tile. JPG, PNG or WebP — max 2MB.
+                            Leave empty to use the newest product photo instead.
+                        </div>
+
+                        <div class="image-preview d-none" id="categoryPreviewWrap">
+                            <img id="categoryPreview" src="" alt="Selected preview image">
                         </div>
                     </div>
 
@@ -50,8 +78,38 @@
     </div>
 </div>
 
+<script>
+function previewCategoryImage(event) {
+    var file = event.target.files[0];
+    var wrap = document.getElementById('categoryPreviewWrap');
+    var img  = document.getElementById('categoryPreview');
+
+    if (!file) {
+        wrap.classList.add('d-none');
+        return;
+    }
+
+    img.src = URL.createObjectURL(file);
+    wrap.classList.remove('d-none');
+}
+</script>
+
 <style>
 .category-card { border-radius: 16px; }
+
+.image-preview {
+    margin-top: 14px;
+    max-width: 320px;
+}
+.image-preview img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background: #f8f9fa;
+}
 
 .form-control:focus {
     border-color: #4f46e5;

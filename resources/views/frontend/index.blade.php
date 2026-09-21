@@ -221,9 +221,15 @@
         <div class="cat-grid">
             @foreach($categories as $category)
                 @php
-                    $categoryCover = $category->products->first()?->image
-                        ? config('app.storage_url') . $category->products->first()->image
-                        : $heroFallback;
+                    /* The preview image set on the admin category page wins;
+                       otherwise fall back to the category's newest product photo,
+                       then to the shared editorial placeholder. */
+                    $newestProduct = $category->products->first();
+                    $categoryCover = $category->image
+                        ? config('app.storage_url') . $category->image
+                        : ($newestProduct?->image
+                            ? config('app.storage_url') . $newestProduct->image
+                            : $heroFallback);
                 @endphp
                 <a class="cat-card reveal" href="{{ url('/search?category=' . $category->id) }}">
                     <span class="cat-card__media">
