@@ -2300,6 +2300,131 @@ a.pagination__link:hover {
     color: var(--color-primary);
 }
 
+/* ------------------------------------------- 11d. Product detail upgrade */
+
+/* Slim breadcrumb bar (replaces the old duplicated page title) */
+.catalogue-bar {
+    background: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: 16px;
+}
+.catalogue-bar__crumbs {
+    justify-content: flex-start;
+    margin: 0;
+    font-size: 0.7rem;
+}
+
+.product-detail-section {
+    padding-block: clamp(30px, 5vw, 62px) var(--section-y);
+}
+
+/* Media ------------------------------------------------------------ */
+.product-detail__frame {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+.product-detail__frame img { transition: transform 0.9s var(--ease); }
+.product-detail__media:hover .product-detail__frame img { transform: scale(1.04); }
+
+.product-detail__badge {
+    border-radius: var(--radius-xs);
+    letter-spacing: 0.18em;
+    box-shadow: var(--shadow-sm);
+}
+.product-detail__badge--out { background: var(--color-text); }
+
+/* Body ------------------------------------------------------------- */
+.product-detail__cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    transition: color var(--speed) var(--ease);
+}
+.product-detail__cat::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--color-gold);
+}
+.product-detail__cat:hover { color: var(--color-primary); }
+
+.product-detail__title {
+    font-size: clamp(1.4rem, 1rem + 1.6vw, 2.05rem);
+    margin-top: 14px;
+}
+
+.product-detail__price { flex-wrap: wrap; gap: 14px; }
+.product-detail__current {
+    font-size: clamp(1.35rem, 1rem + 1vw, 1.8rem);
+    font-weight: 500;
+}
+.product-detail__save {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--color-primary-50);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.product-detail__desc {
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Delivery / payment / styling facts ------------------------------- */
+.pd-facts {
+    list-style: none;
+    margin: 26px 0 0;
+    padding: 22px 0 0;
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: 16px;
+}
+.pd-fact {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+.pd-fact__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-primary-50);
+    border: 1px solid var(--color-line);
+    color: var(--color-primary);
+}
+.pd-fact__label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-bottom: 3px;
+}
+.pd-fact__note {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+}
+
+/* Sticky buy bar — phones only ------------------------------------- */
+.buy-bar { display: none; }
+
 /* ------------------------------------------------------- 12. Reveal animations */
 .reveal {
     opacity: 0;
@@ -3204,4 +3329,85 @@ a.pagination__link:hover {
 
     .collection-empty { padding: 44px 22px; }
     .collection-empty__icon { width: 56px; height: 56px; margin-bottom: 16px; }
+}
+
+/* -------------------------------------- 16. Product page — responsive */
+
+/* Stacked layout: keep the shot centred above the copy */
+@media (max-width: 1024px) {
+    .product-detail__media {
+        width: 100%;
+        max-width: 520px;
+        margin-inline: auto;
+    }
+}
+
+/* Phone: sticky Add to Bag bar */
+@media (max-width: 767px) {
+    .buy-bar {
+        position: fixed;
+        inset: auto 0 0 0;
+        z-index: 900;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 11px var(--gutter);
+        background: rgba(255, 255, 255, 0.97);
+        -webkit-backdrop-filter: saturate(150%) blur(8px);
+        backdrop-filter: saturate(150%) blur(8px);
+        border-top: 1px solid var(--color-border);
+        box-shadow: 0 -14px 30px -22px rgba(30, 27, 26, 0.5);
+        transform: translateY(110%);
+        transition: transform 320ms var(--ease);
+    }
+    .buy-bar.is-visible { transform: translateY(0); }
+
+    .buy-bar__info { min-width: 0; }
+    .buy-bar__name {
+        display: block;
+        max-width: 46vw;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .buy-bar__price {
+        display: block;
+        font-family: var(--font-heading);
+        font-size: 1.02rem;
+        color: var(--color-primary);
+    }
+    .buy-bar .btn {
+        flex: 0 0 auto;
+        padding: 13px 22px;
+    }
+}
+
+@media (max-width: 560px) {
+    .catalogue-bar { padding-block: 12px; }
+    .catalogue-bar__crumbs { font-size: 0.6rem; gap: 6px; }
+    .catalogue-bar__crumbs .breadcrumbs__current {
+        max-width: 42vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .product-detail-section { padding-block: 22px 34px; }
+    .product-detail__media { max-width: 100%; }
+    .product-detail__title { font-size: 1.3rem; margin-top: 10px; }
+    .product-detail__price { gap: 10px; margin-top: 18px; padding-bottom: 16px; }
+    .product-detail__current { font-size: 1.32rem; }
+    .product-detail__save { font-size: 0.56rem; padding: 4px 9px; }
+
+    .pd-facts { margin-top: 22px; padding-top: 18px; gap: 14px; }
+    .pd-fact__icon { width: 36px; height: 36px; }
+    .pd-fact__label { font-size: 0.68rem; }
+    .pd-fact__note { font-size: 0.82rem; }
+
+    .product-detail__actions { margin-top: 24px; }
+    .product-detail__actions .btn--block { min-height: 52px; }
+    .product-detail__body .link-arrow { margin-top: 20px; }
 }

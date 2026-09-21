@@ -13,6 +13,7 @@
         initSmoothScroll();
         initReveal();
         initContactForm();
+        initMobileBuyBar();
     });
 
     /* Navbar gains a shadow once the page has scrolled. */
@@ -85,6 +86,35 @@
                 });
             });
         });
+    }
+
+    /*
+     * Product pages on phones: surface a sticky Add to Bag bar once the visitor
+     * has scrolled past the main action, and step aside near the footer so it
+     * never covers the end of the page.
+     */
+    function initMobileBuyBar() {
+        var bar = document.querySelector('[data-buy-bar]');
+        var anchor = document.querySelector('[data-buy-anchor]');
+        if (!bar || !anchor) return;
+
+        var narrowQuery = window.matchMedia('(max-width: 767px)');
+
+        var update = function () {
+            if (!narrowQuery.matches) {
+                bar.classList.remove('is-visible');
+                return;
+            }
+
+            var scrolledPast = anchor.getBoundingClientRect().bottom < 0;
+            var nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 90;
+
+            bar.classList.toggle('is-visible', scrolledPast && !nearBottom);
+        };
+
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
     }
 
     /* Give light feedback while the contact form is submitting. */
