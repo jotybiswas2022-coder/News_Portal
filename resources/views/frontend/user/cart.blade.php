@@ -67,22 +67,60 @@
     </div>
 @endif
 
-{{-- ==================================================== PAGE INTRO --}}
-<section class="page-head">
+{{-- =================================================== BAG HEADER --}}
+<section class="page-band">
     <div class="brand-container">
-        <span class="eyebrow">Your Bag</span>
-        <h1 class="page-head__title">Shopping Bag</h1>
-        <p class="page-head__text">Review your pieces before checkout.</p>
+
+        <nav class="breadcrumbs page-band__crumbs" aria-label="Breadcrumb">
+            <a href="{{ url('/') }}">Home</a>
+            <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+            <span class="breadcrumbs__current">Shopping Bag</span>
+        </nav>
+
+        <div class="page-band__inner">
+            <div class="page-band__intro">
+                <span class="eyebrow">Your Bag</span>
+                <h1 class="page-band__title">Shopping Bag</h1>
+                <p class="page-band__text">
+                    @if($rows->isEmpty())
+                        Nothing here yet — let's find something you love.
+                    @else
+                        {{ $rows->count() }} {{ $rows->count() === 1 ? 'piece' : 'pieces' }} waiting for checkout.
+                    @endif
+                </p>
+            </div>
+
+            <ol class="checkout-steps" aria-label="Checkout progress">
+                <li class="checkout-step is-current" aria-current="step">
+                    <span class="checkout-step__num">1</span>
+                    <span class="checkout-step__label">Bag</span>
+                </li>
+                <li class="checkout-step">
+                    <span class="checkout-step__num">2</span>
+                    <span class="checkout-step__label">Details</span>
+                </li>
+                <li class="checkout-step">
+                    <span class="checkout-step__num">3</span>
+                    <span class="checkout-step__label">Payment</span>
+                </li>
+            </ol>
+        </div>
+
     </div>
 </section>
 
-{{-- ====================================================== EMPTY --}}
+{{-- ========================================================= EMPTY --}}
 @if($rows->isEmpty())
 
 <section class="section section--ivory">
     <div class="brand-container">
         <div class="cart-empty">
-            <span class="cart-empty__mark brand__mark" aria-hidden="true">ER</span>
+            <span class="cart-empty__icon" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+                </svg>
+            </span>
+
             <h2 class="cart-empty__title">Your bag is empty</h2>
             <p class="cart-empty__text">
                 Add a few pieces you love and come back when you're ready to check out.
@@ -94,7 +132,7 @@
 
 @else
 
-{{-- ======================================================= BAG --}}
+{{-- =========================================================== BAG --}}
 <section class="section section--ivory">
     <div class="brand-container">
         <div class="cart-layout">
@@ -112,7 +150,7 @@
                     <li class="cart-item{{ $row['soldOut'] ? ' cart-item--sold-out' : '' }}">
 
                         <a class="cart-item__img" href="{{ $row['productUrl'] }}" aria-label="{{ $row['name'] }}">
-                            <img src="{{ $row['image'] }}" alt="{{ $row['name'] }}" width="300" height="400">
+                            <img src="{{ $row['image'] }}" alt="{{ $row['name'] }}" width="300" height="400" loading="lazy" decoding="async">
                         </a>
 
                         <div class="cart-item__main">
@@ -127,9 +165,13 @@
                             </div>
 
                             @if($row['soldOut'])
-                                <span class="cart-item__stock cart-item__stock--out">Out of Stock</span>
+                                <span class="cart-item__stock cart-item__stock--out">
+                                    <i aria-hidden="true"></i>Out of Stock
+                                </span>
                             @elseif($row['stock'] <= 5)
-                                <span class="cart-item__stock cart-item__stock--low">Only {{ $row['stock'] }} left</span>
+                                <span class="cart-item__stock cart-item__stock--low">
+                                    <i aria-hidden="true"></i>Only {{ $row['stock'] }} left
+                                </span>
                             @endif
 
                             <a class="cart-item__remove" href="/manage/destroy/{{ $row['id'] }}" aria-label="Remove {{ $row['name'] }}">
@@ -222,7 +264,7 @@
                     <span id="cart-grand-total" data-base="{{ number_format($grandTotal, 2, '.', '') }}" data-currency="{{ $currency }}">{{ $currency }} {{ number_format($grandTotal, 2) }}</span>
                 </div>
 
-                <a class="btn btn--block" href="{{ url('/billing') }}">Proceed to Checkout</a>
+                <a class="btn btn--block" href="{{ url('/billing') }}" data-checkout-anchor>Proceed to Checkout</a>
 
                 <p class="cart-summary__note">Shipping details are confirmed at checkout.</p>
             </aside>
@@ -230,6 +272,16 @@
         </div>
     </div>
 </section>
+
+{{-- =========================================== MOBILE CHECKOUT BAR --}}
+<div class="checkout-bar" data-checkout-bar>
+    <div class="checkout-bar__info">
+        <span class="checkout-bar__label">Grand Total</span>
+        <span class="checkout-bar__total" id="cart-bar-total">{{ $currency }} {{ number_format($grandTotal, 2) }}</span>
+    </div>
+
+    <a class="btn" href="{{ url('/billing') }}">Checkout</a>
+</div>
 
 @endif
 
@@ -247,6 +299,7 @@
 
     var deliveryValue = deliveryRow.querySelector('.cart-summary__delivery-value');
     var regionTag     = deliveryRow.querySelector('.cart-summary__row-region');
+    var barTotal      = document.getElementById('cart-bar-total');
     var inside  = parseFloat(deliveryRow.getAttribute('data-inside')) || 0;
     var outside = parseFloat(deliveryRow.getAttribute('data-outside')) || 0;
     var base    = parseFloat(grandTotal.getAttribute('data-base')) || 0;
@@ -257,9 +310,13 @@
 
     function apply(region) {
         var charge = region === 'outside' ? outside : inside;
+        var total  = base - inside + charge;
+
         deliveryValue.textContent = fmt(charge);
         regionTag.textContent = '(' + names[region] + ')';
-        grandTotal.textContent = fmt(base - inside + charge);
+        grandTotal.textContent = fmt(total);
+        if (barTotal) { barTotal.textContent = fmt(total); }
+
         radios.forEach(function (r) { r.checked = (r.value === region); });
         try { localStorage.setItem('cart_region', region); } catch (e) {}
     }

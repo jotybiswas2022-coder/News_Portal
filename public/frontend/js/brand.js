@@ -13,7 +13,7 @@
         initSmoothScroll();
         initReveal();
         initContactForm();
-        initMobileBuyBar();
+        initStickyActionBars();
     });
 
     /* Navbar gains a shadow once the page has scrolled. */
@@ -89,13 +89,18 @@
     }
 
     /*
-     * Product pages on phones: surface a sticky Add to Bag bar once the visitor
-     * has scrolled past the main action, and step aside near the footer so it
-     * never covers the end of the page.
+     * Phones only: surface a sticky action bar (Add to Bag on a product page,
+     * Checkout in the bag) once the visitor has scrolled past the main action,
+     * and step aside near the footer so it never covers the end of the page.
      */
-    function initMobileBuyBar() {
-        var bar = document.querySelector('[data-buy-bar]');
-        var anchor = document.querySelector('[data-buy-anchor]');
+    function initStickyActionBars() {
+        bindStickyBar('[data-buy-bar]', '[data-buy-anchor]');
+        bindStickyBar('[data-checkout-bar]', '[data-checkout-anchor]');
+    }
+
+    function bindStickyBar(barSelector, anchorSelector) {
+        var bar = document.querySelector(barSelector);
+        var anchor = document.querySelector(anchorSelector);
         if (!bar || !anchor) return;
 
         var narrowQuery = window.matchMedia('(max-width: 767px)');

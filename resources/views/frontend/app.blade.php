@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     {{-- ESHA'S ROKOMARIS 2 brand theme (files live in the project's public/ directory) --}}
-    <link rel="stylesheet" href="{{ rtrim(config('app.public_url'), '/') }}/frontend/css/brand.css?v=13">
+    <link rel="stylesheet" href="{{ rtrim(config('app.public_url'), '/') }}/frontend/css/brand.css?v=14">
 
     @yield('styles')
 </head>
@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="{{ rtrim(config('app.public_url'), '/') }}/frontend/js/brand.js?v=2"></script>
+    <script src="{{ rtrim(config('app.public_url'), '/') }}/frontend/js/brand.js?v=3"></script>
 
     @yield('scripts')
 </body>
