@@ -3,301 +3,413 @@
 @section('content')
 
 @if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<div class="alert alert-success alert-dismissible fade show m-3" role="alert">
     <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 @endif
 
 @if(session('error'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
     <i class="bi bi-exclamation-triangle me-2"></i> {{ session('error') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 @endif
 
-<div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <!-- Header -->
-                <div class="card-header bg-white border-0 px-4 py-3">
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                        <div>
-                            <h4 class="fw-bold mb-1 mb-0">
-                                <i class="bi bi-images text-primary me-2"></i>Manage Sliders
-                            </h4>
-                            <p class="text-muted small mb-0">
-                                আপনার হোমপেজের হিরো স্লাইডার ও "Our Promise" সেকশনের ছবিগুলো এখানে ম্যানেজ করুন
-                            </p>
-                        </div>
-                        <span class="badge bg-light text-dark border rounded-pill px-3 py-2">
-                            <i class="bi bi-info-circle me-1"></i> slider1 = Desktop | slider2 = Mobile | about_image = Our Promise
-                        </span>
-                    </div>
-                </div>
+@php
+    /* Each image the homepage reads, with the shape it is actually shown in
+       (see the hero / promise frames in public/frontend/css/brand.css). */
+    $fields = [
+        [
+            'key'   => 'slider1',
+            'icon'  => 'bi-display',
+            'tint'  => 'primary',
+            'title' => 'Desktop / Tablet banner',
+            'role'  => 'Hero slider — wide screens',
+            'ratio' => '16 / 10',
+            'w'     => 1600,
+            'h'     => 1000,
+            'where' => 'Homepage hero, from 768px wide',
+            'hint'  => 'Wide landscape banner. JPG, PNG or WebP — max 4MB.',
+        ],
+        [
+            'key'   => 'slider2',
+            'icon'  => 'bi-phone',
+            'tint'  => 'success',
+            'title' => 'Mobile banner',
+            'role'  => 'Hero slider — phones',
+            'ratio' => '3 / 4',
+            'w'     => 900,
+            'h'     => 1200,
+            'where' => 'Homepage hero, under 768px',
+            'hint'  => 'Portrait crop. Leave it empty and phones reuse the desktop banner.',
+        ],
+        [
+            'key'   => 'about_image',
+            'icon'  => 'bi-award',
+            'tint'  => 'warning',
+            'title' => 'Our Promise image',
+            'role'  => '“Soft, wearable pieces…” band',
+            'ratio' => '4 / 5',
+            'w'     => 800,
+            'h'     => 1000,
+            'where' => 'Homepage — Our Promise section',
+            'hint'  => 'Portrait crop. Leave it empty and the newest product photo is used.',
+        ],
+    ];
 
-                <div class="card-body p-4">
-                    @if(!$slider)
-                        <!-- No slider yet -->
-                        <div class="text-center py-5">
-                            <div class="mb-3">
-                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted">
-                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                                    <path d="M21 15l-5-5L5 21"/>
-                                </svg>
-                            </div>
-                            <h5 class="fw-semibold text-dark">এখনো কোনো স্লাইডার নেই</h5>
-                            <p class="text-muted small mb-4">নিচে ছবি আপলোড করে স্লাইডার তৈরি করুন</p>
-                        </div>
-                    @endif
+    $anyImage = $slider && ($slider->slider1 || $slider->slider2 || $slider->about_image);
+@endphp
 
-                    <!-- Sliders Grid -->
-                    <div class="row g-4">
-                        <!-- Slider 1 Card -->
-                        <div class="col-12 col-lg-6">
-                            <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow transition-shadow">
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <label class="form-label fw-semibold mb-0">
-                                            <i class="bi bi-display me-1 text-primary"></i>slider1 — Desktop / Tablet
-                                        </label>
-                                        @if($slider && $slider->slider1)
-                                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2 py-1">
-                                                <i class="bi bi-check-lg me-1"></i>Uploaded
-                                            </span>
-                                        @else
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill px-2 py-1">
-                                                <i class="bi bi-hourglass me-1"></i>No image
-                                            </span>
-                                        @endif
-                                    </div>
+<div class="container-fluid py-4 px-3 px-md-4">
 
-                                    <!-- Preview -->
-                                    <div class="position-relative rounded-3 overflow-hidden bg-light mb-3" style="aspect-ratio: 16/9; min-height: 180px;">
-                                        <img id="preview1"
-                                             src="{{ $slider && $slider->slider1 ? config('app.storage_url').$slider->slider1 : 'https://placehold.co/800x450/e2e8f0/94a3b8?text=No+Image+Yet' }}"
-                                             class="w-100 h-100 object-fit-cover"
-                                             style="transition: opacity 0.3s ease;"
-                                             alt="Slider 1 preview"
-                                             onerror="this.src='https://placehold.co/800x450/e2e8f0/94a3b8?text=Invalid+Image'">
-                                        @if($slider && $slider->slider1)
-                                            <button class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2 rounded-pill" onclick="clearImage('slider1')" title="Remove image">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        @endif
-                                    </div>
-
-                                    <!-- Upload Input -->
-                                    <label class="form-label fw-medium text-dark">📁 নতুন ছবি আপলোড করুন</label>
-                                    <input type="file"
-                                           accept="image/*"
-                                           class="form-control form-control-lg"
-                                           name="slider1"
-                                           id="slider1"
-                                           onchange="previewImage(event, 'preview1')"
-                                    >
-                                    <div class="form-text text-muted">
-                                        <i class="bi bi-info-circle me-1"></i>JPG, PNG, WebP — সর্বোচ্চ ৪MB
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slider 2 Card -->
-                        <div class="col-12 col-lg-6">
-                            <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow transition-shadow">
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <label class="form-label fw-semibold mb-0">
-                                            <i class="bi bi-phone me-1 text-success"></i>slider2 — Mobile
-                                        </label>
-                                        @if($slider && $slider->slider2)
-                                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2 py-1">
-                                                <i class="bi bi-check-lg me-1"></i>Uploaded
-                                            </span>
-                                        @else
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill px-2 py-1">
-                                                <i class="bi bi-hourglass me-1"></i>No image
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <!-- Preview -->
-                                    <div class="position-relative rounded-3 overflow-hidden bg-light mb-3" style="aspect-ratio: 9/16; min-height: 200px;">
-                                        <img id="preview2"
-                                             src="{{ $slider && $slider->slider2 ? config('app.storage_url').$slider->slider2 : 'https://placehold.co/450x800/e2e8f0/94a3b8?text=No+Image+Yet' }}"
-                                             class="w-100 h-100 object-fit-cover"
-                                             style="transition: opacity 0.3s ease;"
-                                             alt="Slider 2 preview"
-                                             onerror="this.src='https://placehold.co/450x800/e2e8f0/94a3b8?text=Invalid+Image'">
-                                        @if($slider && $slider->slider2)
-                                            <button class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2 rounded-pill" onclick="clearImage('slider2')" title="Remove image">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        @endif
-                                    </div>
-
-                                    <!-- Upload Input -->
-                                    <label class="form-label fw-medium text-dark">📁 নতুন ছবি আপলোড করুন</label>
-                                    <input type="file"
-                                           accept="image/*"
-                                           class="form-control form-control-lg"
-                                           name="slider2"
-                                           id="slider2"
-                                           onchange="previewImage(event, 'preview2')"
-                                    >
-                                    <div class="form-text text-muted">
-                                        <i class="bi bi-info-circle me-1"></i>JPG, PNG, WebP — সর্বোচ্চ ৪MB
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Our Promise Image Card -->
-                        <div class="col-12 col-lg-6">
-                            <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow transition-shadow">
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-center justify-content-between mb-3">
-                                        <label class="form-label fw-semibold mb-0">
-                                            <i class="bi bi-award me-1 text-warning"></i>about_image — Our Promise section
-                                        </label>
-                                        @if($slider && $slider->about_image)
-                                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2 py-1">
-                                                <i class="bi bi-check-lg me-1"></i>Uploaded
-                                            </span>
-                                        @else
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill px-2 py-1">
-                                                <i class="bi bi-hourglass me-1"></i>No image
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <!-- Preview -->
-                                    <div class="position-relative rounded-3 overflow-hidden bg-light mb-3" style="aspect-ratio: 4/5; min-height: 200px;">
-                                        <img id="preview3"
-                                             src="{{ $slider && $slider->about_image ? config('app.storage_url').$slider->about_image : 'https://placehold.co/600x750/e2e8f0/94a3b8?text=No+Image+Yet' }}"
-                                             class="w-100 h-100 object-fit-cover"
-                                             style="transition: opacity 0.3s ease;"
-                                             alt="Our Promise section preview"
-                                             onerror="this.src='https://placehold.co/600x750/e2e8f0/94a3b8?text=Invalid+Image'">
-                                        @if($slider && $slider->about_image)
-                                            <button class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2 rounded-pill" onclick="clearImage('about_image')" title="Remove image">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        @endif
-                                    </div>
-
-                                    <!-- Upload Input -->
-                                    <label class="form-label fw-medium text-dark">📁 নতুন ছবি আপলোড করুন</label>
-                                    <input type="file"
-                                           accept="image/*"
-                                           class="form-control form-control-lg"
-                                           name="about_image"
-                                           id="about_image"
-                                           onchange="previewImage(event, 'preview3')"
-                                    >
-                                    <div class="form-text text-muted">
-                                        <i class="bi bi-info-circle me-1"></i>Portrait ছবি ভালো দেখায় — JPG, PNG, WebP, সর্বোচ্চ ৪MB
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="row g-3 mt-4">
-                        <div class="col-12 col-sm-6 text-start">
-                            @if($slider)
-                                <a class="btn btn-outline-danger w-100 rounded-pill shadow-sm"
-                                   href="{{ url('/admin/sliders/delete', $slider->id) }}"
-                                   onclick="return confirmDelete()">
-                                    <i class="bi bi-trash3 me-2"></i>সব মুছুন (Delete All)
-                                </a>
-                            @else
-                                <button class="btn btn-outline-secondary w-100 rounded-pill shadow-sm" disabled>
-                                    <i class="bi bi-trash3 me-2"></i>সব মুছুন (Delete All)
-                                </button>
-                            @endif
-                        </div>
-                        <div class="col-12 col-sm-6 text-end">
-                            <button type="submit" form="sliderForm" class="btn btn-gradient w-100 rounded-pill shadow-sm">
-                                <i class="bi bi-cloud-upload me-2"></i>সংরক্ষণ করুন (Save)
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    {{-- ===================================================== Page header --}}
+    <div class="row align-items-center g-3 mb-3">
+        <div class="col-md-7">
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-images text-primary me-2"></i>Manage Sliders
+            </h2>
+            <small class="text-muted">
+                আপনার হোমপেজের হিরো স্লাইডার ও “Our Promise” সেকশনের ছবিগুলো এখানে ম্যানেজ করুন
+            </small>
+        </div>
+        <div class="col-md-5">
+            <div class="d-flex flex-wrap gap-2 justify-content-md-end">
+                <span class="slider-legend">
+                    <i class="bi bi-display text-primary"></i> slider1 · Desktop
+                </span>
+                <span class="slider-legend">
+                    <i class="bi bi-phone text-success"></i> slider2 · Mobile
+                </span>
+                <span class="slider-legend">
+                    <i class="bi bi-award text-warning"></i> about_image · Promise
+                </span>
             </div>
-
-            <!-- Submit Form (hidden, handles save) -->
-            <form id="sliderForm" action="/admin/sliders/store" method="POST" enctype="multipart/form-data" class="d-none">
-                @csrf
-                <input type="hidden" id="sliderId" name="id" value="{{ $slider ? $slider->id : '' }}">
-                <button type="submit" class="d-none">Submit</button>
-            </form>
         </div>
     </div>
+
+    @unless($anyImage)
+        <div class="alert alert-light border rounded-4 d-flex align-items-center gap-3 mb-3" role="status">
+            <i class="bi bi-images fs-4 text-muted"></i>
+            <div>
+                <div class="fw-semibold text-dark">এখনো কোনো ছবি আপলোড করা হয়নি</div>
+                <small class="text-muted">
+                    নিচের যেকোনো কার্ড থেকে ছবি বেছে নিয়ে <strong>Save</strong> চাপুন — হোমপেজে সাথে সাথে দেখা যাবে।
+                </small>
+            </div>
+        </div>
+    @endunless
+
+    {{-- The file inputs live inside this form, so Save really does upload them. --}}
+    <form id="sliderForm" action="{{ url('/admin/sliders/store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" id="sliderId" name="id" value="{{ $slider ? $slider->id : '' }}">
+
+        <div class="row g-4">
+            @foreach($fields as $field)
+                @php
+                    $path      = $slider ? $slider->{$field['key']} : null;
+                    $hasImage  = (bool) $path;
+                    $badgeId   = 'badge-' . $field['key'];
+                    $previewId = 'preview-' . $field['key'];
+                    $placeholder = 'https://placehold.co/' . $field['w'] . 'x' . $field['h']
+                                 . '/eef1f4/94a3b8?text=' . rawurlencode($field['title']);
+                @endphp
+
+                <div class="col-12 col-lg-6">
+                    <div class="card slider-card border-0 shadow-sm rounded-4 h-100" id="card-{{ $field['key'] }}">
+                        <div class="card-body p-3 p-md-4">
+
+                            {{-- Field header ---------------------------------- --}}
+                            <div class="d-flex align-items-start justify-content-between gap-2 mb-3">
+                                <div class="d-flex align-items-start gap-2">
+                                    <span class="slider-card__icon text-{{ $field['tint'] }}">
+                                        <i class="bi {{ $field['icon'] }}"></i>
+                                    </span>
+                                    <div>
+                                        <div class="slider-card__title">{{ $field['title'] }}</div>
+                                        <div class="slider-card__key">
+                                            <code>{{ $field['key'] }}</code> · {{ $field['role'] }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span id="{{ $badgeId }}" class="badge rounded-pill {{ $hasImage
+                                    ? 'bg-success bg-opacity-10 text-success border border-success border-opacity-25'
+                                    : 'bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25' }}">
+                                    @if($hasImage)
+                                        <i class="bi bi-check-lg me-1"></i>Uploaded
+                                    @else
+                                        <i class="bi bi-hourglass me-1"></i>No image
+                                    @endif
+                                </span>
+                            </div>
+
+                            {{-- Preview -------------------------------------- --}}
+                            <div class="slider-preview" style="aspect-ratio: {{ $field['ratio'] }};">
+                                <img id="{{ $previewId }}"
+                                     src="{{ $hasImage ? config('app.storage_url') . $path : $placeholder }}"
+                                     alt="{{ $field['title'] }} preview"
+                                     onerror="this.src='{{ $placeholder }}'">
+
+                                @if($hasImage)
+                                    <button type="button"
+                                            class="slider-preview__clear"
+                                            onclick="clearImage('{{ $field['key'] }}')"
+                                            title="Delete this image"
+                                            aria-label="Delete {{ $field['key'] }}">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                @endif
+
+                                <span class="slider-preview__where">
+                                    <i class="bi bi-eye"></i> {{ $field['where'] }}
+                                </span>
+                            </div>
+
+                            {{-- Upload -------------------------------------- --}}
+                            <label class="form-label fw-medium text-dark mt-3 mb-1" for="{{ $field['key'] }}">
+                                📁 নতুন ছবি আপলোড করুন
+                            </label>
+                            <input type="file"
+                                   accept="image/*"
+                                   class="form-control"
+                                   name="{{ $field['key'] }}"
+                                   id="{{ $field['key'] }}"
+                                   onchange="previewImage(event, '{{ $previewId }}', '{{ $field['key'] }}')">
+                            <div class="form-text">{{ $field['hint'] }}</div>
+
+                            {{-- Per-image delete ----------------------------- --}}
+                            @if($hasImage)
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-danger rounded-pill w-100 mt-3"
+                                        onclick="clearImage('{{ $field['key'] }}')">
+                                    <i class="bi bi-trash3 me-1"></i>Delete this image
+                                </button>
+                            @else
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary rounded-pill w-100 mt-3"
+                                        disabled>
+                                    <i class="bi bi-slash-circle me-1"></i>No image to delete
+                                </button>
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- ================================================ Action row --}}
+        <div class="row g-3 mt-4 align-items-center">
+            <div class="col-12 col-sm-6">
+                @if($slider)
+                    <button type="button"
+                            class="btn btn-outline-danger w-100 rounded-pill shadow-sm"
+                            onclick="confirmDeleteAll()">
+                        <i class="bi bi-trash3 me-2"></i>সব মুছুন (Delete All)
+                    </button>
+                @else
+                    <button type="button" class="btn btn-outline-secondary w-100 rounded-pill shadow-sm" disabled>
+                        <i class="bi bi-trash3 me-2"></i>সব মুছুন (Delete All)
+                    </button>
+                @endif
+            </div>
+            <div class="col-12 col-sm-6">
+                <button type="submit" class="btn btn-gradient w-100 rounded-pill shadow-sm">
+                    <i class="bi bi-cloud-upload me-2"></i>সংরক্ষণ করুন (Save)
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
 
-<!-- Preview Script -->
 <script>
-function previewImage(event, previewId) {
-    const preview = document.getElementById(previewId);
-    const file = event.target.files[0];
+/* Instant preview of a file that has been picked but not saved yet. */
+function previewImage(event, previewId, fieldKey) {
+    var preview = document.getElementById(previewId);
+    var file = event.target.files[0];
+    if (!file || !preview) return;
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.opacity = '0';
-            setTimeout(() => { preview.style.opacity = '1'; }, 50);
-        };
-        reader.readAsDataURL(file);
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        preview.style.opacity = '0';
+        preview.src = e.target.result;
+        setTimeout(function () { preview.style.opacity = '1'; }, 50);
+    };
+    reader.readAsDataURL(file);
+
+    // Make it obvious the change is only local until Save is pressed.
+    var card = document.getElementById('card-' + fieldKey);
+    if (card) card.classList.add('is-pending');
+
+    var badge = document.getElementById('badge-' + fieldKey);
+    if (badge) {
+        badge.className = 'badge rounded-pill bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25';
+        badge.innerHTML = '<i class="bi bi-arrow-up-circle me-1"></i>Ready to save';
     }
 }
 
+/* Delete one image — confirm with SweetAlert, then post an explicit
+   remove_<field> flag so the controller drops the column and the file. */
 function clearImage(fieldName) {
-    const sliderId = document.getElementById('sliderId').value;
+    var sliderId = document.getElementById('sliderId').value;
     if (!sliderId) return;
 
-    if (confirm('এই ছবিটি মুছে ফেলতে চান?')) {
-        // Post to the update route with a remove_<field> flag the controller reads.
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/admin/sliders/update/' + sliderId;
-
-        const csrf = document.createElement('input');
-        csrf.type = 'hidden';
-        csrf.name = '_token';
-        csrf.value = '{{ csrf_token() }}';
-        form.appendChild(csrf);
-
-        const flag = document.createElement('input');
-        flag.type = 'hidden';
-        flag.name = 'remove_' + fieldName;
-        flag.value = '1';
-        form.appendChild(flag);
-
-        document.body.appendChild(form);
-        form.submit();
-    }
+    Swal.fire({
+        title: 'Delete this image?',
+        html: '<code>' + fieldName + '</code> এর ছবিটি মুছে ফেলা হবে।<br>হোমপেজ থেকে সাথে সাথে সরে যাবে।',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'Cancel',
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: 'btn btn-danger rounded-pill px-4',
+            cancelButton: 'btn btn-secondary rounded-pill px-4'
+        }
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            postFlag('remove_' + fieldName, sliderId);
+        }
+    });
 }
 
-function confirmDelete() {
-    return confirm('সতর্কবার্তা: এই অপশনে সব স্লাইডার মুছে ফেলা হবে। এটি বাতিল করতে "Cancel" চাপুন।
-    
-    আপনি কি নিশ্চিত যে আপনি সব স্লাইডার মুছে ফেলতে চান?');
+/* Delete every image at once. */
+function confirmDeleteAll() {
+    Swal.fire({
+        title: 'Delete all sliders?',
+        text: 'slider1, slider2 ও about_image — সব ছবি মুছে ফেলা হবে। এটি ফেরানো যাবে না!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete all',
+        cancelButtonText: 'Cancel',
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: 'btn btn-danger rounded-pill px-4',
+            cancelButton: 'btn btn-secondary rounded-pill px-4'
+        }
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            postFlag(null, document.getElementById('sliderId').value, true);
+        }
+    });
+}
+
+/* A detached POST — used because the main form carries the file inputs. */
+function postFlag(flagName, sliderId, isDeleteAll) {
+    if (!sliderId) return;
+
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = isDeleteAll
+        ? '/admin/sliders/delete/' + sliderId
+        : '/admin/sliders/update/' + sliderId;
+
+    var csrf = document.createElement('input');
+    csrf.type = 'hidden';
+    csrf.name = '_token';
+    csrf.value = '{{ csrf_token() }}';
+    form.appendChild(csrf);
+
+    if (flagName) {
+        var flag = document.createElement('input');
+        flag.type = 'hidden';
+        flag.name = flagName;
+        flag.value = '1';
+        form.appendChild(flag);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }
 </script>
 
-<!-- Styles -->
 <style>
-/* Card hover shadow */
-.hover-shadow { transition: box-shadow 0.3s ease; }
-.hover-shadow:hover { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important; }
+/* Card shell --------------------------------------------------------- */
+.slider-card { transition: box-shadow 0.3s ease; }
+.slider-card:hover { box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1) !important; }
+.slider-card.is-pending { border: 1px solid rgba(255, 193, 7, 0.5); }
+.slider-card.is-pending .slider-preview { outline: 2px dashed rgba(255, 193, 7, 0.6); outline-offset: -2px; }
 
-/* Custom gradient button */
+.slider-card__icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #f1f3f9;
+    font-size: 1.05rem;
+}
+.slider-card__title { font-weight: 600; font-size: 0.95rem; line-height: 1.3; color: #1f2937; }
+.slider-card__key { font-size: 0.74rem; color: #6c757d; }
+.slider-card__key code { font-size: 0.72rem; color: #4f46e5; }
+
+/* Preview frame — the shape the image is actually displayed in --------- */
+.slider-preview {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9edf3 100%);
+    max-height: 420px;
+}
+.slider-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+.slider-preview__clear {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #dc3545;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.slider-preview__clear:hover { background: #dc3545; color: #fff; transform: scale(1.06); }
+.slider-preview__where {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(17, 24, 39, 0.72);
+    color: #fff;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(4px);
+}
+
+/* Bits from the shared admin chrome ----------------------------------- */
+.slider-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #e9ecef;
+    border-radius: 999px;
+    background: #fff;
+    font-size: 0.76rem;
+    color: #495057;
+}
+
 .btn-gradient {
     background: linear-gradient(135deg, #6366f1, #8b5cf6);
     color: #fff;
@@ -306,56 +418,33 @@ function confirmDelete() {
     transition: all 0.3s ease;
 }
 .btn-gradient:hover {
+    color: #fff;
     transform: translateY(-1px);
-    opacity: 0.95;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.38);
 }
+.btn-gradient:active { transform: translateY(0); }
 
-.btn-gradient:active {
-    transform: translateY(0);
-}
-
-/* Form control styling */
-.form-control {
-    border-radius: 10px;
-    border: 1.5px solid #e2e8f0;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.form-control:focus {
+#sliderForm .form-control:focus {
     border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
-/* Image placeholder styling */
-.bg-light {
-    background-image: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-}
-
-/* Smooth transitions */
-.transition-shadow { transition: box-shadow 0.3s ease; }
-
-/* Responsive card heights */
+/* Responsive ---------------------------------------------------------- */
 @media (max-width: 991px) {
-    .col-lg-6 {
-        max-width: 100%;
-    }
+    .slider-preview { max-height: 360px; }
 }
 
-@media (max-width: 576px) {
-    .card-body {
-        padding: 0.75rem;
-    }
-    
-    .position-relative {
-        min-height: 150px;
-    }
-    
+@media (max-width: 575px) {
+    .container-fluid { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .slider-card .card-body { padding: 0.85rem !important; }
+    .slider-card__title { font-size: 0.9rem; }
+    .slider-preview { max-height: 300px; border-radius: 12px; }
+    .slider-preview__where { font-size: 0.62rem; padding: 4px 9px; }
+    .slider-preview__clear { width: 30px; height: 30px; top: 8px; right: 8px; }
+    .slider-legend { font-size: 0.72rem; padding: 5px 10px; }
     .btn-gradient,
     .btn-outline-danger,
-    .btn-outline-secondary {
-        font-size: 0.875rem;
-        padding: 0.5rem 1rem;
-    }
+    .btn-outline-secondary { font-size: 0.85rem; padding: 0.55rem 1rem; }
 }
 </style>
 

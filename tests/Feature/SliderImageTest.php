@@ -51,7 +51,8 @@ class SliderImageTest extends TestCase
         $this->actingAs($this->admin())
             ->get('/admin/sliders')
             ->assertOk()
-            ->assertSee('about_image — Our Promise section')
+            ->assertSee('about_image')
+            ->assertSee('Our Promise image')
             ->assertSee('name="about_image"', false);
     }
 
