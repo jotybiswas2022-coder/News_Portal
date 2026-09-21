@@ -128,7 +128,7 @@
                             <strong class="pd-fact__label">Nationwide delivery</strong>
                             <span class="pd-fact__note">
                                 @if($contact?->delivery_charge)
-                                    Inside Dhaka from {{ currency() }} {{ number_format((float) $contact->delivery_charge, 0) }}
+                                    Inside Khulna from {{ currency() }} {{ number_format((float) $contact->delivery_charge, 0) }}
                                 @else
                                     Delivered anywhere in Bangladesh
                                 @endif
