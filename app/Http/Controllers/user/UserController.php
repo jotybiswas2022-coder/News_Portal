@@ -63,7 +63,7 @@ class UserController extends Controller
     public function orders()
     {
         $orders = Order::where('user_id', Auth::id())
-                       ->with('orderDetails')
+                       ->with('orderdetails.product')
                        ->latest()
                        ->get();
         return view('frontend.user.orders', compact('orders'));
