@@ -28,11 +28,11 @@
                                 <i class="bi bi-images text-primary me-2"></i>Manage Sliders
                             </h4>
                             <p class="text-muted small mb-0">
-                                আপনার হোমপেজের হিরো সেকশনের ছবিগুলো এখানে ম্যানেজ করুন
+                                আপনার হোমপেজের হিরো স্লাইডার ও "Our Promise" সেকশনের ছবিগুলো এখানে ম্যানেজ করুন
                             </p>
                         </div>
                         <span class="badge bg-light text-dark border rounded-pill px-3 py-2">
-                            <i class="bi bi-info-circle me-1"></i> slider1 = Desktop | slider2 = Mobile
+                            <i class="bi bi-info-circle me-1"></i> slider1 = Desktop | slider2 = Mobile | about_image = Our Promise
                         </span>
                     </div>
                 </div>
@@ -154,6 +154,56 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Our Promise Image Card -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow transition-shadow">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <label class="form-label fw-semibold mb-0">
+                                            <i class="bi bi-award me-1 text-warning"></i>about_image — Our Promise section
+                                        </label>
+                                        @if($slider && $slider->about_image)
+                                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2 py-1">
+                                                <i class="bi bi-check-lg me-1"></i>Uploaded
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill px-2 py-1">
+                                                <i class="bi bi-hourglass me-1"></i>No image
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div class="position-relative rounded-3 overflow-hidden bg-light mb-3" style="aspect-ratio: 4/5; min-height: 200px;">
+                                        <img id="preview3"
+                                             src="{{ $slider && $slider->about_image ? config('app.storage_url').$slider->about_image : 'https://placehold.co/600x750/e2e8f0/94a3b8?text=No+Image+Yet' }}"
+                                             class="w-100 h-100 object-fit-cover"
+                                             style="transition: opacity 0.3s ease;"
+                                             alt="Our Promise section preview"
+                                             onerror="this.src='https://placehold.co/600x750/e2e8f0/94a3b8?text=Invalid+Image'">
+                                        @if($slider && $slider->about_image)
+                                            <button class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2 rounded-pill" onclick="clearImage('about_image')" title="Remove image">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        @endif
+                                    </div>
+
+                                    <!-- Upload Input -->
+                                    <label class="form-label fw-medium text-dark">📁 নতুন ছবি আপলোড করুন</label>
+                                    <input type="file"
+                                           accept="image/*"
+                                           class="form-control form-control-lg"
+                                           name="about_image"
+                                           id="about_image"
+                                           onchange="previewImage(event, 'preview3')"
+                                    >
+                                    <div class="form-text text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>Portrait ছবি ভালো দেখায় — JPG, PNG, WebP, সর্বোচ্চ ৪MB
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Action Buttons -->
@@ -207,27 +257,28 @@ function previewImage(event, previewId) {
     }
 }
 
-function clearImage(sliderName) {
+function clearImage(fieldName) {
+    const sliderId = document.getElementById('sliderId').value;
+    if (!sliderId) return;
+
     if (confirm('এই ছবিটি মুছে ফেলতে চান?')) {
-        // Create a form to submit via update route
+        // Post to the update route with a remove_<field> flag the controller reads.
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '/admin/sliders/update/' + document.getElementById('sliderId').value;
-        
-        // Add CSRF token
+        form.action = '/admin/sliders/update/' + sliderId;
+
         const csrf = document.createElement('input');
         csrf.type = 'hidden';
         csrf.name = '_token';
         csrf.value = '{{ csrf_token() }}';
         form.appendChild(csrf);
-        
-        // Add empty file input for the slider to clear
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.name = sliderName;
-        // Don't set files - empty means clear
-        form.appendChild(fileInput);
-        
+
+        const flag = document.createElement('input');
+        flag.type = 'hidden';
+        flag.name = 'remove_' + fieldName;
+        flag.value = '1';
+        form.appendChild(flag);
+
         document.body.appendChild(form);
         form.submit();
     }

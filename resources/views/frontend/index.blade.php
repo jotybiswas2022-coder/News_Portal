@@ -41,11 +41,16 @@
         ? 'fallback'
         : (!$slider1Url ? 'mobile-only' : (!$slider2Url ? 'desktop-only' : 'both'));
 
-    /* Imagery used by the "Our Promise" band and the category tiles: the newest
-       real product shot when there is one, otherwise the editorial placeholder. */
-    $promiseImage = $cardProducts->first()?->image
+    /* Image for the "Our Promise" band. A shot uploaded on the sliders page
+       (about_image) wins; otherwise the newest real product photo is used, and
+       the editorial placeholder only fills the gap while nothing exists. */
+    $newestProductImage = $cardProducts->first()?->image
         ? config('app.storage_url') . $cardProducts->first()->image
-        : $heroFallback;
+        : null;
+
+    $promiseImage = $slider && $slider->about_image
+        ? config('app.storage_url') . $slider->about_image
+        : ($newestProductImage ?? $heroFallback);
 
     $instagramHandle = $contact?->contact_instagram ?: 'eshas_rokomaris2';
     $instagramUrl    = 'https://instagram.com/' . ltrim($instagramHandle, '@');
