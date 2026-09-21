@@ -2140,6 +2140,166 @@ a.pagination__link:hover {
 }
 .footer__list--contact a { overflow-wrap: anywhere; }
 
+/* ------------------------------------------- 11c. Shop / catalogue upgrade */
+
+/* Catalogue head --------------------------------------------------- */
+.shop-head {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-background);
+    background-image:
+        radial-gradient(900px 380px at 6% -30%, rgba(243, 227, 229, 0.95), transparent 64%),
+        radial-gradient(700px 360px at 100% 0%, rgba(168, 184, 160, 0.18), transparent 62%);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: clamp(26px, 4vw, 42px) clamp(30px, 4.4vw, 54px);
+}
+.shop-head__blob {
+    position: absolute;
+    top: -70px;
+    right: 12%;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(184, 155, 104, 0.14);
+    filter: blur(48px);
+    pointer-events: none;
+}
+
+/* Breadcrumb runs left-aligned on the catalogue, centred elsewhere */
+.shop-head__crumbs {
+    justify-content: flex-start;
+    margin: 0 0 clamp(16px, 2.4vw, 24px);
+    font-size: 0.72rem;
+}
+
+.shop-head__inner {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: clamp(18px, 3vw, 34px);
+}
+.shop-head__intro { min-width: 0; }
+.shop-head__intro .eyebrow { margin-bottom: 14px; }
+.shop-head__title {
+    font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+    margin-bottom: 12px;
+}
+.shop-head__text {
+    color: var(--color-muted);
+    font-size: clamp(0.9rem, 0.88rem + 0.2vw, 1rem);
+}
+
+/* Search sits inline with the heading on wide screens */
+.shop-head .search-bar {
+    margin: 0;
+    max-width: 420px;
+    flex: 0 1 420px;
+}
+.search-bar--lg .search-bar__field {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.search-bar--lg .search-bar__icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    color: var(--color-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+.search-bar--lg input { padding-left: 46px; }
+
+/* Filter toolbar --------------------------------------------------- */
+.shop-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 20px;
+    margin-bottom: clamp(28px, 4vw, 44px);
+    border-bottom: 1px solid var(--color-border);
+}
+.shop-toolbar__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+.shop-toolbar__count {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text);
+}
+.shop-toolbar__tag {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--color-primary);
+}
+
+/* Chips scroll sideways instead of stacking into a tall block */
+.chip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 240px;
+    min-width: 0;
+    overflow-x: auto;
+    padding: 4px 2px 6px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+.chip-row::-webkit-scrollbar { display: none; }
+.chip-row .chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.shop-toolbar__clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: 0 0 auto;
+    padding-bottom: 3px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    border-bottom: 1px solid transparent;
+    transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
+}
+.shop-toolbar__clear:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Empty state ------------------------------------------------------ */
+.collection-empty {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 64px 32px;
+}
+.collection-empty__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: var(--color-primary-50);
+    border: 1px solid var(--color-line);
+    color: var(--color-primary);
+}
+
 /* ------------------------------------------------------- 12. Reveal animations */
 .reveal {
     opacity: 0;
@@ -3002,4 +3162,46 @@ a.pagination__link:hover {
 
     .promise__title { font-size: 1.26rem; }
     .follow__title { font-size: 1.35rem; }
+}
+
+/* ----------------------------------------- 15. Shop page — responsive */
+
+/* Tablet / narrow desktop: the search drops onto its own row */
+@media (max-width: 900px) {
+    .shop-head__inner { align-items: flex-start; }
+
+    .shop-head .search-bar {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: none;
+    }
+
+    .chip-row { flex: 1 1 100%; }
+}
+
+/* Phone: count left, Clear right, chips scroll on their own row */
+@media (max-width: 767px) {
+    .shop-toolbar { gap: 10px 12px; }
+    .shop-toolbar__meta { order: 1; }
+    .shop-toolbar__clear { order: 2; margin-left: auto; }
+    .chip-row { order: 3; flex: 1 1 100%; }
+}
+
+/* Phone */
+@media (max-width: 560px) {
+    .shop-head { padding-block: 22px 30px; }
+    .shop-head__crumbs { font-size: 0.62rem; gap: 7px; margin-bottom: 14px; }
+    .shop-head__title { font-size: 1.42rem; margin-bottom: 8px; }
+    .shop-head__text { font-size: 0.9rem; }
+
+    .shop-head .search-bar { gap: 10px; }
+    .search-bar--lg input { padding: 14px 16px 14px 44px; font-size: 0.92rem; }
+    .shop-head .search-bar .btn { padding: 14px 20px; }
+
+    /* Roomier touch targets for the horizontally scrolling chips */
+    .chip-row .chip { padding: 11px 15px; font-size: 0.66rem; }
+    .shop-toolbar { padding-bottom: 16px; }
+
+    .collection-empty { padding: 44px 22px; }
+    .collection-empty__icon { width: 56px; height: 56px; margin-bottom: 16px; }
 }
