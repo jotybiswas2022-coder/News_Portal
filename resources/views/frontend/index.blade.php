@@ -269,21 +269,6 @@
         </div>
     </section>
 
-    <!-- ===== NEWSLETTER ===== -->
-    <section class="np-newsletter">
-        <div class="np-container">
-            <div class="np-newsletter-content">
-                <div class="np-newsletter-icon"><i class="bi bi-envelope-paper"></i></div>
-                <h2 class="np-newsletter-title">Subscribe to Our <span>Newsletter</span></h2>
-                <p class="np-newsletter-text">Get daily news delivered straight to your inbox. Stay informed with the stories that matter.</p>
-                <form class="np-newsletter-form" onsubmit="handleSubscribe(event)">
-                    <input type="email" placeholder="Enter your email address" required>
-                    <button type="submit">Subscribe <i class="bi bi-send"></i></button>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== STATS ===== -->
     <div class="np-stats">
         <div class="np-container">
@@ -395,18 +380,6 @@
         if (window.scrollY > 400) btn.classList.add('visible');
         else btn.classList.remove('visible');
     });
-
-    function handleSubscribe(e) {
-        e.preventDefault();
-        const input = e.target.querySelector('input');
-        const email = input.value;
-        const msg = document.createElement('div');
-        msg.className = 'np-alert-bar';
-        msg.innerHTML = '<i class="bi bi-check-circle"></i> Thank you for subscribing! You will receive daily news at ' + email;
-        document.body.insertBefore(msg, document.body.firstChild);
-        input.value = '';
-        setTimeout(() => { msg.style.opacity = '0'; msg.style.transition = 'opacity 0.5s'; setTimeout(() => msg.remove(), 500); }, 4000);
-    }
 
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -1077,51 +1050,6 @@
     }
     /* ===== END CATEGORIES REDESIGN ===== */
 
-    .np-newsletter {
-        padding: 70px 0;
-        background: var(--np-dark-2);
-        position: relative;
-        overflow: hidden;
-    }
-    .np-newsletter-content { max-width: 600px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
-    .np-newsletter-icon { width: 64px; height: 64px; margin: 0 auto 20px; background: rgba(211,47,47,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--np-red); }
-    .np-newsletter-title { font-family: var(--font-headline); font-size: 32px; font-weight: 800; color: var(--np-white); margin-bottom: 12px; }
-    .np-newsletter-title span { color: var(--np-red); }
-    .np-newsletter-text { color: var(--np-text-dim); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
-    .np-newsletter-form { display: flex; justify-content: center; gap: 0; max-width: 480px; margin: 0 auto; }
-    .np-newsletter-form input {
-        flex: 1;
-        min-width: 0;
-        width: 100%;
-        padding: 14px 18px;
-        border: 1px solid var(--np-border);
-        background: rgba(255,255,255,0.03);
-        color: var(--np-text);
-        font-size: 14px;
-        outline: none;
-        transition: border-color 0.3s;
-        font-family: var(--font-ui);
-    }
-    .np-newsletter-form input::placeholder { color: var(--np-text-muted); }
-    .np-newsletter-form input:focus { border-color: rgba(211,47,47,0.3); }
-    .np-newsletter-form button {
-        padding: 14px 24px;
-        background: var(--np-red);
-        color: var(--np-white);
-        border: 1px solid var(--np-red);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 13px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-family: var(--font-ui);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .np-newsletter-form button:hover { background: var(--np-red-dark); border-color: var(--np-red-dark); }
-
     .np-stats { padding: 50px 0; background: var(--np-dark-1); border-top: 1px solid var(--np-border); border-bottom: 1px solid var(--np-border); }
     .np-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
     @media (max-width: 768px) { .np-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } .np-stat-label { letter-spacing: 1px; } }
@@ -1181,11 +1109,6 @@
         .np-featured-meta { flex-wrap: wrap; gap: 6px 12px; }
         .np-side-link { padding: 12px; gap: 10px; }
         .np-side-media { width: 84px; min-width: 84px; height: 68px; }
-        .np-newsletter { padding: 48px 0; }
-        .np-newsletter-title { font-size: 24px; }
-        .np-newsletter-text { font-size: 13px; }
-        .np-newsletter-form { flex-direction: column; gap: 10px; }
-        .np-newsletter-form button { width: 100%; justify-content: center; }
         .np-stats { padding: 36px 0; }
         .np-stat { padding: 10px 6px; }
         .np-stat-num { font-size: 28px; }
@@ -1198,7 +1121,6 @@
         .np-hero-slider { height: 320px; }
         .np-hero-title { font-size: 22px; }
         .np-section-title { font-size: 22px; }
-        .np-newsletter-title { font-size: 20px; }
     }
 </style>
 
