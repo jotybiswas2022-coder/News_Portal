@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification | News Portal</title>
+    <style>
+        html { overflow-x: hidden; max-width: 100%; }
+        body { overflow-x: hidden; max-width: 100%; margin: 0; padding: 0; }
+        img, video, iframe, embed, object { max-width: 100%; }
+        h1, h2, h3, h4, h5, h6, p, a, span, li, td, th { overflow-wrap: break-word; word-break: break-word; }
+    </style>
+</head>
+<body>
 <!-- ===== NEWS PORTAL DARK — EMAIL VERIFICATION PAGE ===== -->
 
 <div class="np-dark-wrap">
@@ -858,9 +872,14 @@
 
     .np-dark-foot i { color: var(--np-red); font-size: 9px; margin-right: 3px; opacity: 0.6; }
 
+    @media (max-width: 991px) {
+        .np-dark-wrap { padding: 64px 16px 20px; }
+        .np-dark-card { width: 100%; }
+    }
+
     @media (max-width: 576px) {
-        .np-dark-wrap { padding: 60px 10px 16px; }
-        .np-dark-head { padding: 30px 20px 16px; }
+        .np-dark-wrap { padding: 52px 12px 16px; }
+        .np-dark-head { padding: 28px 20px 16px; }
         .np-dark-body { padding: 20px 20px 24px; }
         .np-dark-title { font-size: 26px; }
         .np-dark-icon-ring { width: 56px; height: 56px; }
@@ -872,13 +891,21 @@
         .np-live-feed { height: 26px; }
         .np-feed-track { font-size: 10px; }
         .np-float-particle, .np-orb { display: none; }
+        .np-dark-or-text { white-space: normal; text-align: center; }
+        .np-dark-status { flex-wrap: wrap; gap: 4px 8px; }
+        .np-dark-status-sep { display: none; }
+        .np-dark-foot span { letter-spacing: 0.3px; }
     }
 
     @media (max-width: 380px) {
-        .np-dark-head { padding: 24px 16px 14px; }
+        .np-dark-head { padding: 22px 16px 14px; }
         .np-dark-body { padding: 16px 16px 20px; }
         .np-dark-title { font-size: 22px; }
         .np-dark-sub { font-size: 10px; letter-spacing: 2px; }
         .np-dark-btn { padding: 13px 20px; font-size: 13px; }
+        .np-dark-reg-btn { padding: 10px 22px; font-size: 11px; }
+        .np-dark-foot { padding: 10px 16px; }
     }
 </style>
+</body>
+</html>
