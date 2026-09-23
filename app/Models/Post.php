@@ -4,21 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Post extends Model
 {
-    protected $fillable = [
-        'name',
+     protected $fillable = [
+        'title',
         'category_id',
-        'base_price',
-        'price',
-        'discount',
-        'stock',
         'details',
         'status',
-        'image'
+        'file'
     ];
 
-    public function ProductCategory()
+    public function PostCategory()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }

@@ -1,135 +1,313 @@
-@php
-    /* On the homepage the in-page anchors are handled by brand.js (smooth scroll
-       with sticky-header offset). On every other page we send the visitor back
-       to the matching homepage section. */
-    $navPrefix = request()->is('/') ? '' : url('/');
-    $bagCount  = function_exists('cart') ? cart() : 0;
-@endphp
+<!-- ===== NEWS PORTAL DARK — NAVBAR ===== -->
+<nav class="np-navbar">
+    <div class="np-nav-inner">
+        <a class="np-nav-brand" href="{{ url('/') }}">
+            <i class="bi bi-newspaper"></i>
+            <span>News <span class="np-brand-red">Portal</span></span>
+        </a>
 
-<a class="skip-link" href="#main">Skip to content</a>
+        <button class="np-nav-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#npNav" aria-controls="npNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="np-toggler-bar"></span>
+            <span class="np-toggler-bar"></span>
+            <span class="np-toggler-bar"></span>
+        </button>
 
-<header class="site-header" data-header>
-    <div class="brand-container">
-        <div class="nav">
-
-            {{-- Mobile: hamburger --}}
-            <button class="icon-btn nav__toggle" type="button"
-                    data-nav-toggle aria-expanded="false" aria-controls="primary-drawer"
-                    aria-label="Open navigation menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-                    <path d="M3 6h18M3 12h18M3 18h18"/>
-                </svg>
-            </button>
-
-            {{-- Brand --}}
-            <a class="brand" href="{{ url('/') }}" aria-label="Esha's Rokomaris 2 — home">
-                <span class="brand__mark" aria-hidden="true">ER</span>
-                <span class="brand__name">Esha's Rokomaris 2</span>
-            </a>
-
-            {{-- Centre navigation --}}
-            <ul class="nav__links" aria-label="Primary navigation">
-                <li><a class="nav__link {{ request()->is('/') ? 'is-active' : '' }}" href="{{ url('/') }}">Home</a></li>
-                <li><a class="nav__link" href="{{ $navPrefix }}#products">Shop</a></li>
-                <li><a class="nav__link" href="{{ $navPrefix }}#about">About</a></li>
-                <li><a class="nav__link" href="{{ $navPrefix }}#contact">Contact</a></li>
+        <div class="np-nav-collapse" id="npNav">
+            <ul class="np-nav-links">
+                <li class="np-nav-item">
+                    <a class="np-nav-link {{ request()->is('/') ? 'np-active' : '' }}" href="{{ url('/') }}">
+                        <i class="bi bi-house-door"></i> Home
+                    </a>
+                </li>
 
                 @auth
-                    <li>
-                        <a class="nav__link {{ request()->is('orders*') ? 'is-active' : '' }}" href="{{ url('/orders') }}">My Orders</a>
-                    </li>
                     @if(auth()->user()->is_admin == 1)
-                        <li>
-                            <a class="nav__link nav__link--admin {{ request()->is('admin*') ? 'is-active' : '' }}"
-                               href="{{ url('/admin') }}">Admin Panel</a>
-                        </li>
+                    <li class="np-nav-item">
+                        <a class="np-nav-link {{ request()->is('admin') ? 'np-active' : '' }}" href="{{ url('/admin') }}">
+                            <i class="bi bi-speedometer2"></i> Admin Panel
+                        </a>
+                    </li>
                     @endif
-                    <li>
-                        <form action="{{ route('logout') }}" method="POST">
+                    <li class="np-nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <button class="nav__link nav__link--logout" type="submit">Logout</button>
+                            <button type="submit" class="np-nav-link np-nav-logout">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </button>
                         </form>
                     </li>
                 @else
-                    <li>
-                        <a class="nav__link {{ request()->is('login') ? 'is-active' : '' }}" href="{{ url('/login') }}">Login</a>
+                    <li class="np-nav-item">
+                        <a class="np-nav-link {{ request()->is('login') ? 'np-active' : '' }}" href="{{ url('/login') }}">
+                            <i class="bi bi-person-circle"></i> Login
+                        </a>
                     </li>
-                    <li>
-                        <a class="nav__link nav__link--auth {{ request()->is('register') ? 'is-active' : '' }}" href="{{ url('/register') }}">Register</a>
+                    <li class="np-nav-item">
+                        <a class="np-nav-link np-nav-register" href="{{ url('/register') }}">
+                            <i class="bi bi-person-plus"></i> Register
+                        </a>
                     </li>
                 @endauth
             </ul>
-
-            {{-- Right actions --}}
-            <div class="nav__actions">
-                <button class="icon-btn" type="button"
-                        data-search-toggle aria-expanded="false" aria-controls="search-panel"
-                        aria-label="Search products">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-                        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
-                    </svg>
-                </button>
-
-                <a class="icon-btn" href="{{ url('/cart') }}" aria-label="Shopping bag, {{ $bagCount }} item(s)">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
-                    </svg>
-                    @if($bagCount > 0)
-                        <span class="icon-btn__badge">{{ $bagCount }}</span>
-                    @endif
-                </a>
-
-                <a class="icon-btn icon-btn--social" href="https://instagram.com/eshas_rokomaris2" target="_blank" rel="noopener"
-                   aria-label="Esha's Rokomaris 2 on Instagram">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                    </svg>
-                </a>
-            </div>
-
         </div>
     </div>
+</nav>
 
-    {{-- Collapsible search --}}
-    <div class="search-panel" id="search-panel" data-search-panel>
-        <div class="brand-container">
-            <form action="{{ url('/search') }}" method="GET" role="search">
-                <label class="sr-only" for="site-search">Search products</label>
-                <input id="site-search" type="search" name="q" placeholder="Search for a piece or a category…" required>
-                <button class="btn" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-    {{-- Mobile drawer --}}
-    <div class="nav__drawer" id="primary-drawer" data-nav-drawer>
-        <ul>
-            <li><a href="{{ url('/') }}">Home</a></li>
-            <li><a href="{{ $navPrefix }}#products">Shop</a></li>
-            <li><a href="{{ $navPrefix }}#about">About</a></li>
-            <li><a href="{{ $navPrefix }}#contact">Contact</a></li>
+    :root {
+        --np-dark-1: #0a0a0f;
+        --np-dark-2: #111118;
+        --np-dark-3: #1a1a24;
+        --np-dark-4: #242430;
+        --np-red: #D32F2F;
+        --np-red-dark: #B71C1C;
+        --np-white: #FFFFFF;
+        --np-text: #d0d0d8;
+        --np-text-dim: #8888a0;
+        --np-text-muted: #555568;
+        --np-border: rgba(255,255,255,0.06);
+        --font-headline: 'Playfair Display', Georgia, serif;
+        --font-ui: 'Inter', Arial, sans-serif;
+    }
 
-            @auth
-                @if(auth()->user()->is_admin == 1)
-                    <li><a href="{{ url('/admin') }}">Admin Panel</a></li>
-                @endif
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-                <li>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button class="drawer-logout" type="submit">Logout</button>
-                    </form>
-                </li>
-            @endauth
+    body {
+        font-family: var(--font-ui);
+        color: var(--np-text);
+        background: var(--np-dark-1);
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding-top: 56px;
+    }
 
-            <li>
-                @auth
-                    <a href="{{ url('/orders') }}">My Orders</a>
-                @else
-                    <a href="{{ url('/login') }}">Sign In</a>
-                    <a href="{{ url('/register') }}">Create Account</a>
-                @endauth
-            </li>
-        </ul>
-    </div>
-</header>
+    .np-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1050;
+        background: rgba(10, 10, 15, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--np-border);
+        height: 56px;
+    }
+
+    .np-nav-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        min-width: 0;
+    }
+
+    .np-nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-headline);
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--np-white);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+        transition: color 0.3s;
+        white-space: nowrap;
+        min-width: 0;
+    }
+
+    .np-nav-brand:hover {
+        color: var(--np-white);
+    }
+
+    .np-nav-brand i {
+        font-size: 22px;
+        color: var(--np-red);
+        filter: drop-shadow(0 0 6px rgba(211,47,47,0.3));
+    }
+
+    .np-brand-red {
+        color: var(--np-red);
+        text-shadow: 0 0 20px rgba(211,47,47,0.2);
+    }
+
+    .np-nav-toggler {
+        display: none;
+        background: none;
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 6px 10px;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .np-toggler-bar {
+        width: 22px;
+        height: 2px;
+        background: var(--np-text);
+        transition: all 0.3s;
+    }
+
+    .np-nav-collapse {
+        display: flex;
+    }
+
+    .np-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .np-nav-item {
+        margin: 0;
+    }
+
+    .np-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--np-text-dim);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        position: relative;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: var(--font-ui);
+    }
+
+    .np-nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--np-red);
+        transition: width 0.3s ease;
+        border-radius: 1px;
+    }
+
+    .np-nav-link:hover {
+        color: var(--np-white);
+    }
+
+    .np-nav-link:hover::after {
+        width: 60%;
+    }
+
+    .np-nav-link i {
+        font-size: 15px;
+        transition: transform 0.3s;
+    }
+
+    .np-nav-link:hover i {
+        transform: translateY(-1px);
+    }
+
+    .np-active {
+        color: var(--np-white) !important;
+    }
+
+    .np-active::after {
+        width: 60% !important;
+    }
+
+    .np-nav-logout:hover {
+        color: var(--np-red) !important;
+    }
+
+    .np-nav-logout:hover::after {
+        background: var(--np-red);
+    }
+
+    .np-nav-register {
+        background: rgba(211, 47, 47, 0.1) !important;
+        border: 1px solid rgba(211, 47, 47, 0.15) !important;
+        color: var(--np-red) !important;
+        padding: 8px 20px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .np-nav-register:hover {
+        background: var(--np-red) !important;
+        color: var(--np-white) !important;
+        border-color: var(--np-red) !important;
+        box-shadow: 0 4px 15px rgba(211,47,47,0.3);
+    }
+
+    .np-nav-register::after {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        .np-nav-toggler {
+            display: flex;
+        }
+
+        .np-nav-brand {
+            font-size: 19px;
+        }
+
+        .np-nav-collapse {
+            display: none;
+            position: absolute;
+            top: 56px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.98);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--np-border);
+            padding: 12px 20px;
+            max-height: calc(100vh - 56px);
+            overflow-y: auto;
+        }
+
+        .np-nav-collapse.show {
+            display: block;
+        }
+
+        .np-nav-links {
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .np-nav-link {
+            padding: 12px 16px;
+            width: 100%;
+        }
+
+        .np-nav-register {
+            text-align: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggler = document.querySelector('.np-nav-toggler');
+        const collapse = document.querySelector('.np-nav-collapse');
+        if (toggler && collapse) {
+            toggler.addEventListener('click', () => {
+                collapse.classList.toggle('show');
+            });
+        }
+    });
+</script>

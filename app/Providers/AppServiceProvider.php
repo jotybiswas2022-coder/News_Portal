@@ -24,10 +24,6 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $carts = collect();
 
-            if (Auth::check()) {
-                $carts = Cart::where('user_id', Auth::id())->get();
-            }
-
             $view->with('carts', $carts);
         });
     }

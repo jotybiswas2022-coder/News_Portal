@@ -1,508 +1,1205 @@
 @extends('frontend.app')
 
-@section('title', "ESHA'S ROKOMARIS 2 — Women's Fashion Boutique")
-@section('meta_description', 'Discover thoughtfully selected women\'s fashion pieces designed to bring effortless style into your everyday wardrobe.')
+@section('title', 'Home')
 
 @section('content')
 
-@php
-    use App\Models\Slider;
-    use App\Models\Setting;
-    use Illuminate\Support\Str;
-
-    $slider  = Slider::latest()->first();
-    $contact = Setting::first();
-
-    /* -----------------------------------------------------------------------
-       Placeholder imagery — only used when real product/slider images are not
-       available yet. Upload real images from the admin panel and every section
-       keeps working untouched.
-       ----------------------------------------------------------------------- */
-    $heroFallback = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1100&q=80';
-
-    /* Collection cards are built straight from the products stored in the
-       backend, so anything added in the admin panel shows up here. */
-    $cardProducts = collect($products ?? []);
-    $cards        = $cardProducts->map(fn ($product) => product_card($product));
-
-    /* Hero imagery comes from the backend "Manage Sliders" page:
-       slider1 is the wide/desktop shot, slider2 the portrait/mobile shot.
-       Both images rotate in the hero section every 5 seconds.
-       The placeholder only fills the gap until something is uploaded. */
-    $slider1Url = $slider && $slider->slider1 ? config('app.storage_url') . $slider->slider1 : null;
-    $slider2Url = $slider && $slider->slider2 ? config('app.storage_url') . $slider->slider2 : null;
-
-    /* Which frame shape the hero should use, based on what has been uploaded.
-       "both"     → the wide desktop shot and the portrait mobile shot each get
-                    their own shape on the matching screen.
-       "only one" → that single image is reused everywhere, so the frame takes
-                    the shape it was uploaded in. */
-    $frameDevice = !$slider1Url && !$slider2Url
-        ? 'fallback'
-        : (!$slider1Url ? 'mobile-only' : (!$slider2Url ? 'desktop-only' : 'both'));
-
-    /* Image for the "Our Promise" band. A shot uploaded on the sliders page
-       (about_image) wins; otherwise the newest real product photo is used, and
-       the editorial placeholder only fills the gap while nothing exists. */
-    $newestProductImage = $cardProducts->first()?->image
-        ? config('app.storage_url') . $cardProducts->first()->image
-        : null;
-
-    $promiseImage = $slider && $slider->about_image
-        ? config('app.storage_url') . $slider->about_image
-        : ($newestProductImage ?? $heroFallback);
-
-    $instagramHandle = $contact?->contact_instagram ?: 'eshas_rokomaris2';
-    $instagramUrl    = 'https://instagram.com/' . ltrim($instagramHandle, '@');
-@endphp
-
-{{-- ==================================================== ANNOUNCEMENT BAR --}}
-<div class="announce" role="region" aria-label="Store highlights">
-    <div class="brand-container">
-        <div class="announce__inner">
-            <p class="announce__item">Handpicked pieces</p>
-            <p class="announce__item">Nationwide delivery</p>
-            <p class="announce__item">Personal styling help</p>
-        </div>
-    </div>
+@if(session('success'))
+<div class="np-alert-bar">
+    <i class="bi bi-check-circle"></i> {{ session('success') }}
 </div>
-
-{{-- ============================================================ HERO --}}
-<section class="hero" id="hero">
-    <span class="hero__blob hero__blob--rose" aria-hidden="true"></span>
-    <span class="hero__blob hero__blob--sage" aria-hidden="true"></span>
-    <span class="hero__blob hero__blob--gold" aria-hidden="true"></span>
-
-    <div class="brand-container">
-        <div class="hero__inner">
-
-            <div class="hero__content">
-                <span class="eyebrow reveal">Esha's Rokomaris 2</span>
-
-                <h1 class="hero__title reveal">Find Your <em>Perfect</em> Match</h1>
-
-                <p class="hero__text reveal">
-                    Discover thoughtfully selected fashion pieces designed to bring
-                    effortless style into your everyday wardrobe.
-                </p>
-
-                <div class="hero__actions reveal">
-                    <a class="btn" href="#products">Shop Collection</a>
-                    <a class="btn btn--ghost" href="#about">Explore More</a>
-                </div>
-
-                <ul class="hero__proof reveal">
-                    <li>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
-                        Handpicked pieces
-                    </li>
-                    <li>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
-                        Nationwide delivery
-                    </li>
-                    <li>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
-                        Styling help
-                    </li>
-                </ul>
-            </div>
-
-            <div class="hero__media">
-                <figure class="hero__frame hero__frame--{{ $frameDevice }}">
-                    <div class="hero__slides" id="heroSlides">
-                        {{-- slider1 — desktop / tablet (wide) --}}
-                        @if($slider1Url)
-                            <div class="hero__slide hero__slide--desktop" data-device="desktop">
-                                <img src="{{ $slider1Url }}"
-                                     alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                                     width="1600" height="1000" loading="lazy" decoding="async">
-                            </div>
-                        @endif
-                        {{-- slider2 — mobile (portrait) --}}
-                        @if($slider2Url)
-                            <div class="hero__slide hero__slide--mobile" data-device="mobile">
-                                <img src="{{ $slider2Url }}"
-                                     alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                                     width="1000" height="1333" loading="lazy" decoding="async">
-                            </div>
-                        @endif
-                        @if(!$slider1Url && !$slider2Url)
-                            <div class="hero__slide hero__slide--fallback">
-                                <img src="{{ $heroFallback }}"
-                                     alt="Editorial fashion photograph from the Esha's Rokomaris 2 collection"
-                                     width="1100" height="1375" loading="lazy" decoding="async">
-                            </div>
-                        @endif
-                    </div>
-                </figure>
-
-                <div class="hero__tag">
-                    <span class="hero__tag-label">New Season</span>
-                    <span class="hero__tag-value">Soft pastel edit</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="hero__scroll" aria-hidden="true">
-        <span>Scroll</span>
-        <span class="hero__scroll-line"></span>
-    </div>
-</section>
-
-{{-- =========================================================== PROMISE --}}
-<section class="promise" id="about">
-    <div class="brand-container">
-        <div class="promise__inner">
-
-            <div class="promise__media reveal">
-                <img src="{{ $promiseImage }}"
-                     alt="A piece from the Esha's Rokomaris 2 collection"
-                     loading="lazy" decoding="async">
-            </div>
-
-            <div class="promise__body">
-                <span class="eyebrow reveal">Our Promise</span>
-
-                <h2 class="promise__title reveal">
-                    Soft, wearable pieces for real everyday moments
-                </h2>
-
-                <p class="promise__text reveal">
-                    A small studio curating soft, wearable pieces for real everyday moments —
-                    handpicked fabrics, honest pricing and a fit you can rely on.
-                </p>
-
-                <ul class="promise__list">
-                    <li class="promise__item reveal">
-                        <span class="promise__icon" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-                        </span>
-                        <div>
-                            <h3>Handpicked pieces</h3>
-                            <p>Every style is chosen in small batches, so the fabric, finish and fit are checked before it reaches you.</p>
-                        </div>
-                    </li>
-
-                    <li class="promise__item reveal">
-                        <span class="promise__icon" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
-                        </span>
-                        <div>
-                            <h3>Nationwide delivery</h3>
-                            <p>We deliver across Bangladesh, with everything packed with care and tracked from our studio to your door.</p>
-                        </div>
-                    </li>
-
-                    <li class="promise__item reveal">
-                        <span class="promise__icon" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/><path d="M12 7v5l3 2"/></svg>
-                        </span>
-                        <div>
-                            <h3>Personal styling help</h3>
-                            <p>Unsure about sizing or styling? Message us and we will happily help you find the right piece.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-{{-- ======================================================== CATEGORIES --}}
-@if($categories->isNotEmpty())
-<section class="cats" id="categories">
-    <div class="brand-container">
-
-        <div class="section-head cats__head reveal">
-            <span class="eyebrow">Browse</span>
-            <h2>Shop by Category</h2>
-            <p>Find your next favourite piece by the mood you are dressing for.</p>
-            <span class="deco-line" aria-hidden="true"></span>
-        </div>
-
-        <div class="cat-grid">
-            @foreach($categories as $category)
-                @php
-                    /* The preview image set on the admin category page wins;
-                       otherwise fall back to the category's newest product photo,
-                       then to the shared editorial placeholder. */
-                    $newestProduct = $category->products->first();
-                    $categoryCover = $category->image
-                        ? config('app.storage_url') . $category->image
-                        : ($newestProduct?->image
-                            ? config('app.storage_url') . $newestProduct->image
-                            : $heroFallback);
-                @endphp
-                <a class="cat-card reveal" href="{{ url('/search?category=' . $category->id) }}">
-                    <span class="cat-card__media">
-                        <img src="{{ $categoryCover }}"
-                             alt="{{ $category->name }}"
-                             loading="lazy" decoding="async">
-                    </span>
-                    <span class="cat-card__overlay" aria-hidden="true"></span>
-                    <span class="cat-card__body">
-                        <span class="cat-card__name">{{ $category->name }}</span>
-                        <span class="cat-card__count">
-                            {{ $category->products_count }} {{ Str::plural('piece', $category->products_count) }}
-                        </span>
-                    </span>
-                </a>
-            @endforeach
-        </div>
-
-    </div>
-</section>
 @endif
 
-{{-- ======================================================== PRODUCTS --}}
-<section class="section section--white" id="products">
-    <div class="brand-container">
+<div class="np-home-wrap">
 
-        <div class="section-head products__head reveal">
-            <span class="eyebrow">The Edit</span>
-            <h2>Featured Collection</h2>
-            <p>Pieces selected to make everyday style feel effortless.</p>
-            <span class="deco-line" aria-hidden="true"></span>
+    <!-- ===== HERO SLIDER ===== -->
+    <section class="np-hero-section">
+        <div class="np-hero-slider" id="heroSlider">
+            @if($slider && ($slider->slider1 || $slider->slider2))
+                @if($slider->slider1)
+                <div class="np-hero-slide active" data-index="0">
+                    <img src="{{ config('app.storage_url') }}{{ $slider->slider1 }}" alt="Breaking News">
+                    <div class="np-hero-overlay"></div>
+                    <div class="np-hero-content">
+                        <span class="np-hero-badge"><i class="bi bi-megaphone"></i> Breaking News</span>
+                        <h2 class="np-hero-title">Welcome to <span>News Portal</span></h2>
+                        <p class="np-hero-desc">Stay informed with the latest headlines, in-depth reports, and stories from around the world.</p>
+                        <a href="#latestNews" class="np-hero-btn">Read Latest News <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                @endif
+
+                @if($slider->slider2)
+                <div class="np-hero-slide {{ !$slider->slider1 ? 'active' : '' }}" data-index="{{ $slider->slider1 ? 1 : 0 }}">
+                    <img src="{{ config('app.storage_url') }}{{ $slider->slider2 }}" alt="Latest Updates">
+                    <div class="np-hero-overlay"></div>
+                    <div class="np-hero-content">
+                        <span class="np-hero-badge"><i class="bi bi-stars"></i> Latest Updates</span>
+                        <h2 class="np-hero-title">Discover <span>Latest Stories</span></h2>
+                        <p class="np-hero-desc">Explore breaking news, trending topics, and in-depth coverage from trusted sources.</p>
+                        <a href="#categories" class="np-hero-btn">Explore Categories <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                @endif
+            @else
+                <div class="np-hero-slide active">
+                    <div class="np-hero-placeholder">
+                        <div class="np-hero-content" style="position:relative;bottom:auto;left:auto;text-align:center;">
+                            <span class="np-hero-badge"><i class="bi bi-newspaper"></i> News Portal</span>
+                            <h2 class="np-hero-title">Welcome to <span>News Portal</span></h2>
+                            <p class="np-hero-desc">Your trusted source for the latest news, stories, and updates from around the world.</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <button class="np-hero-arrow np-hero-prev" onclick="changeSlide(-1)"><i class="bi bi-chevron-left"></i></button>
+            <button class="np-hero-arrow np-hero-next" onclick="changeSlide(1)"><i class="bi bi-chevron-right"></i></button>
+
+            <div class="np-hero-dots" id="slideDots">
+                @if($slider && ($slider->slider1 || $slider->slider2))
+                    @if($slider->slider1) <button class="np-hero-dot active" data-index="0" onclick="goToSlide(0)"></button> @endif
+                    @if($slider->slider2) <button class="np-hero-dot" data-index="{{ $slider->slider1 ? 1 : 0 }}" onclick="goToSlide({{ $slider->slider1 ? 1 : 0 }})"></button> @endif
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATEST NEWS ===== -->
+    <section class="np-section" id="latestNews">
+        <div class="np-container">
+            <div class="np-section-head">
+                <span class="np-section-label"><i class="bi bi-newspaper"></i> News Portal</span>
+                <h2 class="np-section-title">Latest <span>News</span></h2>
+                <div class="np-section-line">
+                    <span class="np-s-line"></span>
+                    <i class="bi bi-diamond-fill"></i>
+                    <span class="np-s-line"></span>
+                </div>
+                <p class="np-section-desc">Stay updated with the most recent news, stories, and reports from our newsroom</p>
+            </div>
+
+            <div class="np-news-grid" id="newsGrid">
+                @if(isset($posts) && $posts->count() > 0)
+                    @foreach($posts->take(6) as $index => $post)
+                    <article class="np-card" style="--card-delay: {{ $index * 0.08 }}s;">
+                        <a href="{{ url('/post/'.$post->id) }}" class="np-card-link">
+                            <div class="np-card-media">
+                                @php
+                                    $ext = strtolower(pathinfo($post->file, PATHINFO_EXTENSION));
+                                    $videoExt = ['mp4','webm','ogg','avi','mkv'];
+                                    $imgExt = ['jpg','jpeg','png','gif','webp'];
+                                    $isImage = in_array($ext, $imgExt);
+                                    $isVideo = in_array($ext, $videoExt);
+                                @endphp
+
+                                @if($post->file && $isImage)
+                                    <img src="{{ config('app.storage_url') }}{{ $post->file }}" alt="{{ $post->title }}" loading="lazy">
+                                @elseif($post->file && $isVideo)
+                                    <video muted><source src="{{ config('app.storage_url') }}{{ $post->file }}" type="video/mp4"></video>
+                                @else
+                                    <div class="np-card-no-media"><i class="bi bi-image"></i></div>
+                                @endif
+
+                                <div class="np-card-overlay">
+                                    <span class="np-card-read">Read Article <i class="bi bi-arrow-right"></i></span>
+                                </div>
+
+                                @if($post->PostCategory)
+                                <span class="np-card-cat">{{ $post->PostCategory->name ?? 'News' }}</span>
+                                @endif
+                            </div>
+                            <div class="np-card-body">
+                                <div class="np-card-meta">
+                                    <span><i class="bi bi-calendar3"></i> {{ \Carbon\Carbon::parse($post->created_at)->format('d M Y') }}</span>
+                                    <span><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($post->created_at)->format('h:i A') }}</span>
+                                </div>
+                                <h3 class="np-card-title">{{ $post->title }}</h3>
+                                <p class="np-card-excerpt">{{ \Illuminate\Support\Str::limit(strip_tags($post->details ?? ''), 120) }}</p>
+                            </div>
+                        </a>
+                    </article>
+                    @endforeach
+                @else
+                    <div class="np-empty">
+                        <div class="np-empty-icon"><i class="bi bi-newspaper"></i></div>
+                        <h4>No News Articles Yet</h4>
+                        <p>Check back soon for the latest updates and breaking stories.</p>
+                    </div>
+                @endif
+            </div>
+
+            @if(isset($posts) && $posts->count() > 0)
+            <div class="np-view-all">
+                <a href="#categories" class="np-btn-outline">Browse Categories <i class="bi bi-arrow-right"></i></a>
+            </div>
+            @endif
+        </div>
+    </section>
+
+    <!-- ===== FEATURED STORY ===== -->
+    @if(isset($posts) && $posts->count() >= 2)
+    @php $featured = $posts->sortByDesc('created_at')->first(); @endphp
+    <section class="np-featured">
+        <div class="np-container">
+            <div class="np-featured-grid">
+                <div class="np-featured-main">
+                    <div class="np-featured-media">
+                        @php
+                            $fExt = strtolower(pathinfo($featured->file, PATHINFO_EXTENSION));
+                            $fImgExt = ['jpg','jpeg','png','gif','webp'];
+                            $fIsImage = in_array($fExt, $fImgExt);
+                        @endphp
+                        @if($featured->file && $fIsImage)
+                            <img src="{{ config('app.storage_url') }}{{ $featured->file }}" alt="{{ $featured->title }}" loading="lazy">
+                        @else
+                            <div class="np-featured-placeholder"><i class="bi bi-image"></i></div>
+                        @endif
+                        <div class="np-featured-overlay"></div>
+                        <div class="np-featured-text">
+                            <span class="np-featured-badge"><i class="bi bi-star-fill"></i> Featured Story</span>
+                            <h2><a href="{{ url('/post/'.$featured->id) }}">{{ $featured->title }}</a></h2>
+                            <p>{{ \Illuminate\Support\Str::limit(strip_tags($featured->details ?? ''), 180) }}</p>
+                            <div class="np-featured-meta">
+                                <span><i class="bi bi-calendar3"></i> {{ \Carbon\Carbon::parse($featured->created_at)->format('d M Y') }}</span>
+                                <span><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($featured->created_at)->format('h:i A') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="np-featured-side">
+                    @foreach($posts->skip(1)->take(3) as $sidePost)
+                    <div class="np-side-card">
+                        <a href="{{ url('/post/'.$sidePost->id) }}" class="np-side-link">
+                            <div class="np-side-media">
+                                @php
+                                    $sExt = strtolower(pathinfo($sidePost->file, PATHINFO_EXTENSION));
+                                    $sImgExt = ['jpg','jpeg','png','gif','webp'];
+                                    $sIsImage = in_array($sExt, $sImgExt);
+                                @endphp
+                                @if($sidePost->file && $sIsImage)
+                                    <img src="{{ config('app.storage_url') }}{{ $sidePost->file }}" alt="{{ $sidePost->title }}" loading="lazy">
+                                @else
+                                    <div class="np-featured-placeholder" style="height:100%;min-height:80px;"><i class="bi bi-image"></i></div>
+                                @endif
+                            </div>
+                            <div class="np-side-text">
+                                <h4>{{ $sidePost->title }}</h4>
+                                <span class="np-side-date"><i class="bi bi-calendar3"></i> {{ \Carbon\Carbon::parse($sidePost->created_at)->format('d M Y') }}</span>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="np-section np-categories" id="categories">
+        <!-- Decorative background elements -->
+        <div class="np-cat-bg-decor">
+            <span class="np-cat-circle np-cat-c1"></span>
+            <span class="np-cat-circle np-cat-c2"></span>
+            <span class="np-cat-circle np-cat-c3"></span>
         </div>
 
-        @if($cards->isEmpty())
-            <div class="collection-empty reveal">
-                <p class="collection-empty__title">The new collection is on its way.</p>
-                <p class="collection-empty__text">
-                    Follow us on Instagram to be the first to see the next drop.
-                </p>
-                <a class="link-arrow" href="{{ $instagramUrl }}" target="_blank" rel="noopener">
-                    Follow Along
-                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                        <path d="M0 5h16M12 1l4 4-4 4"/>
-                    </svg>
-                </a>
+        <div class="np-container">
+            <div class="np-section-head">
+                <span class="np-section-label"><i class="bi bi-grid"></i> Browse</span>
+                <h2 class="np-section-title">News <span>Categories</span></h2>
+                <div class="np-section-line">
+                    <span class="np-s-line"></span>
+                    <i class="bi bi-diamond-fill"></i>
+                    <span class="np-s-line"></span>
+                </div>
+                <p class="np-section-desc">Explore news by category — find the stories that matter to you</p>
             </div>
-        @else
-            <div class="product-grid">
-                @foreach($cards as $card)
-                    @include('frontend.partials.product-card', ['card' => $card])
+
+            @php
+                $catAccents = ['#D32F2F', '#1976D2', '#388E3C', '#F57C00', '#7B1FA2', '#0097A7', '#C2185B', '#689F38'];
+                $catIcons = ['bi-collection', 'bi-bookmark', 'bi-camera', 'bi-mic', 'bi-globe2', 'bi-brightness-high', 'bi-heart', 'bi-star'];
+                $catGradients = [
+                    'linear-gradient(135deg, #D32F2F, #B71C1C)',
+                    'linear-gradient(135deg, #1976D2, #0D47A1)',
+                    'linear-gradient(135deg, #388E3C, #1B5E20)',
+                    'linear-gradient(135deg, #F57C00, #E65100)',
+                    'linear-gradient(135deg, #7B1FA2, #4A148C)',
+                    'linear-gradient(135deg, #0097A7, #006064)',
+                    'linear-gradient(135deg, #C2185B, #880E4F)',
+                    'linear-gradient(135deg, #689F38, #33691E)',
+                ];
+            @endphp
+
+            <div class="np-cat-grid">
+                @foreach($categories as $index => $category)
+                @php
+                    $ci = $index % count($catAccents);
+                    $accent = $catAccents[$ci];
+                    $icon = $catIcons[$ci];
+                    $gradient = $catGradients[$ci];
+                    $postCount = $category->posts_count ?? 0;
+                @endphp
+                <a href="{{ url('category/'.$category->id) }}" class="np-cat-card" style="--cat-accent: {{ $accent }}; --cat-gradient: {{ $gradient }}; --card-delay: {{ $index * 0.08 }}s;">
+                    <div class="np-cat-top-border"></div>
+                    <div class="np-cat-card-inner">
+                        <div class="np-cat-icon-wrap">
+                            <div class="np-cat-icon-bg">
+                                <i class="bi {{ $icon }}"></i>
+                            </div>
+                            @if($postCount > 0)
+                            <span class="np-cat-count">{{ $postCount }}</span>
+                            @endif
+                        </div>
+                        <div class="np-cat-body">
+                            <h3 class="np-cat-name">{{ $category->name }}</h3>
+                            <p class="np-cat-desc">{{ $category->description ?? 'Latest news and reports' }}</p>
+                        </div>
+                        <div class="np-cat-footer">
+                            <span class="np-cat-action">
+                                Explore
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
                 @endforeach
             </div>
+        </div>
+    </section>
 
-            <div class="products__foot reveal">
-                <a class="btn btn--ghost" href="{{ url('/search') }}">
-                    View All Products
-                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                        <path d="M0 5h16M12 1l4 4-4 4"/>
-                    </svg>
-                </a>
+    <!-- ===== NEWSLETTER ===== -->
+    <section class="np-newsletter">
+        <div class="np-container">
+            <div class="np-newsletter-content">
+                <div class="np-newsletter-icon"><i class="bi bi-envelope-paper"></i></div>
+                <h2 class="np-newsletter-title">Subscribe to Our <span>Newsletter</span></h2>
+                <p class="np-newsletter-text">Get daily news delivered straight to your inbox. Stay informed with the stories that matter.</p>
+                <form class="np-newsletter-form" onsubmit="handleSubscribe(event)">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe <i class="bi bi-send"></i></button>
+                </form>
             </div>
-        @endif
+        </div>
+    </section>
 
-    </div>
-</section>
-
-{{-- =========================================================== FOLLOW --}}
-<section class="follow">
-    <div class="brand-container">
-        <div class="follow__inner">
-            <span class="follow__icon reveal" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="5"/>
-                    <circle cx="12" cy="12" r="4"/>
-                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                </svg>
-            </span>
-
-            <h2 class="follow__title reveal">Follow Along</h2>
-
-            <p class="follow__text reveal">
-                New drops, styling notes and behind-the-scenes moments — shared first on Instagram.
-            </p>
-
-            <div class="follow__actions reveal">
-                <a class="btn follow__btn" href="{{ $instagramUrl }}" target="_blank" rel="noopener">
-                    {{ '@' . ltrim($instagramHandle, '@') }}
-                </a>
+    <!-- ===== STATS ===== -->
+    <div class="np-stats">
+        <div class="np-container">
+            <div class="np-stats-grid">
+                <div class="np-stat">
+                    <div class="np-stat-icon"><i class="bi bi-newspaper"></i></div>
+                    <div class="np-stat-num" data-count="{{ $posts ? $posts->count() : 0 }}">{{ $posts ? $posts->count() : 0 }}</div>
+                    <div class="np-stat-label">Published Articles</div>
+                </div>
+                <div class="np-stat">
+                    <div class="np-stat-icon"><i class="bi bi-collection"></i></div>
+                    <div class="np-stat-num" data-count="{{ $categories->count() }}">{{ $categories->count() }}</div>
+                    <div class="np-stat-label">News Categories</div>
+                </div>
+                <div class="np-stat">
+                    <div class="np-stat-icon"><i class="bi bi-people"></i></div>
+                    <div class="np-stat-num" data-count="24">24</div>
+                    <div class="np-stat-label">Team Members</div>
+                </div>
+                <div class="np-stat">
+                    <div class="np-stat-icon"><i class="bi bi-globe2"></i></div>
+                    <div class="np-stat-num" data-count="7">7</div>
+                    <div class="np-stat-label">Days a Week</div>
+                </div>
             </div>
         </div>
     </div>
-</section>
 
-{{-- ========================================================= CONTACT --}}
-<section class="section section--blush" id="contact">
-    <div class="brand-container">
-        <div class="contact__inner">
+    <!-- ===== SCROLL TOP ===== -->
+    <button class="np-scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="bi bi-arrow-up"></i>
+    </button>
 
-            <div class="contact__head">
-                <span class="eyebrow reveal">Say Hello</span>
-                <h2 class="reveal">Let's Connect</h2>
-                <p class="reveal">
-                    Have a question about our collection, sizing, or an order?
-                    We'd love to hear from you.
-                </p>
-
-                <ul class="contact-list">
-                    @if($contact?->contact_instagram)
-                        <li class="contact-item reveal">
-                            <span class="contact-item__icon" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                                    <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="contact-item__label">Instagram</span>
-                                <a class="contact-item__value" href="{{ $instagramUrl }}" target="_blank" rel="noopener">{{ $contact->contact_instagram }}</a>
-                            </span>
-                        </li>
-                    @endif
-
-                    @if($contact?->contact_facebook)
-                        <li class="contact-item reveal">
-                            <span class="contact-item__icon" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="contact-item__label">Facebook</span>
-                                <a class="contact-item__value" href="{{ $contact->contact_facebook }}" target="_blank" rel="noopener">Eshas rokomaris 2</a>
-                            </span>
-                        </li>
-                    @endif
-
-                    @if($contact?->contact_phone)
-                        <li class="contact-item reveal">
-                            <span class="contact-item__icon" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-                                    <path d="M6 3h3l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/>
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="contact-item__label">Phone</span>
-                                <a class="contact-item__value" href="tel:{{ preg_replace('/\s+/', '', $contact->contact_phone) }}">{{ $contact->contact_phone }}</a>
-                            </span>
-                        </li>
-                    @endif
-
-                    @if($contact?->contact_email)
-                        <li class="contact-item reveal">
-                            <span class="contact-item__icon" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                                    <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="contact-item__label">Email</span>
-                                <a class="contact-item__value" href="mailto:{{ $contact->contact_email }}">{{ $contact->contact_email }}</a>
-                            </span>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-
-            <form class="contact-form reveal" action="{{ url('/contactus') }}" method="POST" data-contact-form>
-                @csrf
-
-                <h3 class="contact-form__title">Send us a Message</h3>
-                <p class="contact-form__sub">Fill in the form and we'll get back to you shortly.</p>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="contact-name">Name <span class="req">*</span></label>
-                        <input class="form-control" type="text" id="contact-name" name="name"
-                               placeholder="Your full name" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="contact-email">Email <span class="req">*</span></label>
-                        <input class="form-control" type="email" id="contact-email" name="email"
-                               placeholder="you@example.com" required>
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="contact-message">Message <span class="req">*</span></label>
-                    <textarea class="form-control" id="contact-message" name="message"
-                              placeholder="Tell us how we can help…" required></textarea>
-                </div>
-
-                <button class="btn" type="submit" data-submit-label="Send Message">Send Message</button>
-
-                <p class="form-note">We usually reply within one working day.</p>
-            </form>
-
-        </div>
-    </div>
-</section>
+</div>
 
 @include('frontend.partials.footer')
 
-@endsection
-
-@section('scripts')
 <script>
-    /*
-     * Hero slider rotation.
-     *
-     * The admin "Manage Sliders" page stores two images — slider1 for
-     * desktop/tablet and slider2 for mobile. Both are printed in the markup and
-     * CSS hides the one that does not belong to the current screen, so here we
-     * only rotate through the slides that are actually being shown. Rotation is
-     * restarted whenever the visitor crosses the mobile breakpoint, and disabled
-     * entirely for visitors who prefer reduced motion.
-     */
-    (function () {
-        var frame = document.getElementById('heroSlides');
-        if (!frame) return;
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.querySelector('.np-page-loader');
+            if (loader) loader.classList.add('np-hidden');
+        }, 500);
+    });
 
-        var mobileQuery = window.matchMedia('(max-width: 767px)');
-        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var allSlides = Array.prototype.slice.call(frame.querySelectorAll('.hero__slide'));
-        if (!allSlides.length) return;
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.np-hero-slide');
+    const dots = document.querySelectorAll('.np-hero-dot');
+    let sliderInterval;
 
-        var timer = null;
-        var index = 0;
-
-        function slidesForDevice() {
-            var device = mobileQuery.matches ? 'mobile' : 'desktop';
-            var matching = allSlides.filter(function (slide) {
-                var forDevice = slide.getAttribute('data-device');
-                return !forDevice || forDevice === device;
-            });
-
-            /* Prefer the image made for this device; if it was never uploaded,
-               fall back to whichever one the admin did provide. */
-            var specific = matching.filter(function (slide) {
-                return slide.getAttribute('data-device');
-            });
-
-            return specific.length ? specific : matching;
+    function goToSlide(index) {
+        if (!slides.length) return;
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        currentSlide = index;
+        if (currentSlide >= slides.length) currentSlide = 0;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        const content = slides[currentSlide].querySelector('.np-hero-content');
+        if (content) {
+            content.style.animation = 'none';
+            content.offsetHeight;
+            content.style.animation = 'npHeroUp 0.8s ease-out';
         }
+    }
 
-        function start() {
-            window.clearInterval(timer);
-            index = 0;
+    function changeSlide(direction) {
+        goToSlide(currentSlide + direction);
+        clearInterval(sliderInterval);
+        sliderInterval = setInterval(() => changeSlide(1), 5000);
+    }
 
-            allSlides.forEach(function (slide) { slide.classList.remove('active'); });
+    sliderInterval = setInterval(() => changeSlide(1), 5000);
 
-            var slides = slidesForDevice();
-            if (!slides.length) return;
-
-            slides[0].classList.add('active');
-
-            if (slides.length > 1 && !reduceMotion) {
-                timer = window.setInterval(function () {
-                    slides[index].classList.remove('active');
-                    index = (index + 1) % slides.length;
-                    slides[index].classList.add('active');
-                }, 5000);
+    const revealEls = document.querySelectorAll('.np-card, .np-stat, .np-side-card');
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('np-visible');
+                revealObs.unobserve(entry.target);
             }
-        }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
 
-        start();
+    const counters = document.querySelectorAll('.np-stat-num[data-count]');
+    const counterObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-count'));
+                const duration = 2000;
+                const step = Math.max(1, target / (duration / 16));
+                let current = 0;
+                const counter = setInterval(() => {
+                    current += step;
+                    if (current >= target) { current = target; clearInterval(counter); }
+                    el.textContent = Math.floor(current).toLocaleString();
+                }, 16);
+                counterObs.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(el => counterObs.observe(el));
 
-        if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', start);
-        else if (mobileQuery.addListener) mobileQuery.addListener(start);
-    })();
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('scrollTopBtn');
+        if (window.scrollY > 400) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+    });
+
+    function handleSubscribe(e) {
+        e.preventDefault();
+        const input = e.target.querySelector('input');
+        const email = input.value;
+        const msg = document.createElement('div');
+        msg.className = 'np-alert-bar';
+        msg.innerHTML = '<i class="bi bi-check-circle"></i> Thank you for subscribing! You will receive daily news at ' + email;
+        document.body.insertBefore(msg, document.body.firstChild);
+        input.value = '';
+        setTimeout(() => { msg.style.opacity = '0'; msg.style.transition = 'opacity 0.5s'; setTimeout(() => msg.remove(), 500); }, 4000);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    let touchStartX = 0;
+    const slider = document.querySelector('.np-hero-slider');
+    if (slider) {
+        slider.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        slider.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) { if (diff > 0) changeSlide(1); else changeSlide(-1); }
+        }, { passive: true });
+    }
 </script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+        --np-dark-1: #0a0a0f;
+        --np-dark-2: #111118;
+        --np-dark-3: #1a1a24;
+        --np-dark-4: #242430;
+        --np-red: #D32F2F;
+        --np-red-dark: #B71C1C;
+        --np-white: #FFFFFF;
+        --np-text: #d0d0d8;
+        --np-text-dim: #8888a0;
+        --np-text-muted: #555568;
+        --np-border: rgba(255,255,255,0.06);
+        --np-border-light: rgba(255,255,255,0.04);
+        --font-headline: 'Playfair Display', Georgia, serif;
+        --font-ui: 'Inter', Arial, sans-serif;
+        --np-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-ui); color: var(--np-text); background: var(--np-dark-1); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; }
+
+    .np-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 768px) { .np-container { padding: 0 16px; } }
+
+    .np-alert-bar {
+        background: rgba(0, 200, 83, 0.1);
+        border-bottom: 1px solid rgba(0, 200, 83, 0.15);
+        color: #00c853;
+        padding: 12px 24px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        animation: npAlertDown 0.5s ease-out;
+    }
+
+    @keyframes npAlertDown {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .np-hero-section { position: relative; }
+    .np-hero-slider {
+        position: relative;
+        width: 100%;
+        height: 520px;
+        overflow: hidden;
+        background: var(--np-dark-1);
+    }
+    .np-hero-slide {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out, transform 1.2s ease;
+        transform: scale(1.05);
+    }
+    .np-hero-slide.active { opacity: 1; transform: scale(1); z-index: 1; }
+    .np-hero-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+    .np-hero-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.5) 40%, rgba(10,10,15,0.2) 100%);
+    }
+    .np-hero-placeholder {
+        width: 100%; height: 100%;
+        display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(135deg, var(--np-dark-2), var(--np-dark-3));
+    }
+    .np-hero-content {
+        position: absolute;
+        bottom: 70px;
+        left: 60px;
+        right: 60px;
+        z-index: 2;
+        max-width: 680px;
+        min-width: 0;
+        animation: npHeroUp 0.8s ease-out;
+    }
+    @keyframes npHeroUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    .np-hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--np-red);
+        color: var(--np-white);
+        padding: 5px 16px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        animation: npHeroBadgeIn 0.6s ease-out 0.3s both;
+    }
+    @keyframes npHeroBadgeIn { from { transform: translateX(-30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .np-hero-title {
+        font-family: var(--font-headline);
+        font-size: 44px;
+        font-weight: 800;
+        color: var(--np-white);
+        line-height: 1.15;
+        margin-bottom: 14px;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+    .np-hero-title span { color: var(--np-red); }
+    .np-hero-desc {
+        color: rgba(255,255,255,0.8);
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 24px;
+        max-width: 520px;
+    }
+    .np-hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--np-red);
+        color: var(--np-white);
+        padding: 12px 28px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: all 0.3s ease;
+    }
+    .np-hero-btn:hover { background: var(--np-red-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(211,47,47,0.35); color: var(--np-white); }
+    .np-hero-btn i { transition: transform 0.3s; }
+    .np-hero-btn:hover i { transform: translateX(4px); }
+
+    .np-hero-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        background: rgba(0,0,0,0.5);
+        border: 1px solid var(--np-border);
+        color: var(--np-white);
+        width: 46px; height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s;
+        opacity: 0;
+    }
+    .np-hero-slider:hover .np-hero-arrow { opacity: 1; }
+    .np-hero-arrow:hover { background: var(--np-red); border-color: var(--np-red); }
+    .np-hero-prev { left: 20px; }
+    .np-hero-next { right: 20px; }
+
+    .np-hero-dots {
+        position: absolute;
+        bottom: 24px;
+        right: 60px;
+        display: flex;
+        gap: 8px;
+        z-index: 5;
+    }
+    .np-hero-dot {
+        width: 12px; height: 4px;
+        border-radius: 2px;
+        background: rgba(255,255,255,0.4);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .np-hero-dot.active { width: 32px; background: var(--np-red); }
+
+    .np-section { padding: 70px 0; background: var(--np-dark-1); position: relative; }
+    .np-section-head { text-align: center; margin-bottom: 40px; }
+    .np-section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(211,47,47,0.1);
+        color: var(--np-red);
+        padding: 4px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(211,47,47,0.15);
+    }
+    .np-section-title {
+        font-family: var(--font-headline);
+        font-size: 38px;
+        font-weight: 800;
+        color: var(--np-white);
+        margin-bottom: 12px;
+        line-height: 1.2;
+    }
+    .np-section-title span { color: var(--np-red); text-shadow: 0 0 20px rgba(211,47,47,0.2); }
+    .np-section-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 12px; }
+    .np-section-line .np-s-line { width: 60px; height: 1px; background: rgba(255,255,255,0.08); }
+    .np-section-line i { color: var(--np-red); font-size: 10px; }
+    .np-section-desc { color: var(--np-text-dim); font-size: 15px; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    .np-news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .np-news-grid > * { min-width: 0; }
+    @media (max-width: 992px) { .np-news-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 576px) { .np-news-grid { grid-template-columns: 1fr; gap: 18px; } }
+
+    .np-card {
+        background: rgba(18, 18, 30, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--np-border);
+        overflow: hidden;
+        transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: npCardIn 0.6s ease-out var(--card-delay, 0s) forwards;
+    }
+    .np-card.np-visible { opacity: 1; transform: translateY(0); }
+    @keyframes npCardIn { to { opacity: 1; transform: translateY(0); } }
+    .np-card:hover { transform: translateY(-6px); border-color: rgba(211,47,47,0.08); box-shadow: 0 12px 50px rgba(0,0,0,0.3); }
+    .np-card-link { display: block; color: inherit; }
+    .np-card-media { position: relative; overflow: hidden; height: 200px; background: var(--np-dark-2); }
+    .np-card-media img, .np-card-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .np-card:hover .np-card-media img { transform: scale(1.06); }
+    .np-card-no-media { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--np-dark-3); color: var(--np-text-muted); font-size: 2.5rem; }
+    .np-card-overlay {
+        position: absolute; inset: 0;
+        background: rgba(10,10,15,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .np-card:hover .np-card-overlay { opacity: 1; }
+    .np-card-read {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--np-white);
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding: 10px 22px;
+        border: 2px solid rgba(255,255,255,0.8);
+        transition: all 0.3s;
+    }
+    .np-card-read:hover { background: var(--np-red); border-color: var(--np-red); }
+    .np-card-cat {
+        position: absolute;
+        top: 12px; left: 12px;
+        background: var(--np-red);
+        color: var(--np-white);
+        padding: 3px 12px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 2;
+    }
+    .np-card-body { padding: 18px 20px 22px; min-width: 0; }
+    .np-card-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 11px; color: var(--np-text-muted); margin-bottom: 8px; }
+    .np-card-meta i { color: var(--np-red); margin-right: 3px; }
+    .np-card-title {
+        font-family: var(--font-headline);
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--np-white);
+        line-height: 1.35;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .np-card:hover .np-card-title { color: var(--np-red); }
+    .np-card-excerpt { font-size: 13px; color: var(--np-text-dim); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .np-empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 30px;
+        border: 1px dashed var(--np-border);
+    }
+    .np-empty-icon { width: 80px; height: 80px; margin: 0 auto 20px; background: rgba(211,47,47,0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .np-empty-icon i { font-size: 2rem; color: var(--np-red); }
+    .np-empty h4 { font-family: var(--font-headline); font-size: 1.5rem; font-weight: 700; color: var(--np-white); margin-bottom: 8px; }
+    .np-empty p { color: var(--np-text-dim); font-size: 1rem; }
+
+    .np-view-all { text-align: center; margin-top: 40px; }
+    .np-btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 32px;
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--np-text);
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: all 0.3s;
+    }
+    .np-btn-outline:hover { border-color: var(--np-red); color: var(--np-white); background: rgba(211,47,47,0.05); transform: translateY(-2px); }
+
+    .np-featured { padding: 0 0 70px; background: var(--np-dark-2); position: relative; overflow: hidden; }
+    .np-featured-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; align-items: start; min-width: 0; }
+    .np-featured-main, .np-featured-side { min-width: 0; }
+    @media (max-width: 992px) { .np-featured-grid { grid-template-columns: 1fr; } }
+    .np-featured-media { position: relative; overflow: hidden; height: 420px; }
+    .np-featured-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+    .np-featured-media:hover img { transform: scale(1.05); }
+    .np-featured-placeholder { width: 100%; height: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; background: var(--np-dark-3); color: var(--np-text-muted); font-size: 3rem; }
+    .np-featured-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,15,0.9) 0%, rgba(10,10,15,0.4) 40%, transparent 100%); }
+    .np-featured-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px; z-index: 2; }
+    .np-featured-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--np-red);
+        color: var(--np-white);
+        padding: 4px 14px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+    }
+    .np-featured-text h2 { font-family: var(--font-headline); font-size: 26px; font-weight: 800; color: var(--np-white); line-height: 1.25; margin-bottom: 8px; }
+    .np-featured-text h2 a { color: var(--np-white); transition: color 0.3s; }
+    .np-featured-text h2 a:hover { color: var(--np-red); }
+    .np-featured-text p { color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .np-featured-meta { display: flex; gap: 16px; font-size: 11px; color: rgba(255,255,255,0.6); }
+    .np-featured-meta i { color: var(--np-red); margin-right: 3px; }
+    .np-featured-side { display: flex; flex-direction: column; gap: 16px; }
+    .np-side-card { background: rgba(18, 18, 30, 0.85); border: 1px solid var(--np-border); overflow: hidden; transition: all 0.4s ease; opacity: 0; transform: translateX(20px); }
+    .np-side-card.np-visible { opacity: 1; transform: translateX(0); }
+    .np-side-card:hover { transform: translateX(6px); border-color: rgba(211,47,47,0.08); }
+    .np-side-link { display: flex; gap: 14px; padding: 14px; color: inherit; }
+    .np-side-media { width: 100px; min-width: 100px; height: 80px; overflow: hidden; }
+    .np-side-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .np-side-card:hover .np-side-media img { transform: scale(1.08); }
+    .np-side-text { flex: 1; }
+    .np-side-text h4 { font-family: var(--font-headline); font-size: 14px; font-weight: 700; color: var(--np-white); line-height: 1.35; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 0.3s; }
+    .np-side-card:hover .np-side-text h4 { color: var(--np-red); }
+    .np-side-date { font-size: 11px; color: var(--np-text-muted); }
+    .np-side-date i { color: var(--np-red); margin-right: 3px; }
+
+    /* ===== CATEGORIES REDESIGN ===== */
+    .np-categories {
+        background: var(--np-dark-1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .np-cat-bg-decor {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .np-cat-circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.03;
+    }
+
+    .np-cat-c1 {
+        width: 500px; height: 500px;
+        background: var(--np-red);
+        top: -150px; right: -100px;
+        animation: npCatFloat1 20s ease-in-out infinite;
+    }
+
+    .np-cat-c2 {
+        width: 350px; height: 350px;
+        background: #1976D2;
+        bottom: -80px; left: -80px;
+        animation: npCatFloat2 25s ease-in-out infinite;
+    }
+
+    .np-cat-c3 {
+        width: 200px; height: 200px;
+        background: #388E3C;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        animation: npCatFloat3 30s ease-in-out infinite;
+    }
+
+    @keyframes npCatFloat1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-30px, 20px) scale(1.05); }
+        66% { transform: translate(20px, -30px) scale(0.95); }
+    }
+
+    @keyframes npCatFloat2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(40px, -20px) scale(1.08); }
+        66% { transform: translate(-20px, 30px) scale(0.92); }
+    }
+
+    @keyframes npCatFloat3 {
+        0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        25% { transform: translate(-40%, -60%) scale(1.1) rotate(5deg); }
+        75% { transform: translate(-60%, -40%) scale(0.9) rotate(-5deg); }
+    }
+
+    .np-cat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .np-cat-grid > * { min-width: 0; }
+
+    .np-cat-card {
+        display: block;
+        position: relative;
+        background: rgba(18, 18, 30, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--np-border);
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: npCatCardIn 0.6s ease-out var(--card-delay, 0s) forwards;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    @keyframes npCatCardIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .np-cat-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.02));
+        pointer-events: none;
+    }
+
+    .np-cat-card:nth-child(even)::before {
+        background: linear-gradient(225deg, transparent 60%, rgba(255,255,255,0.02));
+    }
+
+    .np-cat-top-border {
+        height: 4px;
+        background: var(--cat-gradient, var(--np-red));
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        transition: height 0.3s ease;
+    }
+
+    .np-cat-card:hover .np-cat-top-border {
+        height: 6px;
+    }
+
+    .np-cat-card-inner {
+        padding: 28px 26px 22px;
+        position: relative;
+    }
+
+    .np-cat-icon-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .np-cat-icon-bg {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .np-cat-icon-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--cat-gradient, var(--np-red));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .np-cat-icon-bg i {
+        position: relative;
+        z-index: 2;
+        color: var(--cat-accent, var(--np-red));
+        transition: all 0.4s ease;
+    }
+
+    .np-cat-card:hover .np-cat-icon-bg {
+        border-color: var(--cat-accent, var(--np-red));
+        transform: rotate(-5deg) scale(1.05);
+        box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    }
+
+    .np-cat-card:hover .np-cat-icon-bg::after {
+        opacity: 0.12;
+    }
+
+    .np-cat-card:hover .np-cat-icon-bg i {
+        color: var(--np-white);
+        transform: scale(1.1);
+    }
+
+    .np-cat-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 26px;
+        padding: 0 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--np-white);
+        background: var(--cat-gradient, var(--np-red));
+        border-radius: 13px;
+        transition: all 0.3s ease;
+        position: relative;
+        top: -4px;
+    }
+
+    .np-cat-card:hover .np-cat-count {
+        transform: scale(1.08);
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .np-cat-body {
+        margin-bottom: 18px;
+    }
+
+    .np-cat-name {
+        font-family: var(--font-headline);
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--np-white);
+        margin-bottom: 6px;
+        transition: color 0.3s ease;
+        line-height: 1.3;
+    }
+
+    .np-cat-card:hover .np-cat-name {
+        color: var(--cat-accent, var(--np-red));
+    }
+
+    .np-cat-desc {
+        font-size: 13px;
+        color: var(--np-text-dim);
+        line-height: 1.6;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .np-cat-footer {
+        padding-top: 14px;
+        border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .np-cat-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--np-text-muted);
+        transition: all 0.4s ease;
+    }
+
+    .np-cat-action i {
+        font-size: 12px;
+        transition: transform 0.4s ease;
+    }
+
+    .np-cat-card:hover .np-cat-action {
+        color: var(--cat-accent, var(--np-red));
+        gap: 12px;
+    }
+
+    .np-cat-card:hover .np-cat-action i {
+        transform: translateX(6px);
+    }
+
+    .np-cat-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid transparent;
+        transition: all 0.4s ease;
+        pointer-events: none;
+    }
+
+    .np-cat-card:hover::after {
+        border-color: var(--cat-accent, var(--np-red));
+        box-shadow: 0 0 30px color-mix(in srgb, var(--cat-accent, var(--np-red)) 8%, transparent),
+                    inset 0 0 30px color-mix(in srgb, var(--cat-accent, var(--np-red)) 3%, transparent);
+    }
+
+    .np-cat-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+        .np-cat-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .np-cat-card-inner { padding: 22px 20px 18px; }
+        .np-cat-icon-bg { width: 48px; height: 48px; font-size: 18px; }
+        .np-cat-name { font-size: 17px; }
+        .np-cat-card:hover { transform: translateY(-4px) scale(1.01); }
+    }
+
+    @media (max-width: 480px) {
+        .np-cat-grid { grid-template-columns: 1fr; gap: 14px; }
+    }
+    /* ===== END CATEGORIES REDESIGN ===== */
+
+    .np-newsletter {
+        padding: 70px 0;
+        background: var(--np-dark-2);
+        position: relative;
+        overflow: hidden;
+    }
+    .np-newsletter-content { max-width: 600px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .np-newsletter-icon { width: 64px; height: 64px; margin: 0 auto 20px; background: rgba(211,47,47,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--np-red); }
+    .np-newsletter-title { font-family: var(--font-headline); font-size: 32px; font-weight: 800; color: var(--np-white); margin-bottom: 12px; }
+    .np-newsletter-title span { color: var(--np-red); }
+    .np-newsletter-text { color: var(--np-text-dim); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
+    .np-newsletter-form { display: flex; justify-content: center; gap: 0; max-width: 480px; margin: 0 auto; }
+    .np-newsletter-form input {
+        flex: 1;
+        min-width: 0;
+        width: 100%;
+        padding: 14px 18px;
+        border: 1px solid var(--np-border);
+        background: rgba(255,255,255,0.03);
+        color: var(--np-text);
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s;
+        font-family: var(--font-ui);
+    }
+    .np-newsletter-form input::placeholder { color: var(--np-text-muted); }
+    .np-newsletter-form input:focus { border-color: rgba(211,47,47,0.3); }
+    .np-newsletter-form button {
+        padding: 14px 24px;
+        background: var(--np-red);
+        color: var(--np-white);
+        border: 1px solid var(--np-red);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: var(--font-ui);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .np-newsletter-form button:hover { background: var(--np-red-dark); border-color: var(--np-red-dark); }
+
+    .np-stats { padding: 50px 0; background: var(--np-dark-1); border-top: 1px solid var(--np-border); border-bottom: 1px solid var(--np-border); }
+    .np-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+    @media (max-width: 768px) { .np-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } .np-stat-label { letter-spacing: 1px; } }
+    .np-stat { padding: 16px; opacity: 0; transform: translateY(20px); }
+    .np-stat.np-visible { opacity: 1; transform: translateY(0); }
+    .np-stat-icon { font-size: 26px; color: var(--np-red); margin-bottom: 10px; }
+    .np-stat-num { font-family: var(--font-headline); font-size: 36px; font-weight: 800; color: var(--np-white); margin-bottom: 4px; }
+    .np-stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--np-text-dim); font-weight: 500; }
+
+    .np-scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 44px; height: 44px;
+        background: var(--np-red);
+        color: var(--np-white);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(211,47,47,0.4);
+    }
+    .np-scroll-top.visible { opacity: 1; visibility: visible; }
+    .np-scroll-top:hover { background: var(--np-red-dark); transform: translateY(-3px); }
+
+    @media (max-width: 992px) {
+        .np-hero-content { left: 32px; right: 32px; }
+        .np-hero-dots { right: 32px; }
+        .np-featured-media { height: 360px; }
+        .np-featured-text { padding: 22px; }
+        .np-featured-text h2 { font-size: 22px; }
+    }
+
+    @media (max-width: 576px) {
+        .np-hero-slider { height: 360px; }
+        .np-hero-content { bottom: 40px; left: 20px; right: 20px; }
+        .np-hero-title { font-size: 26px; }
+        .np-hero-desc { font-size: 14px; margin-bottom: 18px; }
+        .np-hero-btn { padding: 10px 20px; font-size: 12px; letter-spacing: 1px; }
+        .np-hero-dots { right: 20px; bottom: 16px; }
+        .np-section { padding: 48px 0; }
+        .np-section-title { font-size: 26px; }
+        .np-section-desc { font-size: 13px; }
+        .np-hero-arrow { display: none; }
+        .np-card-body { padding: 14px 16px 18px; }
+        .np-featured { padding-bottom: 48px; }
+        .np-featured-media { height: 280px; }
+        .np-featured-text { padding: 18px 16px; }
+        .np-featured-text h2 { font-size: 18px; }
+        .np-featured-text p { font-size: 13px; -webkit-line-clamp: 2; }
+        .np-featured-meta { flex-wrap: wrap; gap: 6px 12px; }
+        .np-side-link { padding: 12px; gap: 10px; }
+        .np-side-media { width: 84px; min-width: 84px; height: 68px; }
+        .np-newsletter { padding: 48px 0; }
+        .np-newsletter-title { font-size: 24px; }
+        .np-newsletter-text { font-size: 13px; }
+        .np-newsletter-form { flex-direction: column; gap: 10px; }
+        .np-newsletter-form button { width: 100%; justify-content: center; }
+        .np-stats { padding: 36px 0; }
+        .np-stat { padding: 10px 6px; }
+        .np-stat-num { font-size: 28px; }
+        .np-stat-label { font-size: 10px; letter-spacing: 1px; }
+        .np-scroll-top { bottom: 20px; right: 16px; }
+        .np-btn-outline { padding: 10px 22px; font-size: 12px; letter-spacing: 1px; }
+    }
+
+    @media (max-width: 380px) {
+        .np-hero-slider { height: 320px; }
+        .np-hero-title { font-size: 22px; }
+        .np-section-title { font-size: 22px; }
+        .np-newsletter-title { font-size: 20px; }
+    }
+</style>
+
 @endsection

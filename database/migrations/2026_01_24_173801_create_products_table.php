@@ -19,8 +19,9 @@ return new class extends Migration
             $table->decimal('price', 15, 2);
             $table->float('discount');
             $table->decimal('stock', 15, 2);
-            $table->text('details');
-            $table->string('image');
+            $table->text('details')->nullable();
+            $table->integer('status')->default(1);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

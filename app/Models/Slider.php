@@ -9,7 +9,6 @@ class Slider extends Model
     protected $fillable = [
         'slider1',
         'slider2',
-        'about_image',
     ];
 }
 

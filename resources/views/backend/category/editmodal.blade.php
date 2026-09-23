@@ -1,70 +1,22 @@
-<div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $category->id }}" aria-hidden="true">
+<div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4">
-            <div class="modal-header bg-gradient-primary text-white rounded-top-4 px-4 py-3">
-                <h5 class="modal-title fw-semibold" id="editModalLabel{{ $category->id }}">
-                    <i class="bi bi-pencil-square me-2"></i> Edit Category
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <div class="modal-content ad-modal-content">
+            <div class="ad-modal-header" style="background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff;">
+                <h5 class="ad-modal-title" style="color: #fff;"><i class="bi bi-pencil-square me-2"></i>Edit Category</h5>
+                <button class="ad-modal-close ad-modal-close-white" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
             </div>
-
-            <form action="{{ url('admin/category/update/'.$category->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('admin/category/update/'.$category->id) }}" method="POST">
                 @csrf
-                <div class="modal-body px-4 py-4">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">
-                            <i class="bi bi-tag me-1 text-secondary"></i>
-                            Category Name <span class="text-danger">*</span>
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="bi bi-tag"></i></span>
-                            <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
-                        </div>
-                    </div>
-
-                    <div class="mb-1">
-                        <label class="form-label fw-semibold">
-                            <i class="bi bi-image me-1 text-secondary"></i>
-                            Preview Image <span class="text-muted fw-normal small">(homepage tile)</span>
-                        </label>
-
-                        <div class="d-flex align-items-center gap-3 mb-2">
-                            <img id="categoryThumb{{ $category->id }}"
-                                 class="modal-thumb"
-                                 src="{{ $category->image ? config('app.storage_url').$category->image : 'https://placehold.co/240x150/e2e8f0/94a3b8?text=No+Image' }}"
-                                 alt="{{ $category->name }} preview"
-                                 onerror="this.src='https://placehold.co/240x150/e2e8f0/94a3b8?text=Invalid+Image'">
-                            <span class="text-muted small">
-                                {{ $category->image ? 'Custom preview image' : 'Using newest product photo' }}
-                            </span>
-                        </div>
-
-                        <input type="file" class="form-control" name="image"
-                               accept="image/*"
-                               onchange="previewModalImage(event, '{{ $category->id }}')">
-                        <div class="form-text">
-                            <i class="bi bi-info-circle me-1"></i>JPG, PNG or WebP — max 2MB.
-                        </div>
-
-                        @if($category->image)
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox" name="remove_image" value="1"
-                                       id="removeImage{{ $category->id }}">
-                                <label class="form-check-label small text-danger" for="removeImage{{ $category->id }}">
-                                    Remove current image
-                                </label>
-                            </div>
-                        @endif
+                <div class="ad-modal-body">
+                    <label class="ad-form-label">Category Name <span class="text-danger">*</span></label>
+                    <div class="ad-input-group">
+                        <span class="ad-input-icon"><i class="bi bi-tag"></i></span>
+                        <input type="text" class="ad-form-input ad-input-with-icon" name="name" value="{{ $category->name }}" required>
                     </div>
                 </div>
-
-                <div class="modal-footer border-0 px-4 pb-4 flex-wrap gap-2">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
-                        <i class="bi bi-x-circle me-1"></i> Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary rounded-pill px-4">
-                        <i class="bi bi-save me-1"></i> Save Changes
-                    </button>
+                <div class="ad-modal-footer">
+                    <button type="button" class="ad-btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle me-1"></i> Cancel</button>
+                    <button type="submit" class="ad-btn-primary"><i class="bi bi-check-lg me-1"></i> Save Changes</button>
                 </div>
             </form>
         </div>
@@ -72,23 +24,22 @@
 </div>
 
 <style>
-.bg-gradient-primary { background: linear-gradient(45deg, #4f46e5, #6366f1); }
-
-.form-control:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 0.15rem rgba(99,102,241,0.2);
-}
-
-.btn { transition: 0.2s; }
-.btn-primary:hover { background: #4f46e5; border-color: #4f46e5; }
-.btn-outline-secondary:hover { background: #e9ecef; }
-
-/* Modal Responsive */
-@media (max-width: 575px) {
-    .modal-dialog { max-width: 95%; margin: 1rem auto; }
-    .modal-body { padding: 1.25rem; }
-    .modal-header, .modal-footer { padding: 1rem 1.25rem; }
-    .modal-footer { flex-direction: column; }
-    .modal-footer .btn { width: 100%; }
-}
+.ad-modal-content { border: none; border-radius: 20px; box-shadow: 0 25px 80px rgba(0,0,0,0.15); overflow: hidden; background: rgba(255,255,255,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.ad-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; }
+.ad-modal-title { font-size: 15px; font-weight: 700; margin: 0; }
+.ad-modal-close { width: 36px; height: 36px; border-radius: 10px; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; }
+.ad-modal-close-white { background: rgba(255,255,255,0.2); color: #fff; }
+.ad-modal-close-white:hover { background: rgba(255,255,255,0.35); transform: rotate(90deg); }
+.ad-modal-body { padding: 24px 28px; }
+.ad-form-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+.ad-form-input { width: 100%; padding: 10px 12px; border: 1px solid rgba(233,238,243,0.7); border-radius: 8px; font-size: 13px; color: #334155; outline: none; transition: border-color 0.3s; font-family: inherit; background: rgba(255,255,255,0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.ad-form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.06); background: rgba(255,255,255,0.95); }
+.ad-input-group { position: relative; }
+.ad-input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
+.ad-input-with-icon { padding-left: 36px; }
+.ad-modal-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 18px 28px; border-top: 1px solid rgba(241,245,249,0.5); }
+.ad-btn-secondary { padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; border: 1px solid rgba(233,238,243,0.5); cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: #64748b; }
+.ad-btn-secondary:hover { background: rgba(248,250,252,0.8); border-color: #cbd5e1; }
+.ad-btn-primary { padding: 9px 24px; border-radius: 8px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.2); }
+.ad-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); }
 </style>

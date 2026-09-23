@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
-    /**
-     * Every image managed from the "Manage Sliders" screen:
-     *   slider1     — hero, desktop / tablet (wide)
-     *   slider2     — hero, mobile (portrait)
-     *   about_image — the homepage "Our Promise" band (portrait)
-     */
-    private const IMAGE_FIELDS = ['slider1', 'slider2', 'about_image'];
-
     // Show slider management form
     public function index()
     {
@@ -27,12 +19,32 @@ class SliderController extends Controller
     // Store or update slider
     public function store(Request $request)
     {
-        $this->validateImages($request);
+        $request->validate([
+            'slider1' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'slider2' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
 
-        $slider = Slider::latest()->first() ?? new Slider();
+        $slider = Slider::latest()->first();
 
-        foreach (self::IMAGE_FIELDS as $field) {
-            $this->applyImage($request, $slider, $field);
+        if (!$slider) {
+            // Create new slider if none exists
+            $slider = new Slider();
+        }
+
+        // Handle slider1
+        if ($request->hasFile('slider1')) {
+            if ($slider->slider1 && Storage::disk('public')->exists($slider->slider1)) {
+                Storage::disk('public')->delete($slider->slider1);
+            }
+            $slider->slider1 = $request->file('slider1')->store('sliders', 'public');
+        }
+
+        // Handle slider2
+        if ($request->hasFile('slider2')) {
+            if ($slider->slider2 && Storage::disk('public')->exists($slider->slider2)) {
+                Storage::disk('public')->delete($slider->slider2);
+            }
+            $slider->slider2 = $request->file('slider2')->store('sliders', 'public');
         }
 
         $slider->save();
@@ -40,69 +52,21 @@ class SliderController extends Controller
         return redirect()->back()->with('success', 'Slider updated successfully!');
     }
 
-    // Update slider (also handles clearing individual images)
-    public function update(Request $request, $id)
-    {
-        $this->validateImages($request);
-
-        $slider = Slider::findOrFail($id);
-
-        foreach (self::IMAGE_FIELDS as $field) {
-            $this->applyImage($request, $slider, $field);
-        }
-
-        $slider->save();
-
-        return redirect()->back()->with('success', 'Slider updated successfully!');
-    }
-
-    // Delete the slider row and every image it owns
+    // Optional: Delete slider
     public function delete($id)
     {
         $slider = Slider::findOrFail($id);
 
-        foreach (self::IMAGE_FIELDS as $field) {
-            $this->forgetImage($slider->$field);
+        if ($slider->slider1 && Storage::disk('public')->exists($slider->slider1)) {
+            Storage::disk('public')->delete($slider->slider1);
+        }
+
+        if ($slider->slider2 && Storage::disk('public')->exists($slider->slider2)) {
+            Storage::disk('public')->delete($slider->slider2);
         }
 
         $slider->delete();
 
         return redirect()->back()->with('success', 'Slider deleted successfully!');
-    }
-
-    private function validateImages(Request $request): void
-    {
-        $rules = [];
-
-        foreach (self::IMAGE_FIELDS as $field) {
-            $rules[$field] = 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096';
-        }
-
-        $request->validate($rules);
-    }
-
-    /**
-     * Save a newly uploaded image, or clear the column when the request carries
-     * a remove_<field> flag — which is what each card's ✕ button submits.
-     */
-    private function applyImage(Request $request, Slider $slider, string $field): void
-    {
-        if ($request->hasFile($field)) {
-            $this->forgetImage($slider->$field);
-            $slider->$field = $request->file($field)->store('sliders', 'public');
-            return;
-        }
-
-        if ($request->boolean('remove_' . $field)) {
-            $this->forgetImage($slider->$field);
-            $slider->$field = null;
-        }
-    }
-
-    private function forgetImage(?string $path): void
-    {
-        if ($path && Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
     }
 }

@@ -1,281 +1,746 @@
 @extends('backend.app')
 
+@section('title', 'Dashboard')
+
 @section('content')
 
-@php
-    use App\Models\Setting;
-    use App\Models\Order;
-    use App\Models\Product;
-    use App\Models\User;
-
-    $settings = Setting::first();
-    $delivery = $settings?->delivery_charge ?? 0;
-    $taxPercent = $settings?->tax_percentage ?? 0;
-    $currency = $settings?->currency ?? '৳';
-
-    // Stats
-    $totalUsers = User::count();
-    $totalOrders = Order::count();
-    $totalProducts = Product::count();
-    $pendingOrders = Order::where('status', 'pending')->count();
-    $deliveredOrders = Order::where('status', 'delivered')->count();
-
-    // Revenue calculation
-    $totalRevenue = 0;
-    $totalProfit = 0;
-    $deliveredOrdersList = Order::where('status', 'delivered')->with('orderdetails')->get();
-    foreach ($deliveredOrdersList as $order) {
-        foreach ($order->orderdetails as $item) {
-            $product = \App\Models\Product::find($item->product_id);
-            $discount = $product->discount ?? 0;
-            $buyPrice = buyprice($item->product_id);
-            $sellprice = $item->product_price * (100 - $discount) / 100;
-            $totalRevenue += $sellprice;
-            $totalProfit += ($sellprice - $buyPrice);
-        }
-    }
-
-    // Recent orders
-    $recentOrders = Order::latest()->take(5)->get();
-
-    // Low stock products
-    $lowStockProducts = Product::where('stock', '>', 0)->where('stock', '<=', 10)->take(5)->get();
-
-    // Out of stock
-    $outOfStockCount = Product::where('stock', 0)->count();
-@endphp
-
-<div class="container-fluid" style="height: calc(100vh - 80px); overflow-y: auto; padding-bottom: 20px;">
-
-    {{-- Dashboard Header --}}
-    <div class="row m-3 mb-4">
-        <div class="col-12">
-            <div class="p-4 rounded-4 shadow-lg d-flex align-items-center justify-content-between flex-wrap" style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: #fff;">
-                <div class="fw-bold fs-4 d-flex align-items-center mb-2 mb-md-0">
-                    <i class="bi bi-speedometer2 me-2 fs-3"></i>
-                    <a href="/admin" class="text-white text-decoration-none">Admin Dashboard</a>
-                </div>
-                <div class="fw-semibold">
-                    Hello, <strong>{{ auth()->user()->name }}</strong>! Here's an overview of your Shop.
-                </div>
-            </div>
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1" style="color: #1e293b;">
+                <i class="bi bi-speedometer2 me-2" style="color: #6366f1;"></i>Dashboard Overview
+            </h4>
+            <p class="text-muted mb-0" style="font-size: 13px;">
+                <i class="bi bi-calendar3 me-1"></i> {{ now()->format('l, F d, Y') }}
+            </p>
+        </div>
+        <div>
+            <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); font-size: 12px; font-weight: 500;">
+                <i class="bi bi-clock-history me-1"></i> Last updated: {{ now()->format('h:i A') }}
+            </span>
         </div>
     </div>
 
-    {{-- Main Stats Cards --}}
-    <div class="row mx-3 mb-4 g-3">
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
-                <div class="card-body text-white text-center py-4">
-                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Total Users</div>
-                    <h3 class="fw-bold mb-2">{{ number_format($totalUsers) }}</h3>
-                    <i class="bi bi-people fs-1 opacity-75"></i>
+    <!-- ===== STATS CARDS ROW ===== -->
+    <div class="row g-3 mb-4">
+
+        <!-- Total Posts -->
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="ad-stat-card ad-stat-posts">
+                <div class="d-flex align-items-center">
+                    <div class="ad-stat-icon ad-icon-posts">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="ad-stat-label">Total Posts</div>
+                        <div class="ad-stat-number">{{ $totalPosts }}</div>
+                    </div>
+                </div>
+                <div class="ad-stat-footer mt-2">
+                    <span class="ad-stat-badge ad-badge-published">
+                        <i class="bi bi-check-circle-fill"></i> {{ $publishedPosts }} Published
+                    </span>
+                    <span class="ad-stat-badge ad-badge-draft ms-2">
+                        <i class="bi bi-pencil-fill"></i> {{ $draftPosts }} Draft
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #059669, #10b981);">
-                <div class="card-body text-white text-center py-4">
-                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Total Orders</div>
-                    <h3 class="fw-bold mb-2">{{ number_format($totalOrders) }}</h3>
-                    <i class="bi bi-cart-check fs-1 opacity-75"></i>
+
+        <!-- Total Categories -->
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="ad-stat-card ad-stat-categories">
+                <div class="d-flex align-items-center">
+                    <div class="ad-stat-icon ad-icon-categories">
+                        <i class="bi bi-tags"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="ad-stat-label">Categories</div>
+                        <div class="ad-stat-number">{{ $totalCategories }}</div>
+                    </div>
+                </div>
+                <div class="ad-stat-footer mt-2">
+                    <span class="text-muted small">
+                        <i class="bi bi-collection me-1"></i> Content organization
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
-                <div class="card-body text-white text-center py-4">
-                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Products</div>
-                    <h3 class="fw-bold mb-2">{{ number_format($totalProducts) }}</h3>
-                    <i class="bi bi-box-seam fs-1 opacity-75"></i>
+
+        <!-- Total Contacts -->
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="ad-stat-card ad-stat-contacts">
+                <div class="d-flex align-items-center">
+                    <div class="ad-stat-icon ad-icon-contacts">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="ad-stat-label">Messages</div>
+                        <div class="ad-stat-number">{{ $totalContacts }}</div>
+                    </div>
+                </div>
+                <div class="ad-stat-footer mt-2">
+                    <a href="/admin/contacts" class="text-decoration-none small fw-medium" style="color: #0891b2;">
+                        <i class="bi bi-arrow-right-circle me-1"></i> View all messages
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg, #dc2626, #ef4444);">
-                <div class="card-body text-white text-center py-4">
-                    <div class="small mb-1" style="color: rgba(255,255,255,0.8);">Total Revenue</div>
-                    <h3 class="fw-bold mb-2">{{ number_format($totalRevenue, 2) }} {{ $currency }}</h3>
-                    <i class="bi bi-currency-dollar fs-1 opacity-75"></i>
+
+        <!-- Total Sliders -->
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="ad-stat-card ad-stat-sliders">
+                <div class="d-flex align-items-center">
+                    <div class="ad-stat-icon ad-icon-sliders">
+                        <i class="bi bi-images"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="ad-stat-label">Sliders</div>
+                        <div class="ad-stat-number">{{ $totalSliders }}</div>
+                    </div>
+                </div>
+                <div class="ad-stat-footer mt-2">
+                    <a href="/admin/sliders" class="text-decoration-none small fw-medium" style="color: #7c3aed;">
+                        <i class="bi bi-arrow-right-circle me-1"></i> Manage sliders
+                    </a>
                 </div>
             </div>
         </div>
+
     </div>
 
-    {{-- Secondary Stats Cards --}}
-    <div class="row mx-3 mb-4 g-3">
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-light">
-                <div class="card-body text-center py-4">
-                    <div class="text-muted small mb-1">Total Profit</div>
-                    <h4 class="fw-bold text-success mb-0">{{ number_format($totalProfit, 2) }} {{ $currency }}</h4>
-                    <i class="bi bi-graph-up-arrow fs-2 text-success opacity-75"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-light">
-                <div class="card-body text-center py-4">
-                    <div class="text-muted small mb-1">Pending Orders</div>
-                    <h4 class="fw-bold text-warning mb-0">{{ number_format($pendingOrders) }}</h4>
-                    <i class="bi bi-clock fs-2 text-warning opacity-75"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-light">
-                <div class="card-body text-center py-4">
-                    <div class="text-muted small mb-1">Delivered Orders</div>
-                    <h4 class="fw-bold text-primary mb-0">{{ number_format($deliveredOrders) }}</h4>
-                    <i class="bi bi-truck fs-2 text-primary opacity-75"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-light">
-                <div class="card-body text-center py-4">
-                    <div class="text-muted small mb-1">Low Stock Items</div>
-                    <h4 class="fw-bold text-danger mb-0">{{ $lowStockProducts->count() }} <small class="text-muted">({{ $outOfStockCount }} out of stock)</small></h4>
-                    <i class="bi bi-exclamation-triangle fs-2 text-danger opacity-75"></i>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- ===== MIDDLE ROW: Category Distribution + Recent Posts ===== -->
+    <div class="row g-3 mb-4">
 
-    {{-- Recent Orders & Low Stock --}}
-    <div class="row mx-3 g-3">
-        {{-- Recent Orders --}}
-        <div class="col-lg-7">
-            <div class="card border-0 shadow-sm rounded-4 h-100">
-                <div class="card-header bg-white border-0 rounded-top-4 d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0 fw-semibold"><i class="bi bi-clock-history me-2 text-primary"></i> Recent Orders</h6>
-                    <a href="/admin/orders" class="btn btn-sm btn-outline-primary">View All</a>
+        <!-- Posts by Category -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="ad-panel">
+                <div class="ad-panel-header">
+                    <h5><i class="bi bi-pie-chart me-2" style="color: #6366f1;"></i>Posts by Category</h5>
                 </div>
-                <div class="card-body p-0">
-                    @if($recentOrders->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th style="width:50px;">#</th>
-                                        <th>Customer</th>
-                                        <th style="width:120px;">Total</th>
-                                        <th style="width:100px;">Status</th>
-                                        <th style="width:120px;">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($recentOrders as $order)
-                                        @php
-                                            $status = strtolower(trim($order->status));
-                                            $badgeClass = match($status) {
-                                                'approved' => 'bg-success',
-                                                'pending' => 'bg-warning text-dark',
-                                                'canceled','cancelled' => 'bg-danger',
-                                                'delivered' => 'bg-primary',
-                                                default => 'bg-secondary',
-                                            };
-                                        @endphp
-                                        <tr>
-                                            <td class="fw-medium">{{ $loop->iteration }}</td>
-                                            <td class="text-truncate" style="max-width: 150px;">{{ $order->firstname }} {{ $order->lastname }}</td>
-                                            <td class="fw-bold">{{ number_format($order->total_price, 2) }} {{ $currency }}</td>
-                                            <td><span class="badge {{ $badgeClass }} px-2 py-1">{{ ucfirst($status) }}</span></td>
-                                            <td class="text-muted small">{{ $order->created_at->format('d M Y') }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                <div class="ad-panel-body">
+                    @if($categoryPostCounts->count() > 0)
+                        @php $maxCount = $categoryPostCounts->max('posts_count'); @endphp
+                        @foreach($categoryPostCounts as $catStat)
+                        <div class="ad-bar-item">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="ad-bar-label">{{ $catStat->name }}</span>
+                                <span class="ad-bar-value">{{ $catStat->posts_count }} posts</span>
+                            </div>
+                            <div class="ad-bar-track">
+                                <div class="ad-bar-fill" style="width: {{ $maxCount > 0 ? ($catStat->posts_count / $maxCount) * 100 : 0 }}%;">
+                                </div>
+                            </div>
                         </div>
+                        @endforeach
                     @else
                         <div class="text-center text-muted py-4">
-                            <i class="bi bi-cart-x fs-1 d-block mb-2"></i>
-                            No orders yet
+                            <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 8px;"></i>
+                            <span>No categories yet</span>
                         </div>
                     @endif
                 </div>
             </div>
         </div>
 
-        {{-- Low Stock Products --}}
-        <div class="col-lg-5">
-            <div class="card border-0 shadow-sm rounded-4 h-100">
-                <div class="card-header bg-white border-0 rounded-top-4 d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0 fw-semibold"><i class="bi bi-exclamation-triangle me-2 text-warning"></i> Low Stock Alert</h6>
-                    <a href="/admin/product" class="btn btn-sm btn-outline-warning">View All</a>
+        <!-- Recent Posts -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="ad-panel">
+                <div class="ad-panel-header d-flex justify-content-between align-items-center">
+                    <h5><i class="bi bi-clock-history me-2" style="color: #6366f1;"></i>Recent Posts</h5>
+                    <a href="/admin/posts" class="btn btn-sm ad-btn-outline">
+                        View All <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
                 </div>
-                <div class="card-body p-0">
-                    @if($lowStockProducts->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th style="width:40px;">#</th>
-                                        <th>Product</th>
-                                        <th style="width:80px;">Stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($lowStockProducts as $product)
-                                        <tr>
-                                            <td class="fw-medium">{{ $loop->iteration }}</td>
-                                            <td class="text-truncate" style="max-width: 150px;">{{ $product->name }}</td>
-                                            <td>
-                                                <span class="badge {{ $product->stock == 0 ? 'bg-danger' : 'bg-warning text-dark' }} px-2 py-1">
-                                                    {{ $product->stock }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="ad-panel-body p-0">
+                    @if($recentPosts->count() > 0)
+                    <div class="ad-table-responsive">
+                        <table class="ad-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recentPosts as $post)
+                                <tr>
+                                    <td>
+                                        <div class="ad-post-title">
+                                            @if($post->file)
+                                                @php
+                                                    $ext = strtolower(pathinfo($post->file, PATHINFO_EXTENSION));
+                                                    $imgExt = ['jpg','jpeg','png','gif','webp'];
+                                                @endphp
+                                                @if(in_array($ext, $imgExt))
+                                                <img src="{{ config('app.storage_url') }}{{ $post->file }}" class="ad-post-thumb" alt="">
+                                                @endif
+                                            @endif
+                                            <span>{{ \Illuminate\Support\Str::limit($post->title, 35) }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if($post->PostCategory)
+                                        <span class="ad-cat-tag">{{ $post->PostCategory->name }}</span>
+                                        @else
+                                        <span class="text-muted">—</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-muted small">{{ $post->created_at->format('d M Y') }}</td>
+                                    <td>
+                                        @if($post->status == '1')
+                                        <span class="ad-status ad-status-active">
+                                            <i class="bi bi-check-circle-fill"></i> Published
+                                        </span>
+                                        @else
+                                        <span class="ad-status ad-status-draft">
+                                            <i class="bi bi-pencil-fill"></i> Draft
+                                        </span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     @else
-                        <div class="text-center text-muted py-4">
-                            <i class="bi bi-check-circle fs-1 d-block mb-2 text-success"></i>
-                            All products well stocked
+                    <div class="text-center text-muted py-5">
+                        <i class="bi bi-newspaper" style="font-size: 2.5rem; display: block; margin-bottom: 10px; opacity: 0.5;"></i>
+                        <span>No posts yet</span>
+                        <div class="mt-2">
+                            <a href="/admin/posts/create" class="btn btn-sm" style="background: #6366f1; color: #fff;">
+                                <i class="bi bi-plus-lg me-1"></i> Create Post
+                            </a>
                         </div>
+                    </div>
                     @endif
                 </div>
             </div>
         </div>
+
     </div>
 
-</div>
+    <!-- ===== BOTTOM ROW: Recent Contacts + Quick Categories ===== -->
+    <div class="row g-3">
+
+        <!-- Recent Contacts -->
+        <div class="col-xl-7">
+            <div class="ad-panel">
+                <div class="ad-panel-header d-flex justify-content-between align-items-center">
+                    <h5><i class="bi bi-chat-dots me-2" style="color: #0891b2;"></i>Recent Messages</h5>
+                    <a href="/admin/contacts" class="btn btn-sm ad-btn-outline">
+                        View All <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                <div class="ad-panel-body p-0">
+                    @if($recentContacts->count() > 0)
+                    <div class="ad-table-responsive">
+                        <table class="ad-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recentContacts as $contact)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="ad-avatar">{{ strtoupper(substr($contact->name, 0, 1)) }}</div>
+                                            <span class="fw-medium">{{ $contact->name }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="small">{{ $contact->email }}</td>
+                                    <td>
+                                        <span class="ad-msg-preview">{{ \Illuminate\Support\Str::limit($contact->message, 40) }}</span>
+                                    </td>
+                                    <td class="text-muted small">{{ $contact->created_at->format('d M Y') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @else
+                    <div class="text-center text-muted py-5">
+                        <i class="bi bi-envelope-open" style="font-size: 2.5rem; display: block; margin-bottom: 10px; opacity: 0.5;"></i>
+                        <span>No messages yet</span>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Info / Categories List -->
+        <div class="col-xl-5">
+            <div class="ad-panel">
+                <div class="ad-panel-header">
+                    <h5><i class="bi bi-info-circle me-2" style="color: #f59e0b;"></i>Quick Overview</h5>
+                </div>
+                <div class="ad-panel-body">
+                    <div class="ad-quick-grid">
+                        <div class="ad-quick-item">
+                            <div class="ad-quick-icon ad-qi-posts">
+                                <i class="bi bi-journal-text"></i>
+                            </div>
+                            <div class="ad-quick-text">
+                                <span class="ad-quick-label">Total Posts</span>
+                                <span class="ad-quick-value">{{ $totalPosts }}</span>
+                            </div>
+                        </div>
+                        <div class="ad-quick-item">
+                            <div class="ad-quick-icon ad-qi-cats">
+                                <i class="bi bi-tags"></i>
+                            </div>
+                            <div class="ad-quick-text">
+                                <span class="ad-quick-label">Categories</span>
+                                <span class="ad-quick-value">{{ $totalCategories }}</span>
+                            </div>
+                        </div>
+                        <div class="ad-quick-item">
+                            <div class="ad-quick-icon ad-qi-msgs">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <div class="ad-quick-text">
+                                <span class="ad-quick-label">Messages</span>
+                                <span class="ad-quick-value">{{ $totalContacts }}</span>
+                            </div>
+                        </div>
+                        <div class="ad-quick-item">
+                            <div class="ad-quick-icon ad-qi-sliders">
+                                <i class="bi bi-images"></i>
+                            </div>
+                            <div class="ad-quick-text">
+                                <span class="ad-quick-label">Sliders</span>
+                                <span class="ad-quick-value">{{ $totalSliders }}</span>
+                            </div>
+                        </div>
+                        <div class="ad-quick-item">
+                            <div class="ad-quick-icon ad-qi-pub">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div class="ad-quick-text">
+                                <span class="ad-quick-label">Published</span>
+                                <span class="ad-quick-value" style="color: #10b981;">{{ $publishedPosts }}</span>
+                            </div>
+                        </div>
+                        <div class="ad-quick-item">
+                            <div class="ad-quick-icon ad-qi-draft">
+                                <i class="bi bi-pencil"></i>
+                            </div>
+                            <div class="ad-quick-text">
+                                <span class="ad-quick-label">Drafts</span>
+                                <span class="ad-quick-value" style="color: #f59e0b;">{{ $draftPosts }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if($latestCategories->count() > 0)
+                    <hr class="my-3" style="border-color: #e9eef3;">
+                    <div>
+                        <small class="text-muted fw-semibold text-uppercase" style="letter-spacing: 0.5px;">
+                            <i class="bi bi-collection me-1"></i> Latest Categories
+                        </small>
+                        <div class="d-flex flex-wrap gap-2 mt-2">
+                            @foreach($latestCategories as $cat)
+                            <span class="ad-cat-pill">{{ $cat->name }}</span>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 
 <style>
-.card.shadow-sm { transition: box-shadow 0.2s, transform 0.2s; }
-.card.shadow-sm:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important; transform: translateY(-2px); }
+    /* ===== ADMIN DASHBOARD STYLES ===== */
 
-.table-hover tbody tr:hover { background-color: rgba(13, 110, 253, 0.03); transition: background 0.15s; }
+    /* --- Stats Cards --- */
+    .ad-stat-card {
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 14px;
+        padding: 20px 22px;
+        border: 1px solid rgba(233, 238, 243, 0.8);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-.badge { font-size: 0.75rem; font-weight: 500; }
+    .ad-stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        transition: height 0.3s ease;
+    }
 
-/* Responsive */
-@media (max-width: 1199px) {
-    .table td, .table th { padding: 0.5rem 0.4rem; }
-}
+    .ad-stat-posts::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+    .ad-stat-categories::before { background: linear-gradient(90deg, #10b981, #34d399); }
+    .ad-stat-contacts::before { background: linear-gradient(90deg, #0891b2, #06b6d4); }
+    .ad-stat-sliders::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
 
-@media (max-width: 991px) {
-    .row.mx-3 { margin: 1rem !important; }
-    .col-lg-7, .col-lg-5 { width: 100%; }
-}
+    .ad-stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        border-color: transparent;
+        background: rgba(255, 255, 255, 0.95);
+    }
 
-@media (max-width: 767px) {
-    .card-body { padding: 1.25rem; }
-    .card-header { padding: 1.25rem; }
-    h2, .fs-4 { font-size: 1.4rem; }
-    h3 { font-size: 1.5rem; }
-    h4 { font-size: 1.25rem; }
-}
+    .ad-stat-card:hover::before {
+        height: 4px;
+    }
 
-@media (max-width: 575px) {
-    .container-fluid { padding: 1rem; }
-    .row.mx-3 { margin: 0.75rem !important; }
-    .col-md-3.col-6 { width: 50%; }
-    .card.shadow-sm { margin-bottom: 1rem; }
-    .card.shadow-sm:last-child { margin-bottom: 0; }
-}
+    .ad-stat-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+    }
+
+    .ad-icon-posts { background: rgba(99, 102, 241, 0.12); color: #6366f1; }
+    .ad-icon-categories { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+    .ad-icon-contacts { background: rgba(8, 145, 178, 0.12); color: #0891b2; }
+    .ad-icon-sliders { background: rgba(124, 58, 237, 0.12); color: #7c3aed; }
+
+    .ad-stat-label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #94a3b8;
+        margin-bottom: 2px;
+    }
+
+    .ad-stat-number {
+        font-size: 30px;
+        font-weight: 800;
+        color: #1e293b;
+        line-height: 1.1;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    .ad-stat-footer { border-top: 1px solid #f1f5f9; padding-top: 10px; }
+
+    .ad-stat-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .ad-badge-published { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .ad-badge-draft { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+    /* --- Panels --- */
+    .ad-panel {
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 14px;
+        border: 1px solid rgba(233, 238, 243, 0.8);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+        height: 100%;
+    }
+
+    .ad-panel:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .ad-panel-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .ad-panel-header h5 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .ad-panel-body {
+        padding: 18px 20px;
+    }
+
+    /* --- Bar Chart (Category Distribution) --- */
+    .ad-bar-item {
+        margin-bottom: 14px;
+    }
+
+    .ad-bar-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .ad-bar-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .ad-bar-value {
+        font-size: 11px;
+        font-weight: 700;
+        color: #6366f1;
+    }
+
+    .ad-bar-track {
+        height: 7px;
+        background: #f1f5f9;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .ad-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        border-radius: 4px;
+        transition: width 1s ease;
+        position: relative;
+    }
+
+    /* --- Tables --- */
+    .ad-table-responsive {
+        overflow-x: auto;
+    }
+
+    .ad-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .ad-table th {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #94a3b8;
+        padding: 12px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left;
+        white-space: nowrap;
+        background: #fafbfc;
+    }
+
+    .ad-table td {
+        padding: 12px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+        font-size: 13px;
+        color: #334155;
+    }
+
+    .ad-table tbody tr {
+        transition: background 0.2s ease;
+    }
+
+    .ad-table tbody tr:hover {
+        background: rgba(99, 102, 241, 0.03);
+    }
+
+    .ad-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .ad-post-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+    }
+
+    .ad-post-thumb {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid #e9eef3;
+        flex-shrink: 0;
+    }
+
+    .ad-cat-tag {
+        display: inline-block;
+        padding: 2px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        background: rgba(99, 102, 241, 0.08);
+        color: #6366f1;
+        border-radius: 6px;
+    }
+
+    .ad-status {
+        font-size: 11px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        border-radius: 6px;
+    }
+
+    .ad-status-active {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+    }
+
+    .ad-status-draft {
+        background: rgba(245, 158, 11, 0.1);
+        color: #f59e0b;
+    }
+
+    .ad-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .ad-msg-preview {
+        color: #64748b;
+        font-size: 12px;
+    }
+
+    .ad-btn-outline {
+        border: 1px solid rgba(233, 238, 243, 0.8);
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 14px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .ad-btn-outline:hover {
+        border-color: #6366f1;
+        color: #6366f1;
+        background: rgba(99, 102, 241, 0.04);
+    }
+
+    /* --- Quick Overview Grid --- */
+    .ad-quick-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .ad-quick-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(241, 245, 249, 0.7);
+        transition: all 0.3s ease;
+    }
+
+    .ad-quick-item:hover {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(233, 238, 243, 0.8);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .ad-quick-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    .ad-qi-posts { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+    .ad-qi-cats { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .ad-qi-msgs { background: rgba(8, 145, 178, 0.1); color: #0891b2; }
+    .ad-qi-sliders { background: rgba(124, 58, 237, 0.1); color: #7c3aed; }
+    .ad-qi-pub { background: rgba(16, 185, 129, 0.08); color: #10b981; }
+    .ad-qi-draft { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+    .ad-quick-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ad-quick-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #94a3b8;
+    }
+
+    .ad-quick-value {
+        font-size: 18px;
+        font-weight: 800;
+        color: #1e293b;
+        line-height: 1.2;
+    }
+
+    .ad-cat-pill {
+        display: inline-block;
+        padding: 4px 14px;
+        font-size: 11px;
+        font-weight: 600;
+        background: rgba(99, 102, 241, 0.06);
+        color: #6366f1;
+        border-radius: 20px;
+        border: 1px solid rgba(99, 102, 241, 0.1);
+        transition: all 0.2s ease;
+    }
+
+    .ad-cat-pill:hover {
+        background: rgba(99, 102, 241, 0.12);
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+        .ad-stat-number { font-size: 24px; }
+        .ad-stat-icon { width: 44px; height: 44px; font-size: 18px; }
+        .ad-table th, .ad-table td { padding: 10px 14px; }
+        .ad-quick-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 576px) {
+        .ad-panel-header { padding: 14px 16px; }
+        .ad-panel-body { padding: 14px 16px; }
+        .ad-stat-card { padding: 16px; }
+    }
 </style>
 
 @endsection

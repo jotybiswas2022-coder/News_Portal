@@ -3,34 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', "ESHA'S ROKOMARIS 2 — Women's Fashion Boutique")</title>
-    <meta name="description" content="@yield('meta_description', 'Effortless fashion, thoughtfully selected for your everyday style.')">
-
-    {{-- Typography: editorial serif headings + highly readable UI sans --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    {{-- Store / account pages still rely on Bootstrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-    {{-- ESHA'S ROKOMARIS 2 brand theme (files live in the project's public/ directory) --}}
-    <link rel="stylesheet" href="{{ rtrim(config('app.public_url'), '/') }}/frontend/css/brand.css?v=16">
-
-    @yield('styles')
+    <title>@yield('title', 'News Portal') | News Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html, body { overflow-x: hidden; max-width: 100%; }
+        img, video, iframe, embed, object { max-width: 100%; }
+        h1, h2, h3, h4, h5, h6, p, a, span, li, td, th { overflow-wrap: break-word; word-break: break-word; }
+    </style>
 </head>
-<body class="@yield('body_class')">
+<body>
+    <div class="np-page-loader" id="pageLoader">
+        <div class="np-loader-spinner"></div>
+    </div>
     @include('frontend.partials.menu')
-
-    <main id="main">
-        @yield('content')
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="{{ rtrim(config('app.public_url'), '/') }}/frontend/js/brand.js?v=3"></script>
-
-    @yield('scripts')
+    @yield('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        var loader = document.getElementById('pageLoader');
+        if (loader) { loader.classList.add('np-loader-hidden'); }
+    });
+</script>
+<style>
+    .np-page-loader {
+        position: fixed; inset: 0; z-index: 99999;
+        background: var(--np-dark-1, #0a0a0f);
+        display: flex; align-items: center; justify-content: center;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .np-page-loader.np-loader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .np-loader-spinner {
+        width: 36px; height: 36px;
+        border: 3px solid rgba(255,255,255,0.1);
+        border-top-color: #D32F2F;
+        border-radius: 50%;
+        animation: npSpin 0.8s linear infinite;
+    }
+    @keyframes npSpin { to { transform: rotate(360deg); } }
+</style>
 </body>
 </html>
