@@ -16,28 +16,31 @@
 </div>
 @endif
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h4 class="fw-bold mb-1" style="color: #1e293b;">
-            <i class="bi bi-tags me-2" style="color: #6366f1;"></i>Category List
+<div class="ad-page-header">
+    <div class="ad-page-header-main">
+        <h4 class="ad-page-title">
+            <i class="bi bi-tags"></i> Category List
         </h4>
-        <p class="text-muted mb-0" style="font-size: 13px;">
-            <i class="bi bi-house-door me-1"></i> Dashboard / <span class="fw-medium" style="color: #6366f1;">Categories</span>
-            <span class="badge ms-2" style="background: rgba(99,102,241,0.1); color: #6366f1; font-size: 11px; font-weight: 600;">
-                <i class="bi bi-tags me-1"></i> {{ $categories->count() }} Categories
-            </span>
+        <p class="ad-page-sub">
+            <i class="bi bi-house-door"></i> Dashboard / <span class="fw-medium">Categories</span>
+            <span class="ad-page-sep">·</span>
+            <span class="ad-page-count">{{ $categories->count() }} categories</span>
         </p>
     </div>
-    <div>
-        <a href="{{ url('admin/category/create') }}" class="ad-btn-primary">
-            <i class="bi bi-plus-lg me-1"></i> Add New Category
-        </a>
-    </div>
+    <a href="{{ url('admin/category/create') }}" class="ad-btn-primary ad-btn-primary-sm">
+        <i class="bi bi-plus-lg me-1"></i> Add New Category
+    </a>
 </div>
 
 <div class="ad-panel">
-    <div class="ad-panel-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <h5><i class="bi bi-tags me-2" style="color: #6366f1;"></i>All Categories</h5>
+    <div class="ad-panel-header">
+        <div class="d-flex align-items-center gap-2">
+            <span class="ad-panel-icon"><i class="bi bi-collection-fill"></i></span>
+            <div>
+                <h5 class="mb-0">All Categories</h5>
+                <small class="text-muted" style="font-size: 12px;">Organize posts by topic</small>
+            </div>
+        </div>
         <div class="ad-search-wrap">
             <i class="bi bi-search ad-search-icon"></i>
             <input type="text" id="categorySearch" class="ad-search-input" placeholder="Search categories...">
@@ -46,33 +49,33 @@
     </div>
     <div class="ad-panel-body p-0">
         <div class="ad-table-responsive">
-            <table class="ad-table">
+            <table class="ad-table ad-categories-table">
                 <thead>
                     <tr>
                         <th style="width:60px;">#</th>
                         <th>Category Name</th>
                         <th style="width:180px;">Created At</th>
-                        <th style="width:180px;">Actions</th>
+                        <th style="width:160px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($categories as $category)
                     <tr>
-                        <td class="text-muted fw-bold">{{ $loop->iteration }}</td>
-                        <td>
+                        <td data-label="#" class="ad-td-index"><span class="ad-index-badge">{{ $loop->iteration }}</span></td>
+                        <td data-label="Category Name">
                             <div class="d-flex align-items-center gap-2">
-                                <div class="ad-cat-color-dot" style="background: {{ ['#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6','#0891b2'][$loop->index % 6] }};"></div>
-                                <span class="fw-medium" style="color: #1e293b;">{{ $category->name }}</span>
+                                <span class="ad-cat-color-dot" style="background: {{ ['#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6','#0891b2'][$loop->index % 6] }};"></span>
+                                <span class="fw-medium ad-cat-name">{{ $category->name }}</span>
                             </div>
                         </td>
-                        <td>
+                        <td data-label="Created At">
                             <div class="ad-date-stack">
                                 <span class="ad-date-day">{{ $category->created_at->format('d M Y') }}</span>
                                 <span class="ad-date-time">{{ $category->created_at->format('h:i A') }}</span>
                             </div>
                         </td>
-                        <td>
-                            <div class="d-flex gap-1">
+                        <td data-label="Actions">
+                            <div class="ad-action-group">
                                 <button class="ad-action-btn ad-action-edit" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </button>
@@ -86,10 +89,10 @@
                     <tr>
                         <td colspan="4" class="text-center py-5">
                             <div class="ad-empty-state">
-                                <i class="bi bi-tag"></i>
+                                <span class="ad-empty-icon"><i class="bi bi-tag"></i></span>
                                 <h6>No Categories Yet</h6>
                                 <p class="text-muted">Create your first category to organize your posts</p>
-                                <a href="{{ url('admin/category/create') }}" class="ad-btn-primary" style="display: inline-flex; font-size: 12px; padding: 8px 20px;">
+                                <a href="{{ url('admin/category/create') }}" class="ad-btn-primary ad-btn-primary-sm">
                                     <i class="bi bi-plus-lg me-1"></i> Create Category
                                 </a>
                             </div>
@@ -104,27 +107,7 @@
 
 <!-- Edit Modals -->
 @foreach($categories as $category)
-<div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content ad-modal-content">
-            <div class="ad-modal-header" style="background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff;">
-                <h5 class="ad-modal-title" style="color: #fff;"><i class="bi bi-pencil-square me-2"></i>Edit Category</h5>
-                <button class="ad-modal-close ad-modal-close-white" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
-            </div>
-            <form action="{{ url('admin/category/update/'.$category->id) }}" method="POST">
-                @csrf
-                <div class="ad-modal-body">
-                    <label class="ad-form-label">Category Name <span class="text-danger">*</span></label>
-                    <input type="text" class="ad-form-input" name="name" value="{{ $category->name }}" required>
-                </div>
-                <div class="ad-modal-footer">
-                    <button type="button" class="ad-btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle me-1"></i> Cancel</button>
-                    <button type="submit" class="ad-btn-primary"><i class="bi bi-check-lg me-1"></i> Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+    @include('backend.category.editmodal')
 @endforeach
 
 <script>
@@ -182,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var tbody = document.querySelector('table tbody');
                 var nr = document.createElement('tr');
                 nr.id = 'noResultsRow';
-                nr.innerHTML = '<td colspan="4" class="text-center py-5"><div class="ad-empty-state"><i class="bi bi-search"></i><h6>No Results</h6><p class="text-muted">No categories match your search</p></div></td>';
+                nr.innerHTML = '<td colspan="4" class="text-center py-5"><div class="ad-empty-state"><span class="ad-empty-icon"><i class="bi bi-search"></i></span><h6>No Results</h6><p class="text-muted">No categories match your search</p></div></td>';
                 tbody.appendChild(nr);
             }
         } else {
@@ -193,56 +176,121 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
-.ad-alert { border-radius: 12px; border: none; padding: 14px 18px; font-size: 13px; font-weight: 500; margin-bottom: 20px; }
-.ad-alert-success { background: rgba(16,185,129,0.08); color: #10b981; }
-.ad-alert-danger { background: rgba(239,68,68,0.08); color: #ef4444; }
-.ad-panel { background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 14px; border: 1px solid rgba(233,238,243,0.8); overflow: hidden; transition: box-shadow 0.3s; }
-.ad-panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: rgba(255,255,255,0.95); }
-.ad-panel-header { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
-.ad-panel-header h5 { font-size: 14px; font-weight: 700; color: #1e293b; margin: 0; display: flex; align-items: center; }
-.ad-panel-body { padding: 0; }
-.ad-search-wrap { position: relative; width: 240px; }
-.ad-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 13px; pointer-events: none; }
-.ad-search-input { width: 100%; padding: 8px 34px 8px 34px; border: 1px solid rgba(233,238,243,0.7); border-radius: 8px; font-size: 12px; color: #334155; background: rgba(250,251,252,0.8); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); outline: none; transition: all 0.3s; font-family: inherit; }
-.ad-search-input:focus { border-color: #6366f1; background: rgba(255,255,255,0.95); box-shadow: 0 0 0 3px rgba(99,102,241,0.06); }
-.ad-search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 10px; cursor: pointer; padding: 4px; }
-.ad-search-clear:hover { color: #ef4444; background: rgba(239,68,68,0.06); border-radius: 4px; }
-.ad-table-responsive { overflow-x: auto; }
-.ad-table { width: 100%; border-collapse: collapse; }
-.ad-table th { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-align: left; white-space: nowrap; background: #fafbfc; }
-.ad-table td { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; font-size: 13px; color: #334155; }
-.ad-table tbody tr { transition: background 0.2s; }
-.ad-table tbody tr:hover { background: rgba(99,102,241,0.02); }
-.ad-table tbody tr:last-child td { border-bottom: none; }
-.ad-cat-color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.ad-date-stack { display: flex; flex-direction: column; gap: 2px; }
-.ad-date-day { font-size: 11px; font-weight: 600; color: #475569; }
-.ad-date-time { font-size: 10px; color: #94a3b8; }
-.ad-action-btn { width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; transition: all 0.2s; }
-.ad-action-edit { background: rgba(99,102,241,0.08); color: #6366f1; }
-.ad-action-edit:hover { background: rgba(99,102,241,0.15); transform: translateY(-1px); }
-.ad-action-delete { background: rgba(239,68,68,0.08); color: #ef4444; }
-.ad-action-delete:hover { background: rgba(239,68,68,0.15); transform: translateY(-1px); }
-.ad-empty-state { text-align: center; padding: 30px; }
-.ad-empty-state i { font-size: 40px; color: #cbd5e1; display: block; margin-bottom: 12px; }
-.ad-empty-state h6 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-.ad-empty-state p { font-size: 12px; margin-bottom: 14px; }
-.ad-btn-primary { padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.2); text-decoration: none; }
-.ad-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.3); color: #fff; }
-.ad-modal-content { border: none; border-radius: 20px; box-shadow: 0 25px 80px rgba(0,0,0,0.15); overflow: hidden; background: rgba(255,255,255,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
-.ad-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; }
-.ad-modal-title { font-size: 15px; font-weight: 700; color: #1e293b; margin: 0; }
-.ad-modal-close { width: 36px; height: 36px; border-radius: 10px; border: none; background: rgba(0,0,0,0.04); color: #64748b; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; }
-.ad-modal-close-white { background: rgba(255,255,255,0.2); color: #fff; }
-.ad-modal-close-white:hover { background: rgba(255,255,255,0.35); color: #fff; transform: rotate(90deg); }
-.ad-modal-body { padding: 24px 28px; }
-.ad-form-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; }
-.ad-form-input { width: 100%; padding: 10px 12px; border: 1px solid #e9eef3; border-radius: 8px; font-size: 13px; color: #334155; outline: none; transition: border-color 0.3s; font-family: inherit; }
-.ad-form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.06); }
-.ad-modal-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 18px 28px; border-top: 1px solid rgba(241,245,249,0.5); }
-.ad-btn-secondary { padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid rgba(233,238,243,0.5); cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: #64748b; }
-.ad-btn-secondary:hover { background: rgba(248,250,252,0.8); border-color: #cbd5e1; }
-@media (max-width: 768px) { .ad-panel-header { flex-direction: column; align-items: stretch !important; gap: 10px; } .ad-search-wrap { width: 100%; } }
+    .ad-alert { border-radius: 12px; border: none; padding: 13px 18px; font-size: 13px; font-weight: 500; margin-bottom: 18px; }
+    .ad-alert-success { background: rgba(16,185,129,0.08); color: #10b981; }
+    .ad-alert-danger { background: rgba(239,68,68,0.08); color: #ef4444; }
+
+    .ad-page-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+    .ad-page-header-main { min-width: 0; }
+    .ad-page-title { font-weight: 800; color: #1e293b; margin-bottom: 4px; font-size: 22px; }
+    .ad-page-title i { color: #6366f1; margin-right: 10px; }
+    .ad-page-sub { color: #94a3b8; font-size: 13px; margin: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .ad-page-sub i { font-size: 12px; color: #a8b4c8; }
+    .ad-page-sub .fw-medium { color: #6366f1; }
+    .ad-page-sep { color: #dbe2eb; }
+    .ad-page-count { color: #475569; font-weight: 600; }
+    .ad-btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 11px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(99,102,241,0.25); transition: all 0.25s; text-decoration: none; }
+    .ad-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,0.35); color: #fff; }
+    .ad-btn-primary-sm { padding: 9px 18px; font-size: 13px; }
+
+    .ad-panel { background: #fff; border: 1px solid var(--ad-border); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 14px rgba(15,23,42,0.05); }
+    .ad-panel-header { padding: 16px 20px; border-bottom: 1px solid #eef2f7; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .ad-panel-header h5 { font-size: 15px; font-weight: 700; color: #1e293b; }
+    .ad-panel-icon { width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: rgba(99,102,241,0.10); color: #6366f1; font-size: 17px; flex-shrink: 0; }
+    .ad-search-wrap { position: relative; width: 260px; }
+    .ad-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 13px; pointer-events: none; }
+    .ad-search-input { width: 100%; padding: 9px 34px 9px 36px; border: 1px solid var(--ad-border); border-radius: 10px; font-size: 13px; color: #334155; background: #f6f8fb; outline: none; transition: all 0.25s; font-family: inherit; }
+    .ad-search-input::placeholder { color: #94a3b8; }
+    .ad-search-input:focus { border-color: #a5b4fc; background: #fff; box-shadow: 0 0 0 3px rgba(99,102,241,0.08); }
+    .ad-search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 10px; cursor: pointer; padding: 4px; border-radius: 5px; transition: all 0.2s; }
+    .ad-search-clear:hover { color: #ef4444; background: rgba(239,68,68,0.06); }
+
+    .ad-table-responsive { overflow-x: auto; }
+    .ad-table { width: 100%; border-collapse: collapse; }
+    .ad-table th { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; padding: 13px 16px; border-bottom: 1px solid #eef2f7; text-align: left; white-space: nowrap; background: #fafbfc; }
+    .ad-table td { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; font-size: 13px; color: #334155; }
+    .ad-table tbody tr { transition: background 0.15s; }
+    .ad-table tbody tr:hover { background: #fafbff; }
+    .ad-table tbody tr:last-child td { border-bottom: none; }
+
+    .ad-index-badge { width: 26px; height: 26px; border-radius: 8px; background: #f1f5f9; color: #64748b; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .ad-cat-color-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(148,163,184,0.12); }
+    .ad-cat-name { color: #1e293b; }
+    .ad-date-stack { display: flex; flex-direction: column; gap: 2px; }
+    .ad-date-day { font-size: 11px; font-weight: 600; color: #475569; white-space: nowrap; }
+    .ad-date-time { font-size: 10px; color: #94a3b8; }
+    .ad-action-group { display: flex; gap: 6px; }
+    .ad-action-btn { width: 34px; height: 34px; border-radius: 9px; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s; }
+    .ad-action-edit { background: rgba(99,102,241,0.08); color: #6366f1; }
+    .ad-action-edit:hover { background: #6366f1; color: #fff; transform: translateY(-2px); }
+    .ad-action-delete { background: rgba(239,68,68,0.08); color: #ef4444; }
+    .ad-action-delete:hover { background: #ef4444; color: #fff; transform: translateY(-2px); }
+
+    .ad-empty-state { text-align: center; padding: 26px; }
+    .ad-empty-icon { width: 52px; height: 52px; border-radius: 14px; background: #f1f5f9; display: inline-flex; align-items: center; justify-content: center; font-size: 24px; color: #94a3b8; margin-bottom: 12px; }
+    .ad-empty-state h6 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+    .ad-empty-state p { font-size: 12px; margin-bottom: 14px; }
+
+    /* Modal shared styles */
+    .ad-modal-content { border: none; border-radius: 18px; box-shadow: 0 25px 80px rgba(0,0,0,0.18); overflow: hidden; background: #fff; border: 1px solid var(--ad-border); }
+    .ad-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 17px 24px; background: linear-gradient(135deg,#6366f1,#8b5cf6); }
+    .ad-modal-title { font-size: 15px; font-weight: 700; color: #fff; margin: 0; }
+    .ad-modal-close { width: 34px; height: 34px; border-radius: 10px; border: none; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 12px; }
+    .ad-modal-close:hover { background: rgba(255,255,255,0.35); transform: rotate(90deg); }
+    .ad-modal-body { padding: 24px; }
+    .ad-modal-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 24px; border-top: 1px solid #f1f5f9; background: #fafbfc; }
+    .ad-form-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+    .ad-form-input { width: 100%; padding: 10px 12px; border: 1px solid var(--ad-border); border-radius: 9px; font-size: 13px; color: #334155; background: #fff; outline: none; transition: border-color 0.25s, box-shadow 0.25s; font-family: inherit; }
+    .ad-form-input:focus { border-color: #a5b4fc; box-shadow: 0 0 0 3px rgba(99,102,241,0.08); }
+    .ad-input-group { position: relative; }
+    .ad-input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
+    .ad-input-with-icon { padding-left: 38px; }
+    .ad-btn-secondary { padding: 9px 20px; border-radius: 9px; font-size: 13px; font-weight: 600; border: 1px solid var(--ad-border); cursor: pointer; transition: all 0.2s; background: #fff; color: #64748b; }
+    .ad-btn-secondary:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
+    /* ===== Mobile: table -> stacked cards ===== */
+    @media (max-width: 767.98px) {
+        .ad-table-responsive { overflow-x: visible; }
+        .ad-page-header-main { flex: 1 1 100%; }
+        .ad-panel-header { flex-direction: column; align-items: stretch !important; gap: 12px; }
+        .ad-search-wrap { width: 100%; }
+
+        .ad-categories-table thead { display: none; }
+        .ad-categories-table, .ad-categories-table tbody, .ad-categories-table tr, .ad-categories-table td { display: block; width: 100%; }
+        .ad-categories-table tbody tr {
+            background: #fff; border: 1px solid #e6ebf2; border-radius: 14px;
+            margin: 0 8px 12px; overflow: hidden;
+            box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+        }
+        .ad-categories-table tbody tr:hover { background: #fff; }
+        .ad-categories-table tbody tr:last-child { margin-bottom: 8px; }
+        .ad-categories-table td {
+            display: flex; align-items: center; justify-content: space-between; gap: 14px;
+            padding: 10px 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px;
+        }
+        .ad-categories-table td::before {
+            content: attr(data-label);
+            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+            color: #94a3b8; flex-shrink: 0;
+        }
+        .ad-categories-table td[data-label="#"] { display: none; }
+        .ad-categories-table td[data-label="Actions"] { border-bottom: none; padding-bottom: 14px; }
+        .ad-categories-table td[data-label="Actions"]::before { display: none; }
+        .ad-categories-table td[data-label="Actions"] .ad-action-group { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .ad-categories-table td[data-label="Actions"] .ad-action-btn { width: 100%; height: 38px; font-size: 14px; }
+    }
+
+    @media (max-width: 575.98px) {
+        .ad-page-title { font-size: 19px; }
+        .ad-btn-primary-sm { width: 100%; justify-content: center; }
+        .ad-panel-header { padding: 14px 16px; }
+        .ad-categories-table tbody tr { margin: 0 4px 10px; }
+        .ad-categories-table td { padding: 9px 14px; }
+        .ad-modal-footer { flex-direction: column; }
+        .ad-modal-footer .ad-btn-secondary, .ad-modal-footer .ad-btn-primary { width: 100%; justify-content: center; }
+        .ad-modal-body { padding: 18px 16px; }
+        .ad-modal-header { padding: 14px 16px; }
+    }
 </style>
 
 @endsection
