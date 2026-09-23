@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | News Portal</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url('/assets/frontend/img/favicon.svg') }}">
     <style>
         html { overflow-x: hidden; max-width: 100%; }
         body { overflow-x: hidden; max-width: 100%; margin: 0; padding: 0; }
