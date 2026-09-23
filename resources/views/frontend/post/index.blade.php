@@ -525,10 +525,10 @@
 
                 <div class="np-share-strip">
                     <span class="np-share-label"><i class="bi bi-share-fill"></i> Share</span>
-                    <a href="#" class="np-share-btn" title="Facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="np-share-btn" title="Twitter"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="np-share-btn" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-                    <a href="#" class="np-share-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" data-share="facebook" class="np-share-btn" title="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                    <a href="#" data-share="twitter" class="np-share-btn" title="Twitter / X" target="_blank" rel="noopener"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" data-share="whatsapp" class="np-share-btn" title="WhatsApp" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" data-share="linkedin" class="np-share-btn" title="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
                     <button class="np-share-btn" title="Copy Link" onclick="copyArticleLink(event)"><i class="bi bi-link-45deg"></i></button>
                 </div>
             </div>
@@ -605,7 +605,8 @@
 
     function copyArticleLink(e) {
         e.preventDefault();
-        navigator.clipboard.writeText(window.location.href).then(function() {
+        const url = window.location.href;
+        const done = () => {
             var icon = e.currentTarget.querySelector('i');
             icon.className = 'bi bi-check-lg';
             e.currentTarget.style.color = '#00c853';
@@ -613,8 +614,44 @@
                 icon.className = 'bi bi-link-45deg';
                 e.currentTarget.style.color = '';
             }, 2000);
-        });
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(url).then(done).catch(function() {
+                fallbackCopy(url, done);
+            });
+        } else {
+            fallbackCopy(url, done);
+        }
     }
+
+    function fallbackCopy(text, done) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (err) { alert('Copy failed. Please copy the link manually.'); }
+        document.body.removeChild(ta);
+    }
+
+    (function initShareLinks() {
+        var url = encodeURIComponent(window.location.href);
+        var title = encodeURIComponent(document.title || 'News Portal Article');
+        var shareUrls = {
+            facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+            twitter: 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title,
+            whatsapp: 'https://api.whatsapp.com/send?text=' + title + '%20' + url,
+            linkedin: 'https://www.linkedin.com/shareArticle?mini=true&url=' + url + '&title=' + title
+        };
+        document.querySelectorAll('[data-share]').forEach(function(btn) {
+            var network = btn.getAttribute('data-share');
+            if (shareUrls[network]) {
+                btn.setAttribute('href', shareUrls[network]);
+            }
+        });
+    })();
 
     document.addEventListener('DOMContentLoaded', function() {
         var observer = new IntersectionObserver(function(entries) {
