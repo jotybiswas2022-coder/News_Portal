@@ -198,15 +198,8 @@
 
     <!-- ===== CATEGORIES ===== -->
     <section class="np-section np-categories" id="categories">
-        <!-- Decorative background elements -->
-        <div class="np-cat-bg-decor">
-            <span class="np-cat-circle np-cat-c1"></span>
-            <span class="np-cat-circle np-cat-c2"></span>
-            <span class="np-cat-circle np-cat-c3"></span>
-        </div>
-
         <div class="np-container">
-            <div class="np-section-head">
+            <div class="np-section-head np-cat-head">
                 <span class="np-section-label"><i class="bi bi-grid"></i> Browse</span>
                 <h2 class="np-section-title">News <span>Categories</span></h2>
                 <div class="np-section-line">
@@ -259,7 +252,7 @@
                         <div class="np-cat-footer">
                             <span class="np-cat-action">
                                 Explore
-                                <i class="bi bi-arrow-right"></i>
+                                <span class="np-cat-action-circle"><i class="bi bi-arrow-right"></i></span>
                             </span>
                         </div>
                     </div>
@@ -763,65 +756,13 @@
     .np-categories {
         background: var(--np-dark-1);
         position: relative;
-        overflow: hidden;
     }
 
-    .np-cat-bg-decor {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        overflow: hidden;
-    }
-
-    .np-cat-circle {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.03;
-    }
-
-    .np-cat-c1 {
-        width: 500px; height: 500px;
-        background: var(--np-red);
-        top: -150px; right: -100px;
-        animation: npCatFloat1 20s ease-in-out infinite;
-    }
-
-    .np-cat-c2 {
-        width: 350px; height: 350px;
-        background: #1976D2;
-        bottom: -80px; left: -80px;
-        animation: npCatFloat2 25s ease-in-out infinite;
-    }
-
-    .np-cat-c3 {
-        width: 200px; height: 200px;
-        background: #388E3C;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        animation: npCatFloat3 30s ease-in-out infinite;
-    }
-
-    @keyframes npCatFloat1 {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(-30px, 20px) scale(1.05); }
-        66% { transform: translate(20px, -30px) scale(0.95); }
-    }
-
-    @keyframes npCatFloat2 {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(40px, -20px) scale(1.08); }
-        66% { transform: translate(-20px, 30px) scale(0.92); }
-    }
-
-    @keyframes npCatFloat3 {
-        0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-        25% { transform: translate(-40%, -60%) scale(1.1) rotate(5deg); }
-        75% { transform: translate(-60%, -40%) scale(0.9) rotate(-5deg); }
-    }
+    .np-cat-head { margin-bottom: 44px; }
 
     .np-cat-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 24px;
         position: relative;
         z-index: 1;
@@ -832,30 +773,21 @@
     .np-cat-card {
         display: block;
         position: relative;
-        background: rgba(18, 18, 30, 0.7);
-        backdrop-filter: blur(12px);
+        background: var(--np-dark-3);
         border: 1px solid var(--np-border);
+        border-radius: 12px;
         overflow: hidden;
         opacity: 0;
         transform: translateY(30px);
         animation: npCatCardIn 0.6s ease-out var(--card-delay, 0s) forwards;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
     }
 
     @keyframes npCatCardIn {
         to { opacity: 1; transform: translateY(0); }
-    }
-
-    .np-cat-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.02));
-        pointer-events: none;
-    }
-
-    .np-cat-card:nth-child(even)::before {
-        background: linear-gradient(225deg, transparent 60%, rgba(255,255,255,0.02));
     }
 
     .np-cat-top-border {
@@ -872,7 +804,7 @@
     }
 
     .np-cat-card-inner {
-        padding: 28px 26px 22px;
+        padding: 26px 24px 20px;
         position: relative;
     }
 
@@ -880,7 +812,7 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
     }
 
     .np-cat-icon-bg {
@@ -890,8 +822,10 @@
         align-items: center;
         justify-content: center;
         font-size: 22px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
+        color: var(--cat-accent, var(--np-red));
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
         transition: all 0.4s ease;
         position: relative;
         overflow: hidden;
@@ -909,19 +843,15 @@
     .np-cat-icon-bg i {
         position: relative;
         z-index: 2;
-        color: var(--cat-accent, var(--np-red));
         transition: all 0.4s ease;
     }
 
     .np-cat-card:hover .np-cat-icon-bg {
-        border-color: var(--cat-accent, var(--np-red));
         transform: rotate(-5deg) scale(1.05);
-        box-shadow: 0 0 30px rgba(0,0,0,0.2);
+        border-color: var(--cat-accent, var(--np-red));
     }
 
-    .np-cat-card:hover .np-cat-icon-bg::after {
-        opacity: 0.12;
-    }
+    .np-cat-card:hover .np-cat-icon-bg::after { opacity: 0.15; }
 
     .np-cat-card:hover .np-cat-icon-bg i {
         color: var(--np-white);
@@ -948,12 +878,10 @@
 
     .np-cat-card:hover .np-cat-count {
         transform: scale(1.08);
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
     }
 
-    .np-cat-body {
-        margin-bottom: 18px;
-    }
+    .np-cat-body { margin-bottom: 18px; }
 
     .np-cat-name {
         font-family: var(--font-headline);
@@ -982,71 +910,84 @@
 
     .np-cat-footer {
         padding-top: 14px;
-        border-top: 1px solid rgba(255,255,255,0.04);
+        border-top: 1px solid var(--np-border);
     }
 
     .np-cat-action {
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1.5px;
         color: var(--np-text-muted);
+        transition: color 0.4s ease, gap 0.4s ease;
+    }
+
+    .np-cat-action-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--np-dark-4);
+        border: 1px solid var(--np-border);
         transition: all 0.4s ease;
     }
 
-    .np-cat-action i {
-        font-size: 12px;
-        transition: transform 0.4s ease;
-    }
+    .np-cat-action-circle i { font-size: 12px; transition: transform 0.4s ease; }
 
     .np-cat-card:hover .np-cat-action {
         color: var(--cat-accent, var(--np-red));
-        gap: 12px;
+        gap: 14px;
     }
 
-    .np-cat-card:hover .np-cat-action i {
-        transform: translateX(6px);
-    }
-
-    .np-cat-card::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 1px solid transparent;
-        transition: all 0.4s ease;
-        pointer-events: none;
-    }
-
-    .np-cat-card:hover::after {
-        border-color: var(--cat-accent, var(--np-red));
-        box-shadow: 0 0 30px color-mix(in srgb, var(--cat-accent, var(--np-red)) 8%, transparent),
-                    inset 0 0 30px color-mix(in srgb, var(--cat-accent, var(--np-red)) 3%, transparent);
-    }
-
-    .np-cat-card:hover {
-        transform: translateY(-8px) scale(1.02);
+    .np-cat-card:hover .np-cat-action-circle {
+        background: var(--cat-gradient, var(--np-red));
         border-color: transparent;
     }
 
+    .np-cat-card:hover .np-cat-action-circle i {
+        transform: translateX(3px);
+        color: var(--np-white);
+    }
+
+    .np-cat-card:hover {
+        transform: translateY(-8px);
+        border-color: color-mix(in srgb, var(--cat-accent, var(--np-red)) 35%, var(--np-border));
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 992px) {
+        .np-cat-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .np-cat-card-inner { padding: 24px 20px 18px; }
+    }
+
     @media (max-width: 768px) {
-        .np-cat-grid {
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 18px;
-        }
-        .np-cat-card-inner { padding: 22px 20px 18px; }
-        .np-cat-icon-bg { width: 48px; height: 48px; font-size: 18px; }
-        .np-cat-name { font-size: 17px; }
-        .np-cat-card:hover { transform: translateY(-4px) scale(1.01); }
+        .np-cat-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .np-cat-card-inner { padding: 20px 16px 16px; }
+        .np-cat-icon-bg { width: 48px; height: 48px; font-size: 19px; }
+        .np-cat-name { font-size: 16px; }
+        .np-cat-card:hover { transform: translateY(-5px); }
     }
 
     @media (max-width: 480px) {
-        .np-cat-grid { grid-template-columns: 1fr; gap: 14px; }
+        .np-cat-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .np-cat-head { margin-bottom: 30px; }
+        .np-cat-card-inner { padding: 16px 10px 14px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .np-cat-icon-wrap { justify-content: center; margin-bottom: 12px; }
+        .np-cat-icon-bg { width: 42px; height: 42px; font-size: 17px; border-radius: 10px; }
+        .np-cat-count { min-width: 20px; height: 18px; padding: 0 6px; font-size: 9px; top: -2px; border-radius: 9px; }
+        .np-cat-body { margin-bottom: 10px; }
+        .np-cat-name { font-size: 13px; margin-bottom: 4px; }
+        .np-cat-desc { display: none; }
+        .np-cat-footer { padding-top: 10px; border: none; }
+        .np-cat-action { letter-spacing: 1px; font-size: 11px; gap: 7px; }
+        .np-cat-action-circle { width: 22px; height: 22px; }
+        .np-cat-top-border { height: 2px; }
+        .np-cat-card:hover .np-cat-top-border { height: 3px; }
     }
     /* ===== END CATEGORIES REDESIGN ===== */
 
