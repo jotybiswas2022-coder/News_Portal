@@ -28,25 +28,6 @@
                         </a>
                     </li>
                     @endif
-                    <li class="np-nav-item">
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                            @csrf
-                            <button type="submit" class="np-nav-link np-nav-logout">
-                                <i class="bi bi-box-arrow-right"></i> Logout
-                            </button>
-                        </form>
-                    </li>
-                @else
-                    <li class="np-nav-item">
-                        <a class="np-nav-link {{ request()->is('login') ? 'np-active' : '' }}" href="{{ url('/login') }}">
-                            <i class="bi bi-person-circle"></i> Login
-                        </a>
-                    </li>
-                    <li class="np-nav-item">
-                        <a class="np-nav-link np-nav-register" href="{{ url('/register') }}">
-                            <i class="bi bi-person-plus"></i> Register
-                        </a>
-                    </li>
                 @endauth
             </ul>
         </div>
@@ -228,33 +209,6 @@
         width: 60% !important;
     }
 
-    .np-nav-logout:hover {
-        color: var(--np-red) !important;
-    }
-
-    .np-nav-logout:hover::after {
-        background: var(--np-red);
-    }
-
-    .np-nav-register {
-        background: rgba(211, 47, 47, 0.1) !important;
-        border: 1px solid rgba(211, 47, 47, 0.15) !important;
-        color: var(--np-red) !important;
-        padding: 8px 20px !important;
-        transition: all 0.3s ease !important;
-    }
-
-    .np-nav-register:hover {
-        background: var(--np-red) !important;
-        color: var(--np-white) !important;
-        border-color: var(--np-red) !important;
-        box-shadow: 0 4px 15px rgba(211,47,47,0.3);
-    }
-
-    .np-nav-register::after {
-        display: none !important;
-    }
-
     @media (max-width: 768px) {
         .np-nav-toggler {
             display: flex;
@@ -290,12 +244,6 @@
         .np-nav-link {
             padding: 12px 16px;
             width: 100%;
-        }
-
-        .np-nav-register {
-            text-align: center;
-            justify-content: center;
-            margin-top: 4px;
         }
     }
 </style>
