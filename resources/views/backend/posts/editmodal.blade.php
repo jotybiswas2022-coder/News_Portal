@@ -3,9 +3,9 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content ad-modal-content">
 
-            <div class="ad-modal-header" style="background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff;">
-                <h5 class="ad-modal-title" style="color: #fff;"><i class="bi bi-pencil-square me-2"></i> Edit Post</h5>
-                <button class="ad-modal-close ad-modal-close-white" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+            <div class="ad-modal-header">
+                <h5 class="ad-modal-title"><i class="bi bi-pencil-square me-2"></i> Edit Post</h5>
+                <button class="ad-modal-close" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
             </div>
 
             <form id="editForm{{ $post->id }}" action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
@@ -142,86 +142,3 @@ document.addEventListener('DOMContentLoaded', function(){
 
 });
 </script>
-
-<style>
-.ad-modal-content { border: none; border-radius: 20px; box-shadow: 0 25px 80px rgba(0,0,0,0.15); overflow: hidden; background: rgba(255,255,255,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
-.ad-modal-close-white {
-    background: rgba(255,255,255,0.2);
-    color: #fff;
-}
-.ad-modal-close-white:hover {
-    background: rgba(255,255,255,0.35);
-    color: #fff;
-    transform: rotate(90deg);
-}
-.ad-form-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: #475569;
-    margin-bottom: 4px;
-}
-.ad-form-input {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid rgba(233,238,243,0.7);
-    border-radius: 8px;
-    font-size: 13px;
-    color: #334155;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    font-family: inherit;
-}
-.ad-form-input:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99,102,241,0.06);
-    background: rgba(255,255,255,0.95);
-}
-.ad-form-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-.ad-edit-preview {
-    max-height: 100px;
-    border-radius: 8px;
-    border: 1px solid #e9eef3;
-    margin-top: 8px;
-}
-.ad-progress {
-    height: 8px;
-    border-radius: 4px;
-    background: #f1f5f9;
-}
-.ad-progress .progress-bar {
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
-    border-radius: 4px;
-    font-size: 0;
-}
-.ad-modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 18px 28px;
-    border-top: 1px solid rgba(241, 245, 249, 0.5);
-}
-.ad-btn-secondary {
-    padding: 9px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1px solid rgba(233,238,243,0.5);
-    cursor: pointer;
-    transition: all 0.2s;
-    background: rgba(255,255,255,0.5);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    color: #64748b;
-}
-.ad-btn-secondary:hover {
-    background: rgba(248,250,252,0.8);
-    border-color: #cbd5e1;
-}
-</style>
