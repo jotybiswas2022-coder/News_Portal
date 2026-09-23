@@ -132,7 +132,7 @@
             top: var(--ad-topbar-h);
             left: 0; bottom: 0;
             width: var(--ad-sidebar-w);
-            z-index: 1040;
+            z-index: 1060;
             background: linear-gradient(180deg, #101728 0%, #1b1b45 160%);
             display: flex; flex-direction: column;
             transition: transform 0.3s ease;
